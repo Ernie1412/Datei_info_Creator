@@ -1,0 +1,1189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Haupt_Fenster</class>
+ <widget class="QMainWindow" name="Haupt_Fenster">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1910</width>
+    <height>1016</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>HookupHotShot</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="Btn_Suchen">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>20</y>
+      <width>121</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton { 
+	color: rgb(0, 0, 127);
+	selection-background-color: rgb(255, 85, 0);
+	background-color: rgb(198, 178, 255);
+	border-style: outset;
+	border-width: 2px;
+	font: 22pt &quot;MS Shell Dlg 2&quot;;
+	border-radius: 10px;
+	border-color: beige;
+}                   
+QPushButton:enabled{
+	background-color: rgb(198, 178, 255);
+}                           
+QPushButton:pressed{ 
+	background: red;
+}                            
+QPushButton:disabled{                             
+	background-color: gray;                
+}
+QPushButton:hover{
+	background-color: rgb(255, 85, 255);
+}         </string>
+    </property>
+    <property name="text">
+     <string>Suchen</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Btn_VideoData">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>20</y>
+      <width>121</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton { 
+	font: 11pt &quot;MS Shell Dlg 2&quot;;
+	color: rgb(0, 0, 127);
+	selection-background-color: rgb(255, 85, 0);
+	background-color: rgb(198, 178, 255);
+	border-style: outset;
+	border-width: 2px;
+	font: 75 12pt &quot;MS Shell Dlg 2&quot;;
+	border-radius: 10px;
+	border-color: beige;
+}                   
+QPushButton:enabled{
+	background-color: rgb(198, 178, 255);
+}                           
+QPushButton:pressed{ 
+	background: red;
+}                            
+QPushButton:disabled{                             
+	background-color: gray;                
+}
+QPushButton:hover{
+	background-color: rgb(255, 85, 255);
+}         </string>
+    </property>
+    <property name="text">
+     <string>Video Daten 
+ anzeigen lassen</string>
+    </property>
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Btn_IAFDLinken">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>20</y>
+      <width>131</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton { 
+	color: rgb(0, 0, 127);
+	selection-background-color: rgb(255, 85, 0);
+	background-color: rgb(198, 178, 255);
+	border-style: outset;
+	border-width: 2px;
+	font: 16pt &quot;MS Shell Dlg 2&quot;;
+	border-radius: 10px;
+	border-color: beige;
+}                   
+QPushButton:enabled{
+	background-color: rgb(198, 178, 255);
+}                           
+QPushButton:pressed{ 
+	background: red;
+}                            
+QPushButton:disabled{                             
+	background-color: gray;                
+}
+QPushButton:hover{
+	background-color: rgb(255, 85, 255);
+}         </string>
+    </property>
+    <property name="text">
+     <string>IAFD Linken</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Btn_VideoDB">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>121</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>MS Shell Dlg 2</family>
+      <pointsize>14</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton { 
+	color: rgb(0, 0, 127);
+	selection-background-color: rgb(255, 85, 0);
+	background-color: rgb(198, 178, 255);
+   
+	border-image: url(:/Video_DBauffuellen/database_add.png);
+	border-style: outset;
+	border-width: 2px;
+	font: 14pt &quot;MS Shell Dlg 2&quot;;
+	border-radius: 10px;
+	border-color: beige;
+}                   
+
+QPushButton:enabled{
+	background-color: rgb(198, 178, 255);
+}                           
+QPushButton:pressed{ 
+	background: red;
+}                            
+QPushButton:disabled{                             
+	background-color: gray;                
+}
+QPushButton:hover{
+	background-color: rgb(255, 85, 255);
+}         </string>
+    </property>
+    <property name="text">
+     <string>Video DB 
+auffüllen</string>
+    </property>
+    <property name="icon">
+     <iconset theme="ui\graphics\database_add.png">
+      <normaloff>.</normaloff>.</iconset>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lbl_Titel">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>100</y>
+      <width>31</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Titel:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lnEdit_Titel">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>100</y>
+      <width>481</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 253, 213);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lnEdit_Jahr">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>130</y>
+      <width>71</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 253, 213);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblJahr">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>130</y>
+      <width>31</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Jahr:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblAFDLink">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>160</y>
+      <width>791</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 250, 211);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Btn_CopyLink">
+    <property name="geometry">
+     <rect>
+      <x>830</x>
+      <y>153</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton { 
+	color: rgb(0, 0, 127);
+	selection-background-color: rgb(255, 85, 0);
+	background-color: rgb(198, 178, 255);
+	border-style: outset;
+	border-width: 2px;
+	font: 10pt &quot;MS Shell Dlg 2&quot;;
+	border-radius: 10px;
+	border-color: beige;
+}                   
+QPushButton:enabled{
+	background-color: rgb(198, 178, 255);
+}                           
+QPushButton:pressed{ 
+	background: red;
+}                            
+QPushButton:disabled{                             
+	background-color: gray;                
+}
+QPushButton:hover{
+	background-color: rgb(255, 85, 255);
+}   </string>
+    </property>
+    <property name="text">
+     <string>Copy Link</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Btn_AddTitel">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>20</y>
+      <width>121</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton { 
+	color: rgb(0, 0, 127);
+	selection-background-color: rgb(255, 85, 0);
+	background-color: rgb(198, 178, 255);
+	border-style: outset;
+	border-width: 2px;
+	font: 14pt &quot;MS Shell Dlg 2&quot;;
+	border-radius: 10px;
+	border-color: beige;
+}                   
+QPushButton:enabled{
+	background-color: rgb(198, 178, 255);
+}                           
+QPushButton:pressed{ 
+	background: red;
+}                            
+QPushButton:disabled{                             
+	background-color: gray;                
+}
+QPushButton:hover{
+	background-color: rgb(255, 85, 255);
+}         </string>
+    </property>
+    <property name="text">
+     <string>Titel in DB
+ einfügen</string>
+    </property>
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblDBTitel">
+    <property name="geometry">
+     <rect>
+      <x>1150</x>
+      <y>260</y>
+      <width>31</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Titel:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblDBIAFDLink">
+    <property name="geometry">
+     <rect>
+      <x>1130</x>
+      <y>350</y>
+      <width>51</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>IAFDLink:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblDBPerformers">
+    <property name="geometry">
+     <rect>
+      <x>1110</x>
+      <y>380</y>
+      <width>61</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Performers:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblDBSceneCode">
+    <property name="geometry">
+     <rect>
+      <x>1110</x>
+      <y>520</y>
+      <width>61</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>SceneCode:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblDBRegie">
+    <property name="geometry">
+     <rect>
+      <x>1140</x>
+      <y>550</y>
+      <width>31</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Regie:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblDBMovies">
+    <property name="geometry">
+     <rect>
+      <x>1130</x>
+      <y>580</y>
+      <width>41</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Movies:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblDBSynopsis">
+    <property name="geometry">
+     <rect>
+      <x>1120</x>
+      <y>700</y>
+      <width>51</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Synopsis:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblDBProDate">
+    <property name="geometry">
+     <rect>
+      <x>1360</x>
+      <y>520</y>
+      <width>80</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Production Date:</string>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="tblWdg_Daten">
+    <property name="geometry">
+     <rect>
+      <x>29</x>
+      <y>199</y>
+      <width>1031</width>
+      <height>761</height>
+     </rect>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>1100</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="tabletTracking">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 253, 213);</string>
+    </property>
+    <property name="sizeAdjustPolicy">
+     <enum>QAbstractScrollArea::AdjustToContents</enum>
+    </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::SelectedClicked</set>
+    </property>
+    <property name="selectionBehavior">
+     <enum>QAbstractItemView::SelectRows</enum>
+    </property>
+    <property name="sortingEnabled">
+     <bool>true</bool>
+    </property>
+    <attribute name="horizontalHeaderDefaultSectionSize">
+     <number>120</number>
+    </attribute>
+    <column>
+     <property name="text">
+      <string>Titel</string>
+     </property>
+     <property name="textAlignment">
+      <set>AlignLeading|AlignTop</set>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>HookupHotShotLink</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>IAFDLink</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Performers</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Alias</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Action</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Release Datum</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Production Date</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Serie</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Regie</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Scene Code</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Movies</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Synopsis</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Tags</string>
+     </property>
+    </column>
+   </widget>
+   <widget class="QLabel" name="lblDBWebSideLink1">
+    <property name="geometry">
+     <rect>
+      <x>1088</x>
+      <y>290</y>
+      <width>81</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Hookup Hotshots:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lbl_DBWebSideLink1">
+    <property name="geometry">
+     <rect>
+      <x>1180</x>
+      <y>290</y>
+      <width>680</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 250, 211);</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lnEdit_DBTitel">
+    <property name="geometry">
+     <rect>
+      <x>1180</x>
+      <y>260</y>
+      <width>681</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 253, 213);</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lnEdit_DBSceneCode">
+    <property name="geometry">
+     <rect>
+      <x>1180</x>
+      <y>520</y>
+      <width>171</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 253, 213);</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lnEdit_DBProDate">
+    <property name="geometry">
+     <rect>
+      <x>1450</x>
+      <y>520</y>
+      <width>161</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 253, 213);</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lnEdit_DBRegie">
+    <property name="geometry">
+     <rect>
+      <x>1180</x>
+      <y>550</y>
+      <width>291</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 253, 213);</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Btn_IAFDLink">
+    <property name="geometry">
+     <rect>
+      <x>1084</x>
+      <y>349</y>
+      <width>91</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>IAFD</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Btn_WebSide1">
+    <property name="geometry">
+     <rect>
+      <x>1084</x>
+      <y>289</y>
+      <width>91</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lnEdit_DBRelease">
+    <property name="geometry">
+     <rect>
+      <x>1710</x>
+      <y>520</y>
+      <width>151</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 253, 213);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblDBRelease">
+    <property name="geometry">
+     <rect>
+      <x>1620</x>
+      <y>520</y>
+      <width>80</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Release Datum:</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Btn_CopyIAFD">
+    <property name="geometry">
+     <rect>
+      <x>1180</x>
+      <y>760</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>in die
+Zwischenablage</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblClipboard">
+    <property name="geometry">
+     <rect>
+      <x>1180</x>
+      <y>810</y>
+      <width>681</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 253, 213);
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="txtEdit_DBMovies">
+    <property name="geometry">
+     <rect>
+      <x>1180</x>
+      <y>580</y>
+      <width>680</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 250, 211);</string>
+    </property>
+    <property name="acceptRichText">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="txtEdit_DBSynopsis">
+    <property name="geometry">
+     <rect>
+      <x>1180</x>
+      <y>700</y>
+      <width>680</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 250, 211);</string>
+    </property>
+    <property name="acceptRichText">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Btn_DBUpdate">
+    <property name="geometry">
+     <rect>
+      <x>1290</x>
+      <y>760</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Update in die
+Datenbank</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lbl_DatenSatz">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>130</y>
+      <width>81</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 253, 213);</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lbllbl_DatenSatz">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>130</y>
+      <width>61</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Datensatz:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lnEdit_DBIAFDLink">
+    <property name="geometry">
+     <rect>
+      <x>1180</x>
+      <y>350</y>
+      <width>681</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 253, 213);</string>
+    </property>
+    <property name="placeholderText">
+     <string>Press &quot;c&quot; for get IAFD Link</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="chkBox_IAFD">
+    <property name="geometry">
+     <rect>
+      <x>1067</x>
+      <y>350</y>
+      <width>20</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="txtEdit_DBTags">
+    <property name="geometry">
+     <rect>
+      <x>1180</x>
+      <y>640</y>
+      <width>680</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 250, 211);</string>
+    </property>
+    <property name="acceptRichText">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblDBTags">
+    <property name="geometry">
+     <rect>
+      <x>1140</x>
+      <y>640</y>
+      <width>31</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Tags:</string>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="tblWdg_Performers">
+    <property name="geometry">
+     <rect>
+      <x>1180</x>
+      <y>380</y>
+      <width>681</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 250, 211);</string>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
+    </property>
+    <property name="lineWidth">
+     <number>0</number>
+    </property>
+    <property name="midLineWidth">
+     <number>2</number>
+    </property>
+    <attribute name="horizontalHeaderDefaultSectionSize">
+     <number>226</number>
+    </attribute>
+    <column>
+     <property name="text">
+      <string>Name</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Alias</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Action</string>
+     </property>
+    </column>
+   </widget>
+   <widget class="QPushButton" name="Btn_AddPerformer">
+    <property name="geometry">
+     <rect>
+      <x>1100</x>
+      <y>410</y>
+      <width>75</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add 
+Performer</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="spinBox_vonVideo">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>130</y>
+      <width>42</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <number>600</number>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="spinBox_bisVideo">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>130</y>
+      <width>61</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <number>2</number>
+    </property>
+    <property name="maximum">
+     <number>600</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblvonVideo">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>133</y>
+      <width>21</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>von:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblbisVideo">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>133</y>
+      <width>21</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>bis</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Btn_LastSide">
+    <property name="geometry">
+     <rect>
+      <x>530</x>
+      <y>130</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton { 
+	color: rgb(0, 0, 127);
+	selection-background-color: rgb(255, 85, 0);
+	background-color: rgb(198, 178, 255);
+	border-style: outset;
+	border-width: 2px;
+	font:8pt &quot;MS Shell Dlg 2&quot;;
+	border-radius: 10px;
+	border-color: beige;
+}                   
+QPushButton:enabled{
+	background-color: rgb(198, 178, 255);
+}                           
+QPushButton:pressed{ 
+	background: red;
+}                            
+QPushButton:disabled{                             
+	background-color: gray;                
+}
+QPushButton:hover{
+	background-color: rgb(255, 85, 255);
+}    </string>
+    </property>
+    <property name="text">
+     <string>Letzte Seite</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblDBWebSideLink2">
+    <property name="geometry">
+     <rect>
+      <x>1088</x>
+      <y>320</y>
+      <width>81</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Evil Angel:</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Btn_WebSide2">
+    <property name="geometry">
+     <rect>
+      <x>1084</x>
+      <y>319</y>
+      <width>91</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lnEdit_DBWebSideLink2">
+    <property name="geometry">
+     <rect>
+      <x>1180</x>
+      <y>320</y>
+      <width>681</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 250, 211);</string>
+    </property>
+    <property name="readOnly">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lnEdit_DBDauer_3">
+    <property name="geometry">
+     <rect>
+      <x>1780</x>
+      <y>549</y>
+      <width>81</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 253, 213);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblDBSerie_3">
+    <property name="geometry">
+     <rect>
+      <x>1485</x>
+      <y>550</y>
+      <width>31</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Serie:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lnEdit_DBSerie_3">
+    <property name="geometry">
+     <rect>
+      <x>1515</x>
+      <y>549</y>
+      <width>221</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 253, 213);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblDBDauer_3">
+    <property name="geometry">
+     <rect>
+      <x>1744</x>
+      <y>550</y>
+      <width>31</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Dauer:</string>
+    </property>
+   </widget>
+   <zorder>tblWdg_Performers</zorder>
+   <zorder>Btn_Suchen</zorder>
+   <zorder>Btn_VideoData</zorder>
+   <zorder>Btn_IAFDLinken</zorder>
+   <zorder>Btn_VideoDB</zorder>
+   <zorder>lbl_Titel</zorder>
+   <zorder>lnEdit_Titel</zorder>
+   <zorder>lnEdit_Jahr</zorder>
+   <zorder>lblJahr</zorder>
+   <zorder>lblAFDLink</zorder>
+   <zorder>Btn_CopyLink</zorder>
+   <zorder>Btn_AddTitel</zorder>
+   <zorder>lblDBTitel</zorder>
+   <zorder>lblDBIAFDLink</zorder>
+   <zorder>lblDBPerformers</zorder>
+   <zorder>lblDBSceneCode</zorder>
+   <zorder>lblDBRegie</zorder>
+   <zorder>lblDBMovies</zorder>
+   <zorder>lblDBSynopsis</zorder>
+   <zorder>lblDBProDate</zorder>
+   <zorder>tblWdg_Daten</zorder>
+   <zorder>lblDBWebSideLink1</zorder>
+   <zorder>lbl_DBWebSideLink1</zorder>
+   <zorder>lnEdit_DBTitel</zorder>
+   <zorder>lnEdit_DBSceneCode</zorder>
+   <zorder>lnEdit_DBProDate</zorder>
+   <zorder>lnEdit_DBRegie</zorder>
+   <zorder>Btn_IAFDLink</zorder>
+   <zorder>Btn_WebSide1</zorder>
+   <zorder>lnEdit_DBRelease</zorder>
+   <zorder>lblDBRelease</zorder>
+   <zorder>Btn_CopyIAFD</zorder>
+   <zorder>lblClipboard</zorder>
+   <zorder>txtEdit_DBMovies</zorder>
+   <zorder>txtEdit_DBSynopsis</zorder>
+   <zorder>Btn_DBUpdate</zorder>
+   <zorder>lbl_DatenSatz</zorder>
+   <zorder>lbllbl_DatenSatz</zorder>
+   <zorder>lnEdit_DBIAFDLink</zorder>
+   <zorder>chkBox_IAFD</zorder>
+   <zorder>txtEdit_DBTags</zorder>
+   <zorder>lblDBTags</zorder>
+   <zorder>Btn_AddPerformer</zorder>
+   <zorder>spinBox_vonVideo</zorder>
+   <zorder>spinBox_bisVideo</zorder>
+   <zorder>lblvonVideo</zorder>
+   <zorder>lblbisVideo</zorder>
+   <zorder>Btn_LastSide</zorder>
+   <zorder>lblDBWebSideLink2</zorder>
+   <zorder>Btn_WebSide2</zorder>
+   <zorder>lnEdit_DBWebSideLink2</zorder>
+   <zorder>lnEdit_DBDauer_3</zorder>
+   <zorder>lblDBSerie_3</zorder>
+   <zorder>lnEdit_DBSerie_3</zorder>
+   <zorder>lblDBDauer_3</zorder>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1910</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources>
+  <include location="images/backgroundimage.qrc"/>
+ </resources>
+ <connections/>
+</ui>
