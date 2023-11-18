@@ -26,15 +26,15 @@ class Ui_MainWindow(object):
 "background-color: rgb(230, 230, 230);\n"
 "border: 1px solid grey;\n"
 "border-radius: 5px;}\n"
-"QWidget#tab_suchmaske {\n"
-"background-color: rgb(230, 230, 230);\n"
-"border: 1px solid grey;\n"
-"border-radius: 5px;}\n"
-"QWidget#tab_webscraping {\n"
+"QWidget#tab_search_mask {\n"
 "background-color: rgb(230, 230, 230);\n"
 "border: 1px solid grey;\n"
 "border-radius: 5px;}\n"
 "QWidget#tab_datenbank {\n"
+"background-color: rgb(230, 230, 230);\n"
+"border: 1px solid grey;\n"
+"border-radius: 5px;}\n"
+"QWidget#tab_performer {\n"
 "background-color: rgb(230, 230, 230);\n"
 "border: 1px solid grey;\n"
 "border-radius: 5px;}")
@@ -462,22 +462,22 @@ class Ui_MainWindow(object):
         self.txtBrw_Movies.raise_()
         self.horizontalLayoutWidget.raise_()
         self.tabs.addTab(self.tab_info, "")
-        self.tab_suchmaske = QtWidgets.QWidget()
+        self.tab_search_mask = QtWidgets.QWidget()
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Ignored)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.tab_suchmaske.sizePolicy().hasHeightForWidth())
-        self.tab_suchmaske.setSizePolicy(sizePolicy)
-        self.tab_suchmaske.setFocusPolicy(QtCore.Qt.FocusPolicy.StrongFocus)
-        self.tab_suchmaske.setObjectName("tab_suchmaske")
-        self.lbl_LinkBild = QtWidgets.QLabel(parent=self.tab_suchmaske)
-        self.lbl_LinkBild.setGeometry(QtCore.QRect(120, 350, 381, 281))
+        sizePolicy.setHeightForWidth(self.tab_search_mask.sizePolicy().hasHeightForWidth())
+        self.tab_search_mask.setSizePolicy(sizePolicy)
+        self.tab_search_mask.setFocusPolicy(QtCore.Qt.FocusPolicy.StrongFocus)
+        self.tab_search_mask.setObjectName("tab_search_mask")
+        self.lbl_LinkBild = QtWidgets.QLabel(parent=self.tab_search_mask)
+        self.lbl_LinkBild.setGeometry(QtCore.QRect(120, 350, 380, 280))
         self.lbl_LinkBild.setStyleSheet("border: 1px solid blue;")
         self.lbl_LinkBild.setText("")
         self.lbl_LinkBild.setScaledContents(True)
         self.lbl_LinkBild.setWordWrap(False)
         self.lbl_LinkBild.setObjectName("lbl_LinkBild")
-        self.grpBox_analyse_name = QtWidgets.QGroupBox(parent=self.tab_suchmaske)
+        self.grpBox_analyse_name = QtWidgets.QGroupBox(parent=self.tab_search_mask)
         self.grpBox_analyse_name.setGeometry(QtCore.QRect(30, 260, 590, 50))
         self.grpBox_analyse_name.setStyleSheet("background-color: rgb(216, 216, 216);")
         self.grpBox_analyse_name.setObjectName("grpBox_analyse_name")
@@ -511,7 +511,7 @@ class Ui_MainWindow(object):
         self.cBox_performers.setGeometry(QtCore.QRect(10, 21, 490, 22))
         self.cBox_performers.setStyleSheet("background-color: rgb(255, 253, 213);")
         self.cBox_performers.setObjectName("cBox_performers")
-        self.grpBox_analyse_studio = QtWidgets.QGroupBox(parent=self.tab_suchmaske)
+        self.grpBox_analyse_studio = QtWidgets.QGroupBox(parent=self.tab_search_mask)
         self.grpBox_analyse_studio.setGeometry(QtCore.QRect(30, 100, 590, 50))
         self.grpBox_analyse_studio.setStyleSheet("background-color: rgb(216, 216, 216);")
         self.grpBox_analyse_studio.setObjectName("grpBox_analyse_studio")
@@ -542,7 +542,7 @@ class Ui_MainWindow(object):
 "border: 1px solid black;")
         self.lbl_SuchStudio.setText("")
         self.lbl_SuchStudio.setObjectName("lbl_SuchStudio")
-        self.grpBox_analyse_titel = QtWidgets.QGroupBox(parent=self.tab_suchmaske)
+        self.grpBox_analyse_titel = QtWidgets.QGroupBox(parent=self.tab_search_mask)
         self.grpBox_analyse_titel.setGeometry(QtCore.QRect(30, 170, 591, 51))
         self.grpBox_analyse_titel.setStyleSheet("background-color: rgb(216, 216, 216);")
         self.grpBox_analyse_titel.setObjectName("grpBox_analyse_titel")
@@ -582,7 +582,7 @@ class Ui_MainWindow(object):
 "border: 2px inset rgb(85, 170, 255);}")
         self.lnEdit_analyse_titel.setText("")
         self.lnEdit_analyse_titel.setObjectName("lnEdit_analyse_titel")
-        self.grpBox_analysename = QtWidgets.QGroupBox(parent=self.tab_suchmaske)
+        self.grpBox_analysename = QtWidgets.QGroupBox(parent=self.tab_search_mask)
         self.grpBox_analysename.setGeometry(QtCore.QRect(20, 30, 891, 48))
         self.grpBox_analysename.setStyleSheet("QGroupBox {\n"
 "background-color: rgb(218, 222, 226);\n"
@@ -593,12 +593,99 @@ class Ui_MainWindow(object):
         self.lbl_analyse_fuer.setStyleSheet("background-color: rgb(255, 253, 213);")
         self.lbl_analyse_fuer.setText("")
         self.lbl_analyse_fuer.setObjectName("lbl_analyse_fuer")
+        self.Btn_next = QtWidgets.QPushButton(parent=self.tab_search_mask)
+        self.Btn_next.setEnabled(False)
+        self.Btn_next.setGeometry(QtCore.QRect(510, 440, 81, 111))
+        self.Btn_next.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.Btn_next.setStyleSheet("QPushButton { \n"
+"    color: rgb(0, 0, 127);\n"
+"    selection-background-color: rgb(255, 85, 0);\n"
+"    background-color: rgb(198, 178, 255);\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    font: 56pt \"Consolas\";\n"
+"    border-radius: 5px;\n"
+"    border-color: beige;\n"
+"}                   \n"
+"QPushButton:enabled{\n"
+"    background-color: rgb(198, 178, 255);\n"
+"}                           \n"
+"QPushButton:pressed{ \n"
+"    background: red;\n"
+"}                            \n"
+"QPushButton:disabled{                             \n"
+"    background-color: gray;                \n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 85, 255);\n"
+"}   ")
+        self.Btn_next.setObjectName("Btn_next")
+        self.Btn_prev = QtWidgets.QPushButton(parent=self.tab_search_mask)
+        self.Btn_prev.setEnabled(False)
+        self.Btn_prev.setGeometry(QtCore.QRect(30, 440, 81, 111))
+        self.Btn_prev.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.Btn_prev.setStyleSheet("QPushButton { \n"
+"    color: rgb(0, 0, 127);\n"
+"    selection-background-color: rgb(255, 85, 0);\n"
+"    background-color: rgb(198, 178, 255);\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    font: 56pt \"Consolas\";\n"
+"    border-radius: 5px;\n"
+"    border-color: beige;\n"
+"}                   \n"
+"QPushButton:enabled{\n"
+"    background-color: rgb(198, 178, 255);\n"
+"}                           \n"
+"QPushButton:pressed{ \n"
+"    background: red;\n"
+"}                            \n"
+"QPushButton:disabled{                             \n"
+"    background-color: gray;                \n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 85, 255);\n"
+"}   ")
+        self.Btn_prev.setObjectName("Btn_prev")
+        self.lbl_link_from_image = QtWidgets.QLabel(parent=self.tab_search_mask)
+        self.lbl_link_from_image.setGeometry(QtCore.QRect(30, 323, 531, 20))
+        self.lbl_link_from_image.setText("")
+        self.lbl_link_from_image.setObjectName("lbl_link_from_image")
+        self.Btn_copy_clipboard = QtWidgets.QPushButton(parent=self.tab_search_mask)
+        self.Btn_copy_clipboard.setGeometry(QtCore.QRect(560, 320, 75, 23))
+        self.Btn_copy_clipboard.setStyleSheet("QPushButton { \n"
+"    color: rgb(0, 0, 127);\n"
+"    selection-background-color: rgb(255, 85, 0);\n"
+"    background-color: rgb(198, 178, 255);\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    font: 10pt \"Consolas\";\n"
+"    border-radius: 5px;\n"
+"    border-color: beige;\n"
+"}                   \n"
+"QPushButton:enabled{\n"
+"    background-color: rgb(198, 178, 255);\n"
+"}                           \n"
+"QPushButton:pressed{ \n"
+"    background: red;\n"
+"}                            \n"
+"QPushButton:disabled{                             \n"
+"    background-color: gray;                \n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 85, 255);\n"
+"}   ")
+        self.Btn_copy_clipboard.setObjectName("Btn_copy_clipboard")
         self.grpBox_analyse_studio.raise_()
         self.grpBox_analyse_name.raise_()
         self.lbl_LinkBild.raise_()
         self.grpBox_analyse_titel.raise_()
         self.grpBox_analysename.raise_()
-        self.tabs.addTab(self.tab_suchmaske, "")
+        self.Btn_next.raise_()
+        self.Btn_prev.raise_()
+        self.lbl_link_from_image.raise_()
+        self.Btn_copy_clipboard.raise_()
+        self.tabs.addTab(self.tab_search_mask, "")
         self.tab_datenbank = QtWidgets.QWidget()
         self.tab_datenbank.setFocusPolicy(QtCore.Qt.FocusPolicy.StrongFocus)
         self.tab_datenbank.setObjectName("tab_datenbank")
@@ -799,10 +886,10 @@ class Ui_MainWindow(object):
 "    background-color: rgb(255, 85, 255);\n"
 "}   ")
         self.Btn_delPerformer.setObjectName("Btn_delPerformer")
-        self.lstView_DBWebside = QtWidgets.QListView(parent=self.tab_datenbank)
-        self.lstView_DBWebside.setGeometry(QtCore.QRect(130, 50, 681, 101))
-        self.lstView_DBWebside.setStyleSheet("background-color: rgb(255, 250, 211);")
-        self.lstView_DBWebside.setObjectName("lstView_DBWebside")
+        self.lstView_database_weblinks = QtWidgets.QListView(parent=self.tab_datenbank)
+        self.lstView_database_weblinks.setGeometry(QtCore.QRect(130, 50, 681, 101))
+        self.lstView_database_weblinks.setStyleSheet("background-color: rgb(255, 250, 211);")
+        self.lstView_database_weblinks.setObjectName("lstView_database_weblinks")
         self.lnEdit_addLink = QtWidgets.QLineEdit(parent=self.tab_datenbank)
         self.lnEdit_addLink.setGeometry(QtCore.QRect(130, 160, 681, 20))
         self.lnEdit_addLink.setStyleSheet("QLineEdit,QTextEdit { \n"
@@ -1282,6 +1369,7 @@ class Ui_MainWindow(object):
 "    background-color: rgb(255, 0, 0);\n"
 "    color: rgb(170, 255, 127)\n"
 "}  ")
+        self.Btn_Anzahl_DBSceneCode.setProperty("Visible", True)
         self.Btn_Anzahl_DBSceneCode.setObjectName("Btn_Anzahl_DBSceneCode")
         self.txtEdit_Clipboard = QtWidgets.QTextEdit(parent=self.tab_datenbank)
         self.txtEdit_Clipboard.setGeometry(QtCore.QRect(120, 710, 691, 110))
@@ -1308,7 +1396,7 @@ class Ui_MainWindow(object):
         self.lblDBDauer.raise_()
         self.Btn_addDatei.raise_()
         self.Btn_delPerformer.raise_()
-        self.lstView_DBWebside.raise_()
+        self.lstView_database_weblinks.raise_()
         self.lnEdit_addLink.raise_()
         self.Btn_AddLink.raise_()
         self.Btn_delLink.raise_()
@@ -1329,137 +1417,6 @@ class Ui_MainWindow(object):
         self.tabs.addTab(self.tab_datenbank, "")
         self.tab_performer = QtWidgets.QWidget()
         self.tab_performer.setObjectName("tab_performer")
-        self.Btn_delPerformer_db = QtWidgets.QPushButton(parent=self.tab_performer)
-        self.Btn_delPerformer_db.setGeometry(QtCore.QRect(20, 240, 75, 41))
-        self.Btn_delPerformer_db.setStyleSheet("QPushButton { \n"
-"    color: rgb(0, 0, 127);\n"
-"    selection-background-color: rgb(255, 85, 0);\n"
-"    background-color: rgb(198, 178, 255);\n"
-"    border-style: outset;\n"
-"    border-width: 2px;\n"
-"    font: 10pt \"MS Shell Dlg 2\";\n"
-"    border-radius: 5px;\n"
-"    border-color: beige;\n"
-"}                   \n"
-"QPushButton:enabled{\n"
-"    background-color: rgb(198, 178, 255);\n"
-"}                           \n"
-"QPushButton:pressed{ \n"
-"    background: red;\n"
-"}                            \n"
-"QPushButton:disabled{                             \n"
-"    background-color: gray;                \n"
-"}\n"
-"QPushButton:hover{\n"
-"    background-color: rgb(255, 85, 255);\n"
-"}   ")
-        self.Btn_delPerformer_db.setObjectName("Btn_delPerformer_db")
-        self.Btn_addDatei_3 = QtWidgets.QPushButton(parent=self.tab_performer)
-        self.Btn_addDatei_3.setEnabled(False)
-        self.Btn_addDatei_3.setGeometry(QtCore.QRect(320, 540, 101, 31))
-        self.Btn_addDatei_3.setStyleSheet("QPushButton { \n"
-"    color: rgb(0, 0, 127);\n"
-"    selection-background-color: rgb(255, 85, 0);\n"
-"    background-color: rgb(198, 178, 255);\n"
-"    border-style: outset;\n"
-"    border-width: 2px;\n"
-"    font: 8pt \"MS Shell Dlg 2\";\n"
-"    border-radius: 5px;\n"
-"    border-color: beige;\n"
-"}                   \n"
-"QPushButton:enabled{\n"
-"    background-color: rgb(198, 178, 255);\n"
-"}                           \n"
-"QPushButton:pressed{ \n"
-"    background: red;\n"
-"}                            \n"
-"QPushButton:disabled{                             \n"
-"    background-color: gray;                \n"
-"}\n"
-"QPushButton:hover{\n"
-"    background-color: rgb(255, 85, 255);\n"
-"}   ")
-        self.Btn_addDatei_3.setObjectName("Btn_addDatei_3")
-        self.Btn_DBUpdate_perform = QtWidgets.QPushButton(parent=self.tab_performer)
-        self.Btn_DBUpdate_perform.setEnabled(False)
-        self.Btn_DBUpdate_perform.setGeometry(QtCore.QRect(210, 540, 101, 31))
-        self.Btn_DBUpdate_perform.setStyleSheet("QPushButton { \n"
-"    color: rgb(0, 0, 127);\n"
-"    selection-background-color: rgb(255, 85, 0);\n"
-"    background-color: rgb(198, 178, 255);\n"
-"    border-style: outset;\n"
-"    border-width: 2px;\n"
-"    font: 8pt \"MS Shell Dlg 2\";\n"
-"    border-radius: 5px;\n"
-"    border-color: beige;\n"
-"}                   \n"
-"QPushButton:enabled{\n"
-"    background-color: rgb(198, 178, 255);\n"
-"}                           \n"
-"QPushButton:pressed{ \n"
-"    background: red;\n"
-"}                            \n"
-"QPushButton:disabled{                             \n"
-"    background-color: gray;                \n"
-"}\n"
-"QPushButton:hover{\n"
-"    background-color: rgb(255, 85, 255);\n"
-"}   ")
-        self.Btn_DBUpdate_perform.setObjectName("Btn_DBUpdate_perform")
-        self.Btn_logo_am_perform_tab = QtWidgets.QPushButton(parent=self.tab_performer)
-        self.Btn_logo_am_perform_tab.setGeometry(QtCore.QRect(790, 40, 90, 40))
-        self.Btn_logo_am_perform_tab.setStyleSheet("QPushButton { \n"
-"background-image: url(:/Buttons/grafics/no-logo_90x40.jpg);\n"
-"}                   \n"
-"QPushButton:enabled{\n"
-"    background-color: rgb(198, 178, 255);\n"
-"}                           \n"
-"QPushButton:pressed{ \n"
-"    background: red;\n"
-"}                            \n"
-"QPushButton:disabled{                             \n"
-"    background-color: gray;                \n"
-"}\n"
-"QPushButton:hover{\n"
-"    background-color: rgb(255, 85, 255);\n"
-"}   ")
-        self.Btn_logo_am_perform_tab.setText("")
-        self.Btn_logo_am_perform_tab.setObjectName("Btn_logo_am_perform_tab")
-        self.Btn_AddPerformer_db = QtWidgets.QPushButton(parent=self.tab_performer)
-        self.Btn_AddPerformer_db.setGeometry(QtCore.QRect(20, 190, 75, 41))
-        self.Btn_AddPerformer_db.setStyleSheet("QPushButton { \n"
-"    color: rgb(0, 0, 127);\n"
-"    selection-background-color: rgb(255, 85, 0);\n"
-"    background-color: rgb(198, 178, 255);\n"
-"    border-style: outset;\n"
-"    border-width: 2px;\n"
-"    font: 10pt \"MS Shell Dlg 2\";\n"
-"    border-radius: 5px;\n"
-"    border-color: beige;\n"
-"}                   \n"
-"QPushButton:enabled{\n"
-"    background-color: rgb(198, 178, 255);\n"
-"}                           \n"
-"QPushButton:pressed{ \n"
-"    background: red;\n"
-"}                            \n"
-"QPushButton:disabled{                             \n"
-"    background-color: gray;                \n"
-"}\n"
-"QPushButton:hover{\n"
-"    background-color: rgb(255, 85, 255);\n"
-"}   ")
-        self.Btn_AddPerformer_db.setObjectName("Btn_AddPerformer_db")
-        self.lnEdit_DBPerformer = QtWidgets.QLineEdit(parent=self.tab_performer)
-        self.lnEdit_DBPerformer.setGeometry(QtCore.QRect(100, 40, 681, 20))
-        self.lnEdit_DBPerformer.setStyleSheet("background-color: rgb(255, 253, 213);")
-        self.lnEdit_DBPerformer.setObjectName("lnEdit_DBPerformer")
-        self.lbl_imagePerformer = QtWidgets.QLabel(parent=self.tab_performer)
-        self.lbl_imagePerformer.setGeometry(QtCore.QRect(100, 600, 291, 181))
-        self.lbl_imagePerformer.setStyleSheet("background-color: rgb(255, 253, 213);")
-        self.lbl_imagePerformer.setFrameShape(QtWidgets.QFrame.Shape.Box)
-        self.lbl_imagePerformer.setText("")
-        self.lbl_imagePerformer.setObjectName("lbl_imagePerformer")
         self.tabs.addTab(self.tab_performer, "")
         self.Btn_Refresh = QtWidgets.QPushButton(parent=self.centralwidget)
         self.Btn_Refresh.setEnabled(False)
@@ -1591,10 +1548,6 @@ class Ui_MainWindow(object):
 "    background-color: rgb(255, 85, 255);\n"
 "}         ")
         self.Btn_ArtistDatenAbgleich.setObjectName("Btn_ArtistDatenAbgleich")
-        self.label_pornside = QtWidgets.QLabel(parent=self.centralwidget)
-        self.label_pornside.setGeometry(QtCore.QRect(720, 20, 49, 16))
-        self.label_pornside.setText("")
-        self.label_pornside.setObjectName("label_pornside")
         self.Btn_VideoDatenHolen = QtWidgets.QPushButton(parent=self.centralwidget)
         self.Btn_VideoDatenHolen.setEnabled(False)
         self.Btn_VideoDatenHolen.setGeometry(QtCore.QRect(1090, 10, 131, 61))
@@ -2193,7 +2146,6 @@ class Ui_MainWindow(object):
         self.Btn_Laden.raise_()
         self.Btn_ArtistDatenHolen.raise_()
         self.Btn_ArtistDatenAbgleich.raise_()
-        self.label_pornside.raise_()
         self.Btn_VideoDatenHolen.raise_()
         self.lbl_db_status.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
@@ -2225,7 +2177,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuDatei.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.tabs.setCurrentIndex(3)
+        self.tabs.setCurrentIndex(1)
         self.stackedWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -2273,7 +2225,14 @@ class Ui_MainWindow(object):
         self.Btn_titel_suche.setText(_translate("MainWindow", "Titel Suche"))
         self.lnEdit_analyse_titel.setPlaceholderText(_translate("MainWindow", "kein Eintrag"))
         self.grpBox_analysename.setTitle(_translate("MainWindow", "      Datei-Info für:"))
-        self.tabs.setTabText(self.tabs.indexOf(self.tab_suchmaske), _translate("MainWindow", "Datei Analyse"))
+        self.Btn_next.setToolTip(_translate("MainWindow", "nächstes Bild"))
+        self.Btn_next.setWhatsThis(_translate("MainWindow", "Analyse"))
+        self.Btn_next.setText(_translate("MainWindow", ">>"))
+        self.Btn_prev.setToolTip(_translate("MainWindow", "vorheriges Bild"))
+        self.Btn_prev.setWhatsThis(_translate("MainWindow", "Analyse"))
+        self.Btn_prev.setText(_translate("MainWindow", "<<"))
+        self.Btn_copy_clipboard.setText(_translate("MainWindow", "Copy Link"))
+        self.tabs.setTabText(self.tabs.indexOf(self.tab_search_mask), _translate("MainWindow", "Datei Analyse"))
         self.lblDBSceneCode.setText(_translate("MainWindow", "SceneCode:"))
         self.Btn_AddPerformer.setText(_translate("MainWindow", "Add \n"
 "Performer"))
@@ -2349,16 +2308,6 @@ class Ui_MainWindow(object):
         self.Btn_Anzahl_DBSceneCode.setWhatsThis(_translate("MainWindow", "SceneCode"))
         self.Btn_Anzahl_DBSceneCode.setText(_translate("MainWindow", "1"))
         self.tabs.setTabText(self.tabs.indexOf(self.tab_datenbank), _translate("MainWindow", "Datenbank"))
-        self.Btn_delPerformer_db.setText(_translate("MainWindow", "Löschen \n"
-"Performer"))
-        self.Btn_addDatei_3.setText(_translate("MainWindow", "in Datein\n"
-"einfügen"))
-        self.Btn_DBUpdate_perform.setText(_translate("MainWindow", "Update in die\n"
-"Datenbank"))
-        self.Btn_logo_am_perform_tab.setToolTip(_translate("MainWindow", "kein Studio ausgewählt"))
-        self.Btn_logo_am_perform_tab.setWhatsThis(_translate("MainWindow", "Performers"))
-        self.Btn_AddPerformer_db.setText(_translate("MainWindow", "Add \n"
-"Performer"))
         self.tabs.setTabText(self.tabs.indexOf(self.tab_performer), _translate("MainWindow", "Performers"))
         self.Btn_Refresh.setToolTip(_translate("MainWindow", "Refresh der Ordner-Struktur der Tabelle"))
         self.Btn_Refresh.setText(_translate("MainWindow", "Tabelle\n"

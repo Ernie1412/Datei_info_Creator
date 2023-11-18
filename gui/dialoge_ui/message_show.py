@@ -25,13 +25,12 @@ def MsgBox(self, msg_text: str, art: str) -> QMessageBox:
         mBox.setIcon(QMessageBox.Icon.Warning)
         mBox.setText("Fehler !") 
         mBox.setInformativeText(f"""<font color='black'><style><background-color='yellow'><h1 text-align: center></style>
-            <img src='{str(Path(__file__).absolute().parent)}/grafics/Error.jpg' alt='Fehler'></img>   
-            <p><font-size: 20px><b>{msg_text}</b></p>""") 
+            <img src='{str(Path(__file__).absolute().parent)}/grafics/Error.jpg' alt='Fehler'></img><p><font-size: 20px><b>{msg_text}</p></h1>""") 
         mBox.setWindowTitle("Fehler")     
     elif art=='q':
         mBox.setIcon(QMessageBox.Icon.Question)
         mBox.setText("Fataler Fehler")
-        mBox.setInformativeText(f"""</h1><p><font-size: 20px><b>{msg_text}</b></p>""") 
+        mBox.setInformativeText(f"""<p><font-size: 20px><b>{msg_text}</p>""") 
         mBox.setWindowTitle("Was Soll ich machen ?")
         mBox.setStandardButtons(QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
         
@@ -39,11 +38,8 @@ def MsgBox(self, msg_text: str, art: str) -> QMessageBox:
     else: 
         mBox.setIcon(QMessageBox.Icon.Information)
         mBox.setText("Info !")
-        mBox.setInformativeText(f"""<font color='black'>
-            <style><background-color='green'>
-            <h1 text-align: center></style>                
-            <img src='{str(Path(__file__).absolute().parent)}/grafics/Info.jpg' alt='Info'></img>
-            <p><font-size: 20px><b>{msg_text}</b></p>""")
+        mBox.setInformativeText(f"""<font color='black'><style><background-color='green'><h1 text-align: center></style>                
+            <img src='{str(Path(__file__).absolute().parent)}/grafics/Info.jpg' alt='Info'></img><p><font-size: 20px><b>{msg_text}</p></h1>""")
         mBox.setWindowTitle("Info")            
         
     return reply

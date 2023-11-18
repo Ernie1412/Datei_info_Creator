@@ -25,6 +25,7 @@ DATENBANK_JSON_PATH = Path(__file__).absolute().parent / "jsons/datenbank.json"
 DB_RECORD_JSON = Path(__file__).absolute().parent / 'jsons/db_record.json'
 
 DB_PATH = Path(__file__).absolute().parent / '__DB/'
+PROJECT_PATH = Path(__file__).absolute().parent
 
 SPIDER_MONITOR_UI = Path(__file__).absolute().parent / "gui/uic_imports/spidermonitor.ui"
 EINSTELLUNG_UI = Path(__file__).absolute().parent / "gui/uic_imports/einstellungen.ui"

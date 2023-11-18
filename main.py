@@ -1,7 +1,6 @@
 from PyQt6 import uic
 from PyQt6.QtCore import Qt, QTimer, QDateTime, QTranslator, pyqtSlot
-from PyQt6.QtWidgets import QMainWindow, QAbstractItemView, QTableWidgetItem, QApplication, QPushButton, QFileDialog, \
-    QWidget, QListWidgetItem, QListWidget, QLineEdit, QTextEdit
+from PyQt6.QtWidgets import QMainWindow, QAbstractItemView, QTableWidgetItem, QApplication, QPushButton, QWidget, QListWidgetItem, QListWidget, QLineEdit, QTextEdit
 from PyQt6.QtGui import QMovie, QPixmap, QKeyEvent, QStandardItem, QStandardItemModel, QColor, QBrush
 
 import sys
@@ -24,6 +23,7 @@ from utils.threads import FileTransferThread, ExifSaveThread
 from gui.dialoge_ui.message_show import StatusBar, MsgBox, status_fehler_ausgabe
 from gui.dialoge_ui.einstellungen import Einstellungen
 from gui.context_menu import ContextMenu
+from gui.show_performer_images import ShowPerformerImages
 
 from config import EXIFTOOLPFAD
 from config import BUTTONSNAMES_JSON_PATH, PROCESS_JSON_PATH, MEDIA_JSON_PATH, DATENBANK_JSON_PATH
@@ -36,29 +36,23 @@ class Haupt_Fenster(QMainWindow):
     def __init__(self, parent=None):
         super(Haupt_Fenster,self).__init__(parent)        
         uic.loadUi(MAIN_UI,self)
-        self.showMaximized()        
-        self.invisible_lbl_anzahl()
+        self.showMaximized() 
+
+        self.buttons_connections()        
 
         if Path(DATENBANK_JSON_PATH).exists():            
             Path(DATENBANK_JSON_PATH).unlink()          
-        self.model_DBWebside: widget = QStandardItemModel()
-        self.lstView_DBWebside.setModel(self.model_DBWebside) 
+        self.model_database_weblinks = QStandardItemModel()
+        self.lstView_database_weblinks.setModel(self.model_database_weblinks) 
+        
 
-        # Gehe durch die Liste und setze die Sichtbarkeit auf False
-        widgets_to_hide: list = [
-                self.label_pornside,
-                self.lblSceneCode,
-                self.lnEdit_SceneCode,
-                self.lblProDate,
-                self.lnEdit_ProDate,
-                self.lblRegie,
-                self.lnEdit_Regie,
-                self.lbl_checkWeb_Data18URL,
-                self.lbl_checkWeb_URL,
-                self.lbl_checkWeb_IAFDURL,   ]        
-        for widget in widgets_to_hide:
-            widget.setVisible(False)          
-                     
+        #### -----------  setze Sichtbarkeit auf "False" ----------- #####         
+        self.invisible_lbl_anzahl()
+        self.invisible_any_labels() 
+
+
+    def buttons_connections(self): 
+        self.show_performers_images = ShowPerformerImages(self)                    
     ###-------------------------auf Klicks reagieren--------------------------------------###        
         self.Btn_Laden.clicked.connect(self.Infos_ExifToolHolen)
         self.Btn_Speichern.clicked.connect(self.Infos_Speichern)
@@ -76,6 +70,9 @@ class Haupt_Fenster(QMainWindow):
         self.Btn_logo_am_analyse_tab.clicked.connect(self.Websides_Auswahl)
         self.Btn_titel_suche.clicked.connect(self.titel_suche)
         self.Btn_name_suche.clicked.connect(self.performer_suche)
+        self.cBox_performers.currentIndexChanged.connect(self.show_performers_images.show_performer_picture)
+        self.Btn_next.clicked.connect(self.show_performers_images.show_next_picture_in_label)
+        self.Btn_prev.clicked.connect(self.show_performers_images.show_previous_picture_in_label)
         ### ------------------------------------- ####
         ### --- Buttons auf den Datenbank Tab ---- ##### 
         self.Btn_logo_am_db_tab.clicked.connect(self.Websides_Auswahl)
@@ -88,37 +85,36 @@ class Haupt_Fenster(QMainWindow):
         self.Btn_delPerformer.clicked.connect(self.del_performers)          
         self.Btn_Clipboard.clicked.connect(self.CopyText)
         self.Btn_DBUpdate.clicked.connect(self.single_DBupdate)
-        self.Btn_addDatei.clicked.connect(self.add_db_in_datei)
-        ### --- Context Menus ---------------------- ### 
-        self.tblWdg_Files.customContextMenuRequested.connect(lambda pos, widget_obj=self.tblWdg_Files: self.showContextMenu(pos, widget_obj))
+        self.Btn_addDatei.clicked.connect(self.add_db_in_datei)       
 
         felder = ["SceneCode", "ProDate", "Release", "Regie", "Serie", "Dauer", "Movies", "Synopsis", "Tags"]                                          
         for feld in felder:            
             button_widget = self.findChild(QPushButton, f'Btn_Anzahl_DB{feld}')
             Line_edit_widget = self.findChild(QLineEdit, f'lnEdit_DB{feld}')
             text_edit_widget = self.findChild(QTextEdit, f'txtEdit_DB{feld}')
-
             if button_widget:
                 button_widget.clicked.connect(self.dialog_auswahl)
-                
             if Line_edit_widget or text_edit_widget:
-                widget_obj = Line_edit_widget or text_edit_widget   
-                           
+                widget_obj = Line_edit_widget or text_edit_widget  
                 widget_obj.customContextMenuRequested.connect(lambda pos, widget_obj=widget_obj: self.showContextMenu(pos, widget_obj))
 
         ### ----------------------------------------- #####
         self.Btn_IAFD_linkmaker.clicked.connect(self.link_maker)
         self.Btn_DateiLaden.clicked.connect(self.Info_Datei_Laden)
         self.Btn_get_last_side.clicked.connect(self.gui_last_side) 
-        self.Btn_start_spider.clicked.connect(self.start_spider)               
-        self.rdBtn_rename.clicked.connect(self.radioBtn_file_rename)
+        self.Btn_start_spider.clicked.connect(self.start_spider)  
         self.Btn_RadioBtn_rename.clicked.connect(self.file_rename_from_Infos) 
-        self.actionEinstellungen.triggered.connect(self.einstellungen_ui_show)        
-        self.tblWdg_Files.clicked.connect(self.Ordner_Infos)        
-        self.tblWdg_Files.horizontalHeader().sectionClicked.connect(lambda index: self.tblWdg_Files.setSortingEnabled(not self.tblWdg_Files.isSortingEnabled()))
+        self.Btn_Titelsuche_in_DB.clicked.connect(self.titel_suche)
+        self.Btn_perfomsuche_in_DB.clicked.connect(self.performer_suche)          
+        self.rdBtn_rename.clicked.connect(self.radioBtn_file_rename)         
+        self.actionEinstellungen.triggered.connect(self.einstellungen_ui_show)
         self.tblWdg_Daten.horizontalHeader().sectionClicked.connect(lambda index: self.tblWdg_Daten.setSortingEnabled(not self.tblWdg_Daten.isSortingEnabled()))
         self.tblWdg_Daten.clicked.connect(self.DB_Anzeige)
+        self.tblWdg_Files.clicked.connect(self.Ordner_Infos)        
+        self.tblWdg_Files.horizontalHeader().sectionClicked.connect(lambda index: self.tblWdg_Files.setSortingEnabled(not self.tblWdg_Files.isSortingEnabled()))        
         self.tblWdg_Files.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)  
+        ### --- Context Menus ---------------------- ### 
+        self.tblWdg_Files.customContextMenuRequested.connect(lambda pos, widget_obj=self.tblWdg_Files: self.showContextMenu(pos, widget_obj))
         ### ------------ Text/Tab Wechsel Reaktion ------------------ ###
         self.lnEdit_URL.textChanged.connect(lambda index: self.Btn_Linksuche_in_DB.setEnabled(bool(self.lnEdit_URL.text().startswith("https://"))))
         self.tabs.currentChanged.connect(self.tab_changed_handler)
@@ -127,14 +123,11 @@ class Haupt_Fenster(QMainWindow):
         self.lnEdit_URL.textChanged.connect(self.button_on_if_isin_db)
         self.lnEdit_db_titel.textChanged.connect(self.titelsuche_in_DB_aktiv)
         self.lnEdit_db_performer.textChanged.connect(self.performersuche_in_DB_aktiv)
-        self.cBox_studio_links.currentIndexChanged.connect(lambda index :self.Btn_start_spider.setEnabled(bool(self.cBox_studio_links.currentText())))        
-        self.Btn_stacked_next_1.clicked.connect(self.stacked_weiter)
-        self.Btn_stacked_next_2.clicked.connect(self.stacked_weiter)
-        self.Btn_stacked_next_3.clicked.connect(self.stacked_weiter)
-        self.Btn_stacked_next_4.clicked.connect(self.stacked_weiter)
-        self.Btn_Titelsuche_in_DB.clicked.connect(self.titel_suche)
-        self.Btn_perfomsuche_in_DB.clicked.connect(self.performer_suche)           
+        self.cBox_studio_links.currentIndexChanged.connect(lambda index :self.Btn_start_spider.setEnabled(bool(self.cBox_studio_links.currentText()))) 
         ###-----------------------------------------------------------------------------------###
+        for i in range(1,5):            
+            stacked_widget = self.findChild(QPushButton, f'Btn_stacked_next_{i}')  
+            stacked_widget.clicked.connect(lambda: self.stackedWidget.setCurrentIndex((self.stackedWidget.currentIndex() + 1) % self.stackedWidget.count()))
 
     def tab_changed_handler(self, index: int) -> None:
         if index > 0:
@@ -148,24 +141,28 @@ class Haupt_Fenster(QMainWindow):
             self.stackedWidget.setCurrentIndex(2)
         if index == 1:
             self.set_analyse_daten()
-        if index ==2:
-            db_webside = DB_WebSide(MainWindow)
-            links = self.lstView_DBWebside.model().data(self.lstView_DBWebside.model().index(0, 0))
+        if index ==2:            
+            links = self.lstView_database_weblinks.model().data(self.lstView_database_weblinks.model().index(0, 0))
             if links:
-                studio_name = db_webside.from_link_to_studio(links.split("/")[2])
-                db_webside_settings = Webside_Settings(MainWindow)
-                errorview, studio, logo = db_webside_settings.get_buttonlogo_from_studio(studio_name)  
-                if not studio:
-                    logo="background-image: url(':/Buttons/grafics/no-logo_90x40.jpg')"
-                    studio="kein Studio ausgewählt !"
-                self.Btn_logo_am_db_tab.setStyleSheet(logo)
-                self.Btn_logo_am_db_tab.setToolTip(studio)
+                self.set_studio_in_db_tab(links)
+
+    def set_studio_in_db_tab(self, links):
+        db_webside = DB_WebSide(MainWindow=self)
+        studio_name = db_webside.from_link_to_studio(links.split("/")[2])
+        db_webside_settings = Webside_Settings(MainWindow=self)
+        errorview, studio, logo = db_webside_settings.get_buttonlogo_from_studio(studio_name)  
+        if errorview:
+            logo="background-image: url(':/Buttons/grafics/no-logo_90x40.jpg')"
+            studio="kein Studio ausgewählt !"
+        self.Btn_logo_am_db_tab.setStyleSheet(logo)
+        self.Btn_logo_am_db_tab.setToolTip(studio)
 
     def showContextMenu(self, pos: int, widget_name):        
         current_widget = self.sender()
         if current_widget:
             context_menu = ContextMenu(self)
             context_menu.showContextMenu(current_widget.mapToGlobal(pos), widget_name)
+    
 
     def titelsuche_in_DB_aktiv(self):
         if self.Btn_logo_am_db_tab.toolTip() != "kein Studio ausgewählt !":            
@@ -175,18 +172,21 @@ class Haupt_Fenster(QMainWindow):
         if self.Btn_logo_am_db_tab.toolTip() != "kein Studio ausgewählt !":
             self.Btn_perfomsuche_in_DB.setEnabled(True)
 
-    def stacked_weiter(self):
-        index: int = self.stackedWidget.currentIndex()
-        max_index = self.stackedWidget.count() - 1
-        if index == max_index:
-            index = -1
-        self.stackedWidget.setCurrentIndex(index+1)
-
+    #### ----- einiges Labels erstmal unsichtbar setzen ----- ####
+    ##############################################################
     def invisible_lbl_anzahl(self):
         lbl_anzahl_db: list = ["SceneCode", "ProDate", "Release", "Regie", "Serie", "Dauer", "Movies", "Synopsis", "Tags"]        
         for anzahl in lbl_anzahl_db:
             getattr(self, f"Btn_Anzahl_DB{anzahl}").setVisible(False)
-
+    
+    def invisible_any_labels(self):
+        labels: list = ["SceneCode", "ProDate", "Regie", "_checkWeb_Data18URL", "_checkWeb_URL", "_checkWeb_IAFDURL"]
+        line_edits: list = ["ProDate","Regie"]
+        for label in labels:
+            getattr(self, f"lbl{label}").setVisible(False)
+        for line_edit in line_edits:
+            getattr(self, f"lnEdit_{line_edit}").setVisible(False)
+    ##############################################################
         
     def loesche_DB_maske(self):
         line_edit_dbs=["SceneCode", "ProDate", "Release", "Regie", "Serie", "Dauer", "Data18Link", "IAFDLink"]        
@@ -379,11 +379,7 @@ class Haupt_Fenster(QMainWindow):
             if errorview:
                 MsgBox(self, errorview,"w") 
             else:                
-                self.tabelle_erstellen()
-                db_webside_settings = Webside_Settings(MainWindow=self)                                
-                errorview, studio, logo=db_webside_settings.get_buttonlogo_from_studio(studio)
-                self.Btn_logo_am_db_tab.setStyleSheet(logo)
-                self.Btn_logo_am_db_tab.setToolTip(studio)
+                self.tabelle_erstellen()              
                 self.DB_Anzeige()
         else:
             MsgBox(self, f"Es gibt noch keine Datenbank für: <{studio}>","w")
@@ -406,10 +402,6 @@ class Haupt_Fenster(QMainWindow):
                 MsgBox(self, errorview,"w") 
             else:                
                 self.tabelle_erstellen()
-                db_webside_settings = Webside_Settings(MainWindow=self) 
-                errorview, studio, logo=db_webside_settings.get_buttonlogo_from_studio(studio)
-                self.Btn_logo_am_db_tab.setStyleSheet(logo)
-                self.Btn_logo_am_db_tab.setToolTip(studio)
         else:
             MsgBox(self, f"Es gibt noch keine Datenbank für: <{studio}>","w")
 
@@ -457,11 +449,6 @@ class Haupt_Fenster(QMainWindow):
                 MsgBox(self, errorview,"w") 
             else:                
                 self.tabelle_erstellen() 
-                db_webside_settings = Webside_Settings(MainWindow=self)               
-                errorview, studio, logo=db_webside_settings.get_buttonlogo_from_studio(studio)
-                self.Btn_logo_am_db_tab.setStyleSheet(logo)
-                self.Btn_logo_am_db_tab.setToolTip(studio)
-
         else:
             MsgBox(self, f"Es gibt noch keine Datenbank für: <{studio}>","w")
    
@@ -500,12 +487,12 @@ class Haupt_Fenster(QMainWindow):
 
     def button_on_if_isin_db(self):        
         if self.link_isin_from_db(self.lnEdit_URL.text())[0]:    
-            self.db_daten_button_enabled(True) 
+            self.Btn_addDatei.setEnabled(True) 
         else:
-            self.db_daten_button_enabled(False)        
+            self.Btn_addDatei.setEnabled(False)        
             
-    def db_daten_button_enabled(self,bolean: bool) -> None:                        
-        self.Btn_DBUpdate.setEnabled(bolean)
+    def db_daten_button_enabled(self,bolean: bool) -> None:                       
+        
         self.Btn_addDatei.setEnabled(bolean)
 
     def link_maker(self):
@@ -710,10 +697,10 @@ class Haupt_Fenster(QMainWindow):
         else:    
             self.Btn_logo_am_db_tab.setStyleSheet(logo)
             self.Btn_logo_am_db_tab.setToolTip(studio)    
-            if self.lnEdit_DBTitel.text() !="":
-                self.Btn_DBUpdate.setEnabled(True)
-                self.Btn_addDatei.setEnabled(True)  
-    
+            self.Btn_DBUpdate.setEnabled(bool(self.lnEdit_DBTitel.text())) ### wenn "" deaktiv
+            self.Btn_addDatei.setEnabled(bool(self.lnEdit_DBTitel.text())) ### wenn !="" aktiv
+
+
     def einstellungen_ui_show(self):                  
         einstellungen_ui = Einstellungen(self)
         einstellungen_ui.show()
@@ -883,8 +870,8 @@ class Haupt_Fenster(QMainWindow):
         link_items: list = []
         infos_webside = Infos_WebSides(MainWindow=self)
 
-        for index in range(self.model_DBWebside.rowCount()):
-            item = self.model_DBWebside.data(self.model_DBWebside.index(index, 0))
+        for index in range(self.model_database_weblinks.rowCount()):
+            item = self.model_database_weblinks.data(self.model_database_weblinks.index(index, 0))
             link_items.append(item) 
         WebSideLink="\n".join(link_items)
 
@@ -896,20 +883,25 @@ class Haupt_Fenster(QMainWindow):
 
     
     def DB_Anzeige(self):
+        ### ----- kompette Maske löschen incl. json Infos ------- ### 
+        self.datenbank_save("delete")
         felder = ["SceneCode", "ProDate", "Release", "Regie", "Serie", "Dauer", "Movies", "Synopsis", "Tags"]
         for feld in felder:  
             Line_edit_widget = self.findChild(QLineEdit, f'lnEdit_DB{feld}')
-            text_edit_widget = self.findChild(QTextEdit, f'txtEdit_DB{feld}')
-                
+            text_edit_widget = self.findChild(QTextEdit, f'txtEdit_DB{feld}')                
             if Line_edit_widget or text_edit_widget:
                 widget_obj = Line_edit_widget or text_edit_widget 
                 widget_obj.setToolTip("")
+        self.model_database_weblinks.clear()
+        self.tblWdg_Performers.clear()
 
         self.tabs.setCurrentIndex(2) # Tab für Datenbank aktiv
         self.tblWdg_Daten.selectRow(self.tblWdg_Daten.currentRow())
         self.lnEdit_DBTitel.setText(self.tblWdg_Daten.selectedItems()[0].text()) 
+
         infos_webside = Infos_WebSides(MainWindow=self)
         infos_webside.DB_Anzeige()
+
         self.enabled_db_buttons(True)
 
     def addLink(self):        
@@ -918,12 +910,12 @@ class Haupt_Fenster(QMainWindow):
         if link.startswith("https://"):
             self.Btn_Linksuche_in_URL.setEnabled(True)
             item = QStandardItem(link)
-            self.model_DBWebside.appendRow(item)
+            self.model_database_weblinks.appendRow(item)
             self.lnEdit_addLink.clear()
             self.lbl_db_status.setText(f"{zeit}: {link} hinzugefügt worden !")            
         elif link == "*":
             empty_item = QStandardItem("")
-            self.model_DBWebside.insertRow(0, empty_item)
+            self.model_database_weblinks.insertRow(0, empty_item)
             self.lnEdit_addLink.clear()
             self.lbl_db_status.setText(f"{zeit}: Leeren Link hinzugefügt worden !")
         else:
@@ -936,15 +928,15 @@ class Haupt_Fenster(QMainWindow):
             
 
     def delete_link_from_listview(self):
-        selected = self.lstView_DBWebside.selectedIndexes()
+        selected = self.lstView_database_weblinks.selectedIndexes()
         zeit = QDateTime.currentDateTime().toString('hh:mm:ss')
         if selected:
             index = selected[0]
             row = index.row()
-            if row < self.model_DBWebside.rowCount():
+            if row < self.model_database_weblinks.rowCount():
                 # Entferne das ausgewählte Element aus dem Modell
-                self.model_DBWebside.removeRow(row)
-                selected_item = self.model_DBWebside.item(row)
+                self.model_database_weblinks.removeRow(row)
+                selected_item = self.model_database_weblinks.item(row)
                 if selected_item is not None:
                     selected_text = selected_item.text()
                 else:
@@ -988,7 +980,7 @@ class Haupt_Fenster(QMainWindow):
         self.addDarsteller_in_ui(Performers)
 
         self.lnEdit_Titel.setText(self.lnEdit_DBTitel.text())
-        self.lnEdit_URL.setText(self.lstView_DBWebside.model().data(self.lstView_DBWebside.model().index(0, 0)))
+        self.lnEdit_URL.setText(self.lstView_database_weblinks.model().data(self.lstView_database_weblinks.model().index(0, 0)))
         self.lnEdit_ErstellDatum.setText(self.lnEdit_DBRelease.text())
         self.lnEdit_Data18URL.setText(self.lnEdit_DBData18Link.text() if self.lnEdit_DBData18Link.text() != "" else self.lnEdit_Data18URL.text())        
         self.lnEdit_IAFDURL.setText(self.lnEdit_DBIAFDLink.text())
@@ -1233,7 +1225,7 @@ class Haupt_Fenster(QMainWindow):
             self.Btn_logo_am_analyse_tab.setToolTip("kein Studio ausgewählt !")
                     
         if not (tab_dateiinfo and table_files and analyse_button and table_files): 
-            self.cBox_studio_links.clear()           
+            self.cBox_studio_links.clear() 
             self.Btn_logo_am_infos_tab.setStyleSheet("background-image: url(':/Buttons/grafics/no-logo_90x40.jpg')") 
             self.Btn_logo_am_infos_tab.setToolTip("kein Studio ausgewählt !")
             self.Btn_logo_am_db_tab.setStyleSheet("background-image: url(':/Buttons/grafics/no-logo_90x40.jpg')")
@@ -1244,7 +1236,7 @@ class Haupt_Fenster(QMainWindow):
 
 
     def enabled_db_buttons(self, bolean: bool) -> None: 
-        webside_model = self.lstView_DBWebside.model()
+        webside_model = self.lstView_database_weblinks.model()
         data18 = self.lnEdit_DBData18Link
         iafd = self.lnEdit_DBIAFDLink
         

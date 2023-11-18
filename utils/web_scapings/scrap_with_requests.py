@@ -13,10 +13,10 @@ from lxml import html
 from itertools import zip_longest
 import re
 from time import sleep
-from datetime import datetime
 from typing import Tuple, Union
 
 from utils.database_settings import Webside_Settings, DB_WebSide 
+from utils.umwandeln import time_format_00_00_00, datum_umwandeln
 
 from config import HEADERS, selenium_browser_check
 
@@ -85,7 +85,7 @@ class VideoUpdater:
             link = elements[0].get("href") if elements[0].get("href").startswith("https://") else self.baselink[:-1] + elements[0].get("href")                     
             titel = elements[1].get("title").title().strip() if video_data.get_data()["Titel_Gross"] else elements[1].get("title").strip()
             if elements[2] != "":
-                datum = self.datum_umwandeln(elements[2].text.strip(), video_data.get_data()["ReleaseDate_Format"])
+                datum = datum_umwandeln(elements[2].text.strip(), video_data.get_data()["ReleaseDate_Format"])
             if elements[3] != "":
                 dauer = re.search(r'\d{1,2}:\d+(:\d+)?', elements[3].text).group() if re.search(r'\d{1,2}:\d+(:\d+)?', elements[3].text) else None
             if elements[4] != "":
@@ -250,7 +250,7 @@ class VideoUpdater:
 
         if not datum and not errview and xpath_datum: 
             datum_text = content.xpath(xpath_datum)[0].text.strip() if content.xpath(xpath_datum) else None            
-            datum = self.datum_umwandeln(datum_text, datum_format)
+            datum = datum_umwandeln(datum_text, datum_format)
         return datum
     
     ### Dauer, wenn noch nicht da ist ###
@@ -261,7 +261,7 @@ class VideoUpdater:
         
         if not dauer and not errview and xpath_dauer:            
             dauer_text = content.xpath(xpath_dauer)[0].text.strip() if content.xpath(xpath_dauer) else None
-            dauer = self.time_format_00_00_00(dauer_text)
+            dauer = time_format_00_00_00(dauer_text)
         return dauer
     
     ### Performers, Artists, Stars ###
@@ -291,22 +291,3 @@ class VideoUpdater:
         return serie 
     
 
-    def time_format_00_00_00(self, text: str) -> str:
-        hh_mm_ss = None 
-        match = re.search(r'(\d+:\d+:\d+|\d+:\d+)', text)
-        if match:
-            duration = f"00:{match.group(1)}"  # Extrahierte Zeit
-            # Falls erforderlich, in das Format "00:00:00" konvertieren
-            hh_mm = list(reversed(duration.split(":")))   
-            hh_mm_ss = f"{int(hh_mm[2]):02}:{int(hh_mm[1]):02}:{int(hh_mm[0]):02}"
-        else:
-            hh_mm_ss = None
-        return hh_mm_ss
-    
-    def datum_umwandeln(self, date_str:str, date_format: str) -> str:
-        try:
-            date_obj = datetime.strptime(date_str, date_format)
-        except ValueError:
-            return None    
-        # Datumsobjekt in das gewünschte Format umwandeln        
-        return date_obj.strftime('%Y.%m.%d %H:%M:%S')

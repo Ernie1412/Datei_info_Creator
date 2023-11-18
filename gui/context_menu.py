@@ -131,8 +131,8 @@ class ContextMenu(QMenu):
 
     def action_links(self, scraper_function) -> dict:        
         menu_dict = {}        
-        for index in range(self.Main.model_DBWebside.rowCount()):
-            links = self.Main.model_DBWebside.data(self.Main.model_DBWebside.index(index, 0))
+        for index in range(self.Main.model_database_weblinks.rowCount()):
+            links = self.Main.model_database_weblinks.data(self.Main.model_database_weblinks.index(index, 0))
             web_link = links.split("/")[2]
             menu_dict[web_link] = functools.partial(scraper_function, links)            
         return menu_dict
@@ -211,7 +211,7 @@ class ContextMenu(QMenu):
         # Überprüfen Sie, ob das Verschieben erforderlich ist
               
         if verschiebe_ordner == directory:
-            self.Main.ordner_Transfer_zurueck(False,str(Path(verschiebe_ordner,move_file)))
+            self.Main.ordner_transfer_zurueck(False,str(Path(verschiebe_ordner,move_file)))
             return
 
         # Überprüfen Sie, ob die Datei im Zielordner vorhanden ist 

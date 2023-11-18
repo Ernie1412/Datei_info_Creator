@@ -273,8 +273,7 @@ class DB_Darsteller:
                         query.bindValue(":Dauer",Dauer)
                         query.bindValue(":Resize",Resize)
                         query.bindValue(":Bitrate",Bitrate)
-                        query.bindValue(":Ursprung",Ursprung)
-                        query.bindValue(":Ursprung",Ursprung)
+                        query.bindValue(":Ursprung",Ursprung)                        
                         query.bindValue(":ArtistID",ArtistID)
                         query.bindValue(":Tags",Tags)#
                         query.bindValue(":Beschreibung",Beschreibung)
@@ -326,6 +325,30 @@ class DB_Darsteller:
             self.db_fehler()
         self.db.close()        
         return name
+    
+    def get_performers_picture(self, performer_name: str) -> Tuple[str, list, list]:
+        errorview: str= None 
+        images: list=[]
+        links: list=[]
+
+        self.db.open()
+        if self.db.isOpen():            
+            with self.managed_query() as query:                 
+                query.prepare('SELECT DB_NamesLink.Image, DB_NamesLink.Link FROM DB_Artist JOIN DB_NamesLink ON DB_Artist.ArtistID = DB_NamesLink.ArtistID WHERE DB_Artist.Name = :Name;')
+                query.bindValue(":Name",performer_name)                
+                query.exec()                           
+                while query.next():
+                    images.append(query.value("DB_NamesLink.Image"))
+                    links.append(query.value("DB_NamesLink.Link"))
+                    errorview = query.lastError().text()
+                    if errorview:
+                        self.db_fehler("Fehler beim Performer Images Holen (query)",query)                    
+            if not images and errorview:
+                errorview = "kein Eintrag gefunden !"
+        else:
+            self.db_fehler("Fehler beim Performer Images Holen (db)",self.db)
+        self.db.close()        
+        return errorview, images, links 
 
 if __name__ == "__main__":
     DB_Darsteller()

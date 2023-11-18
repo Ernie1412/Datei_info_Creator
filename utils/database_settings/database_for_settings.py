@@ -539,7 +539,32 @@ class Webside_Settings:
         else:
             self.db_fehler("von Link zum Spider Überprüfung (db)",self.db)
         self.db.close()        
-        return errorview, spider  
+        return errorview, spider 
+
+    def from_link_to_studio(self, link: str) -> Tuple[str, str]:
+        errorview: str = None
+        studio: str = None
+
+        self.db.open()            
+        if self.db.isOpen():            
+            with self.managed_query() as query:                 
+                query.prepare('SELECT Name FROM Webscrapping_Settings WHERE Homepage = :BaseLink;')
+                query.bindValue(":BaseLink",link)                
+                query.exec()                           
+                if query.next():
+                    if query.lastError().text():
+                        errorview = query.lastError().text()
+                        self.db_fehler("von Link zum Studio Überprüfung (query)",query)
+                    else:
+                        studio = query.value("Name")
+                        if not studio:
+                            errorview = "kein Eintrag gefunden !"
+                else:
+                    errorview = "kein Eintrag gefunden !"
+        else:
+            self.db_fehler("von Link zum Studio Überprüfung (db)",self.db)
+        self.db.close()        
+        return errorview, studio 
     
     
     def from_studio_to_all_baselinks(self, studio: str) -> Tuple[str, list]:

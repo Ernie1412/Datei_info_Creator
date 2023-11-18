@@ -18,6 +18,7 @@ from lxml import html
 ### ---------------- ###
 import pyperclip
 import re
+import copy
 import pandas as pd
 from datetime import datetime
 from typing import Union, Optional, List, Tuple
@@ -25,7 +26,9 @@ from typing import Union, Optional, List, Tuple
 # import eigene Moduls
 from utils.database_settings import Webside_Settings, DB_WebSide
 from utils.web_scapings.scrap_with_requests import VideoUpdater
+from utils.umwandeln import time_format_00_00_00, datum_umwandeln, from_classname_to_import
 from gui.dialoge_ui import StatusBar, MsgBox
+
 
 from config import HEADERS, selenium_browser_check
 
@@ -103,7 +106,7 @@ class Infos_WebSides():
         self.check_loading_labelshow("Data18")              
         url = self.Main.lnEdit_DBData18Link.text() 
 
-        felder = ["Release", "Dauer", "Serie", "Movies", "Synopsis", "QuellSide"]
+        felder = ["Release", "Dauer", "Serie", "Synopsis", "Movies", "QuellSide"]
         self.abfragen_data18(url, felder)
 
         self.check_loaded_labelshow("Data18") 
@@ -112,91 +115,141 @@ class Infos_WebSides():
     def abfragen_data18(self, url: str, felder: list) -> None:
         self.Main.txtEdit_Clipboard.setPlainText("Scraping Data18 Element:")         
         status: str="Error"
+        orginal_page: str=None 
         with sync_playwright() as p:
             browser = p.chromium.launch()
-            page = browser.new_page() 
-            time_out = 2000               
+            page = browser.new_page()            
+            time_out = 2000                            
             try:
-                page.goto(url, timeout=time_out+3000)
-                page.locator("//button[contains(string(),'ENTER - data18.com')]").click()                
+                page.goto(url, timeout=5000)
+                page.locator("//button[contains(string(),'ENTER - data18.com')]").click()                              
             except TimeoutError as e:
                 self.fehler_ausgabe_checkweb(e,"Data18URL")
-                self.scrap_status("URL Loading...", "Timeout Error")  
+                self.scrap_status("URL Loading...", "Timeout Error: 5000ms")  
             else:
-                self.scrap_status("URL Loading...", "OK")
-                page.set_default_timeout(time_out)
+                self.scrap_status("URL Loading...", "OK") 
+                page.set_default_timeout(time_out)               
                 for feld in felder:
-
                     if feld == "Release":
                         try:
-                            release_text = page.locator('//span[@class="gen12"]/b/following::a[1]/b').inner_text()
+                            release_ele = page.locator('//span[@class="gen12"]/b/following::a[1]/b')
+                            release_text = release_ele.inner_text()
                         except (TimeoutError, AttributeError):
                               release_text = None 
-                              status=f"Timeout Error: {time_out}ms"
+                              status=f"Kein Release Datum gefunden - Timeout: {time_out}ms"
                         else: 
                             status = "OK"                            
                             self.release_abfrage_data18(release_text, url)  
                         self.scrap_status(feld, status)
                     elif feld == "Dauer":
                         try:
-                            dauer_text = page.locator( "//div[@class='gen12']/p | //div[@class='gen12']/b").nth(0).inner_text()  
+                            dauer_ele = page.locator( "//div[@class='gen12']/p | //div[@class='gen12']/b")
+                            dauer_text = dauer_ele.nth(0).inner_text()  
                         except (TimeoutError, AttributeError):
                               dauer_text = None 
-                              status=f"Timeout Error: {time_out}ms" 
+                              status=f"Keine Runtime gefunden - Timeout: {time_out}ms"
                         else:
                             status = "OK"                            
                             self.dauer_abfrage_data18(dauer_text, url)
                         self.scrap_status(feld, status)
                     elif feld == "Serie": 
-                        serie_text = page.locator("//p[contains(., 'Network')]/a[@class='bold']").nth(0).inner_text()                        
-                        if serie_text:
-                            self.scrap_status(feld, "OK")
-                            self.serie_abfrage_data18(serie_text, url) 
-                        else:
-                            self.scrap_status(feld, f"Timeout Error: {time_out}ms")                            
-                    elif feld == "Synopsis":
-                        synopsis_text = page.locator("//div[@class='gen12']/div[starts-with(string(), 'Story')]").inner_text() 
-                        if synopsis_text:
-                            self.scrap_status(feld, "OK")                                                        
-                            self.synopsis_abfrage_data18(synopsis_text, url)                            
-                        else:
-                            self.scrap_status(feld, f"Timeout Error: {time_out}ms") 
-                    elif feld == "Movies":
                         try:
-                            movie_text = page.locator("//p/b[contains(.,'Movie')]/following::a[1]").inner_text()
+                            serie_ele = page.locator("//p[contains(., 'Network')]/a[@class='bold']")
+                            serie_text = serie_ele.nth(0).inner_text() 
+                        except (TimeoutError, AttributeError):
+                            status = f"Keine Serie/Sub-Side gefunden - Timeout: {time_out}ms"                       
+                        else:
+                            status = "OK" 
+                            self.serie_abfrage_data18(serie_text, url) 
+                        self.scrap_status(feld, status)                            
+                    elif feld == "Synopsis":
+                        try:
+                            synopsis_text = page.locator("//div[@class='gen12']/div[starts-with(string(),'Story')]").inner_text()                             
+                        except (TimeoutError, AttributeError):
+                            status = f"Keine Synopsis gefunden - Timeout: {time_out}ms" 
+                        else:
+                            status = "OK"                                                         
+                            self.synopsis_abfrage_data18(synopsis_text, url)
+                        self.scrap_status(feld, status) 
+                    elif feld == "Movies":                        
+                        try:
+                            movie_element = page.locator("//p/b[contains(.,'Movie')]/following::a[1]")                           
+                            movie_text = movie_element.inner_text()
                         except (TimeoutError, AttributeError):
                               movie_text, scene_text, studio_texts = None, None, None 
-                              status = f"Timeout Error: {time_out}ms"
+                              status = f"Kein Movie gefunden - Timeout: {time_out}ms"
                         else: 
-                            status = "OK"                             
+                            status = "OK"
+                            movie_url = movie_element.get_attribute('href')                                                      
                             scene_text = page.locator("//div[contains(@class, 'relatedmovie_zone')]/div[contains(i, 'Current scene')]").inner_text()        
-                            studio_texts = page.locator("//a[contains(@href,'https://www.data18.com/studios/')]").all_text_contents()
-                            self.movies_abfrage_data18(movie_text, scene_text, studio_texts, url) 
+                            studio_texts = page.locator("//a[contains(@href,'https://www.data18.com/studios/')]").all_text_contents()                            
+                            page.goto(movie_url, timeout=5000)                                                        
+                            jahr: int=0
+                            try:
+                                jahr = int(page.locator("//p[contains(string(),'Prod. Year:')]/b").inner_text())
+                            except (TimeoutError, AttributeError):
+                                pass
+                            else:
+                                links = self.Main.lstView_database_weblinks.model().data(self.Main.lstView_database_weblinks.model().index(0, 0))                                 
+                                studio_texts = self.pipeline_movie_distr(links, jahr)
+                                self.movies_abfrage_data18(movie_text, scene_text, studio_texts, jahr, url) 
                         self.scrap_status(feld, status)
                     elif feld == "QuellSide":
                         try:
-                            quell_side_element = page.locator('//a[@class="ext"]').nth(0) 
+                            page.go_back()
+                            quell_side_element = page.locator('//a[@class="ext"]').nth(0)                             
                         except (TimeoutError, AttributeError): 
-                            status = f"Timeout Error: {time_out}ms"           
+                            status = f"Kein Quell Side gefunden - Timeout: {time_out}ms"                                       
                         else:
                             status = "OK"
                             quell_side_url = quell_side_element.get_attribute('href') 
                             try:                           
-                                page.goto(quell_side_url, timeout=time_out+3000)
+                                page.goto(quell_side_url, timeout=5000)
                             except (TimeoutError, AttributeError) as e:
-                                self.Main.txtEdit_Clipboard.setPlainText(f"Fehler: {e} - {quell_side_url}")
+                                status = f"Fehler: {e} - {quell_side_url}"                               
                             else:
                                 current_url = page.url                           
                                 next_url = re.search(r'^(.*?)\?([^\?&]{1,10})=', current_url).group(1) if re.search(r'^(.*?)\?([^\?&]{1,10})=', current_url) else next_url
-                                if not self.is_url_in_model(next_url):
-                                    self.Main.model_DBWebside.appendRow(QStandardItem(next_url))
+                                urls=self.pipeline_add_link(next_url)                                
+                                for url in urls.split("\n"):
+                                    if not self.is_url_in_model(url):
+                                        self.Main.model_database_weblinks.appendRow(QStandardItem(url))
                         self.scrap_status(feld, status)
             finally:
-                browser.close()        
+                browser.close()  
+
+    def pipeline_add_link(self, url):
+        links = url
+        baselink = "/".join(url.split("/")[:3])+"/"
+
+        db_webside_settings = Webside_Settings(self)      
+        errorview, spider_class_name = db_webside_settings.from_link_to_spider(baselink)        
+        if not errorview:
+            spider_class_pipeline = from_classname_to_import(spider_class_name, pipeline="Pipeline") ## import der Klasse "Pipeline"
+            if spider_class_pipeline: 
+                # Rufe die Funktion auf
+                instance = spider_class_pipeline()
+                links = instance.add_link(url)
+        return links
+
+    def pipeline_movie_distr(self, url, jahr):        
+        baselink = "/".join(url.split("/")[:3])+"/"        
+        db_webside_settings = Webside_Settings(self)      
+        errorview, spider_class_name = db_webside_settings.from_link_to_spider(baselink) 
+        errorview, distr = db_webside_settings.from_link_to_studio(baselink)            
+        if not errorview:            
+            spider_class_pipeline = from_classname_to_import(spider_class_name, pipeline="Pipeline") ## import der Klasse "Pipeline"
+            if spider_class_pipeline: 
+                # Rufe die Funktion auf
+                instance = spider_class_pipeline()
+                distr = instance.movie_distr(spider_class_name, jahr)
+        else:
+            distr = url
+        return distr.split("\n")      
     
     def is_url_in_model(self, url):
-        for row in range(self.Main.model_DBWebside.rowCount()):
-            item = self.Main.model_DBWebside.item(row)
+        for row in range(self.Main.model_database_weblinks.rowCount()):
+            item = self.Main.model_database_weblinks.item(row)
             if item is not None and item.text() == url:
                 return True
         return False
@@ -206,7 +259,7 @@ class Infos_WebSides():
         
         status = "OK"                    
         tooltip_text = f"{quelle}: ({len(release_text)}) -> {release_text}" 
-        release_date = VideoUpdater().datum_umwandeln(release_text, "%B %d, %Y")             
+        release_date = datum_umwandeln(release_text, "%B %d, %Y")             
         self.set_daten_in_maske(maske_typ, feld, url, release_date)
         
         self.set_tooltip_text(maske_typ, feld, tooltip_text, quelle)
@@ -219,7 +272,7 @@ class Infos_WebSides():
         if "Membership Site: " in dauer_text:
             membership_start = dauer_text.find("Membership Site: ") + 17
             dauer_text = dauer_text[membership_start:]
-        dauer_text = VideoUpdater().time_format_00_00_00(dauer_text)
+        dauer_text = time_format_00_00_00(dauer_text)
         tooltip_text = f"{quelle}: -> {dauer_text}"
         self.set_daten_in_maske(maske_typ, feld, url, dauer_text)
         
@@ -236,15 +289,15 @@ class Infos_WebSides():
         self.set_tooltip_text(maske_typ, feld, tooltip_text, quelle)
         
 
-    def movies_abfrage_data18(self, movie_text: str, scene_text: str, studio_texts: list, url: str) -> None:
+    def movies_abfrage_data18(self, movie_text: str, scene_text: str, studio_texts: list, jahr: int, url: str) -> None:
         ### Abfrage nach möglichen Film-Release ###
-        status, maske_typ, feld, quelle, tooltip_text = self.initialisize_abfrage("Movies","Data18") 
-        
-        status= "OK"            
+        status, maske_typ, feld, quelle, tooltip_text = self.initialisize_abfrage("Movies","Data18")         
+                    
         scene_text = re.search(r'Scene \d+', scene_text).group() if re.search(r'Scene \d+', scene_text) else "Scene N/A"                     
-        studio_text = studio_texts[0].replace(" ","")
+        studio_text = studio_texts[0].replace(" ","")        
+
         tooltip_text = f"{quelle}: -> {movie_text}"
-        self.set_daten_in_maske(maske_typ, feld, url, f"{scene_text}: {studio_text} - {movie_text}(    )FULLHD-ENGLISH") 
+        self.set_daten_in_maske(maske_typ, feld, url, f"{scene_text}: {studio_text} - {movie_text}({jahr})FULLHD-ENGLISH") 
         
         self.set_tooltip_text(maske_typ, feld, tooltip_text, quelle)
         return status
@@ -279,16 +332,15 @@ class Infos_WebSides():
 
     def webscrap_iafd(self):
         self.check_loading_labelshow("IAFD")
-        url = self.Main.lnEdit_DBIAFDLink.text()
-        self.Main.txtEdit_Clipboard.setPlainText("Scraping IAFD Element:")
+        url = self.Main.lnEdit_DBIAFDLink.text()        
         content = self.open_url_no_javascript(url)
 
         self.regie_abfrage_iafd(content, url)
         self.dauer_abfrage_iafd(content, url)
-        studio = self.serie_abfrage_iafd(content, url)
+        sub_side = self.serie_abfrage_iafd(content, url)
         self.releasedate_abfrage_iafd(content, url)
         self.titel_abfrage_iafd(content, url)
-        self.akas_abfrage_iafd(content, url, studio)
+        self.akas_abfrage_iafd(content, url, sub_side)
         self.synopsis_abfrage_iafd(content, url)
         self.performers_abfrage_iafd(content, url)        
 
@@ -367,8 +419,7 @@ class Infos_WebSides():
             tooltip_text = f"{quelle}: {studio_element[0].text}"
             db_webside_settings = Webside_Settings(self.Main)
             studio, serie = db_webside_settings.from_studio_to_subside_for_iafd(studio_element[0].text)            
-            self.set_daten_in_maske(maske_typ, feld, url, serie)
-            self.Main.Websides(None, studio)
+            self.set_daten_in_maske(maske_typ, feld, url, serie)            
 
         self.set_tooltip_text(maske_typ, feld, tooltip_text, quelle)
         self.scrap_status(feld, status)
@@ -491,14 +542,13 @@ class Infos_WebSides():
         hours, minutes = divmod(minutes, 60)        
         return f"{hours:02d}:{minutes:02d}:00"          
 
-    def DB_Anzeige(self): 
-        self.Main.datenbank_save("delete")        
-        self.Main.tblWdg_Daten.itemSelectionChanged.connect(self.selectWholeRow)       
-        hostname=self.Main.tblWdg_Daten.selectedItems()[1].text()
-        self.Main.model_DBWebside.clear()
-        self.Main.tblWdg_Performers.clear()
+    def DB_Anzeige(self):
+        self.Main.tblWdg_Daten.itemSelectionChanged.connect(self.select_whole_row) # aktiviert die komplette Zeile      
+        hostname = self.Main.tblWdg_Daten.selectedItems()[1].text()
         for link in hostname.split("\n"):
-            self.Main.model_DBWebside.appendRow(QStandardItem(link))  
+            self.Main.model_database_weblinks.appendRow(QStandardItem(link))
+        self.Main.set_studio_in_db_tab(hostname) 
+        ### ----------- Perfomer incl rest in die TableWidget packen ------------ ###
         performs=self.Main.tblWdg_Daten.selectedItems()[3].text().split("\n")
         aliass=(self.Main.tblWdg_Daten.selectedItems()[4].text()+"\n"*len(performs)).split("\n")
         actions=(self.Main.tblWdg_Daten.selectedItems()[5].text()+"\n"*len(aliass)).split("\n")        
@@ -513,19 +563,21 @@ class Infos_WebSides():
             self.Main.tblWdg_Performers.setItem(zeile,0,QTableWidgetItem(db_performer))
             self.Main.tblWdg_Performers.setItem(zeile,1,QTableWidgetItem(alias))
             self.Main.tblWdg_Performers.setItem(zeile,2,QTableWidgetItem(action.strip()))  
+        ### ----------- Data Link in Maske packen ------------ ###
         db_websides=DB_WebSide() 
         data18_link=db_websides.hole_data18link_von_db(hostname,self.Main.Btn_logo_am_db_tab.toolTip())         
         if data18_link:
             self.Main.lnEdit_DBData18Link.textChanged.disconnect()  # deaktiven 
             self.set_daten_in_maske("lnEdit_DB", "Data18Link", "Datenbank", data18_link) 
             self.Main.lnEdit_DBData18Link.textChanged.connect(self.Main.Web_Data18_change) # aktiven
-            self.Main.lbl_checkWeb_Data18URL.setText("Check OK !")        
+            self.Main.lbl_checkWeb_Data18URL.setText("Check OK !") 
+        ### ----------- IAFD Link in Maske packen ------------ ###
         if self.Main.tblWdg_Daten.selectedItems()[2]:
             self.Main.lnEdit_DBIAFDLink.textChanged.disconnect() # deaktiven      
             self.set_daten_in_maske("lnEdit_DB", "IAFDLink", "Datenbank", self.Main.tblWdg_Daten.selectedItems()[2].text()) 
             self.Main.lnEdit_DBIAFDLink.textChanged.connect(self.Main.Web_IAFD_change) # aktiven 
             self.Main.lbl_checkWeb_IAFDURL.setText("Check OK !")
-        
+        ### ----------- Rest in Maske packen ------------ ###
         self.set_daten_with_tooltip("lnEdit_DB", "Dauer", "Datenbank", self.Main.tblWdg_Daten.selectedItems()[6].text())
         self.set_daten_with_tooltip("lnEdit_DB", "Release", "Datenbank", self.Main.tblWdg_Daten.selectedItems()[7].text())
         self.set_daten_with_tooltip("lnEdit_DB", "ProDate", "Datenbank", self.Main.tblWdg_Daten.selectedItems()[8].text())
@@ -544,7 +596,7 @@ class Infos_WebSides():
             self.set_daten_in_maske(widget_typ, art, quelle, daten) 
         self.set_tooltip_text(widget_typ, art, tooltip_text, quelle)      
 
-    def selectWholeRow(self):
+    def select_whole_row(self):
         selected_items = self.Main.tblWdg_Daten.selectedItems()
         if selected_items:
             # Mindestens ein Element ist ausgewählt, wir bestimmen die Zeilennummer
@@ -702,7 +754,7 @@ class Infos_WebSides():
         if errorview:
             if errorview == "Link nicht gefunden !":
                 result = MsgBox(self.Main, f"{errorview} - Soll der Datensatz neu angelegt werden ?","q")
-                if result == QMessageBox.Yes:
+                if result == QMessageBox.StandardButton.Yes:
                     errview , farbe, isneu = db_webside.add_neue_videodaten_in_db(self, studio, WebSideLink, video_data)  
                     if isneu == 1:
                         self.show_success_message(f"{neu} Datensatz wurde in {studio} gespeichert (update)!",f"{neu} Datensatz geaddet")                          

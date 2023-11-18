@@ -63,7 +63,8 @@ ROBOTSTXT_OBEY = False
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'bangbros.pipelines.BangBrosPipeline': 300,
+   'bangbros.pipelines.BangBrosPipeline': 200,   
+   'bangbros.pipelines.MyDatabasePipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
