@@ -31,7 +31,7 @@ class VideoUpdater:
     def get_scrap_settings_from_db(self) -> Tuple [str, int]:
         # Initialisierung und Konfiguration hier        
         driver: WebDriver = None       
-        db_website_settings = Webside_Settings()
+        db_website_settings = Webside_Settings(MainWindow=self.Main)
         errorview, video_data = db_website_settings.get_videodatas_from_baselink(self.baselink)
         if errorview:
             self.Main.MsgBox(f"Fehler beim Holen der {self.baselink} mit dem Fehler: {errorview}","w")
@@ -199,7 +199,7 @@ class VideoUpdater:
     def hole_beschreibung_xpath_settings(self, content, driver, link) -> str:
     # Code zum Extrahieren der Beschreibung        
         beschreibung = None
-        db_settings = Webside_Settings()        
+        db_settings = Webside_Settings(MainWindow=self.Main)        
 
         errview, xpath_synopsis, xpath_synopsis_attri, xpath_synopsis_clicks = db_settings.get_movie_settings_for_beschreibung(self.baselink)
         if not errview and xpath_synopsis:
@@ -222,7 +222,7 @@ class VideoUpdater:
     def hole_tags_xpath_settings(self, content, driver, link) -> str:
         tags: str = None
         tags_elements: list = []
-        db_settings = Webside_Settings()              
+        db_settings = Webside_Settings(MainWindow=self.Main)              
 
         errview, xpath_tags, xpath_tags_attri, xpath_tags_click = db_settings.get_movie_settings_for_tags(self.baselink)
         if not errview and xpath_tags:
@@ -244,7 +244,7 @@ class VideoUpdater:
     
     # wenn noch kein datum da ist dann datum aus javascript-element holen und in richtigen Format umwandeln
     def hole_datum_xpath_settings(self, content, datum: str) -> str:        
-        db_settings = Webside_Settings()        
+        db_settings = Webside_Settings(MainWindow=self.Main)        
 
         errview, xpath_datum, datum_format = db_settings.get_movie_settings_for_erstelldatum(self.baselink)
 
@@ -255,7 +255,7 @@ class VideoUpdater:
     
     ### Dauer, wenn noch nicht da ist ###
     def hole_dauer_xpath_settings(self, content, dauer: str) -> str: 
-        db_settings = Webside_Settings()  
+        db_settings = Webside_Settings(MainWindow=self.Main)  
 
         errview, xpath_dauer = db_settings.get_movie_settings_for_dauer(self.baselink)
         
@@ -267,7 +267,7 @@ class VideoUpdater:
     ### Performers, Artists, Stars ###
     def hole_performers_xpath_settings(self, content) -> str:
         stars: str = None 
-        db_settings = Webside_Settings()
+        db_settings = Webside_Settings(MainWindow=self.Main)
 
         errview, xpath_performers, xpath_performers_gross = db_settings.get_movie_settings_for_artist(self.baselink)
         
@@ -282,7 +282,7 @@ class VideoUpdater:
     ### Serie, NebenSide ###
     def hole_serie_xpath_settings(self, content) -> str:
         serie: str = None
-        db_settings = Webside_Settings()
+        db_settings = Webside_Settings(MainWindow=self.Main)
         errview, xpath_serie = db_settings.get_movie_settings_for_nebenside(self.baselink)        
         
         if not errview and xpath_serie:

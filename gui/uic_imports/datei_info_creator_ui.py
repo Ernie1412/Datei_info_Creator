@@ -2177,7 +2177,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuDatei.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.tabs.setCurrentIndex(1)
+        self.tabs.setCurrentIndex(0)
         self.stackedWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -2365,7 +2365,7 @@ class Ui_MainWindow(object):
         self.lnEdit_IAFD_titel.setToolTip(_translate("MainWindow", "Release Datum (Jahr) eingeben !"))
         self.Btn_stacked_next_4.setToolTip(_translate("MainWindow", "nächste ist Datei-Infos holen"))
         self.Btn_stacked_next_4.setText(_translate("MainWindow", " weiter >"))
-        self.tblWdg_Daten.setSortingEnabled(True)
+        self.tblWdg_Daten.setSortingEnabled(False)
         item = self.tblWdg_Daten.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Titel"))
         item = self.tblWdg_Daten.horizontalHeaderItem(1)
@@ -2396,7 +2396,7 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Synopsis"))
         item = self.tblWdg_Daten.horizontalHeaderItem(14)
         item.setText(_translate("MainWindow", "Tags"))
-        self.tblWdg_Files.setSortingEnabled(True)
+        self.tblWdg_Files.setSortingEnabled(False)
         item = self.tblWdg_Files.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Dateiname"))
         item = self.tblWdg_Files.horizontalHeaderItem(1)

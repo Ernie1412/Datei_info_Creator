@@ -68,8 +68,7 @@ class Dlg_Daten_Auswahl(QDialog):
         parent_layout.addWidget(group_box)
         
 
-    def dialog_auswahl(self,button_maske: str, index: int, daten: str) -> None:
-        daten: str = daten.replace("\n", "")        
+    def dialog_auswahl(self,button_maske: str, index: int, daten: str) -> None:                
         if button_maske in ["Movies", "Tags", "Synopsis"]:
             getattr(self.Main, f"txtEdit_DB{button_maske}").setPlainText(daten)
         else:

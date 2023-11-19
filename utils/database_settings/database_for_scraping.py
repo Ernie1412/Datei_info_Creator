@@ -36,13 +36,9 @@ class VideoData:
 
 class DB_WebSide:
    
-    def __init__(self, MainWindow = None):
+    def __init__(self, MainWindow):
         super().__init__() 
-        self.Main = MainWindow 
-        QSqlDatabase.removeDatabase('my_connection') # Vorhandene Verbindung schließen
-        self.db = QSqlDatabase.addDatabase("QSQLITE",'my_connection')
-        self.db.setHostName("localhost")
-        self.db.setDatabaseName(SIDE_DATAS_DB_PATH)   
+        self.Main = MainWindow  
 
     @contextmanager
     def managed_query(self):
@@ -50,98 +46,117 @@ class DB_WebSide:
         try:
             yield query
         finally:
-            del query 
+            query.finish()
+            query.clear() 
 
-    def db_fehler(self,von_welchen_feld: str, db_or_query) -> None:
-        fehler: str = None      
-        if isinstance(db_or_query, str): 
-            fehler=db_or_query
-        else:
-            fehler=db_or_query.lastError().text()        
+    def open_database(self):
+        self.db = QSqlDatabase.addDatabase("QSQLITE",'db_movie_data')
+        self.db.setHostName("localhost")        
+        self.db.setDatabaseName(SIDE_DATAS_DB_PATH)
+        self.db.open()           
+
+    def close_database(self):
+        self.db.close()            
+        connection_name = self.db.connectionName()
+        del self.db 
+        QSqlDatabase.database(connection_name).close()  
+        QSqlDatabase.removeDatabase(connection_name)# Vorhandene Verbindung schließen        
+
+    def db_fehler(self,fehler: str) -> None:
         current_time = QDateTime.currentDateTime().toString('hh:mm:ss')
-        self.Main.lbl_db_status.setStyleSheet("background-color : #FA5882")
-        self.Main.lbl_db_status.setText(f"Zeit: {current_time} --> Fehler: {fehler} - >{von_welchen_feld}<")
+        if fehler.startswith("kein"):
+            self.Main.lbl_db_status.setStyleSheet("background-color : #FFCB8F")
+        else:
+            self.Main.lbl_db_status.setStyleSheet("background-color : #FA5882")
+        self.Main.lbl_db_status.setText(f"{current_time} --> {fehler}")
+    
+    # def webside_db_daten(self,link,studio):
+    # ### Daten anhand des BangBros links aus DB nehmen für Such Maske ### 
+    #     errview: str=None 
 
-
+    #     self.open_database()
+    #    if self.db.isOpen():
+    #         with self.managed_query() as query:            
+    #             query.prepare(f"SELECT Titel,ReleaseDate,Serie,SceneCode,Dauer,Performers FROM {studio} WHERE INSTR(LOWER(WebSideLink), LOWER(:Link)) = 1")
+    #             query.bindValue(":Link",link)
+    #             query.exec()
+    #             if query.next():
+    #                 errview=query.lastError().text()
+    #                 titel=query.value("Titel")
+    #                 if titel==(None or ""): 
+    #                     self.Main.lbl_datenbank_titel.setStyleSheet("background-color : red")                       
+    #                 self.Main.lbl_datenbank_titel.setText(titel)
+    #                 release_date=query.value("ReleaseDate")
+    #                 if release_date==(None or ""): 
+    #                     self.Main.lnEdit_IAFDURL.setStyleSheet("background-color : red")
+    #                 self.Main.lnEdit_IAFDURL.setText(release_date)
+    #                 serie=query.value("Serie")
+    #                 if serie==(None or ""): 
+    #                     self.Main.lbl_SuchNebenSide.setStyleSheet("background-color : red")
+    #                 self.Main.lbl_SuchNebenSide.setText(serie)                
+    #             if errview!="":
+    #                 self.db_fehler("beim Daten holen",query)
+    #     if errview:
+    #         self.db_fehler("beim Daten holen", db or query)
+    #     return errview  
+    
+    ###########################################################################
+    #### ------------ hole Daten aus der Datenbank ----------------------- ####
+    ###########################################################################  
     def hole_link_von_performer(self, performers: str, studio: str) -> str:
         errview = None
         video_data = VideoData()
         
-        self.db.open()
+        self.open_database()
         if self.db.isOpen():
             with self.managed_query() as query:
                 query.prepare(f"SELECT Titel, WebSideLink, IAFDLink, Performers, Alias, Action, ReleaseDate, ProductionDate, Serie, Regie, SceneCode, Dauer, Movies, Synopsis, Tags FROM {studio} WHERE Performers LIKE :Performers;")
                 query.bindValue(":Performers", f"%{performers}%")
                 query.exec()                
-                while query.next():
-                    video_data.initialize(query.record())                    
-                if not video_data.data:
-                    errview = f"Keine Daten für {performers} gefunden"
-        else:
-            self.db_fehler("beim Suchen des Performers", "db")
-
-        self.db.close()
-
+                while query.next():                    
+                    video_data.initialize(query.record()) 
+                    errview = f"'{self.hole_link_von_performer.__name__}': {errview} (query1)" if query.lastError().text() else errview
+                errview = (errview or f"kein {performers} gefunden in {studio}") if not query.lastError().text() and not video_data else query.lastError().text()
+                errview = f"'{self.hole_link_von_performer.__name__}': {errview} (query)" if errview and "kein " not in str(errview) else errview
+            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.hole_link_von_performer.__name__}'" if self.db.lastError().text() else errview          
+            del query
+        if errview:
+            self.db_fehler(errview)
+        self.close_database()
         video_data.save_to_json()        
         return errview
-    
-    def webside_db_daten(self,link,studio):
-    ### Daten anhand des BangBros links aus DB nehmen für Such Maske ### 
-        errview=""        
-        self.db.open()            
-        if self.db.isOpen():
-            with self.managed_query() as query:            
-                query.prepare(f"SELECT Titel,ReleaseDate,Serie,SceneCode,Dauer,Performers FROM {studio} WHERE INSTR(LOWER(WebSideLink), LOWER(:Link)) = 1")
-                query.bindValue(":Link",link)
-                query.exec()
-                if query.next():
-                    titel=query.value("Titel")
-                    if titel=="": 
-                        self.Main.lbl_datenbank_titel.setStyleSheet("background-color : red")                       
-                    self.Main.lbl_datenbank_titel.setText(titel)
-                    release_date=query.value("ReleaseDate")
-                    if titel=="": 
-                        self.Main.lnEdit_IAFDURL.setStyleSheet("background-color : red")
-                    self.Main.lnEdit_IAFDURL.setText(release_date)
-                    serie=query.value("Serie")
-                    if serie=="": 
-                        self.Main.lbl_SuchNebenSide.setStyleSheet("background-color : red")
-                    self.Main.lbl_SuchNebenSide.setText(serie) 
-                errview=query.lastError().text()
-                if errview!="":
-                    self.db_fehler("beim Daten holen",query)
-        else:
-            self.db_fehler("beim Daten holen",self.db)
-        self.db.close()
-        return errview  
-        
+
+
     def hole_link_aus_db(self, link: str, studio: str) -> str:
         errview = None
         video_data = VideoData()
 
-        self.db.open()            
+        self.open_database()
         if self.db.isOpen(): 
             with self.managed_query() as query:
                 query.prepare(f"SELECT * FROM {studio} WHERE INSTR(LOWER(WebSideLink), LOWER(:Link)) = 1;")
                 query.bindValue(":Link", link)
                 query.exec()
-                if query.next():
+                while query.next():                    
                     video_data.initialize(query.record())
-                if not video_data.data:
-                    errview = f"Keine Daten für {link} gefunden"
-        else:
-            self.db_fehler("beim Suchen des Links", self.db)
-
-        self.db.close()
+                    errview = f"'{self.hole_link_aus_db.__name__}': {errview} (query1)" if query.lastError().text() else errview
+                errview = (errview or f"kein {link} gefunden in {studio}") if not query.lastError().text() and not video_data else query.lastError().text()
+                errview = f"'{self.hole_link_aus_db.__name__}': {errview} (query)" if errview and "kein " not in str(errview) else errview
+            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.hole_link_aus_db.__name__}'" if self.db.lastError().text() else errview          
+            del query
+        if errview:
+            self.db_fehler(errview)
+        self.close_database()
 
         video_data.save_to_json()
         return errview
 
     
     def hole_data18link_von_db(self, webside_link: str, studio: str) -> str:        
+        errview = None
         data18_link: str = None
         
-        self.db.open()            
+        self.open_database()
         if self.db.isOpen():
             with self.managed_query() as query:
                 query.prepare(f"SELECT Data18Link FROM {studio} WHERE INSTR(LOWER(WebSideLink), LOWER(:WebSideLink)) = 1")
@@ -149,16 +164,21 @@ class DB_WebSide:
                 query.exec()
                 if query.next():
                     data18_link=query.value("Data18Link")
-                    if query.lastError().text():
-                        self.db_fehler(f"beim {studio} holen",query)         
-        else:
-            self.db_fehler(f"beim Data18Link holen",self.db)
-        self.db.close()
+                    errview = f"kein Data18 Link gefunden bei {webside_link}" if not query.lastError().text() and not data18_link else query.lastError().text()
+                else:
+                    errview = f"'{self.hole_data18link_von_db.__name__}': {errview} (query)" if query.lastError().text() else (errview or f"kein Data18 Link gefunden bei {webside_link}")
+            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.hole_data18link_von_db.__name__}'" if self.db.lastError().text() else errview          
+            del query
+        if errview:
+            self.db_fehler(errview)
+        self.close_database()        
         return data18_link
     
-    def hole_dauer_von_db(self,webside_link,studio):        
-        dauer=""
-        self.db.open()            
+    def hole_dauer_von_db(self,webside_link: str, studio: str) -> str: 
+        errview = None       
+        dauer: str=None
+
+        self.open_database()
         if self.db.isOpen():
             with self.managed_query() as query:
                 query.prepare(f"SELECT Dauer FROM {studio} WHERE INSTR(LOWER(WebSideLink), LOWER(:Link)) = 1")
@@ -166,17 +186,21 @@ class DB_WebSide:
                 query.exec()
                 if query.next():
                     dauer=query.value("Dauer")
-                    if query.lastError().text()!="":
-                        self.db_fehler(f"beim Dauer holen",query)           
-        else:
-            self.db_fehler("beim Dauer holen",self.db)
-        self.db.close()
+                    errview = f"kein Runtime gefunden in {webside_link}" if not query.lastError().text() and not dauer else query.lastError().text()
+                else:
+                    errview = f"'{self.hole_dauer_von_db.__name__}': {errview} (query)" if query.lastError().text() else (errview or f"kein Runtime gefunden in {webside_link}")
+            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.hole_dauer_von_db.__name__}'" if self.db.lastError().text() else errview          
+            del query
+        if errview:
+            self.db_fehler(errview)
+        self.close_database()
         return dauer
         
     def hole_titel_aus_db(self, titel: str,studio: str) -> str:           
         errview: str = None 
-        video_data = VideoData()        
-        self.db.open()            
+        video_data = VideoData() 
+               
+        self.open_database()
         if self.db.isOpen():            
             with self.managed_query() as query:
                 if titel == "*":
@@ -186,37 +210,67 @@ class DB_WebSide:
                 query.exec()                 
                 while query.next():
                     video_data.initialize(query.record())
-                if not video_data.data:
-                    errview = f"Keine Daten für {titel} gefunden"
-        else:
-            self.db_fehler("beim Suchen des Titels", "db")
-
-        self.db.close()
+                    errview = f"'{self.hole_titel_aus_db.__name__}': {errview} (query1)" if query.lastError().text() else errview
+                errview = (errview or f"kein {titel} gefunden in {studio}") if not query.lastError().text() and not video_data else query.lastError().text()
+                errview = f"'{self.hole_titel_aus_db.__name__}': {errview} (query)" if errview and "kein " not in str(errview) else errview
+            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.hole_titel_aus_db.__name__}'" if self.db.lastError().text() else errview          
+            del query
+        if errview:
+            self.db_fehler(errview)
+        self.close_database()
 
         video_data.save_to_json()
         return errview 
 
-    def hole_webside_movies(self,link,studio):
-        errview,movies=("","")     
-        self.db.open()            
+    def hole_webside_movies(self,link: str,studio: str) -> Tuple[str, list]:
+        errview: str=None
+        movies: list=[] 
+
+        self.open_database()
         if self.db.isOpen():
             with self.managed_query() as query:
                 query.prepare(f"SELECT Movies FROM {studio} WHERE INSTR(LOWER(WebSideLink), LOWER(:Link)) = 1;")
                 query.bindValue(":Link", link)
                 query.exec()
                 if query.next():
-                    movies=query.value("Movies") 
-                    if movies!="":
-                        movies=movies.split("\n")               
-                errview=query.lastError().text()
-                if query.lastError().text()!="":
-                        self.db_fehler("beim Movies holen",query) 
-        else:
-            self.db_fehler("beim Movies holen",self.db)
-        self.db.close()
-        return errview,movies 
+                    movies = query.value("Movies").split("\n") if query.value("Movies") else None # Eintrag Movies da, dann in eine Liste                                 
+                    errview = f"kein Movie mit dem {link} gefunden in {studio}" if not query.lastError().text() and not movies else query.lastError().text()
+                else:
+                    errview = f"'{self.hole_webside_movies.__name__}': {errview} (query)" if query.lastError().text() else (errview or f"kein Movie mit dem {link} gefunden in {studio}")
+            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.hole_webside_movies.__name__}'" if self.db.lastError().text() else errview      
+            del query
+        if errview:
+            self.db_fehler(errview)
+        self.close_database()
+        return errview, movies 
     
-    def add_neue_videodaten_in_db(self, studio, webside_link, daten_satz: list):             
+
+    def from_link_to_studio(self, link: str) -> str:
+        errview: str=None
+        studio: str=None
+
+        self.open_database()
+        if self.db.isOpen():            
+            with self.managed_query() as query:                 
+                query.prepare(f'SELECT Studio FROM AliasTable WHERE LOWER(Links) LIKE :WebSideLink;')
+                query.bindValue(":WebSideLink",f"%{link}%")                
+                query.exec()                                                          
+                if query.next():                    
+                    studio = query.value("Studio")
+                    errview = f"'{self.from_link_to_studio.__name__}': {errview} (query1)" if query.lastError().text() else errview
+                else:                    
+                    errview = f"'{self.from_link_to_studio.__name__}': {errview} (query)" if query.lastError().text() else (errview or "kein {link} für Studio gefunden ! (query)")
+            errview = f"Fehler: {self.db.lastError().text()} (db) beim der Funktion:'{self.from_link_to_studio.__name__}'" if self.db.lastError().text() else errview
+            del query
+        if errview:
+            self.db_fehler(errview)
+        self.close_database()         
+        return studio 
+    
+    ###########################################################################
+    #### ------------------------ neue Daten adden ----------------------- ####
+    ###########################################################################
+    def add_neue_videodaten_in_db(self, studio, webside_link, daten_satz: list) -> Tuple[str, str, int]:             
         errview: str = None
         farbe: str = '#F78181'
         isneu: int = 0
@@ -235,7 +289,7 @@ class DB_WebSide:
             "Serie": daten_satz["Serie"],
             "SceneCode": daten_satz["SceneCode"]
                 }
-        self.db.open()            
+        self.open_database()
         if self.db.isOpen():
             with self.managed_query() as query: 
                 query.prepare(f'INSERT INTO "{studio}" (ID, Titel, WebSideLink, Data18Link, IAFDLink, ReleaseDate, Dauer, Performers, \
@@ -246,24 +300,70 @@ class DB_WebSide:
                     field = QSqlField("text")
                     field.setValue(value)
                     query.bindValue(f":{field_name}", driver.formatValue(field, False))
-
                 query.exec()
-                errview = query.lastError().text()
+                errview = f"'{self.add_neue_videodaten_in_db.__name__}': {errview} (query1)" if query.lastError().text() else errview
                 if not errview:                         
                     farbe='#00FF40'
-                    isneu=1          
-
-        else:
-            self.db_fehler(f"Fehler beim Adden von neuen Daten: bei {webside_link}",self.db)
-        self.db.close()
+                    isneu=1                
+            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.add_neue_videodaten_in_db.__name__}'" if self.db.lastError().text() else errview
+            del query
+        if errview:
+            self.db_fehler(errview)
+        self.close_database()
         return errview , farbe, isneu
     
-    def update_videodaten_in_db(self, studio, webside_links, daten_satz: list):
+    ###########################################################################
+    #### -------------- Überprüfung ob es in der Datenbank ist ----------- ####
+    ###########################################################################
+    def is_link_in_db(self, webside_link: str=None, iafdlink: str=None) -> bool:
+        errview: str=None
+        is_vorhanden: bool=False  
+
+        self.open_database()
+        if self.db.isOpen():
+            tables=self.db.tables()                     
+            for table in tables: 
+                if table in ['sqlite_sequence', 'Movies', 'Studios', 'Videos', 'AliasTable']: # Ignore List
+                    continue         
+                with self.managed_query() as query: 
+                    query.prepare(f"SELECT ID FROM {table} WHERE WebSideLink LIKE ? OR IAFDLink=?")
+                    query.bindValue(0, f"{webside_link}%")
+                    query.bindValue(1, iafdlink)                
+                    query.exec()        
+                    if query.next():
+                        errview = f"'{self.is_link_in_db.__name__}': {errview} (query1)" if query.lastError().text() else None
+                        is_vorhanden = True
+                    errview = f"'{self.is_link_in_db.__name__}': {errview} (query)" if query.lastError().text() else errview 
+            errview = f"Fehler: {self.db.lastError().text()} (db) beim der Funktion:'{self.is_link_in_db.__name__}'" if self.db.lastError().text() else errview
+            del query
+        if errview:
+            self.db_fehler(errview)
+        self.close_database()               
+        return is_vorhanden
+
+    def is_studio_in_db(self, studio: str) -> bool:        
+        errview: str=None
+        is_vorhanden: bool = False
+
+        self.open_database()
+        if self.db.isOpen():
+            tables=self.db.tables()        
+            if studio in tables:
+                is_vorhanden = True 
+            errview = f"Fehler: {self.db.lastError().text()} (db) beim der Funktion:'{self.is_studio_in_db.__name__}'" if self.db.lastError().text() else errview
+        if errview:
+            self.db_fehler(errview)
+        self.close_database()       
+        return is_vorhanden   
+    ###########################################################################
+    #### ------------------------ update Daten in die Datenbank----------- ####
+    ###########################################################################
+    def update_videodaten_in_db(self, studio: str, webside_links: str, daten_satz: list) -> Tuple[str, int]:
         errview: str = None        
         anzahl_aktualisiert: int = 0
         webside_link = webside_links.split("\n")[0]
 
-        self.db.open()            
+        self.open_database()
         if self.db.isOpen():            
             with self.managed_query() as query:                 
                 query.prepare(f'SELECT ID FROM {studio} WHERE (LOWER(IAFDLink) IS NOT NULL AND LOWER(IAFDLink) = LOWER(:IAFDLink)) OR (LOWER(Data18Link) IS NOT NULL AND LOWER(Data18Link) = LOWER(:Data18Link)) OR (INSTR(LOWER(WebSideLink), LOWER(:WebSideLink)) = 1) OR (LOWER(Titel) = LOWER(:Titel));')
@@ -296,71 +396,18 @@ class DB_WebSide:
                         query.bindValue(":Tags",daten_satz["Tags"])    
                         query.bindValue(":WebSideLink",webside_links)
                         query.bindValue(":Data18Link",daten_satz["Data18Link"])
-                        query.exec()
-                        errview = query.lastError().text()
+                        query.exec()                        
                         anzahl_aktualisiert = query.numRowsAffected()
-                        if errview:
-                            self.db_fehler(f"beim updaten von Datensatz: {webside_link}",query)
-                else:                    
-                    errview = "Link nicht gefunden !"
-        else:
-            self.db_fehler(f"beim updaten von Datensatz: {webside_link}",self.db)
-        self.db.close()
-        return errview, anzahl_aktualisiert  
-
-    def is_link_in_db(self,webside_link=None,iafdlink=None):        
-        self.db.open()               
-        if self.db.isOpen():
-            tables=self.db.tables()                     
-            for table in tables: 
-                if table in ['sqlite_sequence', 'Movies', 'Studios', 'Videos', 'AliasTable']:
-                    continue                   
-                with self.managed_query() as query: 
-                    query.prepare(f"SELECT * FROM {table} WHERE LOWER(WebSideLink) LIKE :Link OR IAFDLink=:IAFDLink")
-                    query.bindValue(":Link", f"%{webside_link}%")
-                    query.bindValue(":IAFDLink", iafdlink)                
-                    query.exec()                    
-                    if query.lastError().text():
-                        self.db_fehler("beim Linküberprüfung",query)                           
-                    if query.next():
-                        self.db.close()                                                   
-                        return True, webside_link            
-        else:
-            self.db_fehler("beim Linküberprüfung (is Link in DB)",self.db)
-        self.db.close()        
-        return False, webside_link
-
-    def is_studio_in_db(self, studio: str) -> bool:        
-        isin: bool = False
-
-        self.db.open()
-        if self.db.isOpen():
-            tables=self.db.tables()        
-            if studio in tables:
-                isin = True 
-        else:
-            self.db_fehler("beim Linküberprüfung (Studio)",self.db)
-        self.db.close()        
-        return isin  
+                        errview = f"'{self.update_videodaten_in_db.__name__}': {errview} (query1)" if query.lastError().text() else errview
+                else:
+                    errview = f"'{self.update_videodaten_in_db.__name__}': {errview} (query)" if query.lastError().text() else (errview or "Link nicht gefunden in dem {studio} ! (query)")
+            errview = f"Fehler: {self.db.lastError().text()} (db) beim der Funktion:'{self.update_videodaten_in_db.__name__}'" if self.db.lastError().text() else errview
+            del query
+        if errview:
+            self.db_fehler(errview)
+        self.close_database()
+        return errview, anzahl_aktualisiert     
     
-    def from_link_to_studio(self, link: str) -> str:
-        studio: str = None
-
-        self.db.open()            
-        if self.db.isOpen():            
-            with self.managed_query() as query:                 
-                query.prepare(f'SELECT Studio FROM AliasTable WHERE LOWER(Links) LIKE :WebSideLink;')
-                query.bindValue(":WebSideLink",f"%{link}%")                
-                query.exec()
-                if query.lastError().text():
-                    self.db_fehler("von link zum Studio Überprüfung (query)",query)                                           
-                if query.next():
-                    studio = query.value("Studio")
-        else:
-            self.db_fehler("von Link zum Studio Überprüfung (db)",self.db)
-        self.db.close()        
-        return studio    
-
     
 if __name__ == "__main__":
     DB_WebSide()  

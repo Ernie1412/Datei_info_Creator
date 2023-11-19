@@ -16,12 +16,13 @@ from typing import List, Tuple
 import gui.resource_collection_files.logo_rc
 import gui.resource_collection_files.buttons_rc
 
-from utils.database_settings import DB_Darsteller, Webside_Settings, DB_WebSide, VideoData, Dlg_Daten_Auswahl
+from utils.database_settings import DB_Darsteller, Webside_Settings, DB_WebSide, VideoData
 from utils.web_scapings.websides import Infos_WebSides
 from utils.web_scapings.spider_crawl import SpiderLoader
 from utils.threads import FileTransferThread, ExifSaveThread
 from gui.dialoge_ui.message_show import StatusBar, MsgBox, status_fehler_ausgabe
 from gui.dialoge_ui.einstellungen import Einstellungen
+from gui.dialoge_ui.dialog_daten_auswahl import Dlg_Daten_Auswahl
 from gui.context_menu import ContextMenu
 from gui.show_performer_images import ShowPerformerImages
 
@@ -56,7 +57,7 @@ class Haupt_Fenster(QMainWindow):
     ###-------------------------auf Klicks reagieren--------------------------------------###        
         self.Btn_Laden.clicked.connect(self.Infos_ExifToolHolen)
         self.Btn_Speichern.clicked.connect(self.Infos_Speichern)
-        self.Btn_Refresh.clicked.connect(ContextMenu(self).table_refresh)
+        self.Btn_Refresh.clicked.connect(self.refresh_table)
         self.Btn_Loeschen.clicked.connect(self.tabs_clearing)  
         self.Btn_VideoDatenHolen.clicked.connect(self.videodaten_holen)        
         self.Btn_Rechts.clicked.connect(self.AddRechts)
@@ -120,7 +121,7 @@ class Haupt_Fenster(QMainWindow):
         self.tabs.currentChanged.connect(self.tab_changed_handler)
         self.lnEdit_DBIAFDLink.textChanged.connect(self.Web_IAFD_change)
         self.lnEdit_DBData18Link.textChanged.connect(self.Web_Data18_change)       
-        self.lnEdit_URL.textChanged.connect(self.button_on_if_isin_db)
+        self.lnEdit_URL.textChanged.connect(self.link_isin_from_db)
         self.lnEdit_db_titel.textChanged.connect(self.titelsuche_in_DB_aktiv)
         self.lnEdit_db_performer.textChanged.connect(self.performersuche_in_DB_aktiv)
         self.cBox_studio_links.currentIndexChanged.connect(lambda index :self.Btn_start_spider.setEnabled(bool(self.cBox_studio_links.currentText()))) 
@@ -163,6 +164,22 @@ class Haupt_Fenster(QMainWindow):
             context_menu = ContextMenu(self)
             context_menu.showContextMenu(current_widget.mapToGlobal(pos), widget_name)
     
+    def refresh_table(self): 
+        sort = self.tblWdg_Files.isSortingEnabled()
+        gesuchter_text = self.tblWdg_Files.selectedItems()[0].text()              
+        self.tblWdg_Files.hide()
+        self.Info_Datei_Laden(refresh=True)
+        QTimer.singleShot(300, lambda :self.tblWdg_Files.show())
+        self.tblWdg_Files.setSortingEnabled(sort)
+        for row in range(self.tblWdg_Files.rowCount()):
+            item = self.tblWdg_Files.item(row, 0)  # Hier 0 für die erste Spalte, ändere es entsprechend
+            if item and item.text() == gesuchter_text:
+                item.setSelected(True)
+                # Du hast die gewünschte Zeile gefunden (row)
+                break
+
+        
+        
 
     def titelsuche_in_DB_aktiv(self):
         if self.Btn_logo_am_db_tab.toolTip() != "kein Studio ausgewählt !":            
@@ -260,7 +277,7 @@ class Haupt_Fenster(QMainWindow):
         if self.Auswahl.rdBtn_TargetDatei.isChecked():            
             Path(self.lbl_Ordner.text(), move_file).unlink()             
             self.Auswahl.hide() 
-            ContextMenu(self).table_refresh()                        
+            self.refresh_table()                     
             StatusBar(self, f"Datei {move_file} wird in {verschiebe_ordner} bevorzugt, andere Datei wurde gelöscht !","#efffb7")#hellgelb) 
         else:                        
             self.transfer_source(move_file,verschiebe_ordner) 
@@ -375,7 +392,7 @@ class Haupt_Fenster(QMainWindow):
 
         if self.is_studio_in_database(studio):
             db_webside = DB_WebSide(MainWindow=self)
-            errorview: str = db_webside.hole_link_aus_db(link, studio)
+            errorview = db_webside.hole_link_aus_db(link, studio)
             if errorview:
                 MsgBox(self, errorview,"w") 
             else:                
@@ -443,7 +460,7 @@ class Haupt_Fenster(QMainWindow):
             self.lnEdit_db_titel.setText(titel_db) 
         if self.is_studio_in_database(studio):
             self.lnEdit_db_titel.setText(self.lnEdit_analyse_titel.text())
-            db_webside = DB_WebSide()
+            db_webside = DB_WebSide(MainWindow=self)
             errorview = db_webside.hole_titel_aus_db(titel_db, studio)
             if errorview:
                 MsgBox(self, errorview,"w") 
@@ -456,19 +473,20 @@ class Haupt_Fenster(QMainWindow):
     ### ---- von Datienamen zum Titel in der DB splitten, Titel, Namen Link usw. --- ###
     ### ---------------------------------------------------------------------------- ###
     def filename_analyse(self, file_name: str) -> Tuple [str, str, str]: 
-        file_name: str=re.sub(r"(\s)|(-)"," ",str(file_name).replace(".mp4",""))
+        studio: str=None
+        file_name = re.sub(r"(\s)|(-)"," ",str(file_name).replace(".mp4",""))
         file_name_parts: list = file_name.split(" ")
+
         db_webside_settings = Webside_Settings(MainWindow=self)
-        artistname: str=db_webside_settings.is_studio_in_db(file_name_parts[0])
-        studio: str=artistname if artistname!=None else ""
-        file_name = file_name.replace(studio,"").strip()
+        if db_webside_settings.is_studio_in_db(file_name_parts[0]):
+            studio = file_name_parts[0]
+            file_name = file_name.replace(studio,"").strip()
         file_name_parts=file_name.split(" ")
         file_name_parts = list(filter(lambda x: x != "", file_name_parts)) 
-        name_all: list = [] 
-
+        name_all: list = []
         for file_name_part in file_name_parts:
-            db_darsteller = DB_Darsteller(self)
-            artist_name = db_darsteller.suche_nach_artistname(file_name_part) 
+            database_darsteller = DB_Darsteller(MainWindow=self)
+            artist_name = database_darsteller.suche_nach_artistname(file_name_part) 
             if any(file_name_part in name for name in artist_name):
                 file_name=file_name.replace(file_name_part,"").strip()
                 name_all.extend(artist_name) 
@@ -476,24 +494,16 @@ class Haupt_Fenster(QMainWindow):
         return(studio, file_name, name_all)
     
     ### ------------------------------------------------------------------------------------ ###
-    ### ---- vom Basislink incl IAFD Link, gucken ob es da schon eine Datenbank für gibt --- ###
+    ### ---- vom Basislink incl IAFD Link, gucken ob es da schon einn Eintrag für gibt ----- ###
     ### ------------------------------------------------------------------------------------ ###
-    def link_isin_from_db(self, link: str) -> Tuple [bool, str]:                    
+    def link_isin_from_db(self): 
+        link= self.lnEdit_URL.text()                 
         base_url: str = "/".join(link.split("/")[:3])
-        link = link if link.startswith("https://www.iafd.com/") else None
-        db_websides = DB_WebSide(MainWindow=self)               
-        return db_websides.is_link_in_db(base_url, link) # True/False, base_url      
+        iafdlink = link if link.startswith("https://www.iafd.com/") else None
+        db_websides = DB_WebSide(MainWindow=self)
+        link_in_db = db_websides.is_link_in_db(base_url, iafdlink) # schaut ob weblink oder iafdlink da is 
+        self.Btn_addDatei.setEnabled(link_in_db)            
 
-
-    def button_on_if_isin_db(self):        
-        if self.link_isin_from_db(self.lnEdit_URL.text())[0]:    
-            self.Btn_addDatei.setEnabled(True) 
-        else:
-            self.Btn_addDatei.setEnabled(False)        
-            
-    def db_daten_button_enabled(self,bolean: bool) -> None:                       
-        
-        self.Btn_addDatei.setEnabled(bolean)
 
     def link_maker(self):
         if self.lnEdit_IAFD_titel.text()!="" and self.lnEdit_db_jahr.text()!="":            
@@ -530,7 +540,7 @@ class Haupt_Fenster(QMainWindow):
         self.stackedWidget.setCurrentIndex(1) 
         studio = self.lnEdit_Studio.text()      
 
-        db_webside_settings = Webside_Settings(self) 
+        db_webside_settings = Webside_Settings(MainWindow=self) 
         errorview, links = db_webside_settings.from_studio_to_all_baselinks(studio) 
         if errorview:
             StatusBar(self, f"Error: {errorview}","#F78181")
@@ -544,7 +554,7 @@ class Haupt_Fenster(QMainWindow):
 
     def start_spider(self):       
         baselink = self.cBox_studio_links.currentText()
-        db_webside_settings = Webside_Settings(self)      
+        db_webside_settings = Webside_Settings(MainWindow=self)      
         errorview, spider_class_name = db_webside_settings.from_link_to_spider(baselink)
         if errorview:
             StatusBar(self, f"Error: {errorview}","#F78181")
@@ -563,7 +573,7 @@ class Haupt_Fenster(QMainWindow):
         zeile=self.tblWdg_Files.currentRow()-1
         if zeile>=0:
             self.tblWdg_Files.setCurrentCell(zeile, 0)
-            self.Info_Datei_Laden(True)
+            self.refresh_table()
         else:
             self.tblWdg_Files.clearContents()
         self.DIA_Loeschen.hide()
@@ -621,7 +631,6 @@ class Haupt_Fenster(QMainWindow):
         if not refresh:
             einstellungen_ui = Einstellungen(self)
             directory = einstellungen_ui.Info_Datei()
-
         if directory and directory.exists() and directory.is_dir():
             self.tblWdg_Files.raise_()
             self.tblWdg_Files.clearContents()
@@ -728,9 +737,9 @@ class Haupt_Fenster(QMainWindow):
                 if not errorview:
                     self.make_simlink(movies,verschiebe_ordner,move_file)         
             else:
-                MsgBox(self, error,"w")                   
+                MsgBox(self, error,"w")  
+        self.tblWdg_Files.update() 
 
-        ContextMenu(self).table_refresh() 
     
     def windows_file_filter(self, file_name):
         # Definieren Sie einen regulären Ausdruck, um ungültige Zeichen zu finden
@@ -854,15 +863,23 @@ class Haupt_Fenster(QMainWindow):
     
     def addPerformer_wenn_da(self)-> bool:
         isda: int=0
-        database_darsteller = DB_Darsteller(self)
-
+        database_darsteller = DB_Darsteller(MainWindow=self)
+        name_data={"Name":None,
+                "Geschlecht": 0,
+                "Nation":None,
+                "ArtistLink":None,
+                "ImagePfad":None   }
         for item in range(self.lstWdg_Darstellerin.count()):
-            name=self.lstWdg_Darstellerin.item(item).text()                         
-            artist_neu,sex_neu,link_neu=database_darsteller.addDarsteller_in_db(name,1,self.lnEdit_Studio.text())
+            name=self.lstWdg_Darstellerin.item(item).text() 
+            name_data["Name"]=name
+            name_data["Geschlecht"]=1                                               
+            artist_neu,sex_neu,link_neu=database_darsteller.addDarsteller_in_db(name_data, self.lnEdit_Studio.text())
             isda+=artist_neu                 
         for item in range(self.lstWdg_Darsteller.count()):
-            name=self.lstWdg_Darsteller.item(item).text()                         
-            artist_neu,sex_neu,link_neu=database_darsteller.addDarsteller_in_db(name,2,self.lnEdit_Studio.text())
+            name=self.lstWdg_Darsteller.item(item).text() 
+            name_data["Name"]=name
+            name_data["Geschlecht"]=2                        
+            artist_neu,sex_neu,link_neu=database_darsteller.addDarsteller_in_db(name_data, self.lnEdit_Studio.text())
             isda+=artist_neu
         return isda
 
@@ -1064,7 +1081,7 @@ class Haupt_Fenster(QMainWindow):
             return str(os_err)
         else:
             self.lbl_Dateiname.setText(new_file)
-            ContextMenu(self).table_refresh()
+            self.tblWdg_Files.update()
             
         return err
 
@@ -1271,10 +1288,10 @@ class Haupt_Fenster(QMainWindow):
             widget_variable_m.clear()            
             custom_widget = QWidget()            
             custom_widget.setAutoFillBackground(True)
-            db_darsteller = DB_Darsteller(self)
+            database_darsteller = DB_Darsteller(MainWindow=self)
             for performer in performers:
                 item = QListWidgetItem(performer)                
-                is_vorhanden, geschlecht = db_darsteller.isdaDarsteller(performer)                
+                is_vorhanden, geschlecht = database_darsteller.isdaDarsteller(performer)                
                 if is_vorhanden and geschlecht > 1:
                     item.setBackground(QBrush(QColor("#e9ff1d")))
                     widget_variable_m.addItem(item)

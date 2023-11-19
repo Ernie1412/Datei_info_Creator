@@ -5,7 +5,7 @@ import sys
 import json
 from pathlib import Path
 
-from gui.dialoge_ui import MsgBox, StatusBar
+from gui.dialoge_ui.message_show import MsgBox, StatusBar
 
 from config import EINSTELLUNGEN_JSON_PATH, JSON_PATH
 from config import EINSTELLUNG_UI

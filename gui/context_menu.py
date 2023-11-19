@@ -42,7 +42,7 @@ class ContextMenu(QMenu):
         menu_dict: dict = {
             "Datei löschen": self.file_delete,
             "Datei umbenennen": self.file_rename_from_table,
-            "Tabelle aktualisieren": self.table_refresh,
+            "Tabelle aktualisieren": self.Main.refresh_table,
             "abspielen mit VLC": self.play_vlc,
             "Datei in dem richtigen Ordner verschieben": self.file_move_in_db_folder   }
         self.show_context_menu(pos, action_header, menu_dict) 
@@ -156,12 +156,8 @@ class ContextMenu(QMenu):
         self.DIA_Rename.Btn_OK_Abbruch.accepted.connect(self.Main.Datei_Rename)
         self.DIA_Rename.Btn_OK_Abbruch.rejected.connect(self.DIA_Rename.rejected)
         self.DIA_Rename.exec()
-        self.table_refresh()
-
-    ### ------------------------------- Tabelle erneuern im ContextMenu ------------------------------ ###
-    def table_refresh(self):        
-        self.Main.Info_Datei_Laden(True)              
         self.Main.tblWdg_Files.update()
+  
     
     ### ----------------------------------- VLC starten im ContextMenu ------------------------------- ### 
     def play_vlc(self):
@@ -199,7 +195,7 @@ class ContextMenu(QMenu):
                 file_media_info = json.loads(file.read())[0]
             movies: str=file_media_info.get("Genre","").strip().split("\n")
             studio: str=file_media_info.get("Publisher","")                
-        db_webside_settings = Webside_Settings() 
+        db_webside_settings = Webside_Settings(MainWindow=self.Main) 
         errorview, verschiebe_ordner = db_webside_settings.hole_verschiebe_ordner(studio)
 
         # Überprüfen Sie, ob ein Fehler aufgetreten ist
@@ -233,7 +229,7 @@ class ContextMenu(QMenu):
     ### scrape einzeln die daten aus Data18, IAFD und URL's ###
     ### --------------------------------------------------- ### 
     def scrap_synopsis(self, link: str) -> None: 
-        websides = Infos_WebSides(self.Main)       
+        websides = Infos_WebSides(MainWindow=self.Main)       
         if link.startswith("https://www.iafd.com/title.rme/"):
             websides.check_loading_labelshow("IAFD") 
             content = websides.open_url(link, "IAFD") 
@@ -248,7 +244,7 @@ class ContextMenu(QMenu):
             websides.check_loading_labelshow("")
             synopsis: str = None            
             video_updater = VideoUpdater(self)        
-            db_website_settings = Webside_Settings()
+            db_website_settings = Webside_Settings(MainWindow=self.Main)
             settings_data = SettingsData()
 
             baselink="/".join(link.split("/")[:3])+"/"
@@ -265,13 +261,13 @@ class ContextMenu(QMenu):
 
     def scrap_movies(self, link: str) -> None:        
         if link.startswith("https://www.iafd.com/title.rme/"):        
-            websides = Infos_WebSides(self.Main) 
+            websides = Infos_WebSides(MainWindow=self.Main) 
             websides.check_loading_labelshow("IAFD")       
             content = websides.open_url(link, "IAFD") 
             websides.akas_abfrage_iafd(content, link) 
             websides.check_loaded_labelshow("IAFD")
         if link.startswith("https://www.data18.com/scenes/"):
-            websides = Infos_WebSides(self.Main)    
+            websides = Infos_WebSides(MainWindow=self.Main)    
             websides.check_loading_labelshow("Data18")    
             content = websides.open_url(link, "Data18") 
             websides.movies_abfrage_data18(content, link)
@@ -279,13 +275,13 @@ class ContextMenu(QMenu):
 
     def scrap_release(self, link: str) -> None:        
         if link.startswith("https://www.iafd.com/title.rme/"):        
-            websides = Infos_WebSides(self.Main) 
+            websides = Infos_WebSides(MainWindow=self.Main) 
             websides.check_loading_labelshow("IAFD")       
             content = websides.open_url(link, "IAFD") 
             websides.release_abfrage_iafd(content, link)
             websides.check_loaded_labelshow("IAFD") 
         if link.startswith("https://www.data18.com/scenes/"):
-            websides = Infos_WebSides(self.Main)  
+            websides = Infos_WebSides(MainWindow=self.Main)  
             websides.check_loading_labelshow("Data18")     
             content = websides.open_url(link, "Data18") 
             websides.release_abfrage_data18(content, link)
@@ -293,13 +289,13 @@ class ContextMenu(QMenu):
 
     def scrap_serie(self, link: str) -> None:        
         if link.startswith("https://www.iafd.com/title.rme/"):        
-            websides = Infos_WebSides(self.Main) 
+            websides = Infos_WebSides(MainWindow=self.Main) 
             websides.check_loading_labelshow("IAFD")       
             content = websides.open_url(link, "IAFD") 
             websides.serie_abfrage_iafd(content, link) 
             websides.check_loaded_labelshow("IAFD")
         if link.startswith("https://www.data18.com/scenes/"):
-            websides = Infos_WebSides(self.Main)   
+            websides = Infos_WebSides(MainWindow=self.Main)   
             websides.check_loading_labelshow("Data18")     
             content = websides.open_url(link, "Data18") 
             websides.serie_abfrage_data18(content, link)
@@ -307,7 +303,7 @@ class ContextMenu(QMenu):
 
     def scrap_regie(self, link: str) -> None:        
         if link.startswith("https://www.iafd.com/title.rme/"):        
-            websides = Infos_WebSides(self.Main) 
+            websides = Infos_WebSides(MainWindow=self.Main) 
             websides.check_loading_labelshow("IAFD")       
             content = websides.open_url(link, "IAFD") 
             websides.regie_abfrage_iafd(content, link) 
@@ -315,12 +311,12 @@ class ContextMenu(QMenu):
 
         
     def scrap_tags(self, link: str) -> None: 
-        websides = Infos_WebSides(self.Main) 
+        websides = Infos_WebSides(MainWindow=self.Main) 
         websides.check_loading_labelshow("")      
         tags: str = None
         baselink = "/".join(link.split("/")[:3])+"/"        
         video_updater = VideoUpdater(baselink, self)        
-        db_website_settings = Webside_Settings()
+        db_website_settings = Webside_Settings(MainWindow=self.Main)
         settings_data = SettingsData()
         
         errorview, settings_data = db_website_settings.get_videodatas_from_baselink(baselink)
