@@ -27,7 +27,7 @@
       <x>940</x>
       <y>90</y>
       <width>931</width>
-      <height>863</height>
+      <height>851</height>
      </rect>
     </property>
     <property name="focusPolicy">
@@ -4252,8 +4252,8 @@ QPushButton:hover{
    <widget class="QLabel" name="lbl_db_status">
     <property name="geometry">
      <rect>
-      <x>950</x>
-      <y>957</y>
+      <x>940</x>
+      <y>940</y>
       <width>901</width>
       <height>20</height>
      </rect>

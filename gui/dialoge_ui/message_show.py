@@ -2,6 +2,7 @@ from PyQt6.QtWidgets import QStatusBar, QMessageBox
 from PyQt6.QtCore import QDateTime, QTimer
 
 from pathlib import Path
+from config import PROJECT_PATH
 
 
 def StatusBar(self,text,farbe):
@@ -25,21 +26,21 @@ def MsgBox(self, msg_text: str, art: str) -> QMessageBox:
         mBox.setIcon(QMessageBox.Icon.Warning)
         mBox.setText("Fehler !") 
         mBox.setInformativeText(f"""<font color='black'><style><background-color='yellow'><h1 text-align: center></style>
-            <img src='{str(Path(__file__).absolute().parent)}/grafics/Error.jpg' alt='Fehler'></img><p><font-size: 20px><b>{msg_text}</p></h1>""") 
-        mBox.setWindowTitle("Fehler")     
+            <img src='{PROJECT_PATH}/grafics/error_.jpg' alt='Fehler'></img><p><font-size: 20px><b>{msg_text}</p></h1>""") 
+        mBox.setWindowTitle("Fehler") 
+        mBox.exec()
     elif art=='q':
         mBox.setIcon(QMessageBox.Icon.Question)
         mBox.setText("Fataler Fehler")
         mBox.setInformativeText(f"""<p><font-size: 20px><b>{msg_text}</p>""") 
         mBox.setWindowTitle("Was Soll ich machen ?")
-        mBox.setStandardButtons(QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
-        
+        mBox.setStandardButtons(QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)        
         reply = mBox.exec() 
     else: 
         mBox.setIcon(QMessageBox.Icon.Information)
         mBox.setText("Info !")
         mBox.setInformativeText(f"""<font color='black'><style><background-color='green'><h1 text-align: center></style>                
-            <img src='{str(Path(__file__).absolute().parent)}/grafics/Info.jpg' alt='Info'></img><p><font-size: 20px><b>{msg_text}</p></h1>""")
+            <img src='{PROJECT_PATH}/grafics/Info.jpg' alt='Info'></img><p><font-size: 20px><b>{msg_text}</p></h1>""")
         mBox.setWindowTitle("Info")            
-        
+        mBox.exec()
     return reply

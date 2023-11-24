@@ -3,34 +3,28 @@ from PyQt6.QtCore import QTimer, QCoreApplication
 from PyQt6.QtGui import QStandardItem
 from PyQt6.QtWidgets import QTableWidgetItem, QApplication, QTableWidgetSelectionRange, QMessageBox
 ### internet Kram ###
-from selenium import webdriver
-from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.chrome.webdriver import WebDriver
-from selenium.common.exceptions import NoSuchElementException,TimeoutException,InvalidSelectorException,SessionNotCreatedException, WebDriverException
 
 from playwright.sync_api import sync_playwright, TimeoutError
 
 import requests
 from lxml import html
-### ---------------- ###
+
 import pyperclip
 import re
-import copy
 import pandas as pd
 from datetime import datetime
-from typing import Union, Optional, List, Tuple
+from typing import Tuple
 
 # import eigene Moduls
-from utils.database_settings import Webside_Settings, DB_WebSide
+from utils.database_settings.database_for_scrapings import ScrapingData
+from utils.database_settings.database_for_settings import Webside_Settings
 from utils.web_scapings.scrap_with_requests import VideoUpdater
 from utils.umwandeln import time_format_00_00_00, datum_umwandeln, from_classname_to_import
-from gui.dialoge_ui import StatusBar, MsgBox
+from gui.dialoge_ui.message_show import MsgBox
 
 
-from config import HEADERS, selenium_browser_check
+from config import HEADERS
 
 class Infos_WebSides():
 
@@ -223,11 +217,12 @@ class Infos_WebSides():
         baselink = "/".join(url.split("/")[:3])+"/"
 
         db_webside_settings = Webside_Settings(MainWindow=self.Main)      
-        errorview, spider_class_name = db_webside_settings.from_link_to_spider(baselink)        
+        errorview, spider_class_name = db_webside_settings.from_link_to_spider(baselink)
+        _, studio = spider_class_name.replace("Spider","").rsplit(".",1)       
         if not errorview:
-            spider_class_pipeline = from_classname_to_import(spider_class_name, pipeline="Pipeline") ## import der Klasse "Pipeline"
+            spider_class_pipeline = from_classname_to_import(spider_class_name, pipeline=f"{studio}Settings") ## import der Klasse "BangBrosAddDistri"
             if spider_class_pipeline: 
-                # Rufe die Funktion auf
+                # Rufe die Funktion auf                
                 instance = spider_class_pipeline()
                 links = instance.add_link(url)
         return links
@@ -564,7 +559,7 @@ class Infos_WebSides():
             self.Main.tblWdg_Performers.setItem(zeile,1,QTableWidgetItem(alias))
             self.Main.tblWdg_Performers.setItem(zeile,2,QTableWidgetItem(action.strip()))  
         ### ----------- Data Link in Maske packen ------------ ###
-        db_websides=DB_WebSide(MainWindow=self.Main) 
+        db_websides=ScrapingData(MainWindow=self.Main) 
         data18_link=db_websides.hole_data18link_von_db(hostname,self.Main.Btn_logo_am_db_tab.toolTip())         
         if data18_link:
             self.Main.lnEdit_DBData18Link.textChanged.disconnect()  # deaktiven 
@@ -644,7 +639,7 @@ class Infos_WebSides():
         tag: str="" 
         response = requests.get(studio, headers=HEADERS)
         
-        db_webside = DB_WebSide(MainWindow=self.Main)
+        db_webside = ScrapingData(MainWindow=self.Main)
         synopsis, tags = db_webside.hole_movie_infos_from_artist_Tags(studio)
         synopsis_text_element = html.fromstring(response.content).xpath("//div[@class='sc-xz1bz0-0 lgrCSo']/p/text()")
         tags_text_element = html.fromstring(response.content).xpath("//div[@class='sc-xz1bz0-0 lgrCSo']//a/text()")        
@@ -744,7 +739,7 @@ class Infos_WebSides():
     def update_db_and_ui(self, studio: str, WebSideLink: str) -> None:
         performers, alias, actions = self.get_performers_from_ui()
         video_data = self.get_videodata_from_ui(performers, alias, actions)
-        db_webside = DB_WebSide(MainWindow=self.Main)
+        db_webside = ScrapingData(MainWindow=self.Main)
         if not studio: 
             self.show_error_message("Kein Studio angegeben !") 
             self.clean_label()           
@@ -763,8 +758,8 @@ class Infos_WebSides():
             if neu:
                 self.show_success_message(f"{neu} Datensatz wurde in {studio} gespeichert (update)!",f"{neu} Datensatz aktualisiert")                
 
-                db_webside = DB_WebSide(MainWindow=self.Main)
-                errorview = db_webside.hole_link_aus_db(WebSideLink, studio)
+                scraping_data = ScrapingData(MainWindow=self.Main)
+                errorview = scraping_data.hole_link_aus_db(WebSideLink, studio)
                 if not errorview:
                     self.Main.tabelle_erstellen()
                 else:

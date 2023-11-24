@@ -12,14 +12,15 @@ import pyperclip
 import win32com.client
 from pathlib import Path
 from typing import List, Tuple
+from scrapy.settings import Settings
 
 import gui.resource_collection_files.logo_rc
 import gui.resource_collection_files.buttons_rc
 
-from utils.database_settings import DB_Darsteller, Webside_Settings, DB_WebSide, VideoData
+from utils.database_settings import DB_Darsteller, Webside_Settings, ScrapingData, VideoData
 from utils.web_scapings.websides import Infos_WebSides
-from utils.web_scapings.spider_crawl import SpiderLoader
 from utils.threads import FileTransferThread, ExifSaveThread
+from utils.umwandeln import from_classname_to_import, count_days
 from gui.dialoge_ui.message_show import StatusBar, MsgBox, status_fehler_ausgabe
 from gui.dialoge_ui.einstellungen import Einstellungen
 from gui.dialoge_ui.dialog_daten_auswahl import Dlg_Daten_Auswahl
@@ -28,7 +29,7 @@ from gui.show_performer_images import ShowPerformerImages
 
 from config import EXIFTOOLPFAD
 from config import BUTTONSNAMES_JSON_PATH, PROCESS_JSON_PATH, MEDIA_JSON_PATH, DATENBANK_JSON_PATH
-from config import SPIDER_MONITOR_UI, MAIN_UI, BUTTONS_WEBSIDES_UI, TRANSFER_UI
+from config import MAIN_UI, BUTTONS_WEBSIDES_UI, TRANSFER_UI
           
 ### -------------------------------------------------------------------- ###
 ### --------------------- HauptFenster --------------------------------- ###
@@ -104,7 +105,7 @@ class Haupt_Fenster(QMainWindow):
         self.Btn_DateiLaden.clicked.connect(self.Info_Datei_Laden)
         self.Btn_get_last_side.clicked.connect(self.gui_last_side) 
         self.Btn_start_spider.clicked.connect(self.start_spider)  
-        self.Btn_RadioBtn_rename.clicked.connect(self.file_rename_from_Infos) 
+        self.Btn_RadioBtn_rename.clicked.connect(self.file_rename_from_infos) 
         self.Btn_Titelsuche_in_DB.clicked.connect(self.titel_suche)
         self.Btn_perfomsuche_in_DB.clicked.connect(self.performer_suche)          
         self.rdBtn_rename.clicked.connect(self.radioBtn_file_rename)         
@@ -148,8 +149,8 @@ class Haupt_Fenster(QMainWindow):
                 self.set_studio_in_db_tab(links)
 
     def set_studio_in_db_tab(self, links):
-        db_webside = DB_WebSide(MainWindow=self)
-        studio_name = db_webside.from_link_to_studio(links.split("/")[2])
+        scraping_data = ScrapingData(MainWindow=self)
+        studio_name = scraping_data.from_link_to_studio(links.split("/")[2])
         db_webside_settings = Webside_Settings(MainWindow=self)
         errorview, studio, logo = db_webside_settings.get_buttonlogo_from_studio(studio_name)  
         if errorview:
@@ -164,9 +165,9 @@ class Haupt_Fenster(QMainWindow):
             context_menu = ContextMenu(self)
             context_menu.showContextMenu(current_widget.mapToGlobal(pos), widget_name)
     
-    def refresh_table(self): 
+    def refresh_table(self, new_file: str=None) -> None: 
         sort = self.tblWdg_Files.isSortingEnabled()
-        gesuchter_text = self.tblWdg_Files.selectedItems()[0].text()              
+        gesuchter_text = new_file if new_file else self.tblWdg_Files.selectedItems()[0].text() # wenn es vom rename func kommt, new_file            
         self.tblWdg_Files.hide()
         self.Info_Datei_Laden(refresh=True)
         QTimer.singleShot(300, lambda :self.tblWdg_Files.show())
@@ -391,8 +392,8 @@ class Haupt_Fenster(QMainWindow):
         studio: str = self.lnEdit_Studio.text()  
 
         if self.is_studio_in_database(studio):
-            db_webside = DB_WebSide(MainWindow=self)
-            errorview = db_webside.hole_link_aus_db(link, studio)
+            scraping_data = ScrapingData(MainWindow=self)
+            errorview = scraping_data.hole_link_aus_db(link, studio)
             if errorview:
                 MsgBox(self, errorview,"w") 
             else:                
@@ -413,8 +414,8 @@ class Haupt_Fenster(QMainWindow):
             name_db: str=self.cBox_performers.currentText()                
         
         if self.is_studio_in_database(studio):
-            db_webside = DB_WebSide(MainWindow=self)
-            errorview: str=db_webside.hole_link_von_performer(name_db, studio)  # erstellt auch in tblWdg_Daten die Liste          
+            scraping_data = ScrapingData(MainWindow=self)
+            errorview: str=scraping_data.hole_link_von_performer(name_db, studio)  # erstellt auch in tblWdg_Daten die Liste          
             if errorview:
                 MsgBox(self, errorview,"w") 
             else:                
@@ -460,8 +461,8 @@ class Haupt_Fenster(QMainWindow):
             self.lnEdit_db_titel.setText(titel_db) 
         if self.is_studio_in_database(studio):
             self.lnEdit_db_titel.setText(self.lnEdit_analyse_titel.text())
-            db_webside = DB_WebSide(MainWindow=self)
-            errorview = db_webside.hole_titel_aus_db(titel_db, studio)
+            scraping_data = ScrapingData(MainWindow=self)
+            errorview = scraping_data.hole_titel_aus_db(titel_db, studio)
             if errorview:
                 MsgBox(self, errorview,"w") 
             else:                
@@ -500,8 +501,8 @@ class Haupt_Fenster(QMainWindow):
         link= self.lnEdit_URL.text()                 
         base_url: str = "/".join(link.split("/")[:3])
         iafdlink = link if link.startswith("https://www.iafd.com/") else None
-        db_websides = DB_WebSide(MainWindow=self)
-        link_in_db = db_websides.is_link_in_db(base_url, iafdlink) # schaut ob weblink oder iafdlink da is 
+        scraping_data  = ScrapingData(MainWindow=self)
+        link_in_db = scraping_data.is_link_in_db(base_url, iafdlink) # schaut ob weblink oder iafdlink da is 
         self.Btn_addDatei.setEnabled(link_in_db)            
 
 
@@ -559,10 +560,15 @@ class Haupt_Fenster(QMainWindow):
         if errorview:
             StatusBar(self, f"Error: {errorview}","#F78181")
             self.Btn_start_spider.setEnabled(False)
-            return
-        self.spidermonitor = uic.loadUi(SPIDER_MONITOR_UI)
-        spider_loader = SpiderLoader(spider_class_name, self, self.spidermonitor)
-        spider_loader.spider_crawler()
+            return          
+        settings_module = '.'.join(spider_class_name.split('.')[:-3])+'.settings'  
+        my_settings = Settings()
+        my_settings.setmodule(settings_module) 
+        print(my_settings.get('BOT_NAME'))       
+        my_settings.set('LAST_VISIT',datetime.today().strftime("%Y.%m.%d"))
+        print(my_settings.get('LAST_VISIT'))
+        #SpiderMonitor(spider_class_name, self)
+        
 
 
     def Datei_loeschen(self):
@@ -694,8 +700,7 @@ class Haupt_Fenster(QMainWindow):
             self.Btn_logo_am_infos_tab.setToolTip(studio)
             self.Btn_logo_am_infos_tab.setStyleSheet(logo)
             self.Btn_logo_am_analyse_tab.setToolTip(studio)
-            self.Btn_logo_am_analyse_tab.setStyleSheet(logo)
-            self.label_pornside.setText(button) 
+            self.Btn_logo_am_analyse_tab.setStyleSheet(logo)             
             self.lnEdit_Studio.setText(studio)
             self.lbl_SuchStudio.setText(studio)                
             self.Btn_VideoDatenHolen.setEnabled(True)
@@ -1045,11 +1050,11 @@ class Haupt_Fenster(QMainWindow):
             datum=str(self.lnEdit_ErstellDatum.text())[:4]       
         return ("20"+datum)[-4:] 
     
-    def file_rename_from_Infos(self):
+    def file_rename_from_infos(self):
         self.file_rename(self.lbl_Ordner.text(),self.lbl_Dateiname.text(),"")
 
 
-    def file_rename(self, directory: str, old_file: str, new_file: str = "") -> str:
+    def file_rename(self, directory: str, old_file: str, new_file: str = "") -> str:        
         err: str=None
 
         if old_file == new_file:
@@ -1076,12 +1081,12 @@ class Haupt_Fenster(QMainWindow):
             Path(directory, old_file).rename(Path(directory, new_file))
         except OSError as os_err:
             if os_err.winerror == 32:
-                err = "Die Datei ist noch geöffnet, bitte schließen!"
-            MsgBox(self, f"Fehler !<br>{str(os_err)}", "i")
+                os_err = "Die Datei ist noch geöffnet, bitte schließen!"
+            MsgBox(self, f"Fehler !<br>{os_err}</br>", "i")
             return str(os_err)
         else:
             self.lbl_Dateiname.setText(new_file)
-            self.tblWdg_Files.update()
+            self.refresh_table(new_file)
             
         return err
 
@@ -1194,8 +1199,8 @@ class Haupt_Fenster(QMainWindow):
     def is_studio_in_database(self, studio: str) -> bool:
         studio_isin: bool = False
 
-        db_websides = DB_WebSide(MainWindow=self)
-        studio_isin = db_websides.is_studio_in_db(studio)
+        scraping_data = ScrapingData(MainWindow=self)
+        studio_isin = scraping_data.is_studio_in_db(studio)
 
         if studio_isin:
             self.buttons_enabled(True,["VideoDatenHolen"])

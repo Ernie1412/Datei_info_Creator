@@ -19,5 +19,4 @@ class BangBros_Item(scrapy.Item):
     performers = scrapy.Field()       
     synopsis = scrapy.Field()        
     tags = scrapy.Field()      
-    sub_side = scrapy.Field()      
-    
+    sub_side = scrapy.Field() 

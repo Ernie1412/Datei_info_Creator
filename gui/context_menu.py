@@ -8,7 +8,7 @@ import winreg
 import subprocess
 from pathlib import Path
 
-from utils.database_settings import Webside_Settings, SettingsData
+from utils.database_settings.database_for_settings import Webside_Settings, SettingsData
 from utils.web_scapings.websides import Infos_WebSides
 from utils.web_scapings.scrap_with_requests import VideoUpdater
 

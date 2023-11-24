@@ -1,39 +1,38 @@
 import time
+import os
 
 from scrapy import Spider, Request
 from scrapy import signals
 from scrapy.signalmanager import dispatcher
 from utils.web_scapings.spiders.bangbros.bangbros.items import BangBros_Item
 
-       
-class BangBrosSpider(Spider):
-    name = 'bangbros_spider'
+class BangBrosNetworkSpider(Spider):
+    name = 'bangbrosnetwork_spider'
     warte_schleife = None 
     bis_video=0  
     start_pages=0
-    stats_info = {"pages":0}
-    allowed_domains = ['bangbros.com']
-    start_urls = ['https://bangbros.com/videos/page/1']
+    allowed_domains = ['www.bangbrosnetwork.com']
+    start_urls = ['https://www.bangbrosnetwork.com/latest-videos']
     custom_settings = {
         'DOWNLOAD_MAX': 3,  # Maximale Anzahl der erlaubten Anfragen pro URL
         'RETRY_TIMES': 5,  # Maximale Anzahl der Wiederholungsversuche bei Fehlern
-                 }           
+                    }  
     start=False
 
-    def parse(self, response):        
+    def parse(self, response):
         dispatcher.connect(self.spider_closed, signal=signals.spider_closed)
-        if self.start:            
+        if self.start:
             relative_urls = response.css('div.one-list-6uwu8z.e1fdx1xz1 a.one-list-hueuj4.e19uw93u1::attr(href)').extract()
-            # Logge die extrahierten Daten
+            
             for relative_url in relative_urls:
-                relative_url = relative_url.replace("/videos/","/video/") if "/videos/" in relative_url else relative_url 
+                relative_url = relative_url.replace("/video/","/videos/") if "/video/" in relative_url else relative_url
                 video_url = response.urljoin(relative_url)
-                yield response.follow(video_url, callback = self.parse_video_page) 
+                yield response.follow(video_url, callback = self.parse_video_page)
 
         self.start=True
         for index in range(self.start_pages, self.bis_video):
-            next_page = f"https://bangbros.com/videos/page/{index}"            
-            if next_page is not None: 
+            next_page = f"https://www.bangbrosnetwork.com/latest-videos/page/{index}"
+            if next_page is not None:
                 self.stats_info["pages"]=index
                 yield response.follow(next_page, callback = self.parse)
 
@@ -66,7 +65,7 @@ class BangBrosSpider(Spider):
         bangbros_item["synopsis"] = response.css('section[data-cy="description"] p.sc-1efjxte-1.iANaVe::text').get()
         bangbros_item["tags"] = tags
         bangbros_item["sub_side"] = response.css('a.sc-vdkjux-5.iyOHpd::text').get() 
-        self.stats_info.update(bangbros_item)        
+        self.stats_info.update(bangbros_item)       
 
         yield bangbros_item 
         self.warte_schleife.put(self.stats_info) # items an den Qthread übergeben per Queue (Warte-Schleife) 

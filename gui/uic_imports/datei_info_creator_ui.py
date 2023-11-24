@@ -20,7 +20,7 @@ class Ui_MainWindow(object):
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.tabs = QtWidgets.QTabWidget(parent=self.centralwidget)
-        self.tabs.setGeometry(QtCore.QRect(940, 90, 931, 863))
+        self.tabs.setGeometry(QtCore.QRect(940, 90, 931, 851))
         self.tabs.setFocusPolicy(QtCore.Qt.FocusPolicy.StrongFocus)
         self.tabs.setStyleSheet("QWidget#tab_info {\n"
 "background-color: rgb(230, 230, 230);\n"
@@ -2067,7 +2067,7 @@ class Ui_MainWindow(object):
         self.Btn_stacked_next_4.raise_()
         self.stackedWidget.addWidget(self.stacked_IAFD_Linkmaker)
         self.lbl_db_status = QtWidgets.QLabel(parent=self.centralwidget)
-        self.lbl_db_status.setGeometry(QtCore.QRect(950, 957, 901, 20))
+        self.lbl_db_status.setGeometry(QtCore.QRect(940, 940, 901, 20))
         self.lbl_db_status.setText("")
         self.lbl_db_status.setObjectName("lbl_db_status")
         self.tblWdg_Daten = QtWidgets.QTableWidget(parent=self.centralwidget)

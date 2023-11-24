@@ -6,7 +6,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.remote.webelement import WebElement
-from selenium.common.exceptions import NoSuchElementException, InvalidSelectorException, TimeoutException
+from selenium.common.exceptions import NoSuchElementException
 
 import requests
 from lxml import html
@@ -15,7 +15,8 @@ import re
 from time import sleep
 from typing import Tuple, Union
 
-from utils.database_settings import Webside_Settings, DB_WebSide 
+ 
+from utils.database_settings.database_for_settings import Webside_Settings
 from utils.umwandeln import time_format_00_00_00, datum_umwandeln
 
 from config import HEADERS, selenium_browser_check

@@ -1,4 +1,4 @@
-# Scrapy settings for bangbros project
+# Scrapy settings for bangbros_artists project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -7,23 +7,18 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'bangbros'
-SIDE_PER_PAGE = 24
-NEW_ITEM_PER_DAY = 1
-LAST_VISIT = '2023.04.25'
+BOT_NAME = "bangbros_artists"
 
-SPIDER_MODULES = ['utils.web_scapings.spiders.bangbros.bangbros.spiders']
-NEWSPIDER_MODULE = 'utils.web_scapings.spiders.bangbros.bangbros.spiders'
+SPIDER_MODULES = ["bangbros_artists.spiders"]
+NEWSPIDER_MODULE = "bangbros_artists.spiders"
 
-LOG_LEVEL = 'DEBUG'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'bangbros (+http://www.yourdomain.com)'
+#USER_AGENT = "bangbros_artists (+http://www.yourdomain.com)"
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
 
-REQUEST_FINGERPRINTER_IMPLEMENTATION = '2.7'
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
 
@@ -44,22 +39,23 @@ REQUEST_FINGERPRINTER_IMPLEMENTATION = '2.7'
 # Override the default request headers:
 DEFAULT_HEADERS = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
 
+
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'bangbros.middlewares.BangbrosSpiderMiddleware': 543,
+#    "bangbros_artists.middlewares.BangbrosArtistsSpiderMiddleware": 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'bangbros.middlewares.BangbrosDownloaderMiddleware': 543,
+#    "bangbros_artists.middlewares.BangbrosArtistsDownloaderMiddleware": 543,
 #}
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
 #EXTENSIONS = {
-#    'scrapy.extensions.telnet.TelnetConsole': None,
+#    "scrapy.extensions.telnet.TelnetConsole": None,
 #}
 
 # Configure item pipelines
@@ -86,6 +82,11 @@ ITEM_PIPELINES = {
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html#httpcache-middleware-settings
 #HTTPCACHE_ENABLED = True
 #HTTPCACHE_EXPIRATION_SECS = 0
-#HTTPCACHE_DIR = 'httpcache'
+#HTTPCACHE_DIR = "httpcache"
 #HTTPCACHE_IGNORE_HTTP_CODES = []
-#HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+#HTTPCACHE_STORAGE = "scrapy.extensions.httpcache.FilesystemCacheStorage"
+
+# Set settings whose default value is deprecated to a future-proof value
+REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
+TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
+FEED_EXPORT_ENCODING = "utf-8"

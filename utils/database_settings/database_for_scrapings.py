@@ -34,9 +34,9 @@ class VideoData:
             json.dump(self.data, json_file, indent=4, sort_keys=True)
 
 
-class DB_WebSide:
+class ScrapingData:
    
-    def __init__(self, MainWindow):
+    def __init__(self, MainWindow=None):
         super().__init__() 
         self.Main = MainWindow  
 
@@ -287,29 +287,34 @@ class DB_WebSide:
             "Synopsis": daten_satz["Synopsis"],
             "Tags": daten_satz["Tags"],
             "Serie": daten_satz["Serie"],
-            "SceneCode": daten_satz["SceneCode"]
+            "SceneCode": daten_satz["SceneCode"],
+            "Regie": daten_satz["Regie"],
+            "ProductionDate": daten_satz["ProDate"],            
+            "Movies": daten_satz["Movies"]
                 }
-        self.open_database()
-        if self.db.isOpen():
-            with self.managed_query() as query: 
-                query.prepare(f'INSERT INTO "{studio}" (ID, Titel, WebSideLink, Data18Link, IAFDLink, ReleaseDate, Dauer, Performers, \
-                    Alias, Action, Synopsis, Tags, Serie, SceneCode) VALUES (NULL, :Titel, :WebSideLink, :Data18Link, :IAFDLink, \
-                    :ReleaseDate, :Dauer, :Performers, :Alias, :Action, :Synopsis, :Tags, :Serie, :SceneCode)')                        
-                driver = self.db.driver()                        
-                for field_name, value in fields.items():
-                    field = QSqlField("text")
-                    field.setValue(value)
-                    query.bindValue(f":{field_name}", driver.formatValue(field, False))
-                query.exec()
-                errview = f"'{self.add_neue_videodaten_in_db.__name__}': {errview} (query1)" if query.lastError().text() else errview
-                if not errview:                         
-                    farbe='#00FF40'
-                    isneu=1                
-            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.add_neue_videodaten_in_db.__name__}'" if self.db.lastError().text() else errview
-            del query
-        if errview:
-            self.db_fehler(errview)
-        self.close_database()
+        try:
+            self.open_database()
+
+            if self.db.isOpen():
+                with self.managed_query() as query:
+                    placeholders = ', '.join([f":{field}" for field in fields.keys()])
+                    sql_query = f'INSERT INTO "{studio}" (ID, {", ".join(fields.keys())}) VALUES (NULL, {placeholders})'
+                    query.prepare(sql_query)
+
+                    for field, value in fields.items():
+                        query.bindValue(f":{field}", value)
+
+                    if query.exec():
+                        farbe = '#00FF40'
+                        isneu = 1
+                    else:
+                        errview = f"{self.add_neue_videodaten_in_db.__name__}: {query.lastError().text()} (query)"
+                del query
+        except Exception as e:
+            errview = f"Fehler: {str(e)} (db) beim Öffnen von Funktion:'{self.add_neue_videodaten_in_db.__name__}'"            
+        finally:
+            self.close_database()
+        print(f"Adden: {errview}")
         return errview , farbe, isneu
     
     ###########################################################################
@@ -353,7 +358,7 @@ class DB_WebSide:
             errview = f"Fehler: {self.db.lastError().text()} (db) beim der Funktion:'{self.is_studio_in_db.__name__}'" if self.db.lastError().text() else errview
         if errview:
             self.db_fehler(errview)
-        self.close_database()       
+        self.close_database()               
         return is_vorhanden   
     ###########################################################################
     #### ------------------------ update Daten in die Datenbank----------- ####
@@ -403,11 +408,11 @@ class DB_WebSide:
                     errview = f"'{self.update_videodaten_in_db.__name__}': {errview} (query)" if query.lastError().text() else (errview or "Link nicht gefunden in dem {studio} ! (query)")
             errview = f"Fehler: {self.db.lastError().text()} (db) beim der Funktion:'{self.update_videodaten_in_db.__name__}'" if self.db.lastError().text() else errview
             del query
-        if errview:
+        if errview and self.Main is not None:
             self.db_fehler(errview)
-        self.close_database()
+        self.close_database()        
         return errview, anzahl_aktualisiert     
     
     
 if __name__ == "__main__":
-    DB_WebSide()  
+    ScrapingData()  

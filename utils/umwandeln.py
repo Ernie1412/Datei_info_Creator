@@ -27,9 +27,18 @@ def from_classname_to_import(spider_class_name, pipeline=None):
     module_path, class_name = spider_class_name.rsplit('.', 1)
     module = importlib.import_module(module_path)
     klasse = None
-    class_name = pipeline if pipeline else spider_class_name 
+    if pipeline:        
+        module_path = '.'.join(module_path.split('.')[:-2])+'.pipelines'
+        module = importlib.import_module(module_path)       
+        class_name = pipeline
     try:
-        klasse = getattr(module, class_name)
-    except AttributeError:
-        klasse = None 
-    return klasse
+        klasse = getattr(module, class_name)     
+    finally:
+        return klasse
+    
+def count_days(start_date, end_date):
+    date_format = "%Y.%m.%d"
+    a = datetime.strptime(start_date, date_format)
+    b = datetime.strptime(end_date, date_format)
+    dif = b - a
+    return int(dif.days)
