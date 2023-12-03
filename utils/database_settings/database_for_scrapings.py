@@ -9,8 +9,17 @@ from config import SIDE_DATAS_DB_PATH, DB_RECORD_JSON
 class VideoData:
 
     def __init__(self):        
-        self.data = []
+        self.data = []        
 
+    def __len__(self):
+        return len(self.data)
+    
+    def get_data(self):
+        return self.data
+    
+    def save_data(self, data):
+        self.data=data
+    
     def initialize(self, record=None):
         data_satz={}  
         if record:            
@@ -272,7 +281,7 @@ class ScrapingData:
     ###########################################################################
     def add_neue_videodaten_in_db(self, studio, webside_link, daten_satz: list) -> Tuple[str, str, int]:             
         errview: str = None
-        farbe: str = '#F78181'
+        
         isneu: int = 0
         fields = {
             "Titel": daten_satz["Titel"],
@@ -305,7 +314,7 @@ class ScrapingData:
                         query.bindValue(f":{field}", value)
 
                     if query.exec():
-                        farbe = '#00FF40'
+                        
                         isneu = 1
                     else:
                         errview = f"{self.add_neue_videodaten_in_db.__name__}: {query.lastError().text()} (query)"
@@ -315,7 +324,7 @@ class ScrapingData:
         finally:
             self.close_database()
         print(f"Adden: {errview}")
-        return errview , farbe, isneu
+        return errview , isneu
     
     ###########################################################################
     #### -------------- Überprüfung ob es in der Datenbank ist ----------- ####

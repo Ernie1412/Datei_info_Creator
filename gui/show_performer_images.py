@@ -11,7 +11,7 @@ from config import PROJECT_PATH
 class ShowPerformerImages(QWidget):
     def __init__(self, parent):
         super().__init__(parent)
-        self.Main = parent
+        self.Main = parent        
         self.current_image_index: int = 0
         self.images: list=[]
         self.links: list=[]         
@@ -22,22 +22,42 @@ class ShowPerformerImages(QWidget):
         self.Main.Btn_copy_clipboard.clicked.connect(lambda: pyperclip.copy(self.Main.lbl_link_from_image.text()))
 
     def show_performer_picture(self):
-        name = self.Main.cBox_performers.currentText()
-        self.current_image_index = 0        
-        db_darsteller = DB_Darsteller(MainWindow=self.Main)
-        errorview, self.images, self.links = db_darsteller.get_performers_picture(name)        
+        self.current_image_index = 0
+        errorview=None
+        if self.Main.tblWdg_performer_links.hasFocus():
+            self.get_performer_image_from_maske()           
+        else: 
+            errorview=self.get_performer_image_from_db()
         if not errorview:  
             if self.images:                                          
-                self.show_performers_picture_in_label()                
-                self.Main.Btn_next.setEnabled(True)
-                self.Main.Btn_prev.setEnabled(True)
+                self.show_performers_picture_in_label()
+                if self.Main.tblWdg_performer_links.hasFocus() or self.Main.Btn_performer_next.hasFocus() or self.Main.Btn_performer_prev.hasFocus():
+                    widget="Btn_performer"                     
+                else:               
+                    widget="Btn"
+                getattr(self.Main, f"{widget}_next").setEnabled(True)
+                getattr(self.Main, f"{widget}_prev").setEnabled(True)
             else:                
                 self.Main.lbl_LinkBild.clear()
                 self.Main.lbl_link_from_image.clear()
                 self.Main.Btn_next.setEnabled(False)
                 self.Main.Btn_prev.setEnabled(False)
 
-    def show_performers_picture_in_label(self):                
+    def get_performer_image_from_db(self):
+        name = self.Main.cBox_performers.currentText()                
+        db_darsteller = DB_Darsteller(MainWindow=self.Main)
+        errorview, self.images, self.links = db_darsteller.get_performers_picture(name)
+        return errorview
+    
+    def get_performer_image_from_maske(self):
+        self.images: list=[]
+        self.links: list=[]
+        for zeile in range(self.Main.tblWdg_performer_links.rowCount()):
+            self.images.append(self.Main.tblWdg_performer_links.item(zeile, 2).text())
+            self.links.append(self.Main.tblWdg_performer_links.item(zeile, 1).text())            
+        
+
+    def show_performers_picture_in_label(self):                      
         pixmap = QPixmap(str(Path(PROJECT_PATH, self.images[self.current_image_index]))) 
         error: str = ""
         aspect_ratio: int=0
@@ -48,17 +68,31 @@ class ShowPerformerImages(QWidget):
             pixmap = QPixmap(str(Path(PROJECT_PATH / "grafics/_buttons/kein-bild.jpg")))
             aspect_ratio = pixmap.width() / pixmap.height()
         label_height = 280
-        label_width = int(label_height * aspect_ratio) 
+        label_width = int(label_height * aspect_ratio)
+        if self.Main.tblWdg_performer_links.hasFocus() or self.Main.Btn_performer_next.hasFocus() or self.Main.Btn_performer_prev.hasFocus():
+            self.Main.lbl_link_image_from_db.setGeometry(440, 540, label_width, label_height)         
+            self.Main.lbl_link_image_from_db.setPixmap(pixmap)
+            img=self.images[self.current_image_index] 
+            img=img[img.find("/[")+2:img.find("]-")]  
+            self.Main.lbl_performer_link.setText(self.links[self.current_image_index])        
+            self.Main.lbl_link_image_from_db.setToolTip(f"{img}: {self.images[self.current_image_index]} Bilder {error}")
+        else:
+            self.show_image_in_ui(pixmap, label_width, label_height, error)
+
+    def show_image_in_ui(self,pixmap, label_width, label_height, error):
         self.Main.lbl_LinkBild.setGeometry(120, 350, label_width, label_height)         
         self.Main.lbl_LinkBild.setPixmap(pixmap)
         self.Main.lbl_link_from_image.setText(self.links[self.current_image_index])
         self.Main.lbl_LinkBild.setToolTip(f"Position: {self.current_image_index+1} von {len(self.images)} Bilder {error}")
+
+
     def show_next_picture_in_label(self):        
         if self.images:
             self.current_image_index = (self.current_image_index + 1) % len(self.images)
             return self.show_performers_picture_in_label()
 
-    def show_previous_picture_in_label(self):        
+    def show_previous_picture_in_label(self):
+        print("geklickt")        
         if self.images:
             self.current_image_index = (self.current_image_index - 1) % len(self.images)
             return self.show_performers_picture_in_label()  

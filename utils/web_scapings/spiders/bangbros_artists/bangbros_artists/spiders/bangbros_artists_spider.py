@@ -1,31 +1,41 @@
 from scrapy import Spider, Request
 from scrapy import signals
 from scrapy.signalmanager import dispatcher
-from utils.web_scapings.spiders.bangbros_artists.bangbros_artists.items import BangBrosArtistsItem
-
+from bangbros_artists.items import BangBrosArtistsItem
+#utils.web_scapings.spiders.bangbros_artists.
 
 class BangBrosArtistsSpider(Spider):
     name = "bangbros_artists_spider"
     warte_schleife = None 
-    bis_video=0  
-    start_pages=0
+    bis_video=1  
+    start_pages=2
     stats_info = {"pages":0}
-    allowed_domains = ["bangbros.com"]
-    start_urls = ["https://bangbros.com/girls/sortby/alpha?gender=female"]
+    allowed_domains = ["www.bangbrosnetwork.com"]
+    start_urls = ["https://www.bangbrosnetwork.com/latest-girls/page/1"]
 
-    start=True
+    start=False
 
     def parse(self, response):
-        dispatcher.connect(self.spider_closed, signal=signals.spider_closed)
-        bangbros_artists_item = BangBrosArtistsItem()
-        if self.start:            
-            relative_urls = response.css('div.one-list-6uwu8z.e1fdx1xz1 a.one-list-hueuj4.e19uw93u1::attr(href)').extract()
-            names=response.css('div.one-list-6uwu8z.e1fdx1xz1 a.one-list-hueuj4.e19uw93u1::attr(href)').extract()
-            image_urls=response.css('div.one-list-6uwu8z.e1fdx1xz1 a.one-list-hueuj4.e19uw93u1::attr(href)').extract()
-            for relative_url,name,image_url in zip(relative_urls, names, image_urls):
-                bangbros_artists_item["url"] = response.urljoin(relative_url)
-                bangbros_artists_item["name"] = name
-                bangbros_artists_item["sex"] = 1                
-                id,_ = bangbros_artists_item["url"].replace("https://bangbros.com/model/","").rsplit("/",1) #https://bangbros.com/model/348811/aaliyah-grey
-                bangbros_artists_item["image_url"] = response.urljoin(image_url)
-                bangbros_artists_item["image"] = f"__artists_Images/{bangbros_artists_item['name']}/[BangBros]-{id}.jpg"
+        #dispatcher.connect(self.spider_closed, signal=signals.spider_closed)
+        if self.start:
+            relative_urls = response.css('a.one-list-hueuj4.e19uw93u1::attr(href)').extract()
+            namen=response.css('a.one-list-hueuj4.e19uw93u1::attr(title)').extract()
+            image_urls_extract=response.css('img.one-list-q4dzvk.esqduzl0::attr(src)').extract()
+            self.log(f'Found {len(image_urls_extract)} image URLs: {image_urls_extract}')
+
+            for relative_url, name, image_url in zip(relative_urls, namen, image_urls_extract):
+                item = BangBrosArtistsItem()
+                item["url"] = response.urljoin(relative_url)
+                item["name"] = name
+                item["sex"] = 1
+                item["image_urls"] = [image_url]
+                id,_ = relative_url.replace("/model/","").rsplit("/",1) #/model/{348811}/aaliyah-grey
+                item["image_name"] = f"[BangBros]-{id}"
+                yield item   
+
+        self.start=True
+        for index in range(1, 3): # page 1 und 2
+            next_page = f"https://www.bangbrosnetwork.com/latest-girls/page/{index}"        
+            if next_page is not None: 
+                #self.stats_info["pages"]=index
+                yield response.follow(next_page, callback = self.parse)

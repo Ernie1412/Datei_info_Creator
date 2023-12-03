@@ -4,11 +4,12 @@ from contextlib import contextmanager
 from typing import Tuple, Optional
 
 from config import PERFORMER_DB_PATH
+from utils.database_settings.database_for_scrapings import VideoData
 
 
 class DB_Darsteller:
 
-    def __init__(self, MainWindow):
+    def __init__(self, MainWindow=None):
         super().__init__() 
         self.Main = MainWindow  
             
@@ -55,8 +56,8 @@ class DB_Darsteller:
         if self.db.isOpen():                              
             command = "SELECT Geschlecht FROM DB_Artist WHERE Name = :Performername"
             if studio:
-                command += " AND ArtistID IN (SELECT ArtistID FROM DB_NamesLink INNER JOIN DB_Studio ON DB_NamesLink.PornSideID = \
-                            DB_Studio.PornSideID WHERE StudioName = :studio)"
+                command += " AND ArtistID IN (SELECT ArtistID FROM DB_NamesLink INNER JOIN Studios ON DB_NamesLink.StudioID = \
+                            Studios.StudioID WHERE StudioName = :studio)"
             with self.managed_query() as query:
                 query.prepare(command)
                 query.bindValue(":Performername", name)
@@ -65,19 +66,118 @@ class DB_Darsteller:
                 if query.next():                    
                     sex = query.value("Geschlecht")                       
                     is_vorhanden = True
-                    errview = f"kein {name} gefunden in der Datenbank" if not query.lastError().text() and not is_vorhanden else query.lastError().text()
+                    errview = query.lastError().text() if query.lastError().text() else None
                 else:
-                    errview = f"'{self.isdaDarsteller.__name__}': {query.lastError().text()} (query)" if query.lastError().text() else (errview or f"kein {name} gefunden in der Datenbank")
-            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.isdaDarsteller.__name__}'" if self.db.lastError().text() else errview          
-            
+                    errview = f"'{self.isdaDarsteller.__name__}': kein {name} gefunden in der Datenbank" if not query.lastError().text() else f"'{self.isdaDarsteller.__name__}': {query.lastError().text()} (query)"                    
+        else:
+            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.isdaDarsteller.__name__}'" if self.db.lastError().text() else errview                      
         if errview:
             self.db_fehler(errview)
         self.close_database()
         return is_vorhanden, sex 
+
+    def get_nation_eng_to_german(self, nation_eng):
+        errview: str=None
+        nation_ger: str=None        
+
+        self.open_database()
+        if self.db.isOpen(): 
+            with self.managed_query() as query:
+                query.prepare("SELECT NationVolk_GER FROM Nationen WHERE NationVolk_ENG = :nation_eng;")
+                query.bindValue(":nation_eng", nation_eng)                               
+                query.exec()       
+                if query.next():                    
+                    nation_ger = query.value("NationVolk_GER") 
+                    errview =  f"'{self.get_nation_eng_to_german.__name__}': {query.lastError().text()} (query1)" if query.lastError().text() else None
+                else:
+                    err_text = query.lastError().text()
+                    errview = f"'{self.get_nation_eng_to_german.__name__}': kein '{nation_eng}' gefunden in der Datenbank" if not err_text else f"'{self.get_nation_eng_to_german.__name__}': {err_text} (query)"
+                                        
+        else:
+            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.get_nation_eng_to_german.__name__}'" if self.db.lastError().text() else errview                      
+        if errview:
+            self.db_fehler(errview)
+        self.close_database()
+        return nation_ger
+
+    def get_nation_ger_to_english(self, nation_ger):
+        errview: str=None
+        nation_eng: str=None        
+
+        self.open_database()
+        if self.db.isOpen(): 
+            with self.managed_query() as query:
+                query.prepare("SELECT NationVolk_ENG FROM Nationen WHERE NationVolk_ENG = :nation_ger;")
+                query.bindValue(":nation_eng", nation_ger)                               
+                query.exec()       
+                if query.next():                    
+                    nation_eng = query.value("NationVolk_ENG") 
+                    errview =  f"'{self.get_nation_ger_to_english.__name__}': {query.lastError().text()} (query1)" if query.lastError().text() else None
+                else:
+                    err_text = query.lastError().text()
+                    errview = f"'{self.get_nation_ger_to_english.__name__}': kein '{nation_eng}' gefunden in der Datenbank" if not err_text else f"'{self.get_nation_eng_to_german.__name__}': {err_text} (query)"
+                                        
+        else:
+            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.get_nation_ger_to_english.__name__}'" if self.db.lastError().text() else errview                      
+        if errview:
+            self.db_fehler(errview)
+        self.close_database()
+        return nation_eng
+    
+    def get_studio_id_from_baselink(self, studio_link: str) -> int:
+        errview: str=None
+        studio_id: int=0       
+
+        self.open_database()
+        if self.db.isOpen(): 
+            with self.managed_query() as query:
+                query.prepare("SELECT StudioID FROM Studios WHERE Homepage = :studio_link;")
+                query.bindValue(":studio_link", studio_link)                               
+                query.exec()       
+                if query.next():                    
+                    studio_id = query.value("StudioID") 
+                    errview =  f"'{self.get_studio_id_from_baselink.__name__}': {query.lastError().text()} (query1)" if query.lastError().text() else None
+                else:
+                    errview = f"'{self.get_studio_id_from_baselink.__name__}': kein '{studio_link}' gefunden in der Datenbank" if not query.lastError().text() else f"'{self.get_studio_id_from_baselink.__name__}': {query.lastError().text()} (query)"
+                                        
+        else:
+            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.get_studio_id_from_baselink.__name__}'" if self.db.lastError().text() else errview                      
+        if errview:
+            self.db_fehler(errview)
+        self.close_database()
+        return studio_id
+    
+    def get_db_artistlink(self, names_id: int) -> int:
+        errview: str=None 
+        neu: int=0        
+
+        self.open_database()
+        if self.db.isOpen():        
+            with self.managed_query() as query:
+                query.prepare("SELECT NamesID, Link, Image, Alias FROM DB_NamesLink WHERE NamesID = :NamesID;")   
+                query.bindValue(":NamesID",names_id)
+                query.exec()
+                if query.next():
+                    daten_satz=[
+                        query.value("NamesID"),
+                        query.value("Link"),
+                        query.value("Image"),                        
+                        query.value("Alias"),   ]
+                    errview = f"'{self.get_db_artistlink.__name__}': {query.lastError().text()} (query1)" if query.lastError().text() else errview
+                else:
+                    errview = f"'{self.get_db_artistlink.__name__}': kein '{names_id}' gefunden in NamesLink" if not query.lastError().text() else f"'{self.get_db_artistlink.__name__}': {query.lastError().text()} (query)"    
+            del query
+        else:
+            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.get_db_artistlink.__name__}'" if self.db.lastError().text() else errview 
+        if errview:
+            self.db_fehler(errview)
+        self.close_database()        
+        return daten_satz
+    
     ############################################################################################ 
     ###------------------------ Daten in die Datenbank adden ------------------------------- ###
     ############################################################################################
-    def addDarsteller_in_db(self,performer_data: dict, studio: str=None) -> tuple[int, int, int]:
+    def addDarsteller_in_db(self, performer_data: dict, studio: str=None) -> tuple[int, int, int]:
         errview: str=None
         artist_neu: int=0
         sex_neu: int=0
@@ -87,24 +187,24 @@ class DB_Darsteller:
         if self.db.isOpen():  # öffnet die datenbank mit einem contex Manager            
             with self.managed_query() as query:
                 # Überprüfen, ob das Studio in der Datenbank vorhanden ist
-                query.prepare("SELECT PornSideID FROM DB_Studio WHERE StudioName=:StudioName;")
+                query.prepare("SELECT StudioID FROM Studios WHERE StudioName=:StudioName;")
                 query.bindValue(":StudioName", studio)
                 query.exec()
                 if query.next():
-                    studio_id = query.value('PornSideID')
+                    studio_id = query.value('StudioID')
                     errview = query.lastError().text() if query.lastError().text() else None
                 else:
                     # Wenn das Studio nicht in der DB ist, neu hinzufügen und die ID abrufen
                     with self.managed_query() as query:
-                        query.prepare("INSERT INTO DB_Studio (StudioName) VALUES (:StudioName);")
+                        query.prepare("INSERT INTO Studios (StudioName) VALUES (:StudioName);")
                         query.bindValue(":StudioName", studio)
                         query.exec()
                         errview = query.lastError().text() if query.lastError().text() else errview
                     with self.managed_query() as query:
-                        query.prepare("SELECT MAX(PornSideID) FROM DB_Studio;")
+                        query.prepare("SELECT MAX(StudioID) FROM Studios;")
                         query.exec()
                         query.next()
-                        studio_id = query.value('MAX(PornSideID)')
+                        studio_id = query.value('MAX(StudioID)')
                         errview = query.lastError().text() if query.lastError().text() else errview
                 # Überprüfen und aktualisieren Sie Geschlecht und Nation
                 with self.managed_query() as query:
@@ -148,12 +248,12 @@ class DB_Darsteller:
                     # Wenn der Künstler neu ist oder Informationen fehlen, fügen Sie NamesLink hinzu
                     if artist_neu == 1 or (performer_data["ArtistLink"] or performer_data["ImagePfad"]) is not None:
                         with self.managed_query() as query:                            
-                            query.prepare("INSERT INTO DB_NamesLink (NamesID, Link, Image, ArtistID, PornSideID) "
-                                        "VALUES (NULL, IFNULL(:Link, ''), IFNULL(:Image, ''), :ArtistID, :PornSideID);")
+                            query.prepare("INSERT INTO DB_NamesLink (NamesID, Link, Image, ArtistID, StudioID) "
+                                        "VALUES (NULL, IFNULL(:Link, ''), IFNULL(:Image, ''), :ArtistID, :StudioID);")
                             query.bindValue(":Link", performer_data["ArtistLink"])
                             query.bindValue(":Image", performer_data["ImagePfad"])
                             query.bindValue(":ArtistID", artist_id)
-                            query.bindValue(":PornSideID", studio_id)
+                            query.bindValue(":StudioID", studio_id)
                             query.exec()
                             errview = query.lastError().text() if query.lastError().text() else errview
                         link_neu += 1
@@ -164,59 +264,28 @@ class DB_Darsteller:
         self.close_database()
         return artist_neu, sex_neu, link_neu
     
-    def add_db_artistlink(self,artistname,link=None,studio=None):
+    def add_db_artistlink(self, artist_id: int, names_link_satz: dict, studio_id: int) -> int:
         errview: str=None 
-        neu: int=0
-        artist_id: int=0
-        studio_id: int=0
+        neu: int=0        
 
         self.open_database()
-        if self.db.isOpen():  # öffnet die datenbank mit einem contex Manager        
+        if self.db.isOpen():        
             with self.managed_query() as query:
-                query.prepare("SELECT ArtistID,Link FROM DB_NamesLink WHERE ArtistID IN (SELECT ArtistID FROM DB_Artist WHERE Name = :Name);")
-                query.bindValue(":Name",artistname)
-                query.exec()        
-                if query.next(): 
-                    artist_id=query.value("ArtistID")
-                    link=query.value("Link")
-                else:
-                    neu=1
-                    with self.managed_query() as query:
-                        query.prepare("INSERT INTO DB_NamesLink (NamesID,Link,ArtistID) VALUES (NULL,:Link,:ArtistID);")
-                        query.bindValue(":Link",link)
-                        query.bindValue(":ArtistID",artist_id)
-                        query.exec()
-                        name_neu+=1
-                        if studio is not None:
-                            with self.managed_query() as query:
-                                query.prepare("SELECT PornSideID FROM DB_Studio WHERE StudioName = :StudioName")
-                                query.bindValue(":StudioName",studio)
-                                query.exec()
-                                studio_id=query.value("PornSideID")
-                        else:
-                            with self.managed_query() as query:
-                                query.prepare("INSERT INTO DB_Studio (PornSideID, StudioName) VALUES (NULL,:StudioName;")
-                                query.bindValue(":StudioName",studio)
-                                query.exec()
-                                query.prepare("SELECT MAX(PornSideID) FROM DB_Studio;")
-                                query.exec()
-                                if query.next():
-                                    artist_id=query.value('MAX(PornSideID)')                                
-                        if link is not None: ###  link von hole_db_artistlink   ###
-                            with self.managed_query() as query:
-                                query.prepare("INSERT INTO DB_NamesLink (NamesID,Link,ArtistID,PornSideID) VALUES (NULL, :Link, :ArtistID, :PornSideID);")   
-                                query.bindValue(":Link",link)
-                                query.bindValue(":ArtistID",artist_id)
-                                query.bindValue(":PornSideID",studio_id)
-                                query.exec()
-                                name_neu+=1 
-                                errview = query.lastError().text() if query.lastError().text() else errview    
-            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.add_db_artistlink.__name__}'" if self.db.lastError().text() else errview          
+                query.prepare("INSERT INTO DB_NamesLink (NamesID, Link, ArtistID, StudioID, Alias) VALUES (NULL, :Link, :ArtistID, :StudioID, :Alias);")   
+                query.bindValue(":Link",names_link_satz["Link"])
+                query.bindValue(":ArtistID",artist_id)
+                query.bindValue(":StudioID",studio_id)
+                query.bindValue(":Alias",names_link_satz["Alias"])
+                if query.exec():
+                    is_neu=1 
+                errview = query.lastError().text() if query.lastError().text() else errview    
             del query
+        else:
+            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.add_db_artistlink.__name__}'" if self.db.lastError().text() else errview 
         if errview:
             self.db_fehler(errview)
         self.close_database()        
-        return neu
+        return is_neu
 
     def addMovie(self,PornSide,VideoTitel,VideoLink,Dauer,Resize,Bitrate,Ursprung,ArtistID,Tags,Beschreibung,ReleaseDate,DownloadDate,DateiGroesse,Regie,MovieTitel,FilmLink,HDDLink):
         errview: str=None 
@@ -234,12 +303,12 @@ class DB_Darsteller:
                     errview = query.lastError().text() if query.lastError().text() else errview
                 else:
                     with self.managed_query() as query:
-                        query.prepare("INSERT INTO DB_Movies (MovieID,PornSideID,VideoTitel,VideoLink,Dauer,Resize,Bitrate,\
+                        query.prepare("INSERT INTO DB_Movies (MovieID,StudioID,VideoTitel,VideoLink,Dauer,Resize,Bitrate,\
                             Ursprung,ArtistID,Tags,Beschreibung,ReleaseDate,DownloadDate,DateiGroesse,Regie,MovieTitel,FilmLink,\
                             HDDLink) VALUES (NULL,{movie_id},'{VideoTitel}','{VideoLink}','{Dauer}','{Resize}',{Bitrate},\
                             '{Ursprung}','{ArtistID}','{Tags}','{Beschreibung}','{ReleaseDate}','{DownloadDate}',{DateiGroesse},\
                             '{Regie}','{MovieTitel}','{FilmLink}','{HDDLink}');")
-                        query.bindValue(":PornSideID",movie_id)
+                        query.bindValue(":StudioID",movie_id)
                         query.bindValue(":VideoTitel",VideoTitel)
                         query.bindValue(":VideoLink",VideoLink)
                         query.bindValue(":Dauer",Dauer)
@@ -274,26 +343,26 @@ class DB_Darsteller:
         self.open_database()
         if self.db.isOpen():  # öffnet die datenbank mit einem contex Manager        
             with self.managed_query() as query:
-                query.prepare("SELECT PornSideID, StudioName, Homepage FROM DB_Studio WHERE StudioName = :StudioName OR \
+                query.prepare("SELECT StudioID, StudioName, Homepage FROM Studios WHERE StudioName = :StudioName OR \
                             Homepage = :Homepage")
                 query.bindValue(":StudioName", studio)
                 query.bindValue(":Homepage", homepage)
                 query.exec()        
                 if query.next():            
-                    studio_id=query.value("PornSideID")
+                    studio_id=query.value("StudioID")
                     neu,studio=(1, self.query.value("StudioName")) if studio == ("" or self.query.value("StudioName")) else (0, studio)
                     neu,homepage=(1, self.query.value("Homepage")) if homepage == ("" or self.query.value("Homepage")) else (0, homepage)                
                 if neu==1:   ### -------- Wenn kein Link da ist, dann Update --------- ### 
                     with self.managed_query() as query:
-                        query.prepare("UPDATE DB_Studio SET StudioName = :StudioName, Homepage = :Homepage WHERE PornSideID = :PornSideID")
+                        query.prepare("UPDATE Studios SET StudioName = :StudioName, Homepage = :Homepage WHERE StudioID = :StudioID")
                         query.bindValue(":StudioName", studio)
                         query.bindValue(":Homepage", homepage) 
-                        query.bindValue(":PornSideID", studio_id)                
+                        query.bindValue(":StudioID", studio_id)                
                         query.exec()                
                 else:
                     if studio_id==None:
                         with self.managed_query() as query:
-                            query.prepare("INSERT INTO DB_Studio (PornSideID, StudioName, Homepage) VALUES (NULL,:StudioName,:Homepage)")
+                            query.prepare("INSERT INTO Studios (StudioID, StudioName, Homepage) VALUES (NULL,:StudioName,:Homepage)")
                             query.bindValue(":StudioName", studio)
                             query.bindValue(":Homepage", homepage)   
                             query.exec()
@@ -303,7 +372,76 @@ class DB_Darsteller:
         if errview:
             self.db_fehler(errview)
         self.close_database()         
-        return neu, add    
+        return neu, add 
+
+    def add_performer_iafd_image(self, iafd_datensatz: dict) -> Tuple[str, bool]:            
+        errview: str=None        
+        is_addet: bool=False
+
+        self.open_database()
+        if self.db.isOpen():
+            with self.managed_query() as query: 
+                query.prepare("INSERT INTO DB_NamesLink (NamesID, Link, Image, ArtistID, StudioID, Alias) VALUES (NULL, :Link, :Image, :ArtistID, 69, :Alias)")
+                query.bindValue(":Link",iafd_datensatz["Link"]) 
+                query.bindValue(":Image",iafd_datensatz["Image"])
+                query.bindValue(":ArtistID",iafd_datensatz["ArtistID"])
+                query.bindValue(":Alias",iafd_datensatz["Alias"]) 
+                if query.exec(): 
+                    if query.numRowsAffected() > 0:                   
+                        is_addet = True
+                    errview = f"'{self.add_performer_iafd_image.__name__}': {query.lastError().text()}" if query.lastError().text() else None                                
+            del query
+        else:
+            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.add_performer_iafd_image.__name__}'" if self.db.lastError().text() else errview          
+        if errview:
+            self.db_fehler(errview)
+        self.close_database()
+        return errview, is_addet
+    
+    def add_nations_person(self, nations, artist_id):
+        errview: str=None        
+        is_addet: bool=False
+        nation_id: int=0
+        nation_eng: str=None
+        existing_nations = set()
+        ### ---------------- Nation wieder ins Englische übersetzen und speichern --------------------- ###
+        self.open_database()
+        if self.db.isOpen():
+            with self.managed_query() as query: 
+                query.prepare("SELECT NationVolk_GER FROM Person_Nation JOIN Nationen ON Nationen.NationID = Person_Nation.NationID WHERE ArtistID=:ArtistID")
+                query.bindValue(":ArtistID",artist_id) 
+                query.exec()
+                while query.next():
+                    existing_nations.add(query.value("NationVolk_GER"))                   
+                errview = f"'{self.add_nations_person.__name__}': {query.lastError().text()}" if query.lastError().text() else None
+            for nation_ger in nations.split(", "):
+                if nation_ger not in existing_nations: # wenn nicht drin, dann suche ID von neuer Nation
+                    query.prepare("SELECT NationID, NationVolk_ENG FROM Nationen WHERE NationVolk_GER=:NationVolk_GER")
+                    query.bindValue(":NationVolk_GER",nation_ger) 
+                    query.exec()
+                    if query.next():
+                        nation_id=query.value("NationID") 
+                        nation_eng=query.value("NationVolk_ENG")                                      
+                        with self.managed_query() as query: # Füge die neue Nation hinzu
+                            query.prepare("INSERT INTO Person_Nation (ArtistID, NationID) VALUES (:ArtistID, (SELECT NationID FROM Nationen WHERE NationVolk_ENG=:NationVolk_ENG))")
+                            query.bindValue(":ArtistID", artist_id)
+                            query.bindValue(":NationID", nation_id)
+                            query.bindValue(":NationVolk_ENG", nation_eng)
+                            query.exec() 
+                            if query.numRowsAffected() > 0:                   
+                                is_addet = True
+                            errview = f"'{self.add_nations_person.__name__}': {query.lastError().text()}" if query.lastError().text() else None 
+                            errview = (errview or f"Fehler beim Adden von {nation_eng}") if is_addet is False else errview   
+                    else:
+                        errview = (errview or f"Nation: {nation_eng} nicht in der Datenbank !") if is_addet is False else errview                           
+            del query
+        else:
+            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.add_performer_iafd_image.__name__}'" if self.db.lastError().text() else errview          
+        if errview:
+            self.db_fehler(errview)
+        self.close_database()
+        return errview, is_addet
+  
 
     
     ############################################################################################ 
@@ -317,17 +455,17 @@ class DB_Darsteller:
         self.open_database()
         if self.db.isOpen():  # öffnet die datenbank mit einem contex Manager
             with self.managed_query() as query:
-                query.prepare("SELECT PornSideID FROM DB_Studio WHERE StudioName= :StudioName;")
+                query.prepare("SELECT StudioID FROM Studios WHERE StudioName= :StudioName;")
                 query.bindValue(":StudioName",studio)
                 query.exec()
                 if self.query.next():
-                    studio_id=query.value("PornSideID")
+                    studio_id=query.value("StudioID")
                     errview = query.lastError().text() if query.lastError().text() else errview
             with self.managed_query() as query:
                 query.prepare("SELECT DB_Artist.ArtistID,RassenID FROM DB_Artist INNER JOIN DB_NamesLink ON DB_Artist.ArtistID \
-                    = DB_NamesLink.ArtistID INNER JOIN DB_Studio ON DB_Studio.PornSideID = DB_NamesLink.PornSideID \
-                    WHERE DB_Studio.PornSideID=:PornSideID And Geschlecht=:Geschlecht;")
-                query.bindValue(":PornSideID",studio_id)
+                    = DB_NamesLink.ArtistID INNER JOIN Studios ON Studios.StudioID = DB_NamesLink.StudioID \
+                    WHERE Studios.StudioID=:StudioID And Geschlecht=:Geschlecht;")
+                query.bindValue(":StudioID",studio_id)
                 query.bindValue(":Geschlecht",geschlecht)
                 query.exec()        
                 while query.next():                
@@ -343,13 +481,65 @@ class DB_Darsteller:
                         query.bindValue(":ArtistID",artist_id)
                         query.exec()
                         neu+=1 
-                errview = query.lastError().text() if query.lastError().text() else errview    
+                errview = query.lastError().text() if query.lastError().text() else errview 
+        else:   
             errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.set_black_people.__name__}'" if self.db.lastError().text() else errview          
             del query
         if errview:
             self.db_fehler(errview)
         self.close_database()        
         return neu
+    
+    def update_performer_datensatz(self, performer_data: dict) -> Tuple[str, bool]:
+        errview: str=None        
+        is_update: bool=False
+
+        self.open_database()
+        if self.db.isOpen():
+            with self.managed_query() as query:                 
+                placeholders = ', '.join([f"{field}=:{field}" for field in performer_data.keys() if field != "ArtistID"])
+                sql_query = f'UPDATE DB_Artist SET {placeholders} WHERE ArtistID= :ArtistID;'
+                query.prepare(sql_query)
+                query.bindValue(":ArtistID",performer_data["ArtistID"])
+                for field, value in performer_data.items():
+                    if field != "ArtistID":
+                        query.bindValue(f":{field}", value)
+                if query.exec(): 
+                    if query.numRowsAffected() > 0:                   
+                        is_update = True
+                    errview = query.lastError().text() if query.lastError().text() else errview                                
+            del query
+        else:
+            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.update_performer_datensatz.__name__}'" if self.db.lastError().text() else errview          
+        if errview:
+            self.db_fehler(errview)
+        self.close_database()
+        return errview, is_update 
+
+    def update_performer_names_link(self, artist_id: int,links: list, studio_id: int) -> Tuple[str, int]:
+        errview: str=None        
+        is_update: int=0
+
+        self.open_database()
+        if self.db.isOpen():
+            with self.managed_query() as query:                
+                placeholders = ', '.join([f"{field}=:{field}" for field in links.keys()])                    
+                query.prepare(f'UPDATE DB_NamesLink SET {placeholders}, ArtistID=:ArtistID, StudioID=:StudioID WHERE NamesID= :NamesID;')                    
+                query.bindValue(":ArtistID", artist_id)
+                query.bindValue(":StudioID", studio_id)
+                for field, value in links.items():
+                    query.bindValue(f":{field}", value)
+                if query.exec(): 
+                    is_update = query.numRowsAffected()
+                    errview = query.lastError().text() if query.lastError().text() else errview                                
+            del query
+        else:
+            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.update_performer_datensatz.__name__}'" if self.db.lastError().text() else errview          
+        if errview:
+            self.db_fehler(errview)
+        self.close_database()
+        return is_update 
+        
         
     ############################################################################################ 
     ###------------------------ Daten in der Datenbank holen ------------------------------- ###
@@ -362,18 +552,19 @@ class DB_Darsteller:
         if self.db.isOpen():  # öffnet die datenbank mit einem contex Manager        
             with self.managed_query() as query:
                 query.prepare("SELECT Geschlecht,DB_NamesLink.Link FROM DB_Artist INNER JOIN DB_NamesLink ON \
-                    DB_Artist.ArtistID = DB_NamesLink.ArtistID INNER JOIN DB_Studio ON DB_Studio.PornSideID \
-                    = DB_NamesLink.PornSideID WHERE Name = :Name and StudioName = :StudioName;")
+                    DB_Artist.ArtistID = DB_NamesLink.ArtistID INNER JOIN Studios ON Studios.StudioID \
+                    = DB_NamesLink.StudioID WHERE Name = :Name and StudioName = :StudioName;")
                 query.bindValue(":Name",artistname)
                 query.bindValue(":StudioName",studio) 
                 query.exec()        
                 if query.next():                
                     link=query.value("DB_NamesLink.Link")
-                    errview = f"keine Links für {artistname} gefunden" if not query.lastError().text() and not link else query.lastError().text()
+                    errview = f"'{self.hole_db_artistlink.__name__}': {query.lastError().text()} (query1)" if query.lastError().text()  else None
                 else:
-                    errview = f"'{self.hole_db_artistlink.__name__}': {query.lastError().text()} (query)" if query.lastError().text() else (errview or f"keine Links für {artistname} gefunden")    
-            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.hole_db_artistlink.__name__}'" if self.db.lastError().text() else errview          
+                    errview = f"keine Links für {artistname} gefunden" if not query.lastError().text() else f"'{self.hole_db_artistlink.__name__}': {query.lastError().text()} (query)"    
             del query
+        else:
+            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.hole_db_artistlink.__name__}'" if self.db.lastError().text() else errview          
         if errview:
             self.db_fehler(errview)
         self.close_database()         
@@ -395,8 +586,9 @@ class DB_Darsteller:
                     errview = query.lastError().text() if query.lastError().text() else errview
                 errview = (errview or f"keine Links für {artistname} gefunden") if not query.lastError().text() and not name else query.lastError().text()    
                 errview = f"{errview} (query)" if errview and "keine " not in str(errview) else errview
-            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.get_performers_picture.__name__}'" if self.db.lastError().text() else errview          
             del query
+        else:
+            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.get_performers_picture.__name__}'" if self.db.lastError().text() else errview          
         if errview:
             self.db_fehler(errview)
         self.close_database()                 
@@ -425,6 +617,116 @@ class DB_Darsteller:
             self.db_fehler(errview)
         self.close_database()                
         return errview, images, links 
+
+    def get_quell_links(self, artist_id: int) -> Tuple[str, list, list, list, list]:
+        errview = None
+        ids: list=[]
+        links: list=[]
+        images: list=[]
+        aliases: list=[]        
+        
+        self.open_database()
+        if self.db.isOpen():
+            with self.managed_query() as query:
+                query.prepare(f"SELECT NamesID, Link, Image, Alias FROM DB_NamesLink WHERE ArtistID = :ArtistID;")
+                query.bindValue(":ArtistID", artist_id)                
+                query.exec()                
+                while query.next(): 
+                    ids.append(query.value("NamesID"))                   
+                    links.append(query.value("Link"))
+                    images.append(query.value("Image")) 
+                    aliases.append(query.value("Alias"))
+                    errview = f"'{self.get_quell_links.__name__}': {errview} (query1)" if query.lastError().text() else errview
+                errview = (errview or f"kein ID:{artist_id} gefunden in Links") if not query.lastError().text() and not ids else query.lastError().text()
+                errview = f"'{self.get_quell_links.__name__}': {errview} (query)" if errview and "kein " not in str(errview) else errview
+            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.get_quell_links.__name__}'" if self.db.lastError().text() else errview          
+            del query
+        if errview:
+            self.db_fehler(errview)
+        self.close_database()               
+        return errview, ids, links, images, aliases
+    
+    def get_all_datas_from_database(self, performers: str, page_number: int=1) -> str:
+        errview = None  
+        nations = ""      
+        page_size = 100
+        offset = (page_number - 1) * page_size
+        artist_data = VideoData()
+
+        self.open_database()
+        if self.db.isOpen():
+            with self.managed_query() as query:
+                query.prepare("SELECT COUNT(*) FROM DB_Artist WHERE Name LIKE :Name;")
+                query.bindValue(":Name", performers)
+                query.exec()                
+                if query.next():
+                    total_entries = query.value(0)
+                    max_pages = (total_entries + page_size - 1) // page_size  # Berechnung der maximalen Seitenanzahl
+                    self.Main.lnEdit_maxpage.setText(f"{max_pages}")
+                else:
+                    errview = f"Fehler beim Abrufen der Gesamtanzahl der Einträge: {query.lastError().text()}"
+
+            with self.managed_query() as query:
+                query.prepare(f"SELECT * FROM DB_Artist WHERE Name LIKE :Name LIMIT :Limit OFFSET :Offset;")
+                query.bindValue(":Name", performers)
+                query.bindValue(":Limit", page_size)
+                query.bindValue(":Offset", offset)
+                query.exec()                
+                while query.next():                                        
+                    artist_data.initialize(query.record()) 
+                    artist_id=query.value("ArtistID")
+                    errview = f"'{self.get_all_datas_from_database.__name__}': {errview} (query1)" if query.lastError().text() else errview
+                    with self.managed_query() as query1:
+                        query1.prepare("SELECT NationVolk_GER FROM Person_Nation JOIN Nationen ON Nationen.NationID=Person_Nation.NationID WHERE ArtistID=:ArtistID")
+                        query1.bindValue(":ArtistID", artist_id)
+                        query1.exec() 
+                        nation_list = []               
+                        while query1.next():                            
+                            nation_list.append(query1.value("NationVolk_GER"))
+                            errview = f"'{self.get_all_datas_from_database.__name__}': {errview} (query2)" if query.lastError().text() else errview 
+                        nations=", ".join(nation_list)
+                    data=artist_data.get_data() # daten aus der Klasse bekommen, ansonsten nur eine Speicheradresse                                                
+                    data[len(data)-1]["Nation"]=nations # "Nation" wird dem letzten 'index' '(len(data)-1)' hinzugefügt
+                    artist_data.save_data(data) # speichert die bearbeiteten Daten in die Klasse wieder rein                                               
+                    del query1
+                errview = (errview or f"kein {performers} gefunden") if not query.lastError().text() and not artist_data else query.lastError().text()
+                errview = f"'{self.get_all_datas_from_database.__name__}': {errview} (query)" if errview and "kein " not in str(errview) else errview
+            del query
+        else:       
+            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.get_all_datas_from_database.__name__}'" if self.db.lastError().text() else errview          
+        if errview:
+            self.db_fehler(errview)
+        self.close_database()
+        artist_data.save_to_json()        
+        return errview
+    
+    def get_iafd_image(self, artist_id: int=0, name=None) -> Tuple[str, str]:            
+        errview = None
+        image_pfad: str=None  
+        images: str=None      
+        
+        self.open_database()
+        if self.db.isOpen():
+            with self.managed_query() as query:
+                query.prepare(f"SELECT DB_NamesLink.ArtistID, DB_NamesLink.Image FROM DB_Artist LEFT JOIN DB_NamesLink ON DB_NamesLink.ArtistID = DB_Artist.ArtistID WHERE DB_NamesLink.ArtistID = :ArtistID OR DB_Artist.Name = :Name;")
+                query.bindValue(":ArtistID", artist_id) 
+                query.bindValue(":Name", name)               
+                query.exec()                
+                while query.next(): 
+                    images=query.value("DB_NamesLink.Image")                     
+                    if "[IAFD]" in images:
+                        image_pfad=images 
+                        break  
+                    errview = f"'{self.get_iafd_image.__name__}': {errview} (query1)" if query.lastError().text() else errview
+                errview = (errview or f"keine ID:{artist_id} für IAFD Image gefunden in 'Links'") if not query.lastError().text() and not image_pfad else query.lastError().text()
+                errview = f"'{self.get_iafd_image.__name__}': {errview} (query)" if errview and "keine " not in str(errview) else errview
+            del query
+        else:
+            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.get_iafd_image.__name__}'" if self.db.lastError().text() else errview          
+        if errview:
+            self.db_fehler(errview)
+        self.close_database()               
+        return errview, image_pfad
 
 if __name__ == "__main__":
     DB_Darsteller()

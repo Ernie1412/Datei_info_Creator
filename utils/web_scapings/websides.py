@@ -218,7 +218,7 @@ class Infos_WebSides():
 
         db_webside_settings = Webside_Settings(MainWindow=self.Main)      
         errorview, spider_class_name = db_webside_settings.from_link_to_spider(baselink)
-        _, studio = spider_class_name.replace("Spider","").rsplit(".",1)       
+        errorview, studio = db_webside_settings.from_link_to_studio(baselink)       
         if not errorview:
             spider_class_pipeline = from_classname_to_import(spider_class_name, pipeline=f"{studio}Settings") ## import der Klasse "BangBrosAddDistri"
             if spider_class_pipeline: 
@@ -231,9 +231,9 @@ class Infos_WebSides():
         baselink = "/".join(url.split("/")[:3])+"/"        
         db_webside_settings = Webside_Settings(MainWindow=self.Main)      
         errorview, spider_class_name = db_webside_settings.from_link_to_spider(baselink) 
-        errorview, distr = db_webside_settings.from_link_to_studio(baselink)            
+        errorview, studio = db_webside_settings.from_link_to_studio(baselink)            
         if not errorview:            
-            spider_class_pipeline = from_classname_to_import(spider_class_name, pipeline="Pipeline") ## import der Klasse "Pipeline"
+            spider_class_pipeline = from_classname_to_import(spider_class_name, pipeline=f"{studio}Settings") ## import der Klasse "Pipeline"
             if spider_class_pipeline: 
                 # Rufe die Funktion auf
                 instance = spider_class_pipeline()
@@ -537,8 +537,7 @@ class Infos_WebSides():
         hours, minutes = divmod(minutes, 60)        
         return f"{hours:02d}:{minutes:02d}:00"          
 
-    def DB_Anzeige(self):
-        self.Main.tblWdg_Daten.itemSelectionChanged.connect(self.select_whole_row) # aktiviert die komplette Zeile      
+    def DB_Anzeige(self):             
         hostname = self.Main.tblWdg_Daten.selectedItems()[1].text()
         for link in hostname.split("\n"):
             self.Main.model_database_weblinks.appendRow(QStandardItem(link))
@@ -583,12 +582,12 @@ class Infos_WebSides():
         self.set_daten_with_tooltip("txtEdit_DB", "Synopsis", "Datenbank", self.Main.tblWdg_Daten.selectedItems()[13].text())
         self.set_daten_with_tooltip("txtEdit_DB", "Tags", "Datenbank", self.Main.tblWdg_Daten.selectedItems()[14].text())  
 
-    def set_daten_with_tooltip(self, widget_typ: str, art: str, quelle: str, daten: str) -> None:
+    def set_daten_with_tooltip(self, widget_typ: str, art: str, quelle: str, daten: str, artist=False) -> None:
         tooltip_text = f"{quelle}: Kein Eintrag"
         if daten:
             anzahl = f"({len(daten)}) " if len(daten) > 30 else ""
             tooltip_text = f"{quelle}: {anzahl}-> {daten[:40]}"
-            self.set_daten_in_maske(widget_typ, art, quelle, daten) 
+            self.set_daten_in_maske(widget_typ, art, quelle, daten, artist) 
         self.set_tooltip_text(widget_typ, art, tooltip_text, quelle)      
 
     def select_whole_row(self):
@@ -603,10 +602,11 @@ class Infos_WebSides():
             selection = QTableWidgetSelectionRange(row, 0, row, column_count - 1)
             self.Main.tblWdg_Daten.setRangeSelected(selection, True)
 
-    def set_daten_in_maske(self, widget: str, info_art: str, source: str, daten: str) -> None:
-        if daten:         
-            anzahl=self.Main.datenbank_save(info_art,source,daten)
-            if widget=="lnEdit_DB":
+    def set_daten_in_maske(self, widget: str, info_art: str, source: str, daten: str, artist=False) -> None:
+        if daten is not None:         
+            if not artist:
+                anzahl=self.Main.datenbank_save(info_art,source,daten)
+            if widget in ["lnEdit_DB", "lnEdit_performer_"]:
                 getattr(self.Main, f"{widget}{info_art}").setText(daten)
             else:
                 getattr(self.Main, f"{widget}{info_art}").setPlainText(daten) 
@@ -747,10 +747,10 @@ class Infos_WebSides():
         errorview, neu = db_webside.update_videodaten_in_db(studio, WebSideLink, video_data)
         
         if errorview:
-            if errorview == "Link nicht gefunden !":
+            if "Link nicht gefunden in dem" in errorview:
                 result = MsgBox(self.Main, f"{errorview} - Soll der Datensatz neu angelegt werden ?","q")
                 if result == QMessageBox.StandardButton.Yes:
-                    errview , farbe, isneu = db_webside.add_neue_videodaten_in_db(self, studio, WebSideLink, video_data)  
+                    errview , isneu = db_webside.add_neue_videodaten_in_db(self, studio, WebSideLink, video_data)  
                     if isneu == 1:
                         self.show_success_message(f"{neu} Datensatz wurde in {studio} gespeichert (update)!",f"{neu} Datensatz geaddet")                          
             self.show_error_message(errorview)               
@@ -761,7 +761,7 @@ class Infos_WebSides():
                 scraping_data = ScrapingData(MainWindow=self.Main)
                 errorview = scraping_data.hole_link_aus_db(WebSideLink, studio)
                 if not errorview:
-                    self.Main.tabelle_erstellen()
+                    self.Main.tabelle_erstellen_fuer_movie()
                 else:
                     self.show_error_message(errorview)                      
                                   

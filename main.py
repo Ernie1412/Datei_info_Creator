@@ -1,6 +1,7 @@
 from PyQt6 import uic
 from PyQt6.QtCore import Qt, QTimer, QDateTime, QTranslator, pyqtSlot
-from PyQt6.QtWidgets import QMainWindow, QAbstractItemView, QTableWidgetItem, QApplication, QPushButton, QWidget, QListWidgetItem, QListWidget, QLineEdit, QTextEdit
+from PyQt6.QtWidgets import QMainWindow, QAbstractItemView, QTableWidgetItem, QApplication, QPushButton, QWidget, QListWidgetItem , \
+    QListWidget, QLineEdit, QTextEdit, QComboBox
 from PyQt6.QtGui import QMovie, QPixmap, QKeyEvent, QStandardItem, QStandardItemModel, QColor, QBrush
 
 import sys
@@ -19,6 +20,8 @@ import gui.resource_collection_files.buttons_rc
 
 from utils.database_settings import DB_Darsteller, Webside_Settings, ScrapingData, VideoData
 from utils.web_scapings.websides import Infos_WebSides
+from utils.web_scapings.iafd_performer_link import IAFDInfos
+from utils.web_scapings.performer_infos_maske import PerformerInfosMaske
 from utils.threads import FileTransferThread, ExifSaveThread
 from utils.umwandeln import from_classname_to_import, count_days
 from gui.dialoge_ui.message_show import StatusBar, MsgBox, status_fehler_ausgabe
@@ -121,13 +124,28 @@ class Haupt_Fenster(QMainWindow):
         self.lnEdit_URL.textChanged.connect(lambda index: self.Btn_Linksuche_in_DB.setEnabled(bool(self.lnEdit_URL.text().startswith("https://"))))
         self.tabs.currentChanged.connect(self.tab_changed_handler)
         self.lnEdit_DBIAFDLink.textChanged.connect(self.Web_IAFD_change)
-        self.lnEdit_DBData18Link.textChanged.connect(self.Web_Data18_change)       
+        self.lnEdit_DBData18Link.textChanged.connect(self.Web_Data18_change)              
         self.lnEdit_URL.textChanged.connect(self.link_isin_from_db)
         self.lnEdit_db_titel.textChanged.connect(self.titelsuche_in_DB_aktiv)
         self.lnEdit_db_performer.textChanged.connect(self.performersuche_in_DB_aktiv)
         self.cBox_studio_links.currentIndexChanged.connect(lambda index :self.Btn_start_spider.setEnabled(bool(self.cBox_studio_links.currentText()))) 
+        ### ---------------- Performer Tab --------------------------- ###
+        self.lnEdit_DBIAFD_artistLink.textChanged.connect(self.Web_IAFD_artist_change)
+        self.lnEdit_DBBabePedia_artistLink.textChanged.connect(self.Web_BabePedia_artist_change) 
+        self.Btn_IAFD_perfomer_suche.clicked.connect(self.get_IAFD_performer_link) 
+        self.Btn_Linksuche_in_IAFD_artist.clicked.connect(self.load_IAFD_performer_link) 
+        self.cBox_performer_sex.currentIndexChanged.connect(self.set_iafd_button_and_tooltip)
+        self.Btn_DB_perfomer_suche.clicked.connect(self.datenbank_performer_suche)        
+        self.Btn_DBArtist_Update.clicked.connect(self.update_datensatz)
+        self.Btn_table_links_expanding.clicked.connect(self.expand_table_links)
+        self.Btn_table_daten_expanding.clicked.connect(self.expand_table_daten)
+        self.Btn_seiten_vor.clicked.connect(self.datenbank_performer_suche_nextpage)
+        self.Btn_seiten_zurueck.clicked.connect(self.datenbank_performer_suche_prevpage)
+        self.tblWdg_performer_links.clicked.connect(self.show_performers_images.show_performer_picture)
+        self.Btn_performer_next.clicked.connect(self.show_performers_images.show_next_picture_in_label)
+        self.Btn_performer_prev.clicked.connect(self.show_performers_images.show_previous_picture_in_label)
         ###-----------------------------------------------------------------------------------###
-        for i in range(1,5):            
+        for i in range(1,6):            
             stacked_widget = self.findChild(QPushButton, f'Btn_stacked_next_{i}')  
             stacked_widget.clicked.connect(lambda: self.stackedWidget.setCurrentIndex((self.stackedWidget.currentIndex() + 1) % self.stackedWidget.count()))
 
@@ -139,14 +157,28 @@ class Haupt_Fenster(QMainWindow):
 
         if index == 0:
             self.stackedWidget.setCurrentIndex(0)
-        else:
-            self.stackedWidget.setCurrentIndex(2)
-        if index == 1:
+
+        if index == 1: 
+            self.stackedWidget.setCurrentWidget(self.stacked_db_abfrage)           
             self.set_analyse_daten()
-        if index ==2:            
+
+        if index ==2: 
+            self.stackedWidget.setCurrentWidget(self.stacked_IAFD_Linkmaker) 
+            header_labels=["Titel", "WebLinks", "IAFDLink", "Performer", "Action", "Name", "Dauer","Release Date", "Productions Date"
+                "Serie","Regie","Scene Code","Movies","Synopsis","Tags"]
+            self.tblWdg_Daten.setColumnCount(len(header_labels))
+            self.tblWdg_Daten.setHorizontalHeaderLabels(header_labels)          
             links = self.lstView_database_weblinks.model().data(self.lstView_database_weblinks.model().index(0, 0))
             if links:
                 self.set_studio_in_db_tab(links)
+
+        if index ==3:
+            self.stackedWidget.setCurrentWidget(self.stacked_IAFD_artist)
+            header_labels=["ID", "Name", "IAFD", "BabePedia", "Geschlecht", "Rasse", "Nation", "Geburtstag", "Geburtsort",  "OnylFans", "Boobs","Gewicht",
+                "Größe","Bodytyp", "Piercing","Tattoo","Haarfarbe", "Augenfarbe","Aktiv"]            
+            self.tblWdg_Daten.setColumnCount(len(header_labels))
+            self.tblWdg_Daten.setHorizontalHeaderLabels(header_labels)
+
 
     def set_studio_in_db_tab(self, links):
         scraping_data = ScrapingData(MainWindow=self)
@@ -397,7 +429,7 @@ class Haupt_Fenster(QMainWindow):
             if errorview:
                 MsgBox(self, errorview,"w") 
             else:                
-                self.tabelle_erstellen()              
+                self.tabelle_erstellen_fuer_movie()              
                 self.DB_Anzeige()
         else:
             MsgBox(self, f"Es gibt noch keine Datenbank für: <{studio}>","w")
@@ -419,11 +451,81 @@ class Haupt_Fenster(QMainWindow):
             if errorview:
                 MsgBox(self, errorview,"w") 
             else:                
-                self.tabelle_erstellen()
+                self.tabelle_erstellen_fuer_movie()
         else:
             MsgBox(self, f"Es gibt noch keine Datenbank für: <{studio}>","w")
 
-    def tabelle_erstellen(self):
+    def datenbank_performer_suche_prevpage(self):
+        if self.lnEdit_IAFD_performer.text() != "":
+            page_max=int(self.lnEdit_maxpage.text())
+            page = int(self.lnEdit_page.text())
+            page-=1
+            if page < 0:
+                page= page_max
+            self.lnEdit_page.setText(f"{page}")
+            self.datenbank_performer_suche()
+        else:
+            QTimer.singleShot(100, lambda :self.lnEdit_IAFD_performer.setStyleSheet('background-color: #FF0000'))            
+            QTimer.singleShot(3500, lambda :self.lnEdit_IAFD_performer.setStyleSheet('background-color:'))
+    
+    def datenbank_performer_suche_nextpage(self):
+        if self.lnEdit_IAFD_performer.text() != "":
+            page_max=int(self.lnEdit_maxpage.text())
+            page = int(self.lnEdit_page.text())
+            page+=1
+            if page > page_max:
+                page= 1
+            self.lnEdit_page.setText(f"{page}")
+            self.datenbank_performer_suche()
+        else:
+            QTimer.singleShot(100, lambda :self.lnEdit_IAFD_performer.setStyleSheet('background-color: #FF0000'))            
+            QTimer.singleShot(3500, lambda :self.lnEdit_IAFD_performer.setStyleSheet('background-color:'))
+
+    def datenbank_performer_suche(self):
+        if self.sender() == self.Btn_DB_perfomer_suche:
+            self.lnEdit_page.setText("1")
+            self.lnEdit_maxpage.setText("1")
+            self.show_performers_images = ShowPerformerImages(self)        
+        performer_infos_maske=PerformerInfosMaske(MainWindow=self)
+        performer_infos_maske.clear_maske()
+        artist=self.lnEdit_IAFD_performer.text()        
+        if len(artist) > 1:
+            if artist[-1:] == "*":
+                artist = f"{artist[:-1]}%"
+            if artist[:1] == "*":
+                artist = f"%{artist[1:]}"
+        else:
+            if artist == "*":
+                artist = "%"
+        page_number=int(self.lnEdit_page.text())
+        db_for_darsteller = DB_Darsteller(MainWindow=self)
+        errview = db_for_darsteller.get_all_datas_from_database(artist, page_number)
+        if errview is not None:
+            self.tabelle_erstellen_fuer_performer()
+    
+    def update_datensatz(self):
+        performer_infos_maske = PerformerInfosMaske(MainWindow=self)
+        performer_infos_maske.update_datensatz()
+
+    def expand_table_links(self):
+        table_widget_breite=self.tblWdg_performer_links.height()
+        if table_widget_breite == 140:
+            self.tblWdg_performer_links.setGeometry(30, 360, 870, 140+300)
+            self.Btn_table_links_expanding.move(450, 505+300)
+        else:
+            self.tblWdg_performer_links.setGeometry(30, 360, 870, 140)
+            self.Btn_table_links_expanding.move(450, 505)
+
+    def expand_table_daten(self):
+        table_widget_laenge=self.tblWdg_Daten.width()
+        if table_widget_laenge == 890:
+            self.tblWdg_Daten.setGeometry(30, 210, 890+940, 750)
+            self.Btn_table_daten_expanding.move(925+940, 540)
+        else:
+            self.tblWdg_Daten.setGeometry(30, 210, 890, 750)
+            self.Btn_table_daten_expanding.move(925, 540)
+
+    def tabelle_erstellen_fuer_movie(self):
         zeile: int = 0
         video_data_json=VideoData().load_from_json()
         for zeile, video_data in enumerate(video_data_json):
@@ -444,6 +546,33 @@ class Haupt_Fenster(QMainWindow):
             self.tblWdg_Daten.setItem(zeile,13,QTableWidgetItem(video_data["Synopsis"])) 
             self.tblWdg_Daten.setItem(zeile,14,QTableWidgetItem(video_data["Tags"]))
         self.tblWdg_Daten.setCurrentCell(zeile, 0)
+
+    def tabelle_erstellen_fuer_performer(self):        
+        zeile: int = 0
+        artist_data_json=VideoData().load_from_json()
+        for zeile, artist_data in enumerate(artist_data_json):            
+            self.tblWdg_Daten.setRowCount(zeile+1) 
+            self.tblWdg_Daten.setItem(zeile,0,QTableWidgetItem(f'{artist_data["ArtistID"]}'))           
+            self.tblWdg_Daten.setItem(zeile,1,QTableWidgetItem(artist_data["Name"])) 
+            self.tblWdg_Daten.setItem(zeile,2,QTableWidgetItem(artist_data["IAFDLink"]))
+            self.tblWdg_Daten.setItem(zeile,3,QTableWidgetItem(artist_data["BabePedia"]))               
+            self.tblWdg_Daten.setItem(zeile,4,QTableWidgetItem(f'{artist_data["Geschlecht"]}'))
+            self.tblWdg_Daten.setItem(zeile,5,QTableWidgetItem(f'{artist_data["RassenID"]}')) 
+            self.tblWdg_Daten.setItem(zeile,6,QTableWidgetItem(artist_data["Nation"]))
+            self.tblWdg_Daten.setItem(zeile,7,QTableWidgetItem(artist_data["Geburtstag"]))
+            self.tblWdg_Daten.setItem(zeile,8,QTableWidgetItem(artist_data["Birth_Place"]))
+            self.tblWdg_Daten.setItem(zeile,9,QTableWidgetItem(artist_data["OnlyFans"]))               
+            self.tblWdg_Daten.setItem(zeile,10,QTableWidgetItem(artist_data["Boobs"]))
+            self.tblWdg_Daten.setItem(zeile,11,QTableWidgetItem(f'{artist_data["Gewicht"]}'))
+            self.tblWdg_Daten.setItem(zeile,12,QTableWidgetItem(f'{artist_data["Groesse"]}'))
+            self.tblWdg_Daten.setItem(zeile,13,QTableWidgetItem(artist_data["Bodytyp"]))
+            self.tblWdg_Daten.setItem(zeile,14,QTableWidgetItem(artist_data["Piercing"]))
+            self.tblWdg_Daten.setItem(zeile,15,QTableWidgetItem(artist_data["Tattoo"])) 
+            self.tblWdg_Daten.setItem(zeile,16,QTableWidgetItem(artist_data["Haarfarbe"]))
+            self.tblWdg_Daten.setItem(zeile,17,QTableWidgetItem(artist_data["Augenfarbe"]))
+            self.tblWdg_Daten.setItem(zeile,18,QTableWidgetItem(artist_data["Aktiv"]))
+            self.tblWdg_Daten.setItem(zeile,19,QTableWidgetItem(f'{artist_data["Geschlecht"]}'))
+        self.tblWdg_Daten.setCurrentCell(zeile, 0)   
 
     ### ---------------------------------------------------------------------- ###
     ### ---- Infos aus der Datenbank holen, um Dateien mit Daten zu füllen --- ###
@@ -466,7 +595,7 @@ class Haupt_Fenster(QMainWindow):
             if errorview:
                 MsgBox(self, errorview,"w") 
             else:                
-                self.tabelle_erstellen() 
+                self.tabelle_erstellen_fuer_movie() 
         else:
             MsgBox(self, f"Es gibt noch keine Datenbank für: <{studio}>","w")
    
@@ -515,7 +644,22 @@ class Haupt_Fenster(QMainWindow):
 
     def Web_IAFD_change(self):        
         infos_webside = Infos_WebSides(MainWindow=self)
-        infos_webside.Web_IAFD_change()              
+        infos_webside.Web_IAFD_change() 
+
+    def Web_IAFD_artist_change(self):
+        iafd_infos = IAFDInfos(MainWindow=self)
+        iafd_infos.check_IAFD_performer_link() 
+    
+    def Web_BabePedia_artist_change(self):
+        pass
+
+    def get_IAFD_performer_link(self): 
+        iafd_infos = IAFDInfos(MainWindow=self)
+        iafd_infos.get_IAFD_performer_link()  
+
+    def load_IAFD_performer_link(self): 
+        iafd_infos = IAFDInfos(MainWindow=self)
+        iafd_infos.load_IAFD_performer_link()        
 
     def Web_Data18_change(self):
         infos_webside = Infos_WebSides(MainWindow=self)
@@ -569,8 +713,14 @@ class Haupt_Fenster(QMainWindow):
         print(my_settings.get('LAST_VISIT'))
         #SpiderMonitor(spider_class_name, self)
         
-
-
+    def set_iafd_button_and_tooltip(self):       
+        if self.cBox_performer_sex.currentText():
+            self.Btn_IAFD_perfomer_suche.setEnabled(True)
+            self.Btn_IAFD_perfomer_suche.setToolTip("erstellt ein IAFD Link und setzt in die Maske")
+        else:
+            self.Btn_IAFD_perfomer_suche.setEnabled(False)
+            self.Btn_IAFD_perfomer_suche.setToolTip("Geschlecht auswählen !")
+        
     def Datei_loeschen(self):
         old_file=self.tblWdg_Files.selectedItems()[0].text()
         dir=self.lbl_Ordner.text()
@@ -582,6 +732,7 @@ class Haupt_Fenster(QMainWindow):
             self.refresh_table()
         else:
             self.tblWdg_Files.clearContents()
+            self.tblWdg_Files.setRowCount(0)
         self.DIA_Loeschen.hide()
 
     def Datei_Rename(self):
@@ -905,26 +1056,49 @@ class Haupt_Fenster(QMainWindow):
 
     
     def DB_Anzeige(self):
-        ### ----- kompette Maske löschen incl. json Infos ------- ### 
-        self.datenbank_save("delete")
-        felder = ["SceneCode", "ProDate", "Release", "Regie", "Serie", "Dauer", "Movies", "Synopsis", "Tags"]
-        for feld in felder:  
-            Line_edit_widget = self.findChild(QLineEdit, f'lnEdit_DB{feld}')
-            text_edit_widget = self.findChild(QTextEdit, f'txtEdit_DB{feld}')                
-            if Line_edit_widget or text_edit_widget:
-                widget_obj = Line_edit_widget or text_edit_widget 
-                widget_obj.setToolTip("")
-        self.model_database_weblinks.clear()
-        self.tblWdg_Performers.clear()
-
-        self.tabs.setCurrentIndex(2) # Tab für Datenbank aktiv
-        self.tblWdg_Daten.selectRow(self.tblWdg_Daten.currentRow())
-        self.lnEdit_DBTitel.setText(self.tblWdg_Daten.selectedItems()[0].text()) 
-
         infos_webside = Infos_WebSides(MainWindow=self)
-        infos_webside.DB_Anzeige()
+        current_index = self.stackedWidget.currentIndex()
+        self.tblWdg_Daten.itemSelectionChanged.connect(infos_webside.select_whole_row) # aktiviert die komplette Zeile 
+        if current_index == self.stackedWidget.indexOf(self.stacked_IAFD_artist):
+            self.Btn_DBArtist_Update.setEnabled(False)
+            felder = ["sex", "rasse", "nation", "haar", "augen", "geburtsort", "geburtstag", "boobs", "bodytyp", "aktiv", "groesse",
+                "gewicht", "piercing", "tattoo"]
+            self.tooltip_claering(felder)
+            performer_infos_maske = PerformerInfosMaske(MainWindow=self)
+            performer_infos_maske.artist_infos_in_maske()
+        elif current_index == self.stackedWidget.indexOf(self.stacked_IAFD_Linkmaker or self.stacked_db_abfrage):
+            ### ----- kompette Maske löschen incl. json Infos ------- ### 
+            self.datenbank_save("delete")
+            felder = ["SceneCode", "ProDate", "Release", "Regie", "Serie", "Dauer", "Movies", "Synopsis", "Tags"]
+            self.tooltip_claering(felder)
+            self.model_database_weblinks.clear()
+            self.tblWdg_Performers.clear()
 
-        self.enabled_db_buttons(True)
+            self.tabs.setCurrentIndex(2) # Tab für Datenbank aktiv
+            self.tblWdg_Daten.selectRow(self.tblWdg_Daten.currentRow())
+            self.lnEdit_DBTitel.setText(self.tblWdg_Daten.selectedItems()[0].text()) 
+
+            infos_webside = Infos_WebSides(MainWindow=self)
+            infos_webside.DB_Anzeige()
+
+            self.enabled_db_buttons(True)
+
+    def tooltip_claering(self, felder: list, artist: bool=False) -> None: 
+        combo_box_widget=None 
+        Line_edit_widget=None 
+        text_edit_widget=None 
+
+        for feld in felder: 
+            if artist:
+                combo_box_widget = self.findChild(QComboBox, f'cBox_performer_{feld}')
+                Line_edit_widget = self.findChild(QLineEdit, f'lnEdit_performer{feld}')
+                text_edit_widget = self.findChild(QTextEdit, f'txtEdit_performer{feld}')
+            else:
+                Line_edit_widget = self.findChild(QLineEdit, f'lnEdit_DB{feld}')
+                text_edit_widget = self.findChild(QTextEdit, f'txtEdit_DB{feld}')                
+            if Line_edit_widget or text_edit_widget or combo_box_widget:
+                widget_obj = Line_edit_widget or text_edit_widget or combo_box_widget
+                widget_obj.setToolTip("")
 
     def addLink(self):        
         link = self.lnEdit_addLink.text()
@@ -1350,7 +1524,7 @@ class Haupt_Fenster(QMainWindow):
 
 # Abschluss
 if __name__ == '__main__':
-    app, MainWindow =(QApplication(sys.argv), Haupt_Fenster()) 
+    app, MainWindow =(QApplication(sys.argv), Haupt_Fenster())   
     ## ------- Erstellen eines QTranslator-Objekts -------- ##
     translator = QTranslator()   
     translator.load("qt_de.qm")# deutsch setzen

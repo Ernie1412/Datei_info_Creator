@@ -12,6 +12,7 @@ BOT_NAME = "bangbros_artists"
 SPIDER_MODULES = ["bangbros_artists.spiders"]
 NEWSPIDER_MODULE = "bangbros_artists.spiders"
 
+FEED_EXPORT_FIELDS=['url', 'name', 'sex', 'image_name']#
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = "bangbros_artists (+http://www.yourdomain.com)"
@@ -37,7 +38,7 @@ ROBOTSTXT_OBEY = False
 #TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
-DEFAULT_HEADERS = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+#DEFAULT_HEADERS = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
 
 
 # Enable or disable spider middlewares
@@ -61,9 +62,11 @@ DEFAULT_HEADERS = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'utils.web_scapings.spiders.bangbros.bangbros.pipelines.BangBrosPipeline': 300,   
-   'utils.web_scapings.spiders.bangbros.bangbros.pipelines.MyDatabasePipeline': 800
+   'bangbros_artists.pipelines.RenameImagesPipeline': 1, # 'ImagesPipeline' 
+   # 'utils.web_scapings.spiders.bangbros.bangbros.pipelines.BangBrosPipeline': 300,   
+   # 'utils.web_scapings.spiders.bangbros.bangbros.pipelines.MyDatabasePipeline': 800
 }
+IMAGES_STORE = "images"
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
@@ -87,6 +90,8 @@ ITEM_PIPELINES = {
 #HTTPCACHE_STORAGE = "scrapy.extensions.httpcache.FilesystemCacheStorage"
 
 # Set settings whose default value is deprecated to a future-proof value
-REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
-TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
-FEED_EXPORT_ENCODING = "utf-8"
+# REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
+# TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
+# FEED_EXPORT_ENCODING = "utf-8"
+
+

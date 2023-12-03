@@ -23,6 +23,7 @@ PROCESS_JSON_PATH = Path(__file__).absolute().parent / "jsons/process.json"
 MEDIA_JSON_PATH = Path(__file__).absolute().parent / "jsons/media.json"
 DATENBANK_JSON_PATH = Path(__file__).absolute().parent / "jsons/datenbank.json"
 DB_RECORD_JSON = Path(__file__).absolute().parent / 'jsons/db_record.json'
+RASSE_JSON = Path(__file__).absolute().parent / 'jsons/rasse.json'
 
 DB_PATH = Path(__file__).absolute().parent / '__DB/'
 PROJECT_PATH = Path(__file__).absolute().parent
