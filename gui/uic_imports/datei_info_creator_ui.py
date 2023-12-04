@@ -1865,6 +1865,7 @@ class Ui_MainWindow(object):
         font.setPointSize(8)
         font.setStyleStrategy(QtGui.QFont.StyleStrategy.PreferAntialias)
         self.tblWdg_performer_links.setFont(font)
+        self.tblWdg_performer_links.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
         self.tblWdg_performer_links.setStyleSheet("background-color: rgb(255, 250, 211)\n"
 "")
         self.tblWdg_performer_links.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectionBehavior.SelectRows)
@@ -3093,6 +3094,7 @@ class Ui_MainWindow(object):
         self.Btn_table_daten_expanding.setText("")
         self.Btn_table_daten_expanding.setObjectName("Btn_table_daten_expanding")
         self.tblWdg_Files.raise_()
+        self.tblWdg_Daten.raise_()
         self.stackedWidget.raise_()
         self.grp_rename.raise_()
         self.tabs.raise_()
@@ -3104,7 +3106,6 @@ class Ui_MainWindow(object):
         self.Btn_VideoDatenHolen.raise_()
         self.lbl_db_status.raise_()
         self.Btn_table_daten_expanding.raise_()
-        self.tblWdg_Daten.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(parent=MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1884, 21))

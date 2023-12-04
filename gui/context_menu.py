@@ -1,5 +1,5 @@
 from PyQt6 import uic
-from PyQt6.QtWidgets import QMenu
+from PyQt6.QtWidgets import QMenu, QTableWidgetItem 
 from PyQt6.QtGui import QAction, QCursor
 
 import functools
@@ -11,11 +11,13 @@ from pathlib import Path
 from utils.database_settings.database_for_settings import Webside_Settings, SettingsData
 from utils.web_scapings.websides import Infos_WebSides
 from utils.web_scapings.scrap_with_requests import VideoUpdater
+from utils.database_settings.database_for_darsteller import DB_Darsteller
+from utils.web_scapings.load_performer_images_from_websites import LoadAnalVidsPerformerImages
 
 from gui.dialoge_ui.message_show import MsgBox, StatusBar
 
 from config import MEDIA_JSON_PATH
-from config import LOESCH_DIALOG_UI, RENAME_DIALOG_UI, DATEI_AUSWAHL_UI
+from config import LOESCH_DIALOG_UI, RENAME_DIALOG_UI, DATEI_AUSWAHL_UI, PROJECT_PATH
 
 
 class ContextMenu(QMenu):
@@ -36,6 +38,8 @@ class ContextMenu(QMenu):
                 self.showContextMenu_in_Synopsis(current_widget.mapToGlobal(pos))
             elif current_widget == self.Main.txtEdit_DBTags:
                 self.showContextMenu_in_DBTags(current_widget.mapToGlobal(pos))
+            elif current_widget == self.Main.tblWdg_performer_links:
+                self.showContextMenu_in_performer_links(current_widget.mapToGlobal(pos))
 
     def showContextMenu_in_Files(self, pos: int) -> None: 
         action_header: QAction = self.set_header_on_contextmenu("Datei Aktionen") 
@@ -47,6 +51,67 @@ class ContextMenu(QMenu):
             "Datei in dem richtigen Ordner verschieben": self.file_move_in_db_folder   }
         self.show_context_menu(pos, action_header, menu_dict) 
 
+    #### ----------- Aufruf für die 'Performer Links Tabelle' ----------- #####
+    def showContextMenu_in_performer_links(self, pos: int) -> None: # tblWdg_performer_links
+        action_header: QAction = self.set_header_on_contextmenu("Tabelle Performer Links") 
+        menu_dict: dict = {
+            "Zeile hinzufügen": self.add_item,
+            "Zeile löschen": self.delete_item,
+            "lade Tabelle neu aus Datenbank": self.refresh_tabelle,
+            "Lade Bild von Website": self.load_image_from_webside,
+            "Tabellespalten am Text anpassen": self.context_resize,
+            "Explorer im Namen Ordner öffnen": self.open_explorer     }
+        self.show_context_menu(pos, action_header, menu_dict)
+
+    #### ----------- Aktionen in dem 'Performer Links Tabelle' ----------- #####
+    def add_item(self):
+        pass
+
+    def delete_item(self):
+        name=self.Main.lnEdit_performer_info.text()
+        if self.Main.tblWdg_performer_links.rowCount()>-1 and name:        
+            row_index = self.Main.tblWdg_performer_links.currentRow()
+            if row_index >= 0:
+                datenbank_darsteller=DB_Darsteller(MainWindow=self.Main)
+                names_id=self.Main.tblWdg_performer_links.selectedItems()[0].text()
+                errview = datenbank_darsteller.delete_nameslink_satz(names_id) 
+                self.Main.tblWdg_performer_links.removeRow(row_index)
+                self.Main.lbl_db_status.setText(f"Zeile: {row_index+1} mit der ID: {names_id} wurde auch aus der Datenbank gelöscht !")
+        else:
+            self.Main.lbl_db_status.setText("Kein Name oder nichts in der Tabelle drin !") 
+
+    def refresh_tabelle(self):
+        name=self.Main.lnEdit_performer_info.text()
+        if self.Main.tblWdg_performer_links.rowCount()>-1 and name:
+            datenbank_darsteller=DB_Darsteller(MainWindow=self.Main)
+            errview, ids, links, images, aliases = datenbank_darsteller.get_quell_links(self.Main.tblWdg_Daten.selectedItems()[0].text()) #ArtistID -> DB_NamesLink.NamesID
+            for zeile,(id, link, image, alias) in enumerate(zip(ids,links,images,aliases)):
+                self.Main.tblWdg_performer_links.setRowCount(zeile+1)
+                self.Main.tblWdg_performer_links.setItem(zeile,0,QTableWidgetItem(f"{id}"))            
+                self.Main.tblWdg_performer_links.setItem(zeile,1,QTableWidgetItem(link))
+                self.Main.tblWdg_performer_links.setItem(zeile,2,QTableWidgetItem(image))
+                self.Main.tblWdg_performer_links.setItem(zeile,3,QTableWidgetItem(alias))
+            self.Main.tblWdg_performer_links.resizeColumnsToContents()
+        else:
+            self.Main.lbl_db_status.setText("Kein Name oder nichts in der Tabelle drin !") 
+
+    def load_image_from_webside(self):
+        name=self.Main.lnEdit_performer_info.text()
+        if self.Main.tblWdg_performer_links.rowCount()>-1 and name:
+            load = LoadAnalVidsPerformerImages(MainWindow=self.Main, name=name)
+            load.load_analvids_image_in_label()
+        else:
+            self.Main.lbl_db_status.setText("Kein Name oder nichts in der Tabelle drin !")            
+
+    def context_resize(self):
+        self.Main.tblWdg_performer_links.resizeColumnsToContents()
+        self.Main.tblWdg_performer_links.update()
+
+    def open_explorer(self):
+        name=self.Main.lnEdit_performer_info.text()
+        subprocess.Popen(['explorer', str(PROJECT_PATH / f"__artists_Images/{name}")])
+
+    #### -------------------------------------------------------------------------- #####
 
     def showContextMenu_in_DBSceneCode(self, pos: int) -> None:
         action_header: QAction = self.set_header_on_contextmenu("Webscrapen von Scene Code !")       

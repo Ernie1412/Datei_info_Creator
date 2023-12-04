@@ -3918,6 +3918,9 @@ color: rgb(213, 213, 213);}
         <stylestrategy>PreferAntialias</stylestrategy>
        </font>
       </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::CustomContextMenu</enum>
+      </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(255, 250, 211)
 </string>
@@ -6268,6 +6271,7 @@ QPushButton:hover{
     </property>
    </widget>
    <zorder>tblWdg_Files</zorder>
+   <zorder>tblWdg_Daten</zorder>
    <zorder>stackedWidget</zorder>
    <zorder>grp_rename</zorder>
    <zorder>tabs</zorder>
@@ -6279,7 +6283,6 @@ QPushButton:hover{
    <zorder>Btn_VideoDatenHolen</zorder>
    <zorder>lbl_db_status</zorder>
    <zorder>Btn_table_daten_expanding</zorder>
-   <zorder>tblWdg_Daten</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

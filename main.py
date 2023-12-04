@@ -120,6 +120,7 @@ class Haupt_Fenster(QMainWindow):
         self.tblWdg_Files.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)  
         ### --- Context Menus ---------------------- ### 
         self.tblWdg_Files.customContextMenuRequested.connect(lambda pos, widget_obj=self.tblWdg_Files: self.showContextMenu(pos, widget_obj))
+        self.tblWdg_performer_links.customContextMenuRequested.connect(lambda pos, widget_obj=self.tblWdg_performer_links: self.showContextMenu(pos, widget_obj))
         ### ------------ Text/Tab Wechsel Reaktion ------------------ ###
         self.lnEdit_URL.textChanged.connect(lambda index: self.Btn_Linksuche_in_DB.setEnabled(bool(self.lnEdit_URL.text().startswith("https://"))))
         self.tabs.currentChanged.connect(self.tab_changed_handler)

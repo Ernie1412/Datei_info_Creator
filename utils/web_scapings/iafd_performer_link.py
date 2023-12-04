@@ -41,7 +41,7 @@ class IAFDInfos():
             try:                    
                 r = requests.get(self.Main.lnEdit_DBIAFD_artistLink.text(), headers=HEADERS, timeout=10)
             except (requests.exceptions.Timeout, requests.exceptions.RequestException) as e:
-                self.fehler_ausgabe_checkweb(e,"IAFD_artistURL")
+                infos_webside.fehler_ausgabe_checkweb(e,"IAFD_artistURL")
                 return
             else:               
                 if html.fromstring(r.content).xpath('//div[@class="col-xs-12"]/h1'):                
