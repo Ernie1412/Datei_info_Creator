@@ -3,14 +3,19 @@ from PyQt6.QtCore import Qt
 
 import requests
 from lxml import html
+from urllib.parse import urlencode, urljoin
+from playwright.sync_api import sync_playwright, TimeoutError
 
 import pyperclip
 import json
 import re
 from datetime import datetime
+import logging
+import time
 
 from utils.web_scapings.websides import Infos_WebSides
 from utils.database_settings.database_for_darsteller import DB_Darsteller
+from gui.dialoge_ui import StatusBar
 
 from config import HEADERS, PROJECT_PATH, RASSE_JSON
 
@@ -19,38 +24,48 @@ class IAFDInfos():
     def __init__(self, MainWindow):
         super().__init__() 
         self.Main = MainWindow
+        self.search_methode=False
+        logging.basicConfig(
+            filename=PROJECT_PATH / 'IAFDInfos.log',
+            level=logging.DEBUG,
+            format='%(asctime)s [%(levelname)s]: %(message)s',
+            datefmt='%Y-%m-%d %H:%M:%S' )
 
     def get_IAFD_performer_link(self):
-        name=self.Main.lnEdit_IAFD_performer.text().lower().strip()
+        name=self.Main.lnEdit_create_iafd_link.text().lower().strip()
         cbox_sex=self.Main.cBox_performer_sex.currentText()
         sex = self.dict_sex(cbox_sex,cbox=True) 
         if sex:            
             name1=name.replace(" ","")
             name2=name.replace(" ","-")
             iafd_link=f"https://www.iafd.com/person.rme/perfid={name1}/gender={sex}/{name2}.htm"
-            self.Main.lnEdit_DBIAFD_artistLink.setText(iafd_link)            
-            pyperclip.copy(iafd_link)
+            self.Main.lnEdit_DBIAFD_artistLink.setText(iafd_link) 
    
     def check_IAFD_performer_link(self):
-        webdatabase: str="IAFD_artist"
-        
+        webdatabase: str="IAFD_artist"        
         infos_webside=Infos_WebSides(self.Main)
-
         infos_webside.just_checking_labelshow(webdatabase) 
-        if self.Main.lnEdit_DBIAFD_artistLink.text().startswith("https://www.iafd.com/person.rme/perfid="):
-            try:                    
-                r = requests.get(self.Main.lnEdit_DBIAFD_artistLink.text(), headers=HEADERS, timeout=10)
+        url=self.Main.lnEdit_DBIAFD_artistLink.text()
+        if url.startswith("https://www.iafd.com/person.rme/perfid="):
+            try:  
+                with requests.Session() as session:
+                    response = session.get(url, headers=HEADERS, timeout=12) 
             except (requests.exceptions.Timeout, requests.exceptions.RequestException) as e:
-                infos_webside.fehler_ausgabe_checkweb(e,"IAFD_artistURL")
+                logging.error(f"check_IAFD_performer_link -> {e}")
                 return
-            else:               
-                if html.fromstring(r.content).xpath('//div[@class="col-xs-12"]/h1'):                
+            else:
+                content = html.fromstring(response.content)
+                elements=content.xpath("//div[@class='col-xs-12']/h1")    
+                if elements:
+                    self.Main.lnEdit_IAFD_artistAlias.setText(elements[0].text_content().strip())
+                    self.Main.performer_text_change("lnEdit_IAFD_artistAlias", color_hex='#FFFD00')                
                     infos_webside.check_OK_labelshow(webdatabase)
                 else:
-                    infos_webside.check_negativ_labelshow(webdatabase)  
+                    if content.xpath("//div[@id='cf-error-details']"):
+                        StatusBar(self.Main, "Error: 521 Fehler - Verbindung mit Cloudflare abgelehnt !")
+                    infos_webside.check_negativ_labelshow(webdatabase) 
         else:
-            self.Main.lnEdit_IAFD_performer.setText(self.Main.lnEdit_performer_info.text())  
-            self.Main.lnEdit_IAFD_performer.setFocus()          
+            self.Main.lnEdit_create_iafd_link.setText(self.Main.lnEdit_performer_info.text()) 
             self.Main.stackedWidget.setCurrentIndex(5)
             infos_webside.check_error_labelshow(webdatabase)
     
@@ -63,23 +78,70 @@ class IAFDInfos():
             sex=sex_dict.get(cbox_sex)
         return sex
     
+    def block_banner(self, route):  
+        if "revive.iafd.com/www/delivery/asyncspc.php?" in route.request.url:            
+            route.abort()
+        else:
+            route.continue_()
+
+    def open_url(self, url, webdatabase, infos_webside):
+        with sync_playwright() as p:            
+            page_content=None
+            browser = p.chromium.launch(headless=True)
+            page = browser.new_page() 
+            page.set_extra_http_headers(HEADERS) 
+            page.route("**/*", lambda route: self.block_banner(route))
+            try:                               
+                page.goto(url, wait_until="networkidle")                 
+            except Exception as e:                 
+                logging.error(f"open_url -> {e}") 
+            else:
+                if any(keyword in page.content() for keyword in ["The page you requested was removed", "invalid or outdated page"]):
+                    self.search_methode=True
+                    return
+                page_content = html.fromstring(page.content()) 
+            finally:
+                browser.close()
+                return page_content
+
+    
     def load_IAFD_performer_link(self):
         webdatabase: str="IAFD_artist"
         infos_webside=Infos_WebSides(self.Main)
         infos_webside.check_loading_labelshow(webdatabase)
         url = self.Main.lnEdit_DBIAFD_artistLink.text()        
-        try:
-            response = requests.get(url, headers=HEADERS, timeout=10)
-        except (requests.exceptions.Timeout, requests.exceptions.RequestException) as e:
-            infos_webside.fehler_ausgabe_checkweb(e,f"{webdatabase}URL")
-            status = e           
-        else:
-            content = html.fromstring(response.content)               
-            if not content.xpath('//div[@class="col-xs-12"]/h1'): 
-                infos_webside.check_negativ_labelshow(webdatabase) 
-                return 
-
+        content = self.open_url(url, webdatabase, infos_webside)   # url aufruf mit normalen iafdlink                   
+        if self.search_methode==True or content is not None:                           
+            if self.search_methode:
+                message=f"nichts direktes gefunden: wende Such-Methode an: {self.Main.lnEdit_performer_info.text()}"
+                self.Main.txtBrowser_loginfos.append(message) 
+                url=self.generate_iafd_search_url(self.Main.lnEdit_performer_info.text()) # url aufruf mit search iafdlink               
+                content = self.open_url(url, webdatabase, infos_webside)  
+                if content is None:
+                    time.sleep(1)
+                    self.Main.lnEdit_DBIAFD_artistLink.setText("") 
+                    logging.warning(f"Search Link is None -> {url}")                   
+                    return              
+                if self.Main.cBox_performer_sex.currentIndex() == 1:
+                    artist_elem=content.xpath("//table[@id='tblFem']/tbody/tr[@class='odd']/td[1]/a")
+                else:
+                    artist_elem=content.xpath("//table[@id='tblMal']/tbody/tr[@class='odd']/td[1]/a")
+                if len(artist_elem)== 1:
+                    self.search_methode=False
+                    url=urljoin("https://www.iafd.com", artist_elem[0].get('href'))
+                    content = self.open_url(url, webdatabase, infos_webside)
+                    self.Main.lnEdit_DBIAFD_artistLink.setText(url) 
+                    message=f"Such Methode Erfolgreich: {self.Main.lnEdit_performer_info.text()}"
+                    self.Main.txtBrowser_loginfos.append(message)                  
+                else:
+                    infos_webside.check_negativ_labelshow(webdatabase)
+                    logging.warning(f"Mehr als 1 Performer > {len(artist_elem)} -> {url}") 
+                    message=f"Mehr als 1 Performer > {len(artist_elem)}"
+                    self.Main.txtBrowser_loginfos.append(message)
+                    self.Main.lnEdit_DBIAFD_artistLink.setText("")
+                    return
             self.sex_abfrage_iafd(url, infos_webside)
+            self.namen_abfrage_iafd(content, infos_webside)
             self.rasse_abfrage_iafd(content, infos_webside)
             self.nation_abfrage_iafd(content, infos_webside)
             self.haar_abfrage_iafd(content, infos_webside)
@@ -94,6 +156,19 @@ class IAFDInfos():
             self.onlyfans_abfrage_iafd(content, infos_webside)
             self.load_image_in_label(content)
             infos_webside.check_loaded_labelshow("IAFD_artist")
+                
+        else:
+            infos_webside.check_negativ_labelshow(webdatabase)
+            return 
+      
+    def generate_iafd_search_url(self, search_term):
+        base_url = "https://www.iafd.com/ramesearch.asp"
+        params = {
+            "searchtype": "comprehensive",
+            "searchstring": search_term.replace(" ", "+")
+        }
+        url = f"{base_url}?{urlencode(params, safe='+')}"
+        return url
     
     def sex_abfrage_iafd(self, url, infos_webside):
         _, url=url.split("/gender=",1)        
@@ -112,6 +187,14 @@ class IAFDInfos():
             index=self.Main.cBox_performer_rasse.findText(rasse_dict["eng_ger"].get(rasse_text,""))            
             self.Main.cBox_performer_rasse.setCurrentIndex(index)            
         infos_webside.set_tooltip_text("cBox_performer_", "rasse", f"IAFD: {rasse_text}", "IAFD")
+
+    def namen_abfrage_iafd(self, content, infos_webside):        
+        namen_text=None 
+        namen_element=content.xpath("//div[@class='col-xs-12']/h1")          
+        if namen_element:
+            namen_text=namen_element[0].text_content().strip()   
+            self.Main.lnEdit_IAFD_artistAlias.setText(namen_text) 
+            self.Main.performer_text_change("lnEdit_IAFD_artistAlias", color_hex='#FFFD00') 
 
     def nation_abfrage_iafd(self, content, infos_webside):        
         nation_text=None 
@@ -178,20 +261,20 @@ class IAFDInfos():
         infos_webside.set_tooltip_text("lnEdit_performer_", "geburtstag", f"IAFD: {geburtstag_text}", "IAFD")
 
     def piercing_abfrage_iafd(self, content, infos_webside):        
-        piercing_text="" 
+        piercing_text=None
         
         piercing_element=content.xpath("//p[contains(string(),'Piercings')]/following::p[1]")
         piercing_text=piercing_element[0].text_content() if piercing_element else ""      
-        if piercing_text:            
+        if piercing_text not in (None, "", "No data"):         
             self.Main.txtEdit_performer_piercing.setPlainText(piercing_text) 
         infos_webside.set_tooltip_text("txtEdit_performer_", "piercing", f"IAFD: {piercing_text[:40]}", "IAFD")
 
     def tattoo_abfrage_iafd(self, content, infos_webside):        
-        tattoo_text=""
+        tattoo_text = None
         
         tattoo_element=content.xpath("//p[contains(string(),'Tattoos')]/following::p[1]")
         tattoo_text=tattoo_element[0].text_content() if tattoo_element else ""        
-        if tattoo_text:            
+        if tattoo_text not in (None, "", "No data"):          
             self.Main.txtEdit_performer_tattoo.setPlainText(tattoo_text) 
         infos_webside.set_tooltip_text("txtEdit_performer_", "tattoo", f"IAFD: {tattoo_text[:40]}", "IAFD")
 
@@ -242,7 +325,7 @@ class IAFDInfos():
         try:
             label_width = int(label_height * pixmap.width() / pixmap.height())
         except ZeroDivisionError as e:
-            print(f"{self.Main.lnEdit_performer_info.text()} --> Fehler: {e}")
+            print(f"load_and_scale_pixmap -> {self.Main.lnEdit_performer_info.text()} -> Fehler: {e}")
             return
         label.setPixmap(pixmap.scaled(label_width, label_height, Qt.AspectRatioMode.KeepAspectRatio))
 
@@ -250,11 +333,11 @@ class IAFDInfos():
         datenbank_darsteller = DB_Darsteller(MainWindow=self.Main)
         id = self.Main.grpBox_performer.title().replace("Performer-Info ID: ","") # ArtistID
         name = self.Main.lnEdit_performer_info.text() # Performer 'Name'
-        artist_id=0 
+        image_pfad=None 
 
         if id.isdigit():
             artist_id=int(id)
-        errview, image_pfad = datenbank_darsteller.get_iafd_image(artist_id=artist_id, name=name)
+            errview, image_pfad = datenbank_darsteller.get_iafd_image(artist_id=artist_id, name=name)
 
         if not image_pfad:
             image_url = content.xpath("//div[@id='headshot']/img")
@@ -263,6 +346,7 @@ class IAFDInfos():
                 response = requests.get(image_url, headers=HEADERS)
                 image_data = response.content
                 self.load_and_scale_pixmap(image_data, self.Main.lbl_iafd_image)
+                self.Main.stacked_webdb_images.setCurrentWidget(self.Main.stacked_iafd_label)
         else:            
             self.load_and_scale_pixmap(str(PROJECT_PATH / image_pfad), self.Main.lbl_iafd_image)
 

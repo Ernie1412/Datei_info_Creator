@@ -1,7 +1,6 @@
 <RCC>
   <qresource prefix="Buttons">
-    <file>../../grafics/_buttons/next .png</file>
-    <file>../../grafics/no-logo_90x40.jpg</file>
-    <file>../../grafics/no-logo_160x60.jpg</file>
+    <file>_buttons/no-logo_90x40.jpg</file>
+    <file>_buttons/no-logo_160x60.jpg</file>
   </qresource>
 </RCC>

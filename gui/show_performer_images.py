@@ -22,6 +22,7 @@ class ShowPerformerImages(QWidget):
         self.Main.Btn_copy_clipboard.clicked.connect(lambda: pyperclip.copy(self.Main.lbl_link_from_image.text()))
 
     def show_performer_picture(self):
+        self.Main.stacked_image_infos.setCurrentWidget(self.Main.perfomer_image)
         self.current_image_index = 0
         errorview=None
         if self.Main.tblWdg_performer_links.hasFocus():
@@ -49,13 +50,14 @@ class ShowPerformerImages(QWidget):
         errorview, self.images, self.links = db_darsteller.get_performers_picture(name)
         return errorview
     
-    def get_performer_image_from_maske(self):
+    def get_performer_image_from_maske(self):        
         self.images: list=[]
         self.links: list=[]
         for zeile in range(self.Main.tblWdg_performer_links.rowCount()):
-            self.images.append(self.Main.tblWdg_performer_links.item(zeile, 2).text())
-            self.links.append(self.Main.tblWdg_performer_links.item(zeile, 1).text())            
-        
+            image_pfad = self.Main.tblWdg_performer_links.item(zeile, 2).text() if self.Main.tblWdg_performer_links.item(zeile, 2) else ""
+            self.images.append(image_pfad)
+            self.links.append(self.Main.tblWdg_performer_links.item(zeile, 1).text()) 
+        self.current_image_index=self.Main.tblWdg_performer_links.currentRow()         
 
     def show_performers_picture_in_label(self):                      
         pixmap = QPixmap(str(Path(PROJECT_PATH, self.images[self.current_image_index]))) 
@@ -65,12 +67,13 @@ class ShowPerformerImages(QWidget):
             aspect_ratio = pixmap.width() / pixmap.height()
         except ZeroDivisionError as e:
             error = f"(Kein Bild gespeichert)"                  
-            pixmap = QPixmap(str(Path(PROJECT_PATH / "grafics/_buttons/kein-bild.jpg")))
+            pixmap = QPixmap(":/labels/_labels/kein-bild.jpg")
             aspect_ratio = pixmap.width() / pixmap.height()
         label_height = 280
         label_width = int(label_height * aspect_ratio)
         if self.Main.tblWdg_performer_links.hasFocus() or self.Main.Btn_performer_next.hasFocus() or self.Main.Btn_performer_prev.hasFocus():
-            self.Main.lbl_link_image_from_db.setGeometry(440, 540, label_width, label_height)         
+            self.Main.Btn_performer_next.setGeometry(label_width+20,140,20,50)
+            self.Main.lbl_link_image_from_db.setGeometry(20, 20, label_width, label_height)         
             self.Main.lbl_link_image_from_db.setPixmap(pixmap)
             img=self.images[self.current_image_index] 
             img=img[img.find("/[")+2:img.find("]-")]  
@@ -91,8 +94,7 @@ class ShowPerformerImages(QWidget):
             self.current_image_index = (self.current_image_index + 1) % len(self.images)
             return self.show_performers_picture_in_label()
 
-    def show_previous_picture_in_label(self):
-        print("geklickt")        
+    def show_previous_picture_in_label(self):               
         if self.images:
             self.current_image_index = (self.current_image_index - 1) % len(self.images)
             return self.show_performers_picture_in_label()  

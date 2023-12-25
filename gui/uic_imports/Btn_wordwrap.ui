@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>842</width>
+    <height>673</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="CustomButtonWordWrap" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>260</y>
+     <width>200</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>200</width>
+     <height>50</height>
+    </size>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton { 
+	color: rgb(0, 0, 127);
+	selection-background-color: rgb(255, 85, 0);
+	background-color: rgb(198, 178, 255);
+	border-style: outset;
+	border-width: 2px;
+	font: 10pt &quot;MS Shell Dlg 2&quot;;
+	border-radius: 10px;
+	border-color: beige;
+}                   
+QPushButton:enabled{
+	background-color: rgb(198, 178, 255);
+}                           
+QPushButton:pressed{ 
+	background: red;
+}                            
+QPushButton:disabled{                             
+	background-color: gray;                
+}
+QPushButton:hover{
+	background-color: rgb(255, 85, 255);
+}   </string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CustomButtonWordWrap</class>
+   <extends>QPushButton</extends>
+   <header location="global">gui.push_button_WordWrap</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

@@ -35,7 +35,7 @@ class Infos_WebSides():
     #### ------------ Anzeige ob IAFD, DATA Check negativ,checking, Loading,  OK und error ist ! --------- ####
     #### --------------------------------------------------------------------------------------- ####
     def check_negativ_labelshow(self,widget: str) -> None:
-        getattr(self.Main, f"lbl_checkWeb_{widget}URL").setText("check negativ !")
+        getattr(self.Main, f"lbl_checkWeb_{widget}URL").setStyleSheet("background-image: url(':/labels/_labels/check_error.png')")
         getattr(self.Main, f"Btn_Linksuche_in_{widget}").setEnabled(False)
         QTimer.singleShot(500, lambda :getattr(self.Main, f"lnEdit_DB{widget}Link").setStyleSheet('background-color: #FF0000'))
         QTimer.singleShot(3000, lambda :getattr(self.Main, f"lnEdit_DB{widget}Link").setText(""))
@@ -45,33 +45,32 @@ class Infos_WebSides():
     def just_checking_labelshow(self, widget: str) -> None:
         getattr(self.Main, f"lnEdit_DB{widget}Link").setStyleSheet('background-color: #AAFFFF')        
         getattr(self.Main, f"lbl_checkWeb_{widget}URL").setVisible(True)
-        getattr(self.Main, f"lbl_checkWeb_{widget}URL").setText(f"Check {widget} !")
+        getattr(self.Main, f"lbl_checkWeb_{widget}URL").setStyleSheet("background-image: url(':/labels/_labels/checking.png')")
         QApplication.processEvents()
     
     def check_OK_labelshow(self, widget: str) -> None:
         getattr(self.Main, f"Btn_Linksuche_in_{widget}").setEnabled(True)
         getattr(self.Main, f"lnEdit_DB{widget}Link").setStyleSheet('background-color: #74DF00')
-        getattr(self.Main, f"lbl_checkWeb_{widget}URL").setText("Check OK !")
+        getattr(self.Main, f"lbl_checkWeb_{widget}URL").setStyleSheet("background-image: url(':/labels/_labels/check.png')")
 
     def check_error_labelshow(self, widget: str) -> None:
-        getattr(self.Main, f"lbl_checkWeb_{widget}URL").setText("Check-Fehler !")
-        QTimer.singleShot(2000, lambda :getattr(self.Main, f"lbl_checkWeb_{widget}URL").setText(""))
+        getattr(self.Main, f"lbl_checkWeb_{widget}URL").setStyleSheet("background-image: url(':/labels/_labels/timeout.png')")        
         getattr(self.Main, f"Btn_Linksuche_in_{widget}").setEnabled(False)            
         getattr(self.Main, f"lnEdit_DB{widget}Link").setText("")
         getattr(self.Main, f"lnEdit_DB{widget}Link").setStyleSheet('background-color: #FFFDD5')
 
     def check_loading_labelshow(self, widget: str) -> None:
-        getattr(self.Main, f"lbl_checkWeb_{widget}URL").setText("Seite wird geladen !") 
+        getattr(self.Main, f"lbl_checkWeb_{widget}URL").setStyleSheet("background-image: url(':/labels/_labels/loading_page.png')") 
         getattr(self.Main, f"lbl_checkWeb_{widget}URL").setToolTip("") 
         getattr(self.Main, f"lbl_checkWeb_{widget}URL").repaint()
 
     def check_loaded_labelshow(self, widget: str) -> None:
-        getattr(self.Main, f"lbl_checkWeb_{widget}URL").setText("OK, Seite geladen !") 
+        getattr(self.Main, f"lbl_checkWeb_{widget}URL").setStyleSheet("background-image: url(':/labels/_labels/done.png')") 
 
     def fehler_ausgabe_checkweb(self, error, widget: str) -> None:
         MsgBox(self.Main, error,"w")        
         code = error.code if hasattr(error, 'code') else "N/A"            
-        getattr(self.Main, f"lbl_checkWeb_{widget}").setText(f"Error: {code}")            
+        getattr(self.Main, f"lbl_checkWeb_{widget}").setStyleSheet("background-image: url(':/labels/_labels/error.png')")            
         getattr(self.Main, f"lbl_checkWeb_{widget}").setToolTip(str(error))       
     #### --------------------------------------------------------------------------------------- ####
 
@@ -340,7 +339,7 @@ class Infos_WebSides():
         self.performers_abfrage_iafd(content, url)        
 
     ### Wenn der Titel da ist und min. 1 Darsteller da ist, Speicher-Button aktiv ###
-        if self.Main.lnEdit_DBTitel.text() and self.Main.tblWdg_Files.currentColumn() != -1:
+        if self.Main.lnEdit_DBTitel.text() and self.Main.tblWdg_files.currentColumn() != -1:
             self.Main.Btn_Speichern.setEnabled(True)        
         self.check_loaded_labelshow("IAFD")
 
@@ -525,12 +524,12 @@ class Infos_WebSides():
         if performers_elements:            
             status = "OK"
             df_merge=self.IAFD_merge_DB(performers_elements)
-            self.Main.tblWdg_Performers.setRowCount(len(df_merge)) 
+            self.Main.tblWdg_DB_performers.setRowCount(len(df_merge)) 
             zeile=0      
             for zeile in range(len(df_merge)):
                 for spalte in range(len(df_merge.columns)):
                     item = QTableWidgetItem(str(df_merge.iloc[zeile, spalte]))
-                    self.Main.tblWdg_Performers.setItem(zeile, spalte, item)
+                    self.Main.tblWdg_DB_performers.setItem(zeile, spalte, item)
         self.scrap_status("Performers", status)
 
     def minutes_to_hhmmss(self,minutes : int) -> str:
@@ -538,14 +537,14 @@ class Infos_WebSides():
         return f"{hours:02d}:{minutes:02d}:00"          
 
     def DB_Anzeige(self):             
-        hostname = self.Main.tblWdg_Daten.selectedItems()[1].text()
+        hostname = self.Main.tblWdg_daten.selectedItems()[1].text()
         for link in hostname.split("\n"):
             self.Main.model_database_weblinks.appendRow(QStandardItem(link))
         self.Main.set_studio_in_db_tab(hostname) 
         ### ----------- Perfomer incl rest in die TableWidget packen ------------ ###
-        performs=self.Main.tblWdg_Daten.selectedItems()[3].text().split("\n")
-        aliass=(self.Main.tblWdg_Daten.selectedItems()[4].text()+"\n"*len(performs)).split("\n")
-        actions=(self.Main.tblWdg_Daten.selectedItems()[5].text()+"\n"*len(aliass)).split("\n")        
+        performs=self.Main.tblWdg_daten.selectedItems()[3].text().split("\n")
+        aliass=(self.Main.tblWdg_daten.selectedItems()[4].text()+"\n"*len(performs)).split("\n")
+        actions=(self.Main.tblWdg_daten.selectedItems()[5].text()+"\n"*len(aliass)).split("\n")        
         for zeile,(db_performer,alias,action) in enumerate(zip(performs,aliass,actions)):              
             if " <--" in db_performer:
                 action=db_performer[db_performer.find(" <--")+4:]
@@ -553,10 +552,10 @@ class Infos_WebSides():
             if " (Credited: " in db_performer:
                 alias=db_performer[db_performer.find(" (Credited: ")+12:].replace(")","")
                 db_performer=db_performer.replace(" (Credited: "+alias+")","") 
-            self.Main.tblWdg_Performers.setRowCount(zeile+1)
-            self.Main.tblWdg_Performers.setItem(zeile,0,QTableWidgetItem(db_performer))
-            self.Main.tblWdg_Performers.setItem(zeile,1,QTableWidgetItem(alias))
-            self.Main.tblWdg_Performers.setItem(zeile,2,QTableWidgetItem(action.strip()))  
+            self.Main.tblWdg_DB_performers.setRowCount(zeile+1)
+            self.Main.tblWdg_DB_performers.setItem(zeile,0,QTableWidgetItem(db_performer))
+            self.Main.tblWdg_DB_performers.setItem(zeile,1,QTableWidgetItem(alias))
+            self.Main.tblWdg_DB_performers.setItem(zeile,2,QTableWidgetItem(action.strip()))  
         ### ----------- Data Link in Maske packen ------------ ###
         db_websides=ScrapingData(MainWindow=self.Main) 
         data18_link=db_websides.hole_data18link_von_db(hostname,self.Main.Btn_logo_am_db_tab.toolTip())         
@@ -564,23 +563,23 @@ class Infos_WebSides():
             self.Main.lnEdit_DBData18Link.textChanged.disconnect()  # deaktiven 
             self.set_daten_in_maske("lnEdit_DB", "Data18Link", "Datenbank", data18_link) 
             self.Main.lnEdit_DBData18Link.textChanged.connect(self.Main.Web_Data18_change) # aktiven
-            self.Main.lbl_checkWeb_Data18URL.setText("Check OK !") 
+            self.Main.lbl_checkWeb_Data18URL.setStyleSheet("background-image: url(':/labels/_labels/check.png')")
         ### ----------- IAFD Link in Maske packen ------------ ###
-        if self.Main.tblWdg_Daten.selectedItems()[2]:
+        if self.Main.tblWdg_daten.selectedItems()[2]:
             self.Main.lnEdit_DBIAFDLink.textChanged.disconnect() # deaktiven      
-            self.set_daten_in_maske("lnEdit_DB", "IAFDLink", "Datenbank", self.Main.tblWdg_Daten.selectedItems()[2].text()) 
+            self.set_daten_in_maske("lnEdit_DB", "IAFDLink", "Datenbank", self.Main.tblWdg_daten.selectedItems()[2].text()) 
             self.Main.lnEdit_DBIAFDLink.textChanged.connect(self.Main.Web_IAFD_change) # aktiven 
-            self.Main.lbl_checkWeb_IAFDURL.setText("Check OK !")
+            self.Main.lbl_checkWeb_IAFDURL.setStyleSheet("background-image: url(':/labels/_labels/timeout.png')")
         ### ----------- Rest in Maske packen ------------ ###
-        self.set_daten_with_tooltip("lnEdit_DB", "Dauer", "Datenbank", self.Main.tblWdg_Daten.selectedItems()[6].text())
-        self.set_daten_with_tooltip("lnEdit_DB", "Release", "Datenbank", self.Main.tblWdg_Daten.selectedItems()[7].text())
-        self.set_daten_with_tooltip("lnEdit_DB", "ProDate", "Datenbank", self.Main.tblWdg_Daten.selectedItems()[8].text())
-        self.set_daten_with_tooltip("lnEdit_DB", "Serie", "Datenbank", self.Main.tblWdg_Daten.selectedItems()[9].text())
-        self.set_daten_with_tooltip("lnEdit_DB", "Regie", "Datenbank", self.Main.tblWdg_Daten.selectedItems()[10].text())
-        self.set_daten_with_tooltip("lnEdit_DB", "SceneCode", "Datenbank", self.Main.tblWdg_Daten.selectedItems()[11].text())
-        self.set_daten_with_tooltip("txtEdit_DB", "Movies", "Datenbank", self.Main.tblWdg_Daten.selectedItems()[12].text())
-        self.set_daten_with_tooltip("txtEdit_DB", "Synopsis", "Datenbank", self.Main.tblWdg_Daten.selectedItems()[13].text())
-        self.set_daten_with_tooltip("txtEdit_DB", "Tags", "Datenbank", self.Main.tblWdg_Daten.selectedItems()[14].text())  
+        self.set_daten_with_tooltip("lnEdit_DB", "Dauer", "Datenbank", self.Main.tblWdg_daten.selectedItems()[6].text())
+        self.set_daten_with_tooltip("lnEdit_DB", "Release", "Datenbank", self.Main.tblWdg_daten.selectedItems()[7].text())
+        self.set_daten_with_tooltip("lnEdit_DB", "ProDate", "Datenbank", self.Main.tblWdg_daten.selectedItems()[8].text())
+        self.set_daten_with_tooltip("lnEdit_DB", "Serie", "Datenbank", self.Main.tblWdg_daten.selectedItems()[9].text())
+        self.set_daten_with_tooltip("lnEdit_DB", "Regie", "Datenbank", self.Main.tblWdg_daten.selectedItems()[10].text())
+        self.set_daten_with_tooltip("lnEdit_DB", "SceneCode", "Datenbank", self.Main.tblWdg_daten.selectedItems()[11].text())
+        self.set_daten_with_tooltip("txtEdit_DB", "Movies", "Datenbank", self.Main.tblWdg_daten.selectedItems()[12].text())
+        self.set_daten_with_tooltip("txtEdit_DB", "Synopsis", "Datenbank", self.Main.tblWdg_daten.selectedItems()[13].text())
+        self.set_daten_with_tooltip("txtEdit_DB", "Tags", "Datenbank", self.Main.tblWdg_daten.selectedItems()[14].text())  
 
     def set_daten_with_tooltip(self, widget_typ: str, art: str, quelle: str, daten: str, artist=False) -> None:
         tooltip_text = f"{quelle}: Kein Eintrag"
@@ -590,17 +589,13 @@ class Infos_WebSides():
             self.set_daten_in_maske(widget_typ, art, quelle, daten, artist) 
         self.set_tooltip_text(widget_typ, art, tooltip_text, quelle)      
 
-    def select_whole_row(self):
-        selected_items = self.Main.tblWdg_Daten.selectedItems()
-        if selected_items:
-            # Mindestens ein Element ist ausgewählt, wir bestimmen die Zeilennummer
-            row = self.Main.tblWdg_Daten.row(selected_items[0])
-            # Anzahl der Spalten in Ihrer Tabelle
-            column_count = self.Main.tblWdg_Daten.columnCount()
-
-            # Erzeugen Sie einen Auswahlbereich für die gesamte Zeile
-            selection = QTableWidgetSelectionRange(row, 0, row, column_count - 1)
-            self.Main.tblWdg_Daten.setRangeSelected(selection, True)
+    # def select_whole_row(self):
+    #     selected_items = self.Main.tblWdg_daten.selectedItems()
+    #     if selected_items:            
+    #         row = self.Main.tblWdg_daten.row(selected_items[0])            
+    #         column_count = self.Main.tblWdg_daten.columnCount()            
+    #         selection = QTableWidgetSelectionRange(row, 0, row, column_count - 1)
+    #         self.Main.tblWdg_daten.setRangeSelected(selection, True)
 
     def set_daten_in_maske(self, widget: str, info_art: str, source: str, daten: str, artist=False) -> None:
         if daten is not None:         
@@ -624,13 +619,13 @@ class Infos_WebSides():
 
     def Copy_IAFD(self):
         ausgabe=""
-        for zeile in range(self.tblWdg_Performers.rowCount()):
+        for zeile in range(self.tblWdg_DB_performers.rowCount()):
             alias,action=("","")
-            if self.tblWdg_Performers.item(zeile, 1).text()!="":
-                alias=" (Credited : "+self.tblWdg_Performers.item(zeile, 1).text()+") "
-            if self.tblWdg_Performers.item(zeile, 2).text()!="":
-                action=" <-- "+self.tblWdg_Performers.item(zeile, 2).text()
-            ausgabe=ausgabe+"\n"+self.tblWdg_Performers.item(zeile, 0).text()+alias+action
+            if self.tblWdg_DB_performers.item(zeile, 1).text()!="":
+                alias=" (Credited : "+self.tblWdg_DB_performers.item(zeile, 1).text()+") "
+            if self.tblWdg_DB_performers.item(zeile, 2).text()!="":
+                action=" <-- "+self.tblWdg_DB_performers.item(zeile, 2).text()
+            ausgabe=ausgabe+"\n"+self.tblWdg_DB_performers.item(zeile, 0).text()+alias+action
         iafd=ausgabe[1:]+"\nScene Code: "+self.lnEdit_DBSceneCode.text()+"\nProduction Date: "+self.lnEdit_DBProDate.text()+("\nRegie: "+self.lnEdit_DBRegie.text() if self.lnEdit_DBRegie.text()!="" else "")
         self.txtEdit_Clipboard.setPlainText(iafd)
         pyperclip.copy(iafd)  
@@ -659,12 +654,12 @@ class Infos_WebSides():
 
     def IAFD_merge_DB(self, performers: WebElement) -> pd.DataFrame: # Panda-Dataframe
         data: list = []        
-        for row in range(self.Main.tblWdg_Performers.rowCount()):
-            name = self.Main.tblWdg_Performers.item(row, 0).text() 
+        for row in range(self.Main.tblWdg_DB_performers.rowCount()):
+            name = self.Main.tblWdg_DB_performers.item(row, 0).text() 
             if name == "":
                 continue            
-            alias = self.Main.tblWdg_Performers.item(row, 1).text() if self.Main.tblWdg_Performers.item(row, 1) else ""
-            action = self.Main.tblWdg_Performers.item(row, 2).text() if self.Main.tblWdg_Performers.item(row, 2) else ""
+            alias = self.Main.tblWdg_DB_performers.item(row, 1).text() if self.Main.tblWdg_DB_performers.item(row, 1) else ""
+            action = self.Main.tblWdg_DB_performers.item(row, 2).text() if self.Main.tblWdg_DB_performers.item(row, 2) else ""
             data.append({'Name': name, 'Alias': alias, 'Action': action})
         df_db = pd.DataFrame(data)
 
@@ -695,11 +690,11 @@ class Infos_WebSides():
         return df_merged
 
     def AddPerformers(self):
-        self.tblWdg_Performers.setRowCount(self.tblWdg_Performers.rowCount()+1) 
-        self.tblWdg_Performers.setItem(self.tblWdg_Performers.rowCount()-1,0,QTableWidgetItem(""))
-        self.tblWdg_Performers.setItem(self.tblWdg_Performers.rowCount()-1,1,QTableWidgetItem(""))       
-        self.tblWdg_Performers.setItem(self.tblWdg_Performers.rowCount()-1,2,QTableWidgetItem(""))
-        self.tblWdg_Performers.setCurrentCell(self.tblWdg_Performers.rowCount()-1, 0)
+        self.tblWdg_DB_performers.setRowCount(self.tblWdg_DB_performers.rowCount()+1) 
+        self.tblWdg_DB_performers.setItem(self.tblWdg_DB_performers.rowCount()-1,0,QTableWidgetItem(""))
+        self.tblWdg_DB_performers.setItem(self.tblWdg_DB_performers.rowCount()-1,1,QTableWidgetItem(""))       
+        self.tblWdg_DB_performers.setItem(self.tblWdg_DB_performers.rowCount()-1,2,QTableWidgetItem(""))
+        self.tblWdg_DB_performers.setCurrentCell(self.tblWdg_DB_performers.rowCount()-1, 0)
 
     # Darsteller usw. der Reihe nach in die Datenbank vorbereiten   
     def get_videodata_from_ui(self, performers: str, alias: str, actions: str) -> dict:
@@ -726,8 +721,8 @@ class Infos_WebSides():
     def get_performers_from_ui(self) -> Tuple[str, str, str]:
         performers, alias, actions = "", "", ""
         
-        for zeile in range(self.Main.tblWdg_Performers.rowCount()):
-            row_data = [self.Main.tblWdg_Performers.item(zeile, col).text() for col in range(3)]
+        for zeile in range(self.Main.tblWdg_DB_performers.rowCount()):
+            row_data = [self.Main.tblWdg_DB_performers.item(zeile, col).text() for col in range(3)]
             performers += row_data[0] + "\n"
             alias += row_data[1] + "\n"
             actions += row_data[2] + "\n"

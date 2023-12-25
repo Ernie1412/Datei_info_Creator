@@ -10,7 +10,8 @@ def StatusBar(self,text,farbe):
     zeit = QDateTime.currentDateTime().toString('hh:mm:ss')
     self.statusBar.showMessage(f"ℹ️ {zeit}: {text}")         
     self.statusBar.setStyleSheet("border :1px solid ;background-color : "+farbe)
-    self.setStatusBar(self.statusBar)   
+    self.setStatusBar(self.statusBar) 
+    QTimer.singleShot(4500, lambda :self.statusBar.setStyleSheet("background-color : #fffdb7"))  
 
 def status_fehler_ausgabe(self,message):
     StatusBar(self, message,"#F78181")                       
@@ -44,3 +45,10 @@ def MsgBox(self, msg_text: str, art: str) -> QMessageBox:
         mBox.setWindowTitle("Info")            
         mBox.exec()
     return reply
+
+def blink_label(self, label_widget, farbe):
+    getattr(self, label_widget).setStyleSheet(f'background-color: {farbe}')
+    QTimer.singleShot(1000, lambda :getattr(self, label_widget).setStyleSheet('background-color: '))
+    QTimer.singleShot(2000, lambda :getattr(self, label_widget).setStyleSheet(f'background-color: {farbe}'))
+    QTimer.singleShot(3000, lambda :getattr(self, label_widget).setStyleSheet('background-color: '))
+

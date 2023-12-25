@@ -316,6 +316,52 @@ class Webside_Settings:
             self.db_fehler(errview)
         self.close_database()
         return errview, nebenside
+    
+    def hole_artist_image(self, baselink: str) -> Tuple[str, str, str, str]:            
+        errview: str= None
+        image_url_xpath: str= None
+        image_url_attri: str= None
+        image_url_title: str= None
+        name_element_xpath: str= None
+        name_element_attri: str= None
+        studio: str= None 
+        java: str= None 
+        self.open_database()
+        if self.db.isOpen():  
+            with self.managed_query() as query:
+                query_command = "SELECT " \
+                "Scrap_ArtistInfos.Name," \
+                "Scrap_ArtistInfos.Name_Attri," \
+                "Scrap_ArtistInfos.Name_title," \
+                "Scrap_ArtistInfos.Image," \
+                "Scrap_ArtistInfos.Image_Attri,"\
+                "WebScrapping_Settings.Name," \
+                "WebScrapping_Settings.java" \
+                " FROM WebScrapping_Settings" \
+                " INNER JOIN Scrap_ArtistInfos ON " \
+                "WebScrapping_Settings.SettingID = Scrap_ArtistInfos.SettingID" \
+                " WHERE WebScrapping_Settings.Homepage=:Link;"                
+                query.prepare(query_command)
+                query.bindValue(":Link", f"{baselink}")
+                query.exec()
+                if query.next():     
+                    image_url_xpath=query.value("Scrap_ArtistInfos.Name") 
+                    image_url_attri=query.value("Scrap_ArtistInfos.Name_Attri")
+                    image_url_title=query.value("Scrap_ArtistInfos.Name_title")  
+                    name_element_xpath=query.value("Scrap_ArtistInfos.Image") 
+                    name_element_attri=query.value("Scrap_ArtistInfos.Image_Attri")
+                    studio=query.value("WebScrapping_Settings.Name")
+                    java=query.value("WebScrapping_Settings.java")
+                    errview = f"'{self.hole_artist_image.__name__}': {query.lastError().text()} (query1)" if query.lastError().text() else None
+                else:  
+                    errview = f"'{self.hole_artist_image.__name__}': {query.lastError().text()} (query)" if query.lastError().text() else f"keine Setting Daten mit dem Link {baselink} für 'Image' gefunden (query)"        
+            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.hole_artist_image.__name__}'" if self.db.lastError().text() else errview
+            del query
+        if errview:
+            self.db_fehler(errview)
+        self.close_database()
+        return image_url_xpath, image_url_attri, image_url_title, name_element_xpath, name_element_attri, studio, java
+    
 
     def hole_movie_settings_for_dauer(self, baselink: str) -> Tuple [str, str]:
         errview: str= None

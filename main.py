@@ -1,19 +1,23 @@
 from PyQt6 import uic
 from PyQt6.QtCore import Qt, QTimer, QDateTime, QTranslator, pyqtSlot
 from PyQt6.QtWidgets import QMainWindow, QAbstractItemView, QTableWidgetItem, QApplication, QPushButton, QWidget, QListWidgetItem , \
-    QListWidget, QLineEdit, QTextEdit, QComboBox
+    QListWidget, QLineEdit, QTextEdit, QComboBox, QTableWidget
 from PyQt6.QtGui import QMovie, QPixmap, QKeyEvent, QStandardItem, QStandardItemModel, QColor, QBrush
+
+
 
 import sys
 import json
 import subprocess
 import re
+import errno
 from datetime import datetime
 import pyperclip
 import win32com.client
 from pathlib import Path
 from typing import List, Tuple
 from scrapy.settings import Settings
+from functools import partial
 
 import gui.resource_collection_files.logo_rc
 import gui.resource_collection_files.buttons_rc
@@ -24,7 +28,7 @@ from utils.web_scapings.iafd_performer_link import IAFDInfos
 from utils.web_scapings.performer_infos_maske import PerformerInfosMaske
 from utils.threads import FileTransferThread, ExifSaveThread
 from utils.umwandeln import from_classname_to_import, count_days
-from gui.dialoge_ui.message_show import StatusBar, MsgBox, status_fehler_ausgabe
+from gui.dialoge_ui.message_show import StatusBar, MsgBox, status_fehler_ausgabe, blink_label
 from gui.dialoge_ui.einstellungen import Einstellungen
 from gui.dialoge_ui.dialog_daten_auswahl import Dlg_Daten_Auswahl
 from gui.context_menu import ContextMenu
@@ -34,42 +38,49 @@ from config import EXIFTOOLPFAD
 from config import BUTTONSNAMES_JSON_PATH, PROCESS_JSON_PATH, MEDIA_JSON_PATH, DATENBANK_JSON_PATH
 from config import MAIN_UI, BUTTONS_WEBSIDES_UI, TRANSFER_UI
           
-### -------------------------------------------------------------------- ###
+### -------------------------------------------------------------------- ###StatusBar
 ### --------------------- HauptFenster --------------------------------- ###
 ### -------------------------------------------------------------------- ###
 class Haupt_Fenster(QMainWindow):    
     def __init__(self, parent=None):
         super(Haupt_Fenster,self).__init__(parent)        
         uic.loadUi(MAIN_UI,self)
-        self.showMaximized() 
+        self.showMaximized()
+        self.tabs.setCurrentIndex(0) 
+        self.previous_text: dict={}
+        self.lnEdit_DBIAFD_artistLink_old: str=""
+        self.lnEdit_IAFD_artistAlias_old: str=""
 
         self.buttons_connections()        
-
+        self.tab_changed_handler(3)
         if Path(DATENBANK_JSON_PATH).exists():            
             Path(DATENBANK_JSON_PATH).unlink()          
         self.model_database_weblinks = QStandardItemModel()
-        self.lstView_database_weblinks.setModel(self.model_database_weblinks) 
+        self.lstView_database_weblinks.setModel(self.model_database_weblinks)
         
-
+        
         #### -----------  setze Sichtbarkeit auf "False" ----------- #####         
         self.invisible_lbl_anzahl()
         self.invisible_any_labels() 
 
-
+    
     def buttons_connections(self): 
         self.show_performers_images = ShowPerformerImages(self)                    
     ###-------------------------auf Klicks reagieren--------------------------------------###        
+        ### --------------------------------------- #####
+        ### --- Buttons auf den Haupt Widget ------ #####
         self.Btn_Laden.clicked.connect(self.Infos_ExifToolHolen)
         self.Btn_Speichern.clicked.connect(self.Infos_Speichern)
         self.Btn_Refresh.clicked.connect(self.refresh_table)
         self.Btn_Loeschen.clicked.connect(self.tabs_clearing)  
-        self.Btn_VideoDatenHolen.clicked.connect(self.videodaten_holen)        
-        self.Btn_Rechts.clicked.connect(self.AddRechts)
-        self.Btn_Links.clicked.connect(self.AddLinks)
+        self.Btn_VideoDatenHolen.clicked.connect(self.videodaten_holen) 
+        ### ------------------------------------ #####
         ### --- Buttons auf den Infos Tab ------ #####
         self.Btn_logo_am_infos_tab.clicked.connect(self.Websides_Auswahl)
         self.Btn_AddArtist.clicked.connect(self.AddArtist)
-        self.Btn_Linksuche_in_DB.clicked.connect(self.linksuche_in_db)        
+        self.Btn_Linksuche_in_DB.clicked.connect(self.linksuche_in_db) 
+        self.Btn_Rechts.clicked.connect(self.AddRechts)
+        self.Btn_Links.clicked.connect(self.AddLinks)       
         ### ------------------------------------- ####
         ### --- Buttons auf den Analyse Tab ---- #####
         self.Btn_logo_am_analyse_tab.clicked.connect(self.Websides_Auswahl)
@@ -78,7 +89,7 @@ class Haupt_Fenster(QMainWindow):
         self.cBox_performers.currentIndexChanged.connect(self.show_performers_images.show_performer_picture)
         self.Btn_next.clicked.connect(self.show_performers_images.show_next_picture_in_label)
         self.Btn_prev.clicked.connect(self.show_performers_images.show_previous_picture_in_label)
-        ### ------------------------------------- ####
+        ### -------------------------------------- #####
         ### --- Buttons auf den Datenbank Tab ---- ##### 
         self.Btn_logo_am_db_tab.clicked.connect(self.Websides_Auswahl)
         self.Btn_Linksuche_in_URL.clicked.connect(self.webscrap_url)
@@ -90,8 +101,8 @@ class Haupt_Fenster(QMainWindow):
         self.Btn_delPerformer.clicked.connect(self.del_performers)          
         self.Btn_Clipboard.clicked.connect(self.CopyText)
         self.Btn_DBUpdate.clicked.connect(self.single_DBupdate)
-        self.Btn_addDatei.clicked.connect(self.add_db_in_datei)       
-
+        self.Btn_addDatei.clicked.connect(self.add_db_in_datei)
+        ### ---------- Button auf den datenbank Tab per for Loop ----------- ####
         felder = ["SceneCode", "ProDate", "Release", "Regie", "Serie", "Dauer", "Movies", "Synopsis", "Tags"]                                          
         for feld in felder:            
             button_widget = self.findChild(QPushButton, f'Btn_Anzahl_DB{feld}')
@@ -99,11 +110,12 @@ class Haupt_Fenster(QMainWindow):
             text_edit_widget = self.findChild(QTextEdit, f'txtEdit_DB{feld}')
             if button_widget:
                 button_widget.clicked.connect(self.dialog_auswahl)
+        ### ----------- ContextMenu aufrufen in den datenbank Masken --------- ####
             if Line_edit_widget or text_edit_widget:
                 widget_obj = Line_edit_widget or text_edit_widget  
                 widget_obj.customContextMenuRequested.connect(lambda pos, widget_obj=widget_obj: self.showContextMenu(pos, widget_obj))
-
         ### ----------------------------------------- #####
+        ### ---------- Button auf den Stacked ------- #####
         self.Btn_IAFD_linkmaker.clicked.connect(self.link_maker)
         self.Btn_DateiLaden.clicked.connect(self.Info_Datei_Laden)
         self.Btn_get_last_side.clicked.connect(self.gui_last_side) 
@@ -113,13 +125,15 @@ class Haupt_Fenster(QMainWindow):
         self.Btn_perfomsuche_in_DB.clicked.connect(self.performer_suche)          
         self.rdBtn_rename.clicked.connect(self.radioBtn_file_rename)         
         self.actionEinstellungen.triggered.connect(self.einstellungen_ui_show)
-        self.tblWdg_Daten.horizontalHeader().sectionClicked.connect(lambda index: self.tblWdg_Daten.setSortingEnabled(not self.tblWdg_Daten.isSortingEnabled()))
-        self.tblWdg_Daten.clicked.connect(self.DB_Anzeige)
-        self.tblWdg_Files.clicked.connect(self.Ordner_Infos)        
-        self.tblWdg_Files.horizontalHeader().sectionClicked.connect(lambda index: self.tblWdg_Files.setSortingEnabled(not self.tblWdg_Files.isSortingEnabled()))        
-        self.tblWdg_Files.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)  
+        self.tblWdg_daten.horizontalHeader().sectionClicked.connect(lambda index: self.tblWdg_daten.setSortingEnabled(not self.tblWdg_daten.isSortingEnabled()))
+        self.tblWdg_daten.clicked.connect(self.DB_Anzeige)
+        self.tblWdg_performer.horizontalHeader().sectionClicked.connect(lambda index: self.tblWdg_performer.setSortingEnabled(not self.tblWdg_performer.isSortingEnabled()))
+        self.tblWdg_performer.clicked.connect(self.DB_Anzeige)
+        self.tblWdg_files.clicked.connect(self.Ordner_Infos)        
+        self.tblWdg_files.horizontalHeader().sectionClicked.connect(lambda index: self.tblWdg_files.setSortingEnabled(not self.tblWdg_files.isSortingEnabled()))        
+        self.tblWdg_files.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers) # onlyRead Table
         ### --- Context Menus ---------------------- ### 
-        self.tblWdg_Files.customContextMenuRequested.connect(lambda pos, widget_obj=self.tblWdg_Files: self.showContextMenu(pos, widget_obj))
+        self.tblWdg_files.customContextMenuRequested.connect(lambda pos, widget_obj=self.tblWdg_files: self.showContextMenu(pos, widget_obj))
         self.tblWdg_performer_links.customContextMenuRequested.connect(lambda pos, widget_obj=self.tblWdg_performer_links: self.showContextMenu(pos, widget_obj))
         ### ------------ Text/Tab Wechsel Reaktion ------------------ ###
         self.lnEdit_URL.textChanged.connect(lambda index: self.Btn_Linksuche_in_DB.setEnabled(bool(self.lnEdit_URL.text().startswith("https://"))))
@@ -132,53 +146,139 @@ class Haupt_Fenster(QMainWindow):
         self.cBox_studio_links.currentIndexChanged.connect(lambda index :self.Btn_start_spider.setEnabled(bool(self.cBox_studio_links.currentText()))) 
         ### ---------------- Performer Tab --------------------------- ###
         self.lnEdit_DBIAFD_artistLink.textChanged.connect(self.Web_IAFD_artist_change)
-        self.lnEdit_DBBabePedia_artistLink.textChanged.connect(self.Web_BabePedia_artist_change) 
+        self.lnEdit_DBBioWebsite_artistLink.textChanged.connect(self.Web_BabePedia_artist_change) 
         self.Btn_IAFD_perfomer_suche.clicked.connect(self.get_IAFD_performer_link) 
         self.Btn_Linksuche_in_IAFD_artist.clicked.connect(self.load_IAFD_performer_link) 
         self.cBox_performer_sex.currentIndexChanged.connect(self.set_iafd_button_and_tooltip)
-        self.Btn_DB_perfomer_suche.clicked.connect(self.datenbank_performer_suche)        
+        self.Btn_DB_perfomer_suche.clicked.connect(self.datenbank_performer_suche) 
+        self.customlnEdit_IAFD_performer.returnPressed.connect(self.datenbank_performer_suche)       
         self.Btn_DBArtist_Update.clicked.connect(self.update_datensatz)
-        self.Btn_table_links_expanding.clicked.connect(self.expand_table_links)
-        self.Btn_table_daten_expanding.clicked.connect(self.expand_table_daten)
+        self.Btn_table_links_expanding.clicked.connect(self.expand_table_performer_links)
+        self.Btn_table_daten_expanding.clicked.connect(self.expand_table)
         self.Btn_seiten_vor.clicked.connect(self.datenbank_performer_suche_nextpage)
         self.Btn_seiten_zurueck.clicked.connect(self.datenbank_performer_suche_prevpage)
+        self.lnEdit_page.returnPressed.connect(self.datenbank_performer_suche_gopage)
         self.tblWdg_performer_links.clicked.connect(self.show_performers_images.show_performer_picture)
         self.Btn_performer_next.clicked.connect(self.show_performers_images.show_next_picture_in_label)
         self.Btn_performer_prev.clicked.connect(self.show_performers_images.show_previous_picture_in_label)
+        self.Btn_DB_perfomer_table_update.clicked.connect(self.performer_tab_update_tabelle)
+        self.Btn_onlyfans_additem.clicked.connect(self.add_current_text_to_combobox)
+        self.chkBox_iafd_enabled.stateChanged.connect(self.toggle_iafd_performer_state)
+        self.lnEdit_IAFD_artistAlias.doubleClicked.connect(self.take_iafdname_in_name)
+        self.Btn_delete_logs.clicked.connect(lambda :self.txtBrowser_loginfos.clear())
+        self.Btn_onlyfans_delitem.clicked.connect(lambda: self.cBox_performer_fanside.removeItem(self.cBox_performer_fanside.findText(self.cBox_performer_fanside.currentText())))      
+        widgets = self.performers_tab_widgets()
+        for widget in widgets:
+            if widget not in ["lnEdit_DBIAFD_artistLink", "lnEdit_DBBioWebsite_artistLink"]:
+                getattr(self, widget).textChanged.connect(partial(self.performer_text_change, widget=widget, color_hex='#FFFD00'))    
         ###-----------------------------------------------------------------------------------###
         for i in range(1,6):            
             stacked_widget = self.findChild(QPushButton, f'Btn_stacked_next_{i}')  
             stacked_widget.clicked.connect(lambda: self.stackedWidget.setCurrentIndex((self.stackedWidget.currentIndex() + 1) % self.stackedWidget.count()))
+        for i in range(1,3):
+            stacked_widget = self.findChild(QPushButton, f'Btn_stacked_webdb_next_{i}')  
+            stacked_widget.clicked.connect(lambda: self.stacked_webdb_images.setCurrentIndex((self.stacked_webdb_images.currentIndex() + 1) % self.stacked_webdb_images.count()))
+        for i in range(1,3):
+            stacked_widget = self.findChild(QPushButton, f'Btn_stacked_info_next_{i}')  
+            stacked_widget.clicked.connect(lambda: self.stacked_image_infos.setCurrentIndex((self.stacked_image_infos.currentIndex() + 1) % self.stacked_image_infos.count()))
+
+    def toggle_iafd_performer_state(self, is_checked):        
+        is_change=False
+        # Überprüfen, ob der veränderungen ist und die Farbe entsprechend setzen
+        if self.lnEdit_DBIAFD_artistLink_old != self.lnEdit_DBIAFD_artistLink.text() and self.lnEdit_DBIAFD_artistLink.text() != "N/A":
+            is_change=True
+            self.lnEdit_DBIAFD_artistLink_old = self.lnEdit_DBIAFD_artistLink.text()
+            self.lnEdit_IAFD_artistAlias_old = self.lnEdit_IAFD_artistAlias.text()
+        self.set_default_color("lnEdit_DBIAFD_artistLink")
+        color_hex = '#FFFD00' if is_change or not is_checked else '#FFFDD5' 
+
+        self.set_color_stylesheet("lnEdit_DBIAFD_artistLink", color_hex=color_hex)
+        self.set_color_stylesheet("lnEdit_IAFD_artistAlias", color_hex=color_hex)  
+
+        self.lnEdit_DBIAFD_artistLink.setText(self.lnEdit_DBIAFD_artistLink_old if is_checked else "N/A")
+        self.lnEdit_IAFD_artistAlias.setText(self.lnEdit_IAFD_artistAlias_old if is_checked else "")
+
+        self.lnEdit_DBIAFD_artistLink.setEnabled(is_checked)
+        self.lnEdit_IAFD_artistAlias.setEnabled(is_checked)
+
+    def take_iafdname_in_name(self):
+        if self.lnEdit_IAFD_artistAlias.text():
+            self.lnEdit_performer_info.setText(self.lnEdit_IAFD_artistAlias.text())
+            self.lnEdit_performer_ordner.setText(self.lnEdit_IAFD_artistAlias.text())
+            blink_label(self,"lnEdit_performer_info","#74DF00")
+            blink_label(self,"lnEdit_performer_ordner","#74DF00")
+        else:
+            StatusBar(self, "IAFD Alias Text Feld ist leer !", "#FF0000")
+
+    def set_performer_maske_text_connect(self, disconnect=False):
+        widgets = self.performers_tab_widgets()
+        for widget in widgets:
+            getattr(self, widget).blockSignals(disconnect)     
+
+    def performer_text_change(self, widget, color_hex='#FFFDD5'):        
+        if color_hex=='#FFFD00':
+            self.Btn_DBArtist_Update.setEnabled(True)
+        if isinstance(getattr(self, widget), QTextEdit):            
+            new_text = getattr(self, widget).toPlainText() 
+        else:       
+            new_text = getattr(self, widget).text() 
+        if new_text != self.previous_text.get(widget, ""):
+            self.previous_text[widget] = new_text 
+            color_hex = '#FFFD00' if new_text !="" else '#FFFDD5'
+            self.set_color_stylesheet(widget, color_hex)  
+
+    def set_color_stylesheet(self, widget, color_hex='#FFFDD5'):
+        current_style = getattr(self, widget).styleSheet()
+        current_style = current_style.replace("#FFFDD5", color_hex)
+        current_style = current_style.replace("#FFFD00", color_hex)
+        getattr(self, widget).setStyleSheet(current_style)  
+
+    def set_default_color(self, widget):
+        default_style="QLineEdit,QTextEdit {background-color: #FFFDD5;} \
+                    QLineEdit:hover,QTextEdit:hover {border: 2px solid rgb(49, 50, 62);} \
+                    QLineEdit:focus,QTextEdit:focus {border: 2px inset rgb(85, 170, 255);} \
+                    QLineEdit::placeholderText {color: #FFFDD5;}"
+        getattr(self, widget).setStyleSheet(default_style)
+
+    
+    def performers_tab_widgets(self):
+        return ["lnEdit_performer_haar", "lnEdit_IAFD_artistAlias", "lnEdit_performer_geburtsort","lnEdit_performer_geburtstag",
+                "lnEdit_performer_boobs", "lnEdit_performer_bodytyp", "lnEdit_performer_aktiv", "lnEdit_performer_groesse", "lnEdit_performer_gewicht",
+                "txtEdit_performer_piercing", "txtEdit_performer_tattoo", "lnEdit_DBIAFD_artistLink", "lnEdit_DBBioWebsite_artistLink","lnEdit_performer_augen"]
 
     def tab_changed_handler(self, index: int) -> None:
-        if index > 0:
-            self.tblWdg_Daten.raise_()
-        else:
-            self.tblWdg_Files.raise_()
-
         if index == 0:
-            self.stackedWidget.setCurrentIndex(0)
+            self.tblWdg_daten.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+            self.stacked_tables.setCurrentWidget(self.page_table_files) 
 
-        if index == 1: 
+        if index == 1:
+            self.tblWdg_daten.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+            self.stacked_tables.setCurrentWidget(self.page_table_files)             
             self.stackedWidget.setCurrentWidget(self.stacked_db_abfrage)           
             self.set_analyse_daten()
 
         if index ==2: 
+            self.tblWdg_daten.setContextMenuPolicy(Qt.ContextMenuPolicy.DefaultContextMenu)
+            self.stacked_tables.setCurrentWidget(self.page_table_daten)           
             self.stackedWidget.setCurrentWidget(self.stacked_IAFD_Linkmaker) 
             header_labels=["Titel", "WebLinks", "IAFDLink", "Performer", "Action", "Name", "Dauer","Release Date", "Productions Date"
                 "Serie","Regie","Scene Code","Movies","Synopsis","Tags"]
-            self.tblWdg_Daten.setColumnCount(len(header_labels))
-            self.tblWdg_Daten.setHorizontalHeaderLabels(header_labels)          
+            self.tblWdg_daten.setColumnCount(len(header_labels))
+            self.tblWdg_daten.setHorizontalHeaderLabels(header_labels)          
             links = self.lstView_database_weblinks.model().data(self.lstView_database_weblinks.model().index(0, 0))
             if links:
                 self.set_studio_in_db_tab(links)
 
         if index ==3:
+            self.tblWdg_performer.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+            self.stacked_tables.setCurrentWidget(self.page_table_performer)         
             self.stackedWidget.setCurrentWidget(self.stacked_IAFD_artist)
-            header_labels=["ID", "Name", "IAFD", "BabePedia", "Geschlecht", "Rasse", "Nation", "Geburtstag", "Geburtsort",  "OnylFans", "Boobs","Gewicht",
-                "Größe","Bodytyp", "Piercing","Tattoo","Haarfarbe", "Augenfarbe","Aktiv"]            
-            self.tblWdg_Daten.setColumnCount(len(header_labels))
-            self.tblWdg_Daten.setHorizontalHeaderLabels(header_labels)
+            self.stacked_image_infos.setCurrentWidget(self.perfomer_image)
+            header_labels=["ID", "Name", "Ordner", "IAFD", "BabePedia", "Geschlecht", "Rasse", "Nation", "Geburtstag", "Geburtsort", 
+                "OnlyFans", "Boobs","Gewicht", "Größe","Bodytyp", "Piercing","Tattoo","Haarfarbe", "Augenfarbe","Aktiv"]            
+            self.tblWdg_performer.setColumnCount(len(header_labels))
+            self.tblWdg_performer.setHorizontalHeaderLabels(header_labels)
+            self.tblWdg_performer_links.setColumnWidth(4, 20)
 
 
     def set_studio_in_db_tab(self, links):
@@ -187,7 +287,7 @@ class Haupt_Fenster(QMainWindow):
         db_webside_settings = Webside_Settings(MainWindow=self)
         errorview, studio, logo = db_webside_settings.get_buttonlogo_from_studio(studio_name)  
         if errorview:
-            logo="background-image: url(':/Buttons/grafics/no-logo_90x40.jpg')"
+            logo="background-image: url(':/Buttons/_buttons/no-logo_90x40.jpg')"
             studio="kein Studio ausgewählt !"
         self.Btn_logo_am_db_tab.setStyleSheet(logo)
         self.Btn_logo_am_db_tab.setToolTip(studio)
@@ -199,21 +299,24 @@ class Haupt_Fenster(QMainWindow):
             context_menu.showContextMenu(current_widget.mapToGlobal(pos), widget_name)
     
     def refresh_table(self, new_file: str=None) -> None: 
-        sort = self.tblWdg_Files.isSortingEnabled()
-        gesuchter_text = new_file if new_file else self.tblWdg_Files.selectedItems()[0].text() # wenn es vom rename func kommt, new_file            
-        self.tblWdg_Files.hide()
+        sort = self.tblWdg_files.isSortingEnabled()
+        gesuchter_text = new_file if new_file else self.tblWdg_files.selectedItems()[0].text() # wenn es vom rename func kommt, new_file            
+        self.tblWdg_files.hide()
         self.Info_Datei_Laden(refresh=True)
-        QTimer.singleShot(300, lambda :self.tblWdg_Files.show())
-        self.tblWdg_Files.setSortingEnabled(sort)
-        for row in range(self.tblWdg_Files.rowCount()):
-            item = self.tblWdg_Files.item(row, 0)  # Hier 0 für die erste Spalte, ändere es entsprechend
+        QTimer.singleShot(300, lambda :self.tblWdg_files.show())
+        self.tblWdg_files.setSortingEnabled(sort)
+        for row in range(self.tblWdg_files.rowCount()):
+            item = self.tblWdg_files.item(row, 0)  # Hier 0 für die erste Spalte, ändere es entsprechend
             if item and item.text() == gesuchter_text:
                 item.setSelected(True)
                 # Du hast die gewünschte Zeile gefunden (row)
-                break
+                break  
 
-        
-        
+    def add_current_text_to_combobox(self):
+        current_text = self.cBox_performer_fanside.currentText()        
+        if current_text:  # Füge nur hinzu, wenn der Text nicht leer ist
+            self.cBox_performer_fanside.addItem(current_text)
+ 
 
     def titelsuche_in_DB_aktiv(self):
         if self.Btn_logo_am_db_tab.toolTip() != "kein Studio ausgewählt !":            
@@ -252,9 +355,9 @@ class Haupt_Fenster(QMainWindow):
         
     ### --------------------------------------------------------------------- ###
     def radioBtn_file_rename(self):
-        if self.tblWdg_Files.rowCount() == 0 or self.lnEdit_Studio.text() == "":
+        if self.tblWdg_files.rowCount() == 0 or self.lnEdit_Studio.text() == "":
             zeit = QDateTime.currentDateTime().toString('hh:mm:ss')
-            StatusBar(self, f"{zeit}: Die Tabelle oder das PornSide Label ist leer ! Umbennen nicht möglich !","#ffc1d2")            
+            StatusBar(self, f"{zeit}: Die Tabelle oder das PornSide Label ist leer ! Umbennen nicht möglich !","#ff3000")            
             self.rdBtn_rename.setChecked(False) 
             self.Btn_RadioBtn_rename.setEnabled(False)           
         else:
@@ -307,7 +410,7 @@ class Haupt_Fenster(QMainWindow):
         self.Auswahl.reject()
         db_webside_settings = Webside_Settings(MainWindow=self)
         errorview,verschiebe_ordner = db_webside_settings.hole_verschiebe_ordner(self.lbl_SuchStudio.text())
-        move_file = self.tblWdg_Files.selectedItems()[0].text()+".mp4" 
+        move_file = self.tblWdg_files.selectedItems()[0].text()+".mp4" 
         if self.Auswahl.rdBtn_TargetDatei.isChecked():            
             Path(self.lbl_Ordner.text(), move_file).unlink()             
             self.Auswahl.hide() 
@@ -371,8 +474,8 @@ class Haupt_Fenster(QMainWindow):
         if (Path(self.transferThread.source_path).stat().st_size == Path(self.transferThread.target_path).stat().st_size
            and self.transferThread.source_path!=self.transferThread.target_path):
             Path(self.transferThread.source_path).unlink()
-            row_index = self.tblWdg_Performers.currentRow()
-            self.tblWdg_Files.removeRow(row_index)  
+            row_index = self.tblWdg_performers.currentRow()
+            self.tblWdg_files.removeRow(row_index)  
         self.Transfer.btn_OK_transfer.clicked.connect(lambda: self.ordner_transfer_zurueck(False, self.transferThread.target_path))          
 
     # IAFD Link Maker
@@ -438,7 +541,7 @@ class Haupt_Fenster(QMainWindow):
 
     @pyqtSlot()
     def performer_suche(self):
-        self.tblWdg_Daten.setRowCount(0)        
+        self.tblWdg_performer.setRowCount(0)        
         if self.sender() == self.Btn_perfomsuche_in_DB:
             studio: str=self.Btn_logo_am_db_tab.toolTip()
             name_db: str=self.lnEdit_db_performer.text()
@@ -448,7 +551,7 @@ class Haupt_Fenster(QMainWindow):
         
         if self.is_studio_in_database(studio):
             scraping_data = ScrapingData(MainWindow=self)
-            errorview: str=scraping_data.hole_link_von_performer(name_db, studio)  # erstellt auch in tblWdg_Daten die Liste          
+            errorview: str=scraping_data.hole_link_von_performer(name_db, studio)  # erstellt auch in tblWdg_daten die Liste          
             if errorview:
                 MsgBox(self, errorview,"w") 
             else:                
@@ -456,59 +559,68 @@ class Haupt_Fenster(QMainWindow):
         else:
             MsgBox(self, f"Es gibt noch keine Datenbank für: <{studio}>","w")
 
-    def datenbank_performer_suche_prevpage(self):
-        if self.lnEdit_IAFD_performer.text() != "":
-            page_max=int(self.lnEdit_maxpage.text())
-            page = int(self.lnEdit_page.text())
-            page-=1
-            if page < 0:
-                page= page_max
-            self.lnEdit_page.setText(f"{page}")
-            self.datenbank_performer_suche()
-        else:
-            QTimer.singleShot(100, lambda :self.lnEdit_IAFD_performer.setStyleSheet('background-color: #FF0000'))            
-            QTimer.singleShot(3500, lambda :self.lnEdit_IAFD_performer.setStyleSheet('background-color:'))
-    
-    def datenbank_performer_suche_nextpage(self):
-        if self.lnEdit_IAFD_performer.text() != "":
-            page_max=int(self.lnEdit_maxpage.text())
-            page = int(self.lnEdit_page.text())
-            page+=1
-            if page > page_max:
-                page= 1
-            self.lnEdit_page.setText(f"{page}")
-            self.datenbank_performer_suche()
-        else:
-            QTimer.singleShot(100, lambda :self.lnEdit_IAFD_performer.setStyleSheet('background-color: #FF0000'))            
-            QTimer.singleShot(3500, lambda :self.lnEdit_IAFD_performer.setStyleSheet('background-color:'))
 
-    def datenbank_performer_suche(self):
-        if self.sender() == self.Btn_DB_perfomer_suche:
+    def update_page_and_search(self, new_page):
+        if self.customlnEdit_IAFD_performer.text() != "":
+            page_max = int(self.lnEdit_maxpage.text())
+            page = new_page
+            if page < 1:
+                page = page_max
+            elif page > page_max:
+                page = 1
+            self.lnEdit_page.setText(f"{page}")
+            self.datenbank_performer_suche()
+        else:
+            QTimer.singleShot(100, lambda: self.customlnEdit_IAFD_performer.setStyleSheet('background-color: #FF0000'))
+            QTimer.singleShot(3500, lambda: self.customlnEdit_IAFD_performer.setStyleSheet('background-color:'))
+
+    def datenbank_performer_suche_prevpage(self):
+        self.update_page_and_search(int(self.lnEdit_page.text()) - 1)
+
+    def datenbank_performer_suche_gopage(self):
+        self.update_page_and_search(int(self.lnEdit_page.text()))
+
+    def datenbank_performer_suche_nextpage(self):
+        self.update_page_and_search(int(self.lnEdit_page.text()) + 1)
+
+    def datenbank_performer_suche(self):        
+        if self.sender() in [self.Btn_DB_perfomer_suche, self.customlnEdit_IAFD_performer]:
+            self.tblWdg_performer.raise_()
+            self.tabs.setCurrentWidget(self.tab_performer) 
+            self.tblWdg_performer.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+            self.tblWdg_performer.customContextMenuRequested.connect(lambda pos, widget_obj=self.tblWdg_performer: self.showContextMenu(pos, widget_obj))      
+            self.customlnEdit_IAFD_performer.addToHistory(self.customlnEdit_IAFD_performer.text())            
             self.lnEdit_page.setText("1")
             self.lnEdit_maxpage.setText("1")
             self.show_performers_images = ShowPerformerImages(self)        
         performer_infos_maske=PerformerInfosMaske(MainWindow=self)
         performer_infos_maske.clear_maske()
-        artist=self.lnEdit_IAFD_performer.text()        
+        artist=self.customlnEdit_IAFD_performer.text()        
         if len(artist) > 1:
-            if artist[-1:] == "*":
+            if artist.endswith("*"):
                 artist = f"{artist[:-1]}%"
-            if artist[:1] == "*":
+            if artist.startswith("*"):
                 artist = f"%{artist[1:]}"
-        else:
-            if artist == "*":
-                artist = "%"
+        elif artist == "*":
+            artist = "%"
+
         page_number=int(self.lnEdit_page.text())
         db_for_darsteller = DB_Darsteller(MainWindow=self)
-        errview = db_for_darsteller.get_all_datas_from_database(artist, page_number)
-        if errview is not None:
+        artist_data = db_for_darsteller.get_all_datas_from_database(artist, page_number)
+        if artist_data == f"kein {artist} gefunden":
+            self.tblWdg_performer.setRowCount(0)            
+            self.customlnEdit_IAFD_performer.setStyleSheet('background-color: #FF0000')          
+            QTimer.singleShot(500, lambda :self.customlnEdit_IAFD_performer.setStyleSheet('background-color:'))
+            QTimer.singleShot(1000, lambda :self.customlnEdit_IAFD_performer.setStyleSheet('background-color: #FF0000'))
+            QTimer.singleShot(2500, lambda :self.customlnEdit_IAFD_performer.setStyleSheet('background-color: '))
+        else:
             self.tabelle_erstellen_fuer_performer()
     
     def update_datensatz(self):
         performer_infos_maske = PerformerInfosMaske(MainWindow=self)
         performer_infos_maske.update_datensatz()
 
-    def expand_table_links(self):
+    def expand_table_performer_links(self):
         table_widget_breite=self.tblWdg_performer_links.height()
         if table_widget_breite == 140:
             self.tblWdg_performer_links.setGeometry(30, 360, 870, 140+300)
@@ -517,70 +629,77 @@ class Haupt_Fenster(QMainWindow):
             self.tblWdg_performer_links.setGeometry(30, 360, 870, 140)
             self.Btn_table_links_expanding.move(450, 505)
 
-    def expand_table_daten(self):
-        table_widget_laenge=self.tblWdg_Daten.width()
+    def expand_table(self):
+        tables = ["files", "performer", "daten"]
+        current_page = self.stacked_tables.currentWidget()
+        for table in tables:            
+            widget_table = current_page.findChild(QTableWidget, f"tblWdg_{table}")
+            if widget_table:                
+                break
+        table_widget_laenge=widget_table.width()
         if table_widget_laenge == 890:
-            self.tblWdg_Daten.setGeometry(30, 210, 890+940, 750)
-            self.Btn_table_daten_expanding.move(925+940, 540)
+            expand=970
+            self.stacked_tables.setGeometry(30, 210, 890 + expand, 750)
+            widget_table.setGeometry(0, 0, 890 + expand, 750) 
+            self.Btn_table_daten_expanding.move(925 + expand, 540)  # Button move nach ganz rechts
         else:
-            self.tblWdg_Daten.setGeometry(30, 210, 890, 750)
+            self.stacked_tables.setGeometry(30, 210, 890, 750)
+            widget_table.setGeometry(0, 0, 890, 750)
             self.Btn_table_daten_expanding.move(925, 540)
 
-    def tabelle_erstellen_fuer_movie(self):
-        zeile: int = 0
+    def tabelle_erstellen_fuer_movie(self):        
         video_data_json=VideoData().load_from_json()
         for zeile, video_data in enumerate(video_data_json):
-            self.tblWdg_Daten.setRowCount(zeile+1)            
-            self.tblWdg_Daten.setItem(zeile,0,QTableWidgetItem(video_data["Titel"])) 
-            self.tblWdg_Daten.setItem(zeile,1,QTableWidgetItem(video_data["WebSideLink"]))
-            self.tblWdg_Daten.setItem(zeile,2,QTableWidgetItem(video_data["IAFDLink"]))               
-            self.tblWdg_Daten.setItem(zeile,3,QTableWidgetItem(video_data["Performers"]))
-            self.tblWdg_Daten.setItem(zeile,4,QTableWidgetItem(video_data["Alias"])) 
-            self.tblWdg_Daten.setItem(zeile,5,QTableWidgetItem(video_data["Action"]))
-            self.tblWdg_Daten.setItem(zeile,6,QTableWidgetItem(video_data["Dauer"]))
-            self.tblWdg_Daten.setItem(zeile,7,QTableWidgetItem(video_data["ReleaseDate"]))               
-            self.tblWdg_Daten.setItem(zeile,8,QTableWidgetItem(video_data["ProductionDate"]))
-            self.tblWdg_Daten.setItem(zeile,9,QTableWidgetItem(video_data["Serie"]))
-            self.tblWdg_Daten.setItem(zeile,10,QTableWidgetItem(video_data["Regie"]))
-            self.tblWdg_Daten.setItem(zeile,11,QTableWidgetItem(video_data["SceneCode"]))
-            self.tblWdg_Daten.setItem(zeile,12,QTableWidgetItem(video_data["Movies"]))
-            self.tblWdg_Daten.setItem(zeile,13,QTableWidgetItem(video_data["Synopsis"])) 
-            self.tblWdg_Daten.setItem(zeile,14,QTableWidgetItem(video_data["Tags"]))
-        self.tblWdg_Daten.setCurrentCell(zeile, 0)
+            self.tblWdg_daten.setRowCount(zeile+1)            
+            self.tblWdg_daten.setItem(zeile,0,QTableWidgetItem(video_data["Titel"])) 
+            self.tblWdg_daten.setItem(zeile,1,QTableWidgetItem(video_data["WebSideLink"]))
+            self.tblWdg_daten.setItem(zeile,2,QTableWidgetItem(video_data["IAFDLink"]))               
+            self.tblWdg_daten.setItem(zeile,3,QTableWidgetItem(video_data["Performers"]))
+            self.tblWdg_daten.setItem(zeile,4,QTableWidgetItem(video_data["Alias"])) 
+            self.tblWdg_daten.setItem(zeile,5,QTableWidgetItem(video_data["Action"]))
+            self.tblWdg_daten.setItem(zeile,6,QTableWidgetItem(video_data["Dauer"]))
+            self.tblWdg_daten.setItem(zeile,7,QTableWidgetItem(video_data["ReleaseDate"]))               
+            self.tblWdg_daten.setItem(zeile,8,QTableWidgetItem(video_data["ProductionDate"]))
+            self.tblWdg_daten.setItem(zeile,9,QTableWidgetItem(video_data["Serie"]))
+            self.tblWdg_daten.setItem(zeile,10,QTableWidgetItem(video_data["Regie"]))
+            self.tblWdg_daten.setItem(zeile,11,QTableWidgetItem(video_data["SceneCode"]))
+            self.tblWdg_daten.setItem(zeile,12,QTableWidgetItem(video_data["Movies"]))
+            self.tblWdg_daten.setItem(zeile,13,QTableWidgetItem(video_data["Synopsis"])) 
+            self.tblWdg_daten.setItem(zeile,14,QTableWidgetItem(video_data["Tags"]))
+        self.tblWdg_daten.setCurrentCell(zeile, 0)
 
-    def tabelle_erstellen_fuer_performer(self):        
-        zeile: int = 0
+    def tabelle_erstellen_fuer_performer(self):         
         artist_data_json=VideoData().load_from_json()
         for zeile, artist_data in enumerate(artist_data_json):            
-            self.tblWdg_Daten.setRowCount(zeile+1) 
-            self.tblWdg_Daten.setItem(zeile,0,QTableWidgetItem(f'{artist_data["ArtistID"]}'))           
-            self.tblWdg_Daten.setItem(zeile,1,QTableWidgetItem(artist_data["Name"])) 
-            self.tblWdg_Daten.setItem(zeile,2,QTableWidgetItem(artist_data["IAFDLink"]))
-            self.tblWdg_Daten.setItem(zeile,3,QTableWidgetItem(artist_data["BabePedia"]))               
-            self.tblWdg_Daten.setItem(zeile,4,QTableWidgetItem(f'{artist_data["Geschlecht"]}'))
-            self.tblWdg_Daten.setItem(zeile,5,QTableWidgetItem(f'{artist_data["RassenID"]}')) 
-            self.tblWdg_Daten.setItem(zeile,6,QTableWidgetItem(artist_data["Nation"]))
-            self.tblWdg_Daten.setItem(zeile,7,QTableWidgetItem(artist_data["Geburtstag"]))
-            self.tblWdg_Daten.setItem(zeile,8,QTableWidgetItem(artist_data["Birth_Place"]))
-            self.tblWdg_Daten.setItem(zeile,9,QTableWidgetItem(artist_data["OnlyFans"]))               
-            self.tblWdg_Daten.setItem(zeile,10,QTableWidgetItem(artist_data["Boobs"]))
-            self.tblWdg_Daten.setItem(zeile,11,QTableWidgetItem(f'{artist_data["Gewicht"]}'))
-            self.tblWdg_Daten.setItem(zeile,12,QTableWidgetItem(f'{artist_data["Groesse"]}'))
-            self.tblWdg_Daten.setItem(zeile,13,QTableWidgetItem(artist_data["Bodytyp"]))
-            self.tblWdg_Daten.setItem(zeile,14,QTableWidgetItem(artist_data["Piercing"]))
-            self.tblWdg_Daten.setItem(zeile,15,QTableWidgetItem(artist_data["Tattoo"])) 
-            self.tblWdg_Daten.setItem(zeile,16,QTableWidgetItem(artist_data["Haarfarbe"]))
-            self.tblWdg_Daten.setItem(zeile,17,QTableWidgetItem(artist_data["Augenfarbe"]))
-            self.tblWdg_Daten.setItem(zeile,18,QTableWidgetItem(artist_data["Aktiv"]))
-            self.tblWdg_Daten.setItem(zeile,19,QTableWidgetItem(f'{artist_data["Geschlecht"]}'))
-        self.tblWdg_Daten.setCurrentCell(zeile, 0)   
+            self.tblWdg_performer.setRowCount(zeile+1) 
+            self.tblWdg_performer.setItem(zeile,0,QTableWidgetItem(f'{artist_data["ArtistID"]}'))           
+            self.tblWdg_performer.setItem(zeile,1,QTableWidgetItem(artist_data["Name"])) 
+            self.tblWdg_performer.setItem(zeile,2,QTableWidgetItem(artist_data["Ordner"]))
+            self.tblWdg_performer.setItem(zeile,3,QTableWidgetItem(artist_data["IAFDLink"]))
+            self.tblWdg_performer.setItem(zeile,4,QTableWidgetItem(artist_data["BabePedia"]))               
+            self.tblWdg_performer.setItem(zeile,5,QTableWidgetItem(f'{artist_data["Geschlecht"]}'))
+            self.tblWdg_performer.setItem(zeile,6,QTableWidgetItem(f'{artist_data["RassenID"]}')) 
+            self.tblWdg_performer.setItem(zeile,7,QTableWidgetItem(artist_data["Nation"]))
+            self.tblWdg_performer.setItem(zeile,8,QTableWidgetItem(artist_data["Geburtstag"]))
+            self.tblWdg_performer.setItem(zeile,9,QTableWidgetItem(artist_data["Birth_Place"]))
+            self.tblWdg_performer.setItem(zeile,10,QTableWidgetItem(artist_data["OnlyFans"]))               
+            self.tblWdg_performer.setItem(zeile,11,QTableWidgetItem(artist_data["Boobs"]))
+            self.tblWdg_performer.setItem(zeile,12,QTableWidgetItem(f'{artist_data["Gewicht"]}'))
+            self.tblWdg_performer.setItem(zeile,13,QTableWidgetItem(f'{artist_data["Groesse"]}'))
+            self.tblWdg_performer.setItem(zeile,14,QTableWidgetItem(artist_data["Bodytyp"]))
+            self.tblWdg_performer.setItem(zeile,15,QTableWidgetItem(artist_data["Piercing"]))
+            self.tblWdg_performer.setItem(zeile,16,QTableWidgetItem(artist_data["Tattoo"]))            
+            self.tblWdg_performer.setItem(zeile,17,QTableWidgetItem(artist_data["Haarfarbe"]))
+            self.tblWdg_performer.setItem(zeile,18,QTableWidgetItem(artist_data["Augenfarbe"]))
+            self.tblWdg_performer.setItem(zeile,19,QTableWidgetItem(artist_data["Aktiv"]))            
+        self.tblWdg_performer.setCurrentCell(zeile, 0)   
 
     ### ---------------------------------------------------------------------- ###
     ### ---- Infos aus der Datenbank holen, um Dateien mit Daten zu füllen --- ###
     ### ---------------------------------------------------------------------- ###
     @pyqtSlot()
     def titel_suche(self):
-        self.tblWdg_Daten.setRowCount(0)        
+        self.tblWdg_daten.setRowCount(0)        
         if self.sender() == self.Btn_Titelsuche_in_DB:
             studio: str=self.Btn_logo_am_db_tab.toolTip() 
             titel_db: str=self.lnEdit_db_titel.text().replace("'","''") 
@@ -648,11 +767,19 @@ class Haupt_Fenster(QMainWindow):
         infos_webside.Web_IAFD_change() 
 
     def Web_IAFD_artist_change(self):
-        iafd_infos = IAFDInfos(MainWindow=self)
-        iafd_infos.check_IAFD_performer_link() 
+        if self.chkBox_iafd_enabled.isChecked():            
+            self.performer_text_change("lnEdit_DBIAFD_artistLink", color_hex='#FFFD00')        
+            iafd_infos = IAFDInfos(MainWindow=self)
+            iafd_infos.check_IAFD_performer_link() 
     
     def Web_BabePedia_artist_change(self):
-        pass
+        self.performer_text_change("lnEdit_DBBioWebsite_artistLink", color_hex='#FFFD00')
+        
+
+    def performer_tab_update_tabelle(self):
+        performer_infos_maske = PerformerInfosMaske(MainWindow=self)
+        performer_infos_maske.update_tabelle()
+                                
 
     def get_IAFD_performer_link(self): 
         iafd_infos = IAFDInfos(MainWindow=self)
@@ -715,7 +842,7 @@ class Haupt_Fenster(QMainWindow):
         #SpiderMonitor(spider_class_name, self)
         
     def set_iafd_button_and_tooltip(self):       
-        if self.cBox_performer_sex.currentText():
+        if self.cBox_performer_sex.currentText() and not self.chkBox_iafd_enabled.isChecked():
             self.Btn_IAFD_perfomer_suche.setEnabled(True)
             self.Btn_IAFD_perfomer_suche.setToolTip("erstellt ein IAFD Link und setzt in die Maske")
         else:
@@ -723,21 +850,21 @@ class Haupt_Fenster(QMainWindow):
             self.Btn_IAFD_perfomer_suche.setToolTip("Geschlecht auswählen !")
         
     def Datei_loeschen(self):
-        old_file=self.tblWdg_Files.selectedItems()[0].text()
+        old_file=self.tblWdg_files.selectedItems()[0].text()
         dir=self.lbl_Ordner.text()
         Path(dir,old_file+".mp4").unlink()
         StatusBar(self, f"gelöschte Dateiname: {old_file}","#efffb7")
-        zeile=self.tblWdg_Files.currentRow()-1
+        zeile=self.tblWdg_files.currentRow()-1
         if zeile>=0:
-            self.tblWdg_Files.setCurrentCell(zeile, 0)
+            self.tblWdg_files.setCurrentCell(zeile, 0)
             self.refresh_table()
         else:
-            self.tblWdg_Files.clearContents()
-            self.tblWdg_Files.setRowCount(0)
+            self.tblWdg_files.clearContents()
+            self.tblWdg_files.setRowCount(0)
         self.DIA_Loeschen.hide()
 
     def Datei_Rename(self):
-        old_file=self.tblWdg_Files.selectedItems()[0].text()+".mp4"
+        old_file=self.tblWdg_files.selectedItems()[0].text()+".mp4"
         new_file=self.DIA_Rename.lnEdit_Rename.text()+".mp4"
         self.lbl_Dateiname.setText(new_file)
         dir=self.lbl_Ordner.text()
@@ -790,8 +917,8 @@ class Haupt_Fenster(QMainWindow):
             einstellungen_ui = Einstellungen(self)
             directory = einstellungen_ui.Info_Datei()
         if directory and directory.exists() and directory.is_dir():
-            self.tblWdg_Files.raise_()
-            self.tblWdg_Files.clearContents()
+            self.tblWdg_files.raise_()
+            self.tblWdg_files.clearContents()
             self.lbl_Ordner.setText(str(directory))
             supported_extensions = (".mp4", ".avi", ".mkv", ".wmv")
             zeile = 0  # Zeilennummer initialisieren
@@ -799,19 +926,19 @@ class Haupt_Fenster(QMainWindow):
             for file in directory.iterdir():
                 if file.suffix in supported_extensions:
                     datum = file.stat().st_ctime
-                    self.tblWdg_Files.setRowCount(zeile + 1)
+                    self.tblWdg_files.setRowCount(zeile + 1)
                     file_name = str(file.stem)
-                    self.tblWdg_Files.setItem(zeile, 0, QTableWidgetItem(file_name))
+                    self.tblWdg_files.setItem(zeile, 0, QTableWidgetItem(file_name))
                     file_size = self.datei_groesse_in_bytes(directory, file)
-                    self.tblWdg_Files.setItem(zeile, 1, QTableWidgetItem(file_size))
+                    self.tblWdg_files.setItem(zeile, 1, QTableWidgetItem(file_size))
                     date_formatted = self.Dateidatum(datum)
-                    self.tblWdg_Files.setItem(zeile, 2, QTableWidgetItem(date_formatted))
-                    self.tblWdg_Files.setItem(zeile, 3, QTableWidgetItem(file.suffix[1:]))
-                    self.tblWdg_Files.item(zeile, 1).setTextAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignJustify)
-                    self.tblWdg_Files.item(zeile, 3).setTextAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignJustify)
+                    self.tblWdg_files.setItem(zeile, 2, QTableWidgetItem(date_formatted))
+                    self.tblWdg_files.setItem(zeile, 3, QTableWidgetItem(file.suffix[1:]))
+                    self.tblWdg_files.item(zeile, 1).setTextAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignJustify)
+                    self.tblWdg_files.item(zeile, 3).setTextAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignJustify)
                     zeile += 1
 
-            self.tblWdg_Files.resizeColumnsToContents()
+            self.tblWdg_files.resizeColumnsToContents()
             self.tabs_clearing(False, False)
         else:
             if directory:
@@ -819,15 +946,15 @@ class Haupt_Fenster(QMainWindow):
                 StatusBar(self, f"Daten: '{directory}' konnte nicht geladen werden !", "#F78181")
 
     def Ordner_Infos(self) -> None:
-        self.tblWdg_Files.setCurrentCell(self.tblWdg_Files.currentRow(),0)
+        self.tblWdg_files.setCurrentCell(self.tblWdg_files.currentRow(),0)
         try:
-            self.lbl_Dateiname.setText(self.tblWdg_Files.selectedItems()[0].text()+".mp4")
+            self.lbl_Dateiname.setText(self.tblWdg_files.selectedItems()[0].text()+".mp4")
             self.tabs.setCurrentIndex(0)
             einstellung_ui = Einstellungen(self)
             if einstellung_ui.chkBox_InfosExifTool.isChecked():
                 self.Infos_ExifToolHolen()
         except IndexError:
-            self.tblWdg_Files.clearContents() 
+            self.tblWdg_files.clearContents() 
 
     def Websides_Auswahl(self):        
         logo_button=self.sender().whatsThis()
@@ -895,7 +1022,7 @@ class Haupt_Fenster(QMainWindow):
                     self.make_simlink(movies,verschiebe_ordner,move_file)         
             else:
                 MsgBox(self, error,"w")  
-        self.tblWdg_Files.update() 
+        self.tblWdg_files.update() 
 
     
     def windows_file_filter(self, file_name):
@@ -1058,8 +1185,7 @@ class Haupt_Fenster(QMainWindow):
     
     def DB_Anzeige(self):
         infos_webside = Infos_WebSides(MainWindow=self)
-        current_index = self.stackedWidget.currentIndex()
-        self.tblWdg_Daten.itemSelectionChanged.connect(infos_webside.select_whole_row) # aktiviert die komplette Zeile 
+        current_index = self.stackedWidget.currentIndex()         
         if current_index == self.stackedWidget.indexOf(self.stacked_IAFD_artist):
             self.Btn_DBArtist_Update.setEnabled(False)
             felder = ["sex", "rasse", "nation", "haar", "augen", "geburtsort", "geburtstag", "boobs", "bodytyp", "aktiv", "groesse",
@@ -1073,11 +1199,11 @@ class Haupt_Fenster(QMainWindow):
             felder = ["SceneCode", "ProDate", "Release", "Regie", "Serie", "Dauer", "Movies", "Synopsis", "Tags"]
             self.tooltip_claering(felder)
             self.model_database_weblinks.clear()
-            self.tblWdg_Performers.clear()
+            self.tblWdg_performers.clear()
 
             self.tabs.setCurrentIndex(2) # Tab für Datenbank aktiv
-            self.tblWdg_Daten.selectRow(self.tblWdg_Daten.currentRow())
-            self.lnEdit_DBTitel.setText(self.tblWdg_Daten.selectedItems()[0].text()) 
+            self.tblWdg_daten.selectRow(self.tblWdg_daten.currentRow())
+            self.lnEdit_DBTitel.setText(self.tblWdg_daten.selectedItems()[0].text()) 
 
             infos_webside = Infos_WebSides(MainWindow=self)
             infos_webside.DB_Anzeige()
@@ -1092,8 +1218,8 @@ class Haupt_Fenster(QMainWindow):
         for feld in felder: 
             if artist:
                 combo_box_widget = self.findChild(QComboBox, f'cBox_performer_{feld}')
-                Line_edit_widget = self.findChild(QLineEdit, f'lnEdit_performer{feld}')
-                text_edit_widget = self.findChild(QTextEdit, f'txtEdit_performer{feld}')
+                Line_edit_widget = self.findChild(QLineEdit, f'lnEdit_performer_{feld}')
+                text_edit_widget = self.findChild(QTextEdit, f'txtEdit_performer_{feld}')
             else:
                 Line_edit_widget = self.findChild(QLineEdit, f'lnEdit_DB{feld}')
                 text_edit_widget = self.findChild(QTextEdit, f'txtEdit_DB{feld}')                
@@ -1147,16 +1273,16 @@ class Haupt_Fenster(QMainWindow):
 
 
     def add_performers(self,name: str="",alias: str="",action: str="") -> None:
-        self.tblWdg_Performers.setRowCount(self.tblWdg_Performers.rowCount()+1) 
-        self.tblWdg_Performers.setItem(self.tblWdg_Performers.rowCount()-1,0,QTableWidgetItem(name))
-        self.tblWdg_Performers.setItem(self.tblWdg_Performers.rowCount()-1,1,QTableWidgetItem(alias))       
-        self.tblWdg_Performers.setItem(self.tblWdg_Performers.rowCount()-1,2,QTableWidgetItem(action))
-        self.tblWdg_Performers.setCurrentCell(self.tblWdg_Performers.rowCount()-1, 0)
+        self.tblWdg_performers.setRowCount(self.tblWdg_performers.rowCount()+1) 
+        self.tblWdg_performers.setItem(self.tblWdg_performers.rowCount()-1,0,QTableWidgetItem(name))
+        self.tblWdg_performers.setItem(self.tblWdg_performers.rowCount()-1,1,QTableWidgetItem(alias))       
+        self.tblWdg_performers.setItem(self.tblWdg_performers.rowCount()-1,2,QTableWidgetItem(action))
+        self.tblWdg_performers.setCurrentCell(self.tblWdg_performers.rowCount()-1, 0)
     
     def del_performers(self):
-        row_index = self.tblWdg_Performers.currentRow()
+        row_index = self.tblWdg_performers.currentRow()
         if row_index >= 0:
-            self.tblWdg_Performers.removeRow(row_index)
+            self.tblWdg_performers.removeRow(row_index)
 
     def add_db_in_datei(self):
         Performers: list=[]
@@ -1172,8 +1298,8 @@ class Haupt_Fenster(QMainWindow):
         self.Btn_logo_am_analyse_tab.setToolTip(studio)
         self.Btn_logo_am_analyse_tab.setStyleSheet(logo)
 
-        for zeile in range(self.tblWdg_Performers.rowCount()):
-            Performers.append(self.tblWdg_Performers.item(zeile, 0).text()) 
+        for zeile in range(self.tblWdg_performers.rowCount()):
+            Performers.append(self.tblWdg_performers.item(zeile, 0).text()) 
         self.addDarsteller_in_ui(Performers)
 
         self.lnEdit_Titel.setText(self.lnEdit_DBTitel.text())
@@ -1255,7 +1381,7 @@ class Haupt_Fenster(QMainWindow):
         try:
             Path(directory, old_file).rename(Path(directory, new_file))
         except OSError as os_err:
-            if os_err.winerror == 32:
+            if os_err.errno == errno.EACCES:
                 os_err = "Die Datei ist noch geöffnet, bitte schließen!"
             MsgBox(self, f"Fehler !<br>{os_err}</br>", "i")
             return str(os_err)
@@ -1269,17 +1395,14 @@ class Haupt_Fenster(QMainWindow):
         self.tabs_clearing(False, False) 
         filename=self.lbl_Dateiname.text()
         self.lbl_datei_info_fuer.setText(filename)       
-        directory_filename = Path(self.lbl_Ordner.text(), filename)
-        
+        directory_filename = Path(self.lbl_Ordner.text(), filename)        
         error = self.load_exiftool_json(directory_filename) 
-
         if not error and MEDIA_JSON_PATH.exists():
             self.metatags_in_ui_laden()
-
             db_webside_settings = Webside_Settings(MainWindow=self)
             errorview, studio, logo = db_webside_settings.get_buttonlogo_from_studio(self.lnEdit_Studio.text())
             if not studio:
-                logo="background-image: url(':/Buttons/grafics/no-logo_90x40.jpg')"
+                logo="background-image: url(':/Buttons/_buttons/no-logo_90x40.jpg')"
                 studio="kein Studio ausgewählt !"
             self.is_studio_in_database(studio)
             self.cBox_studio_links.clear()
@@ -1367,7 +1490,7 @@ class Haupt_Fenster(QMainWindow):
                 self.lnEdit_analyse_titel.setText(titel)
                 self.Btn_titel_suche.setEnabled(True) 
         else:
-            logo="background-image: url(':/Buttons/grafics/no-logo_90x40.jpg')"
+            logo="background-image: url(':/Buttons/_buttons/no-logo_90x40.jpg')"
             studio="kein Studio ausgewählt !"
             self.lnEdit_analyse_titel.setText(studio)
 
@@ -1408,7 +1531,7 @@ class Haupt_Fenster(QMainWindow):
             self.lbl_datei_info_fuer.clear()
 
         if not table_files:
-            self.tblWdg_Files.clearContents()
+            self.tblWdg_files.clearContents()
 
         if not tab_fileinfo:
             labels=["Bitrate", "FrameRate", "VideoArt", "FileCreation", "FileSize", "Resize", "Dauer"]
@@ -1418,14 +1541,14 @@ class Haupt_Fenster(QMainWindow):
 
         if not analyse_button:    
             self.lbl_SuchStudio.clear()
-            self.Btn_logo_am_analyse_tab.setStyleSheet("background-image: url(':/Buttons/grafics/no-logo_90x40.jpg')")
+            self.Btn_logo_am_analyse_tab.setStyleSheet("background-image: url(':/Buttons/_buttons/no-logo_90x40.jpg')")
             self.Btn_logo_am_analyse_tab.setToolTip("kein Studio ausgewählt !")
                     
         if not (tab_dateiinfo and table_files and analyse_button and table_files): 
             self.cBox_studio_links.clear() 
-            self.Btn_logo_am_infos_tab.setStyleSheet("background-image: url(':/Buttons/grafics/no-logo_90x40.jpg')") 
+            self.Btn_logo_am_infos_tab.setStyleSheet("background-image: url(':/Buttons/_buttons/no-logo_90x40.jpg')") 
             self.Btn_logo_am_infos_tab.setToolTip("kein Studio ausgewählt !")
-            self.Btn_logo_am_db_tab.setStyleSheet("background-image: url(':/Buttons/grafics/no-logo_90x40.jpg')")
+            self.Btn_logo_am_db_tab.setStyleSheet("background-image: url(':/Buttons/_buttons/no-logo_90x40.jpg')")
             self.Btn_logo_am_db_tab.setToolTip("kein Studio ausgewählt !") 
             self.buttons_enabled(False, ["Laden", "Speichern", "Refresh"])
 
@@ -1522,7 +1645,6 @@ class Haupt_Fenster(QMainWindow):
             message= "Bitte die Porno Seite / Studio angeben !"
             status_fehler_ausgabe(self, message)  
     
-
 # Abschluss
 if __name__ == '__main__':
     app, MainWindow =(QApplication(sys.argv), Haupt_Fenster())   
@@ -1533,4 +1655,3 @@ if __name__ == '__main__':
     ## ---------------------------------------------------- ## 
     MainWindow.show()   
     sys.exit(app.exec())
-

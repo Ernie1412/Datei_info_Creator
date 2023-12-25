@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1884, 1027)
+        MainWindow.resize(1884, 1064)
         MainWindow.setFocusPolicy(QtCore.Qt.FocusPolicy.ClickFocus)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("e:\\Python\\Python_WORK\\Datei_Info_Creator\\gui\\uic_imports\\erotisch.ico"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
@@ -74,7 +74,7 @@ class Ui_MainWindow(object):
         self.Btn_logo_am_infos_tab = QtWidgets.QPushButton(parent=self.tab_info)
         self.Btn_logo_am_infos_tab.setGeometry(QtCore.QRect(540, 58, 90, 40))
         self.Btn_logo_am_infos_tab.setStyleSheet("QPushButton { \n"
-"    background-image:url(:/Buttons/grafics/no-logo_90x40.jpg);\n"
+"    background-image:url(:/Buttons/_buttons/no-logo_90x40.jpg);\n"
 "}                   \n"
 "QPushButton:enabled{\n"
 "    background-color: rgb(198, 178, 255);\n"
@@ -92,32 +92,32 @@ class Ui_MainWindow(object):
         self.Btn_logo_am_infos_tab.setObjectName("Btn_logo_am_infos_tab")
         self.txtBrw_Beschreibung = QtWidgets.QTextBrowser(parent=self.tab_info)
         self.txtBrw_Beschreibung.setGeometry(QtCore.QRect(120, 460, 511, 71))
-        self.txtBrw_Beschreibung.setStyleSheet("background-color: rgb(255, 253, 213);")
+        self.txtBrw_Beschreibung.setStyleSheet("background-color: #FFFDD5;")
         self.txtBrw_Beschreibung.setReadOnly(False)
         self.txtBrw_Beschreibung.setAcceptRichText(False)
         self.txtBrw_Beschreibung.setObjectName("txtBrw_Beschreibung")
         self.lnEdit_ProJahr = QtWidgets.QLineEdit(parent=self.tab_info)
         self.lnEdit_ProJahr.setGeometry(QtCore.QRect(120, 430, 511, 20))
-        self.lnEdit_ProJahr.setStyleSheet("background-color: rgb(255, 253, 213);")
+        self.lnEdit_ProJahr.setStyleSheet("background-color: #FFFDD5;")
         self.lnEdit_ProJahr.setText("")
         self.lnEdit_ProJahr.setObjectName("lnEdit_ProJahr")
         self.lnEdit_Data18URL = QtWidgets.QLineEdit(parent=self.tab_info)
         self.lnEdit_Data18URL.setGeometry(QtCore.QRect(120, 340, 511, 20))
-        self.lnEdit_Data18URL.setStyleSheet("background-color: rgb(255, 253, 213);")
+        self.lnEdit_Data18URL.setStyleSheet("background-color: #FFFDD5;")
         self.lnEdit_Data18URL.setText("")
         self.lnEdit_Data18URL.setObjectName("lnEdit_Data18URL")
         self.lnEdit_IAFDURL = QtWidgets.QLineEdit(parent=self.tab_info)
         self.lnEdit_IAFDURL.setGeometry(QtCore.QRect(120, 310, 511, 20))
-        self.lnEdit_IAFDURL.setStyleSheet("background-color: rgb(255, 253, 213);")
+        self.lnEdit_IAFDURL.setStyleSheet("background-color: #FFFDD5;")
         self.lnEdit_IAFDURL.setObjectName("lnEdit_IAFDURL")
         self.lnEdit_ErstellDatum = QtWidgets.QLineEdit(parent=self.tab_info)
         self.lnEdit_ErstellDatum.setGeometry(QtCore.QRect(120, 400, 511, 20))
-        self.lnEdit_ErstellDatum.setStyleSheet("background-color: rgb(255, 253, 213);")
+        self.lnEdit_ErstellDatum.setStyleSheet("background-color: #FFFDD5;")
         self.lnEdit_ErstellDatum.setText("")
         self.lnEdit_ErstellDatum.setObjectName("lnEdit_ErstellDatum")
         self.lnEdit_URL = QtWidgets.QLineEdit(parent=self.tab_info)
         self.lnEdit_URL.setGeometry(QtCore.QRect(120, 282, 511, 20))
-        self.lnEdit_URL.setStyleSheet("background-color: rgb(255, 253, 213);")
+        self.lnEdit_URL.setStyleSheet("background-color: #FFFDD5;")
         self.lnEdit_URL.setObjectName("lnEdit_URL")
         self.Btn_Rechts = QtWidgets.QPushButton(parent=self.tab_info)
         self.Btn_Rechts.setGeometry(QtCore.QRect(360, 200, 21, 23))
@@ -171,7 +171,7 @@ class Ui_MainWindow(object):
         self.Btn_Links.setObjectName("Btn_Links")
         self.lstWdg_Darstellerin = QtWidgets.QListWidget(parent=self.tab_info)
         self.lstWdg_Darstellerin.setGeometry(QtCore.QRect(120, 190, 241, 81))
-        self.lstWdg_Darstellerin.setStyleSheet("background-color: rgb(255, 253, 213);")
+        self.lstWdg_Darstellerin.setStyleSheet("background-color: #FFFDD5;")
         self.lstWdg_Darstellerin.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.EditKeyPressed|QtWidgets.QAbstractItemView.EditTrigger.SelectedClicked)
         self.lstWdg_Darstellerin.setTabKeyNavigation(True)
         self.lstWdg_Darstellerin.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectionBehavior.SelectRows)
@@ -214,7 +214,7 @@ class Ui_MainWindow(object):
         self.lnEdit_Titel = QtWidgets.QLineEdit(parent=self.tab_info)
         self.lnEdit_Titel.setGeometry(QtCore.QRect(120, 100, 511, 20))
         self.lnEdit_Titel.setStyleSheet("QLineEdit {\n"
-"background-color: rgb(255, 253, 213);}\n"
+"background-color: #FFFDD5;}\n"
 "\n"
 "QLineEdit::placeholder {     \n"
 "    color: rgba(255, 255, 255, 10);\n"
@@ -230,12 +230,12 @@ class Ui_MainWindow(object):
         self.lblWebside_2.setObjectName("lblWebside_2")
         self.lnEdit_NebenSide = QtWidgets.QLineEdit(parent=self.tab_info)
         self.lnEdit_NebenSide.setGeometry(QtCore.QRect(120, 370, 511, 20))
-        self.lnEdit_NebenSide.setStyleSheet("background-color: rgb(255, 253, 213);")
+        self.lnEdit_NebenSide.setStyleSheet("background-color: #FFFDD5;")
         self.lnEdit_NebenSide.setText("")
         self.lnEdit_NebenSide.setObjectName("lnEdit_NebenSide")
         self.lstWdg_Darsteller = QtWidgets.QListWidget(parent=self.tab_info)
         self.lstWdg_Darsteller.setGeometry(QtCore.QRect(380, 190, 251, 81))
-        self.lstWdg_Darsteller.setStyleSheet("background-color: rgb(255, 253, 213);")
+        self.lstWdg_Darsteller.setStyleSheet("background-color: #FFFDD5;")
         self.lstWdg_Darsteller.setObjectName("lstWdg_Darsteller")
         self.grpBox_Techn_Infos = QtWidgets.QGroupBox(parent=self.tab_info)
         self.grpBox_Techn_Infos.setGeometry(QtCore.QRect(640, 100, 271, 251))
@@ -348,7 +348,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.addWidget(self.lblSceneCode)
         self.lnEdit_SceneCode = QtWidgets.QLineEdit(parent=self.layoutWidget)
         self.lnEdit_SceneCode.setEnabled(True)
-        self.lnEdit_SceneCode.setStyleSheet("background-color: rgb(255, 253, 213);")
+        self.lnEdit_SceneCode.setStyleSheet("background-color: #FFFDD5;")
         self.lnEdit_SceneCode.setText("")
         self.lnEdit_SceneCode.setObjectName("lnEdit_SceneCode")
         self.horizontalLayout_2.addWidget(self.lnEdit_SceneCode)
@@ -364,7 +364,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3.addWidget(self.lblProDate)
         self.lnEdit_ProDate = QtWidgets.QLineEdit(parent=self.layoutWidget1)
         self.lnEdit_ProDate.setEnabled(True)
-        self.lnEdit_ProDate.setStyleSheet("background-color: rgb(255, 253, 213);")
+        self.lnEdit_ProDate.setStyleSheet("background-color: #FFFDD5;")
         self.lnEdit_ProDate.setText("")
         self.lnEdit_ProDate.setObjectName("lnEdit_ProDate")
         self.horizontalLayout_3.addWidget(self.lnEdit_ProDate)
@@ -378,7 +378,7 @@ class Ui_MainWindow(object):
         self.lblTags.setObjectName("lblTags")
         self.horizontalLayout_4.addWidget(self.lblTags)
         self.txtBrw_Tags = QtWidgets.QTextBrowser(parent=self.layoutWidget2)
-        self.txtBrw_Tags.setStyleSheet("background-color: rgb(255, 253, 213);")
+        self.txtBrw_Tags.setStyleSheet("background-color: #FFFDD5;")
         self.txtBrw_Tags.setTabChangesFocus(True)
         self.txtBrw_Tags.setReadOnly(False)
         self.txtBrw_Tags.setAcceptRichText(False)
@@ -387,14 +387,14 @@ class Ui_MainWindow(object):
         self.lnEdit_Studio = QtWidgets.QLineEdit(parent=self.tab_info)
         self.lnEdit_Studio.setEnabled(False)
         self.lnEdit_Studio.setGeometry(QtCore.QRect(120, 60, 411, 20))
-        self.lnEdit_Studio.setStyleSheet("background-color: rgb(255, 253, 213);")
+        self.lnEdit_Studio.setStyleSheet("background-color: #FFFDD5;")
         self.lnEdit_Studio.setObjectName("lnEdit_Studio")
         self.lblWeb_Movies_2 = QtWidgets.QLabel(parent=self.tab_info)
         self.lblWeb_Movies_2.setGeometry(QtCore.QRect(69, 540, 41, 16))
         self.lblWeb_Movies_2.setObjectName("lblWeb_Movies_2")
         self.txtBrw_Movies = QtWidgets.QTextBrowser(parent=self.tab_info)
         self.txtBrw_Movies.setGeometry(QtCore.QRect(120, 540, 511, 71))
-        self.txtBrw_Movies.setStyleSheet("background-color: rgb(255, 253, 213);")
+        self.txtBrw_Movies.setStyleSheet("background-color: #FFFDD5;")
         self.txtBrw_Movies.setReadOnly(False)
         self.txtBrw_Movies.setAcceptRichText(False)
         self.txtBrw_Movies.setObjectName("txtBrw_Movies")
@@ -406,7 +406,7 @@ class Ui_MainWindow(object):
         self.grpBox_dateiname.setObjectName("grpBox_dateiname")
         self.lbl_datei_info_fuer = QtWidgets.QLabel(parent=self.grpBox_dateiname)
         self.lbl_datei_info_fuer.setGeometry(QtCore.QRect(22, 20, 851, 20))
-        self.lbl_datei_info_fuer.setStyleSheet("background-color: rgb(255, 253, 213);")
+        self.lbl_datei_info_fuer.setStyleSheet("background-color: #FFFDD5;")
         self.lbl_datei_info_fuer.setText("")
         self.lbl_datei_info_fuer.setObjectName("lbl_datei_info_fuer")
         self.horizontalLayoutWidget = QtWidgets.QWidget(parent=self.tab_info)
@@ -421,7 +421,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_6.addWidget(self.lblRegie)
         self.lnEdit_Regie = QtWidgets.QLineEdit(parent=self.horizontalLayoutWidget)
         self.lnEdit_Regie.setEnabled(True)
-        self.lnEdit_Regie.setStyleSheet("background-color: rgb(255, 253, 213);")
+        self.lnEdit_Regie.setStyleSheet("background-color: #FFFDD5;")
         self.lnEdit_Regie.setText("")
         self.lnEdit_Regie.setObjectName("lnEdit_Regie")
         self.horizontalLayout_6.addWidget(self.lnEdit_Regie)
@@ -509,7 +509,7 @@ class Ui_MainWindow(object):
         self.Btn_name_suche.setObjectName("Btn_name_suche")
         self.cBox_performers = QtWidgets.QComboBox(parent=self.grpBox_analyse_name)
         self.cBox_performers.setGeometry(QtCore.QRect(10, 21, 490, 22))
-        self.cBox_performers.setStyleSheet("background-color: rgb(255, 253, 213);")
+        self.cBox_performers.setStyleSheet("background-color: #FFFDD5;")
         self.cBox_performers.setObjectName("cBox_performers")
         self.grpBox_analyse_studio = QtWidgets.QGroupBox(parent=self.tab_search_mask)
         self.grpBox_analyse_studio.setGeometry(QtCore.QRect(30, 100, 590, 50))
@@ -520,7 +520,7 @@ class Ui_MainWindow(object):
         self.Btn_logo_am_analyse_tab.setGeometry(QtCore.QRect(493, 5, 90, 40))
         self.Btn_logo_am_analyse_tab.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.Btn_logo_am_analyse_tab.setStyleSheet("QPushButton { \n"
-"    background-image: url(:/Buttons/grafics/no-logo_90x40.jpg);\n"
+"    background-image: url(:/Buttons/_buttons/no-logo_90x40.jpg);\n"
 "}                   \n"
 "QPushButton:enabled{\n"
 "    background-color: rgb(198, 178, 255);\n"
@@ -538,7 +538,7 @@ class Ui_MainWindow(object):
         self.Btn_logo_am_analyse_tab.setObjectName("Btn_logo_am_analyse_tab")
         self.lbl_SuchStudio = QtWidgets.QLabel(parent=self.grpBox_analyse_studio)
         self.lbl_SuchStudio.setGeometry(QtCore.QRect(10, 23, 470, 20))
-        self.lbl_SuchStudio.setStyleSheet("background-color: rgb(255, 253, 213);\n"
+        self.lbl_SuchStudio.setStyleSheet("background-color: #FFFDD5;\n"
 "border: 1px solid black;")
         self.lbl_SuchStudio.setText("")
         self.lbl_SuchStudio.setObjectName("lbl_SuchStudio")
@@ -575,7 +575,7 @@ class Ui_MainWindow(object):
         self.lnEdit_analyse_titel = QtWidgets.QLineEdit(parent=self.grpBox_analyse_titel)
         self.lnEdit_analyse_titel.setGeometry(QtCore.QRect(10, 20, 490, 20))
         self.lnEdit_analyse_titel.setStyleSheet("QLineEdit,QTextEdit { \n"
-"background-color: rgb(255, 253, 213);}\n"
+"background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
 "QLineEdit:focus,QTextEdit:focus {\n"
@@ -590,7 +590,7 @@ class Ui_MainWindow(object):
         self.grpBox_analysename.setObjectName("grpBox_analysename")
         self.lbl_analyse_fuer = QtWidgets.QLabel(parent=self.grpBox_analysename)
         self.lbl_analyse_fuer.setGeometry(QtCore.QRect(22, 20, 851, 20))
-        self.lbl_analyse_fuer.setStyleSheet("background-color: rgb(255, 253, 213);")
+        self.lbl_analyse_fuer.setStyleSheet("background-color: #FFFDD5;")
         self.lbl_analyse_fuer.setText("")
         self.lbl_analyse_fuer.setObjectName("lbl_analyse_fuer")
         self.Btn_next = QtWidgets.QPushButton(parent=self.tab_search_mask)
@@ -749,22 +749,22 @@ class Ui_MainWindow(object):
         self.lblDBRelease = QtWidgets.QLabel(parent=self.tab_datenbank)
         self.lblDBRelease.setGeometry(QtCore.QRect(570, 390, 80, 20))
         self.lblDBRelease.setObjectName("lblDBRelease")
-        self.tblWdg_Performers = QtWidgets.QTableWidget(parent=self.tab_datenbank)
-        self.tblWdg_Performers.setGeometry(QtCore.QRect(130, 250, 681, 131))
-        self.tblWdg_Performers.setStyleSheet("background-color: rgb(255, 250, 211);")
-        self.tblWdg_Performers.setFrameShadow(QtWidgets.QFrame.Shadow.Plain)
-        self.tblWdg_Performers.setLineWidth(0)
-        self.tblWdg_Performers.setMidLineWidth(2)
-        self.tblWdg_Performers.setObjectName("tblWdg_Performers")
-        self.tblWdg_Performers.setColumnCount(3)
-        self.tblWdg_Performers.setRowCount(0)
+        self.tblWdg_DB_performers = QtWidgets.QTableWidget(parent=self.tab_datenbank)
+        self.tblWdg_DB_performers.setGeometry(QtCore.QRect(130, 250, 681, 131))
+        self.tblWdg_DB_performers.setStyleSheet("background-color: rgb(255, 250, 211);")
+        self.tblWdg_DB_performers.setFrameShadow(QtWidgets.QFrame.Shadow.Plain)
+        self.tblWdg_DB_performers.setLineWidth(0)
+        self.tblWdg_DB_performers.setMidLineWidth(2)
+        self.tblWdg_DB_performers.setObjectName("tblWdg_DB_performers")
+        self.tblWdg_DB_performers.setColumnCount(3)
+        self.tblWdg_DB_performers.setRowCount(0)
         item = QtWidgets.QTableWidgetItem()
-        self.tblWdg_Performers.setHorizontalHeaderItem(0, item)
+        self.tblWdg_DB_performers.setHorizontalHeaderItem(0, item)
         item = QtWidgets.QTableWidgetItem()
-        self.tblWdg_Performers.setHorizontalHeaderItem(1, item)
+        self.tblWdg_DB_performers.setHorizontalHeaderItem(1, item)
         item = QtWidgets.QTableWidgetItem()
-        self.tblWdg_Performers.setHorizontalHeaderItem(2, item)
-        self.tblWdg_Performers.horizontalHeader().setDefaultSectionSize(226)
+        self.tblWdg_DB_performers.setHorizontalHeaderItem(2, item)
+        self.tblWdg_DB_performers.horizontalHeader().setDefaultSectionSize(226)
         self.lblDBTitel = QtWidgets.QLabel(parent=self.tab_datenbank)
         self.lblDBTitel.setGeometry(QtCore.QRect(100, 20, 31, 16))
         self.lblDBTitel.setObjectName("lblDBTitel")
@@ -813,7 +813,7 @@ class Ui_MainWindow(object):
         self.Btn_logo_am_db_tab.setGeometry(QtCore.QRect(820, 20, 90, 40))
         self.Btn_logo_am_db_tab.setStyleSheet("QPushButton { \n"
 ";\n"
-"    background-image: url(:/Buttons/grafics/no-logo_90x40.jpg);\n"
+"    background-image: url(:/Buttons/_buttons/no-logo_90x40.jpg);\n"
 "}                   \n"
 "QPushButton:enabled{\n"
 "    background-color: rgb(198, 178, 255);\n"
@@ -893,7 +893,7 @@ class Ui_MainWindow(object):
         self.lnEdit_addLink = QtWidgets.QLineEdit(parent=self.tab_datenbank)
         self.lnEdit_addLink.setGeometry(QtCore.QRect(130, 160, 681, 20))
         self.lnEdit_addLink.setStyleSheet("QLineEdit,QTextEdit { \n"
-"background-color: rgb(255, 253, 213);}\n"
+"background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
 "QLineEdit:focus,QTextEdit:focus {\n"
@@ -1029,22 +1029,26 @@ class Ui_MainWindow(object):
 "}   ")
         self.Btn_Linksuche_in_URL.setObjectName("Btn_Linksuche_in_URL")
         self.lbl_checkWeb_URL = QtWidgets.QLabel(parent=self.tab_datenbank)
-        self.lbl_checkWeb_URL.setGeometry(QtCore.QRect(813, 131, 100, 20))
-        self.lbl_checkWeb_URL.setStyleSheet("background-color: rgb(255, 253, 213);")
+        self.lbl_checkWeb_URL.setGeometry(QtCore.QRect(813, 131, 21, 20))
+        self.lbl_checkWeb_URL.setStyleSheet("background-color: #FFFDD5;\n"
+"")
         self.lbl_checkWeb_URL.setFrameShape(QtWidgets.QFrame.Shape.Box)
         self.lbl_checkWeb_URL.setText("")
+        self.lbl_checkWeb_URL.setScaledContents(True)
         self.lbl_checkWeb_URL.setObjectName("lbl_checkWeb_URL")
         self.lbl_checkWeb_Data18URL = QtWidgets.QLabel(parent=self.tab_datenbank)
-        self.lbl_checkWeb_Data18URL.setGeometry(QtCore.QRect(813, 190, 100, 20))
-        self.lbl_checkWeb_Data18URL.setStyleSheet("background-color: rgb(255, 253, 213);")
+        self.lbl_checkWeb_Data18URL.setGeometry(QtCore.QRect(813, 190, 21, 20))
+        self.lbl_checkWeb_Data18URL.setStyleSheet("background-color: #FFFDD5;")
         self.lbl_checkWeb_Data18URL.setFrameShape(QtWidgets.QFrame.Shape.Box)
         self.lbl_checkWeb_Data18URL.setText("")
+        self.lbl_checkWeb_Data18URL.setScaledContents(True)
         self.lbl_checkWeb_Data18URL.setObjectName("lbl_checkWeb_Data18URL")
         self.lbl_checkWeb_IAFDURL = QtWidgets.QLabel(parent=self.tab_datenbank)
-        self.lbl_checkWeb_IAFDURL.setGeometry(QtCore.QRect(813, 220, 100, 20))
-        self.lbl_checkWeb_IAFDURL.setStyleSheet("background-color: rgb(255, 253, 213);")
+        self.lbl_checkWeb_IAFDURL.setGeometry(QtCore.QRect(813, 220, 20, 20))
+        self.lbl_checkWeb_IAFDURL.setStyleSheet("background-color: #FFFDD5;")
         self.lbl_checkWeb_IAFDURL.setFrameShape(QtWidgets.QFrame.Shape.Box)
         self.lbl_checkWeb_IAFDURL.setText("")
+        self.lbl_checkWeb_IAFDURL.setScaledContents(True)
         self.lbl_checkWeb_IAFDURL.setObjectName("lbl_checkWeb_IAFDURL")
         self.Btn_Anzahl_DBProDate = QtWidgets.QPushButton(parent=self.tab_datenbank)
         self.Btn_Anzahl_DBProDate.setGeometry(QtCore.QRect(550, 390, 16, 16))
@@ -1207,7 +1211,7 @@ class Ui_MainWindow(object):
         self.lnEdit_DBDauer.setGeometry(QtCore.QRect(599, 400, 81, 20))
         self.lnEdit_DBDauer.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
         self.lnEdit_DBDauer.setStyleSheet("QLineEdit,QTextEdit { \n"
-"background-color: rgb(255, 253, 213);}\n"
+"background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
 "QLineEdit:focus,QTextEdit:focus {\n"
@@ -1217,7 +1221,7 @@ class Ui_MainWindow(object):
         self.lnEdit_DBRelease.setGeometry(QtCore.QRect(530, 370, 151, 20))
         self.lnEdit_DBRelease.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
         self.lnEdit_DBRelease.setStyleSheet("QLineEdit,QTextEdit { \n"
-"background-color: rgb(255, 253, 213);}\n"
+"background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
 "QLineEdit:focus,QTextEdit:focus {\n"
@@ -1227,7 +1231,7 @@ class Ui_MainWindow(object):
         self.lnEdit_DBData18Link = QtWidgets.QLineEdit(parent=self.grpBox_Daten)
         self.lnEdit_DBData18Link.setGeometry(QtCore.QRect(0, 170, 681, 20))
         self.lnEdit_DBData18Link.setStyleSheet("QLineEdit,QTextEdit { \n"
-"background-color: rgb(255, 253, 213);}\n"
+"background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
 "QLineEdit:focus,QTextEdit:focus {\n"
@@ -1238,7 +1242,7 @@ class Ui_MainWindow(object):
         self.lnEdit_DBProDate.setGeometry(QtCore.QRect(270, 370, 161, 20))
         self.lnEdit_DBProDate.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
         self.lnEdit_DBProDate.setStyleSheet("QLineEdit,QTextEdit { \n"
-"background-color: rgb(255, 253, 213);}\n"
+"background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
 "QLineEdit:focus,QTextEdit:focus {\n"
@@ -1260,7 +1264,7 @@ class Ui_MainWindow(object):
         self.lnEdit_DBSerie.setGeometry(QtCore.QRect(337, 400, 221, 20))
         self.lnEdit_DBSerie.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
         self.lnEdit_DBSerie.setStyleSheet("QLineEdit,QTextEdit { \n"
-"background-color: rgb(255, 253, 213);}\n"
+"background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
 "QLineEdit:focus,QTextEdit:focus {\n"
@@ -1270,7 +1274,7 @@ class Ui_MainWindow(object):
         self.lnEdit_DBRegie.setGeometry(QtCore.QRect(0, 400, 291, 20))
         self.lnEdit_DBRegie.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
         self.lnEdit_DBRegie.setStyleSheet("QLineEdit,QTextEdit { \n"
-"background-color: rgb(255, 253, 213);}\n"
+"background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
 "QLineEdit:focus,QTextEdit:focus {\n"
@@ -1287,7 +1291,7 @@ class Ui_MainWindow(object):
         self.lnEdit_DBSceneCode.setGeometry(QtCore.QRect(0, 370, 171, 20))
         self.lnEdit_DBSceneCode.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
         self.lnEdit_DBSceneCode.setStyleSheet("QLineEdit,QTextEdit { \n"
-"background-color: rgb(255, 253, 213);}\n"
+"background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
 "QLineEdit:focus,QTextEdit:focus {\n"
@@ -1306,7 +1310,7 @@ class Ui_MainWindow(object):
         self.txtEdit_DBTags.setGeometry(QtCore.QRect(0, 490, 680, 50))
         self.txtEdit_DBTags.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
         self.txtEdit_DBTags.setStyleSheet("QLineEdit,QTextEdit { \n"
-"background-color: rgb(255, 253, 213);}\n"
+"background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
 "QLineEdit:focus,QTextEdit:focus {\n"
@@ -1317,7 +1321,7 @@ class Ui_MainWindow(object):
         self.lnEdit_DBIAFDLink = QtWidgets.QLineEdit(parent=self.grpBox_Daten)
         self.lnEdit_DBIAFDLink.setGeometry(QtCore.QRect(0, 200, 681, 20))
         self.lnEdit_DBIAFDLink.setStyleSheet("QLineEdit,QTextEdit { \n"
-"background-color: rgb(255, 253, 213);}\n"
+"background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
 "QLineEdit:focus,QTextEdit:focus {\n"
@@ -1333,7 +1337,7 @@ class Ui_MainWindow(object):
         self.lnEdit_DBTitel = QtWidgets.QLineEdit(parent=self.grpBox_Daten)
         self.lnEdit_DBTitel.setGeometry(QtCore.QRect(0, 0, 681, 20))
         self.lnEdit_DBTitel.setStyleSheet("QLineEdit,QTextEdit { \n"
-"background-color: rgb(255, 253, 213);}\n"
+"background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
 "QLineEdit:focus,QTextEdit:focus {\n"
@@ -1343,7 +1347,7 @@ class Ui_MainWindow(object):
         self.txtEdit_DBMovies.setGeometry(QtCore.QRect(0, 430, 680, 50))
         self.txtEdit_DBMovies.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
         self.txtEdit_DBMovies.setStyleSheet("QLineEdit,QTextEdit { \n"
-"background-color: rgb(255, 253, 213);}\n"
+"background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
 "QLineEdit:focus,QTextEdit:focus {\n"
@@ -1386,7 +1390,7 @@ class Ui_MainWindow(object):
         self.Btn_Anzahl_DBSceneCode.raise_()
         self.txtEdit_Clipboard = QtWidgets.QTextEdit(parent=self.tab_datenbank)
         self.txtEdit_Clipboard.setGeometry(QtCore.QRect(120, 710, 691, 110))
-        self.txtEdit_Clipboard.setStyleSheet("background-color: rgb(255, 253, 213);")
+        self.txtEdit_Clipboard.setStyleSheet("background-color: #FFFDD5;")
         self.txtEdit_Clipboard.setReadOnly(True)
         self.txtEdit_Clipboard.setObjectName("txtEdit_Clipboard")
         self.txtEdit_Clipboard.raise_()
@@ -1396,7 +1400,7 @@ class Ui_MainWindow(object):
         self.Btn_DBUpdate.raise_()
         self.lblDBRegie.raise_()
         self.lblDBRelease.raise_()
-        self.tblWdg_Performers.raise_()
+        self.tblWdg_DB_performers.raise_()
         self.lblDBTitel.raise_()
         self.lblDBMovies.raise_()
         self.lblDBPerformers.raise_()
@@ -1430,84 +1434,16 @@ class Ui_MainWindow(object):
         self.tabs.addTab(self.tab_datenbank, "")
         self.tab_performer = QtWidgets.QWidget()
         self.tab_performer.setObjectName("tab_performer")
-        self.lbl_link_image_from_db = QtWidgets.QLabel(parent=self.tab_performer)
-        self.lbl_link_image_from_db.setGeometry(QtCore.QRect(380, 540, 380, 280))
-        self.lbl_link_image_from_db.setStyleSheet("border: 1px solid blue;")
-        self.lbl_link_image_from_db.setText("")
-        self.lbl_link_image_from_db.setScaledContents(True)
-        self.lbl_link_image_from_db.setWordWrap(False)
-        self.lbl_link_image_from_db.setObjectName("lbl_link_image_from_db")
-        self.Btn_performer_prev = QtWidgets.QPushButton(parent=self.tab_performer)
-        self.Btn_performer_prev.setEnabled(False)
-        self.Btn_performer_prev.setGeometry(QtCore.QRect(290, 620, 81, 111))
-        self.Btn_performer_prev.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
-        self.Btn_performer_prev.setStyleSheet("QPushButton { \n"
-"    color: rgb(0, 0, 127);\n"
-"    selection-background-color: rgb(255, 85, 0);\n"
-"    background-color: rgb(198, 178, 255);\n"
-"    border-style: outset;\n"
-"    border-width: 2px;\n"
-"    font: 56pt \"Consolas\";\n"
-"    border-radius: 5px;\n"
-"    border-color: beige;\n"
-"}                   \n"
-"QPushButton:enabled{\n"
-"    background-color: rgb(198, 178, 255);\n"
-"}                           \n"
-"QPushButton:pressed{ \n"
-"    background: red;\n"
-"}                            \n"
-"QPushButton:disabled{                             \n"
-"    background-color: gray;                \n"
-"}\n"
-"QPushButton:hover{\n"
-"    background-color: rgb(255, 85, 255);\n"
-"}   ")
-        self.Btn_performer_prev.setObjectName("Btn_performer_prev")
-        self.Btn_performer_next = QtWidgets.QPushButton(parent=self.tab_performer)
-        self.Btn_performer_next.setEnabled(False)
-        self.Btn_performer_next.setGeometry(QtCore.QRect(770, 620, 81, 111))
-        self.Btn_performer_next.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
-        self.Btn_performer_next.setStyleSheet("QPushButton { \n"
-"    color: rgb(0, 0, 127);\n"
-"    selection-background-color: rgb(255, 85, 0);\n"
-"    background-color: rgb(198, 178, 255);\n"
-"    border-style: outset;\n"
-"    border-width: 2px;\n"
-"    font: 56pt \"Consolas\";\n"
-"    border-radius: 5px;\n"
-"    border-color: beige;\n"
-"}                   \n"
-"QPushButton:enabled{\n"
-"    background-color: rgb(198, 178, 255);\n"
-"}                           \n"
-"QPushButton:pressed{ \n"
-"    background: red;\n"
-"}                            \n"
-"QPushButton:disabled{                             \n"
-"    background-color: gray;                \n"
-"}\n"
-"QPushButton:hover{\n"
-"    background-color: rgb(255, 85, 255);\n"
-"}   ")
-        self.Btn_performer_next.setObjectName("Btn_performer_next")
-        self.lbl_iafd_image = QtWidgets.QLabel(parent=self.tab_performer)
-        self.lbl_iafd_image.setGeometry(QtCore.QRect(30, 540, 238, 280))
-        self.lbl_iafd_image.setStyleSheet("border: 1px solid blue;")
-        self.lbl_iafd_image.setText("")
-        self.lbl_iafd_image.setScaledContents(True)
-        self.lbl_iafd_image.setWordWrap(False)
-        self.lbl_iafd_image.setObjectName("lbl_iafd_image")
         self.grpBox_performer = QtWidgets.QGroupBox(parent=self.tab_performer)
-        self.grpBox_performer.setGeometry(QtCore.QRect(20, 20, 691, 48))
+        self.grpBox_performer.setGeometry(QtCore.QRect(20, 20, 361, 48))
         self.grpBox_performer.setStyleSheet("QGroupBox {\n"
 "background-color: rgb(218, 222, 226);\n"
 "border: 1px solid grey;border-radius: 5px;}")
         self.grpBox_performer.setObjectName("grpBox_performer")
         self.lnEdit_performer_info = QtWidgets.QLineEdit(parent=self.grpBox_performer)
         self.lnEdit_performer_info.setEnabled(True)
-        self.lnEdit_performer_info.setGeometry(QtCore.QRect(10, 20, 671, 20))
-        self.lnEdit_performer_info.setStyleSheet("QLineEdit { background-color: rgb(255, 253, 213);}")
+        self.lnEdit_performer_info.setGeometry(QtCore.QRect(10, 20, 341, 20))
+        self.lnEdit_performer_info.setStyleSheet("QLineEdit { background-color: #FFFDD5;}")
         self.lnEdit_performer_info.setReadOnly(False)
         self.lnEdit_performer_info.setClearButtonEnabled(False)
         self.lnEdit_performer_info.setObjectName("lnEdit_performer_info")
@@ -1552,7 +1488,7 @@ class Ui_MainWindow(object):
         self.lnEdit_performer_augen = QtWidgets.QLineEdit(parent=self.layoutWidget_4)
         self.lnEdit_performer_augen.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
         self.lnEdit_performer_augen.setStyleSheet("QLineEdit,QTextEdit { \n"
-"background-color: rgb(255, 253, 213);}\n"
+"background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
 "QLineEdit:focus,QTextEdit:focus {\n"
@@ -1588,18 +1524,22 @@ class Ui_MainWindow(object):
         self.cBox_performer_nation.setObjectName("cBox_performer_nation")
         self.horizontalLayout_11.addWidget(self.cBox_performer_nation)
         self.layoutWidget_6 = QtWidgets.QWidget(parent=self.tab_performer)
-        self.layoutWidget_6.setGeometry(QtCore.QRect(710, 170, 190, 22))
+        self.layoutWidget_6.setGeometry(QtCore.QRect(710, 170, 211, 22))
         self.layoutWidget_6.setObjectName("layoutWidget_6")
         self.horizontalLayout_12 = QtWidgets.QHBoxLayout(self.layoutWidget_6)
         self.horizontalLayout_12.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_12.setObjectName("horizontalLayout_12")
         self.lblperformer_gewicht = QtWidgets.QLabel(parent=self.layoutWidget_6)
+        self.lblperformer_gewicht.setMinimumSize(QtCore.QSize(40, 0))
+        self.lblperformer_gewicht.setMaximumSize(QtCore.QSize(40, 16777215))
         self.lblperformer_gewicht.setObjectName("lblperformer_gewicht")
         self.horizontalLayout_12.addWidget(self.lblperformer_gewicht)
         self.lnEdit_performer_gewicht = QtWidgets.QLineEdit(parent=self.layoutWidget_6)
+        self.lnEdit_performer_gewicht.setMinimumSize(QtCore.QSize(40, 0))
+        self.lnEdit_performer_gewicht.setMaximumSize(QtCore.QSize(40, 16777215))
         self.lnEdit_performer_gewicht.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
         self.lnEdit_performer_gewicht.setStyleSheet("QLineEdit,QTextEdit { \n"
-"background-color: rgb(255, 253, 213);}\n"
+"background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
 "QLineEdit:focus,QTextEdit:focus {\n"
@@ -1611,9 +1551,13 @@ class Ui_MainWindow(object):
 "\n"
 "\n"
 "")
-        self.lnEdit_performer_gewicht.setPlaceholderText("kein Eintrag")
+        self.lnEdit_performer_gewicht.setText("")
+        self.lnEdit_performer_gewicht.setPlaceholderText("0")
         self.lnEdit_performer_gewicht.setObjectName("lnEdit_performer_gewicht")
         self.horizontalLayout_12.addWidget(self.lnEdit_performer_gewicht)
+        self.lbl_kg = QtWidgets.QLabel(parent=self.layoutWidget_6)
+        self.lbl_kg.setObjectName("lbl_kg")
+        self.horizontalLayout_12.addWidget(self.lbl_kg)
         self.layoutWidget_7 = QtWidgets.QWidget(parent=self.tab_performer)
         self.layoutWidget_7.setGeometry(QtCore.QRect(710, 140, 190, 22))
         self.layoutWidget_7.setObjectName("layoutWidget_7")
@@ -1621,12 +1565,16 @@ class Ui_MainWindow(object):
         self.horizontalLayout_13.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_13.setObjectName("horizontalLayout_13")
         self.lblperformer_groesse = QtWidgets.QLabel(parent=self.layoutWidget_7)
+        self.lblperformer_groesse.setMinimumSize(QtCore.QSize(40, 0))
+        self.lblperformer_groesse.setMaximumSize(QtCore.QSize(40, 16777215))
         self.lblperformer_groesse.setObjectName("lblperformer_groesse")
         self.horizontalLayout_13.addWidget(self.lblperformer_groesse)
         self.lnEdit_performer_groesse = QtWidgets.QLineEdit(parent=self.layoutWidget_7)
+        self.lnEdit_performer_groesse.setMinimumSize(QtCore.QSize(40, 0))
+        self.lnEdit_performer_groesse.setMaximumSize(QtCore.QSize(40, 16777215))
         self.lnEdit_performer_groesse.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
         self.lnEdit_performer_groesse.setStyleSheet("QLineEdit,QTextEdit { \n"
-"background-color: rgb(255, 253, 213);}\n"
+"background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
 "QLineEdit:focus,QTextEdit:focus {\n"
@@ -1638,14 +1586,18 @@ class Ui_MainWindow(object):
 "\n"
 "\n"
 "")
-        self.lnEdit_performer_groesse.setPlaceholderText("kein Eintrag")
+        self.lnEdit_performer_groesse.setText("")
+        self.lnEdit_performer_groesse.setPlaceholderText("0")
         self.lnEdit_performer_groesse.setObjectName("lnEdit_performer_groesse")
         self.horizontalLayout_13.addWidget(self.lnEdit_performer_groesse)
+        self.lbl_kg_2 = QtWidgets.QLabel(parent=self.layoutWidget_7)
+        self.lbl_kg_2.setObjectName("lbl_kg_2")
+        self.horizontalLayout_13.addWidget(self.lbl_kg_2)
         self.txtEdit_performer_piercing = QtWidgets.QTextEdit(parent=self.tab_performer)
         self.txtEdit_performer_piercing.setGeometry(QtCore.QRect(30, 220, 371, 61))
         self.txtEdit_performer_piercing.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
         self.txtEdit_performer_piercing.setStyleSheet("QLineEdit,QTextEdit { \n"
-"background-color: rgb(255, 253, 213);}\n"
+"background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
 "QLineEdit:focus,QTextEdit:focus {\n"
@@ -1660,7 +1612,7 @@ class Ui_MainWindow(object):
         self.txtEdit_performer_tattoo.setGeometry(QtCore.QRect(430, 221, 371, 61))
         self.txtEdit_performer_tattoo.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
         self.txtEdit_performer_tattoo.setStyleSheet("QLineEdit,QTextEdit { \n"
-"background-color: rgb(255, 253, 213);}\n"
+"background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
 "QLineEdit:focus,QTextEdit:focus {\n"
@@ -1696,11 +1648,13 @@ class Ui_MainWindow(object):
 "QPushButton:hover{\n"
 "    background-color: rgb(255, 85, 255);\n"
 "}   ")
+        self.Btn_Linksuche_in_IAFD_artist.setCheckable(False)
+        self.Btn_Linksuche_in_IAFD_artist.setChecked(False)
         self.Btn_Linksuche_in_IAFD_artist.setObjectName("Btn_Linksuche_in_IAFD_artist")
         self.lnEdit_DBIAFD_artistLink = QtWidgets.QLineEdit(parent=self.tab_performer)
-        self.lnEdit_DBIAFD_artistLink.setGeometry(QtCore.QRect(157, 300, 641, 20))
+        self.lnEdit_DBIAFD_artistLink.setGeometry(QtCore.QRect(157, 300, 561, 20))
         self.lnEdit_DBIAFD_artistLink.setStyleSheet("QLineEdit,QTextEdit { \n"
-"background-color: rgb(255, 253, 213);}\n"
+"background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
 "QLineEdit:focus,QTextEdit:focus {\n"
@@ -1714,21 +1668,23 @@ class Ui_MainWindow(object):
 "")
         self.lnEdit_DBIAFD_artistLink.setObjectName("lnEdit_DBIAFD_artistLink")
         self.lbl_checkWeb_IAFD_artistURL = QtWidgets.QLabel(parent=self.tab_performer)
-        self.lbl_checkWeb_IAFD_artistURL.setGeometry(QtCore.QRect(800, 300, 100, 20))
-        self.lbl_checkWeb_IAFD_artistURL.setStyleSheet("background-color: rgb(255, 253, 213);")
+        self.lbl_checkWeb_IAFD_artistURL.setGeometry(QtCore.QRect(879, 300, 21, 20))
+        self.lbl_checkWeb_IAFD_artistURL.setStyleSheet("background-color: #FFFDD5;")
         self.lbl_checkWeb_IAFD_artistURL.setFrameShape(QtWidgets.QFrame.Shape.Box)
         self.lbl_checkWeb_IAFD_artistURL.setText("")
+        self.lbl_checkWeb_IAFD_artistURL.setScaledContents(True)
         self.lbl_checkWeb_IAFD_artistURL.setObjectName("lbl_checkWeb_IAFD_artistURL")
         self.lbl_checkWeb_BabePedia_artistURL = QtWidgets.QLabel(parent=self.tab_performer)
-        self.lbl_checkWeb_BabePedia_artistURL.setGeometry(QtCore.QRect(800, 330, 100, 20))
-        self.lbl_checkWeb_BabePedia_artistURL.setStyleSheet("background-color: rgb(255, 253, 213);")
+        self.lbl_checkWeb_BabePedia_artistURL.setGeometry(QtCore.QRect(879, 330, 21, 20))
+        self.lbl_checkWeb_BabePedia_artistURL.setStyleSheet("background-color: #FFFDD5;")
         self.lbl_checkWeb_BabePedia_artistURL.setFrameShape(QtWidgets.QFrame.Shape.Box)
         self.lbl_checkWeb_BabePedia_artistURL.setText("")
+        self.lbl_checkWeb_BabePedia_artistURL.setScaledContents(True)
         self.lbl_checkWeb_BabePedia_artistURL.setObjectName("lbl_checkWeb_BabePedia_artistURL")
-        self.lnEdit_DBBabePedia_artistLink = QtWidgets.QLineEdit(parent=self.tab_performer)
-        self.lnEdit_DBBabePedia_artistLink.setGeometry(QtCore.QRect(157, 330, 641, 20))
-        self.lnEdit_DBBabePedia_artistLink.setStyleSheet("QLineEdit,QTextEdit { \n"
-"background-color: rgb(255, 253, 213);}\n"
+        self.lnEdit_DBBioWebsite_artistLink = QtWidgets.QLineEdit(parent=self.tab_performer)
+        self.lnEdit_DBBioWebsite_artistLink.setGeometry(QtCore.QRect(157, 330, 561, 20))
+        self.lnEdit_DBBioWebsite_artistLink.setStyleSheet("QLineEdit,QTextEdit { \n"
+"background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
 "QLineEdit:focus,QTextEdit:focus {\n"
@@ -1740,7 +1696,7 @@ class Ui_MainWindow(object):
 "\n"
 "\n"
 "")
-        self.lnEdit_DBBabePedia_artistLink.setObjectName("lnEdit_DBBabePedia_artistLink")
+        self.lnEdit_DBBioWebsite_artistLink.setObjectName("lnEdit_DBBioWebsite_artistLink")
         self.Btn_performer_in_BabePedia = QtWidgets.QPushButton(parent=self.tab_performer)
         self.Btn_performer_in_BabePedia.setEnabled(False)
         self.Btn_performer_in_BabePedia.setGeometry(QtCore.QRect(30, 330, 121, 23))
@@ -1786,7 +1742,7 @@ class Ui_MainWindow(object):
         self.lnEdit_performer_geburtsort = QtWidgets.QLineEdit(parent=self.layoutWidget_8)
         self.lnEdit_performer_geburtsort.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
         self.lnEdit_performer_geburtsort.setStyleSheet("QLineEdit,QTextEdit { \n"
-"background-color: rgb(255, 253, 213);}\n"
+"background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
 "QLineEdit:focus,QTextEdit:focus {\n"
@@ -1814,7 +1770,7 @@ class Ui_MainWindow(object):
         self.lnEdit_performer_geburtstag = QtWidgets.QLineEdit(parent=self.layoutWidget_9)
         self.lnEdit_performer_geburtstag.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
         self.lnEdit_performer_geburtstag.setStyleSheet("QLineEdit,QTextEdit { \n"
-"background-color: rgb(255, 253, 213);}\n"
+"background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
 "QLineEdit:focus,QTextEdit:focus {\n"
@@ -1843,8 +1799,8 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.lblonlyfans.sizePolicy().hasHeightForWidth())
         self.lblonlyfans.setSizePolicy(sizePolicy)
-        self.lblonlyfans.setMinimumSize(QtCore.QSize(50, 0))
-        self.lblonlyfans.setMaximumSize(QtCore.QSize(50, 16777215))
+        self.lblonlyfans.setMinimumSize(QtCore.QSize(65, 0))
+        self.lblonlyfans.setMaximumSize(QtCore.QSize(65, 16777215))
         self.lblonlyfans.setObjectName("lblonlyfans")
         self.horizontalLayout_16.addWidget(self.lblonlyfans)
         self.cBox_performer_fanside = QtWidgets.QComboBox(parent=self.layoutWidget_10)
@@ -1856,6 +1812,8 @@ class Ui_MainWindow(object):
         self.cBox_performer_fanside.setMinimumSize(QtCore.QSize(100, 0))
         self.cBox_performer_fanside.setMaximumSize(QtCore.QSize(400, 16777215))
         self.cBox_performer_fanside.setEditable(True)
+        self.cBox_performer_fanside.setCurrentText("")
+        self.cBox_performer_fanside.setInsertPolicy(QtWidgets.QComboBox.InsertPolicy.InsertAfterCurrent)
         self.cBox_performer_fanside.setObjectName("cBox_performer_fanside")
         self.horizontalLayout_16.addWidget(self.cBox_performer_fanside)
         self.tblWdg_performer_links = QtWidgets.QTableWidget(parent=self.tab_performer)
@@ -1869,7 +1827,7 @@ class Ui_MainWindow(object):
         self.tblWdg_performer_links.setStyleSheet("background-color: rgb(255, 250, 211)\n"
 "")
         self.tblWdg_performer_links.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectionBehavior.SelectRows)
-        self.tblWdg_performer_links.setColumnCount(4)
+        self.tblWdg_performer_links.setColumnCount(5)
         self.tblWdg_performer_links.setObjectName("tblWdg_performer_links")
         self.tblWdg_performer_links.setRowCount(0)
         item = QtWidgets.QTableWidgetItem()
@@ -1880,6 +1838,8 @@ class Ui_MainWindow(object):
         self.tblWdg_performer_links.setHorizontalHeaderItem(2, item)
         item = QtWidgets.QTableWidgetItem()
         self.tblWdg_performer_links.setHorizontalHeaderItem(3, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tblWdg_performer_links.setHorizontalHeaderItem(4, item)
         self.tblWdg_performer_links.horizontalHeader().setVisible(False)
         self.tblWdg_performer_links.horizontalHeader().setCascadingSectionResizes(False)
         self.tblWdg_performer_links.horizontalHeader().setHighlightSections(False)
@@ -1925,7 +1885,7 @@ class Ui_MainWindow(object):
         self.lnEdit_performer_haar = QtWidgets.QLineEdit(parent=self.layoutWidget4)
         self.lnEdit_performer_haar.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
         self.lnEdit_performer_haar.setStyleSheet("QLineEdit,QTextEdit { \n"
-"background-color: rgb(255, 253, 213);}\n"
+"background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
 "QLineEdit:focus,QTextEdit:focus {\n"
@@ -1953,7 +1913,7 @@ class Ui_MainWindow(object):
         self.lnEdit_performer_boobs = QtWidgets.QLineEdit(parent=self.layoutWidget_11)
         self.lnEdit_performer_boobs.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
         self.lnEdit_performer_boobs.setStyleSheet("QLineEdit,QTextEdit { \n"
-"background-color: rgb(255, 253, 213);}\n"
+"background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
 "QLineEdit:focus,QTextEdit:focus {\n"
@@ -1982,7 +1942,7 @@ class Ui_MainWindow(object):
         self.lnEdit_performer_bodytyp = QtWidgets.QLineEdit(parent=self.layoutWidget_12)
         self.lnEdit_performer_bodytyp.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
         self.lnEdit_performer_bodytyp.setStyleSheet("QLineEdit,QTextEdit { \n"
-"background-color: rgb(255, 253, 213);}\n"
+"background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
 "QLineEdit:focus,QTextEdit:focus {\n"
@@ -2010,7 +1970,7 @@ class Ui_MainWindow(object):
         self.lnEdit_performer_aktiv = QtWidgets.QLineEdit(parent=self.layoutWidget_13)
         self.lnEdit_performer_aktiv.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
         self.lnEdit_performer_aktiv.setStyleSheet("QLineEdit,QTextEdit { \n"
-"background-color: rgb(255, 253, 213);}\n"
+"background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
 "QLineEdit:focus,QTextEdit:focus {\n"
@@ -2028,7 +1988,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_19.addWidget(self.lnEdit_performer_aktiv)
         self.Btn_DBArtist_Update = QtWidgets.QPushButton(parent=self.tab_performer)
         self.Btn_DBArtist_Update.setEnabled(False)
-        self.Btn_DBArtist_Update.setGeometry(QtCore.QRect(730, 20, 121, 41))
+        self.Btn_DBArtist_Update.setGeometry(QtCore.QRect(768, 25, 120, 40))
         self.Btn_DBArtist_Update.setStyleSheet("QPushButton { \n"
 "    color: rgb(0, 0, 127);\n"
 "    selection-background-color: rgb(255, 85, 0);\n"
@@ -2078,9 +2038,9 @@ class Ui_MainWindow(object):
 "}   ")
         self.Btn_table_links_expanding.setText("")
         self.Btn_table_links_expanding.setObjectName("Btn_table_links_expanding")
-        self.Btn_delete_onlyfans_item = QtWidgets.QPushButton(parent=self.tab_performer)
-        self.Btn_delete_onlyfans_item.setGeometry(QtCore.QRect(415, 168, 30, 25))
-        self.Btn_delete_onlyfans_item.setStyleSheet("QPushButton { \n"
+        self.Btn_onlyfans_delitem = QtWidgets.QPushButton(parent=self.tab_performer)
+        self.Btn_onlyfans_delitem.setGeometry(QtCore.QRect(415, 168, 30, 25))
+        self.Btn_onlyfans_delitem.setStyleSheet("QPushButton { \n"
 "    color: rgb(0, 0, 127);\n"
 "    selection-background-color: rgb(255, 85, 0);\n"
 "    background-color: rgb(198, 178, 255);\n"
@@ -2102,7 +2062,7 @@ class Ui_MainWindow(object):
 "QPushButton:hover{\n"
 "    background-color: rgb(255, 85, 255);\n"
 "}   ")
-        self.Btn_delete_onlyfans_item.setObjectName("Btn_delete_onlyfans_item")
+        self.Btn_onlyfans_delitem.setObjectName("Btn_onlyfans_delitem")
         self.Btn_delete_nation_item = QtWidgets.QPushButton(parent=self.tab_performer)
         self.Btn_delete_nation_item.setGeometry(QtCore.QRect(415, 138, 30, 25))
         self.Btn_delete_nation_item.setStyleSheet("QPushButton { \n"
@@ -2128,9 +2088,9 @@ class Ui_MainWindow(object):
 "    background-color: rgb(255, 85, 255);\n"
 "}   ")
         self.Btn_delete_nation_item.setObjectName("Btn_delete_nation_item")
-        self.Btn_delete_onlyfans_item_2 = QtWidgets.QPushButton(parent=self.tab_performer)
-        self.Btn_delete_onlyfans_item_2.setGeometry(QtCore.QRect(445, 168, 30, 25))
-        self.Btn_delete_onlyfans_item_2.setStyleSheet("QPushButton { \n"
+        self.Btn_onlyfans_additem = QtWidgets.QPushButton(parent=self.tab_performer)
+        self.Btn_onlyfans_additem.setGeometry(QtCore.QRect(445, 168, 30, 25))
+        self.Btn_onlyfans_additem.setStyleSheet("QPushButton { \n"
 "    color: rgb(0, 0, 127);\n"
 "    selection-background-color: rgb(255, 85, 0);\n"
 "    background-color: rgb(198, 178, 255);\n"
@@ -2152,25 +2112,292 @@ class Ui_MainWindow(object):
 "QPushButton:hover{\n"
 "    background-color: rgb(255, 85, 255);\n"
 "}   ")
-        self.Btn_delete_onlyfans_item_2.setObjectName("Btn_delete_onlyfans_item_2")
+        self.Btn_onlyfans_additem.setObjectName("Btn_onlyfans_additem")
         self.chkBox_get_autom_iafd = QtWidgets.QCheckBox(parent=self.tab_performer)
         self.chkBox_get_autom_iafd.setEnabled(True)
-        self.chkBox_get_autom_iafd.setGeometry(QtCore.QRect(40, 304, 15, 15))
+        self.chkBox_get_autom_iafd.setGeometry(QtCore.QRect(40, 303, 15, 15))
         self.chkBox_get_autom_iafd.setText("")
+        self.chkBox_get_autom_iafd.setTristate(False)
         self.chkBox_get_autom_iafd.setObjectName("chkBox_get_autom_iafd")
-        self.lbl_performer_link = QtWidgets.QLabel(parent=self.tab_performer)
-        self.lbl_performer_link.setGeometry(QtCore.QRect(380, 520, 461, 20))
+        self.grpBox_performer_2 = QtWidgets.QGroupBox(parent=self.tab_performer)
+        self.grpBox_performer_2.setGeometry(QtCore.QRect(390, 20, 371, 48))
+        self.grpBox_performer_2.setStyleSheet("QGroupBox {\n"
+"background-color: rgb(218, 222, 226);\n"
+"border: 1px solid grey;border-radius: 5px;}")
+        self.grpBox_performer_2.setObjectName("grpBox_performer_2")
+        self.lnEdit_performer_ordner = QtWidgets.QLineEdit(parent=self.grpBox_performer_2)
+        self.lnEdit_performer_ordner.setEnabled(True)
+        self.lnEdit_performer_ordner.setGeometry(QtCore.QRect(10, 20, 351, 20))
+        self.lnEdit_performer_ordner.setStyleSheet("QLineEdit { background-color: #FFFDD5;}")
+        self.lnEdit_performer_ordner.setReadOnly(False)
+        self.lnEdit_performer_ordner.setClearButtonEnabled(False)
+        self.lnEdit_performer_ordner.setObjectName("lnEdit_performer_ordner")
+        self.stacked_webdb_images = QtWidgets.QStackedWidget(parent=self.tab_performer)
+        self.stacked_webdb_images.setGeometry(QtCore.QRect(30, 520, 241, 301))
+        self.stacked_webdb_images.setObjectName("stacked_webdb_images")
+        self.stacked_iafd_label = QtWidgets.QWidget()
+        self.stacked_iafd_label.setObjectName("stacked_iafd_label")
+        self.lbl_iafd_image_info = QtWidgets.QLabel(parent=self.stacked_iafd_label)
+        self.lbl_iafd_image_info.setGeometry(QtCore.QRect(0, 0, 181, 16))
+        self.lbl_iafd_image_info.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.lbl_iafd_image_info.setObjectName("lbl_iafd_image_info")
+        self.Btn_stacked_webdb_next_1 = QtWidgets.QPushButton(parent=self.stacked_iafd_label)
+        self.Btn_stacked_webdb_next_1.setGeometry(QtCore.QRect(180, 0, 60, 20))
+        self.Btn_stacked_webdb_next_1.setStyleSheet("QPushButton { \n"
+"    color: rgb(0, 0, 127);\n"
+"    selection-background-color: rgb(255, 85, 0);\n"
+"    background-color: rgb(198, 178, 255);\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    font: 10pt \"MS Shell Dlg 2\";\n"
+"    border-radius: 5px;\n"
+"    border-color: beige;\n"
+"}                   \n"
+"QPushButton:enabled{\n"
+"    background-color: rgb(198, 178, 255);\n"
+"}                           \n"
+"QPushButton:pressed{ \n"
+"    background: red;\n"
+"}                            \n"
+"QPushButton:disabled{                             \n"
+"    background-color: gray;                \n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 85, 255);\n"
+"}   ")
+        self.Btn_stacked_webdb_next_1.setObjectName("Btn_stacked_webdb_next_1")
+        self.lbl_iafd_image = QtWidgets.QLabel(parent=self.stacked_iafd_label)
+        self.lbl_iafd_image.setGeometry(QtCore.QRect(0, 20, 238, 280))
+        self.lbl_iafd_image.setStyleSheet("border: 1px solid blue;")
+        self.lbl_iafd_image.setText("")
+        self.lbl_iafd_image.setScaledContents(True)
+        self.lbl_iafd_image.setWordWrap(False)
+        self.lbl_iafd_image.setObjectName("lbl_iafd_image")
+        self.stacked_webdb_images.addWidget(self.stacked_iafd_label)
+        self.stacked_babepedia_label = QtWidgets.QWidget()
+        self.stacked_babepedia_label.setObjectName("stacked_babepedia_label")
+        self.Btn_stacked_webdb_next_2 = QtWidgets.QPushButton(parent=self.stacked_babepedia_label)
+        self.Btn_stacked_webdb_next_2.setGeometry(QtCore.QRect(180, 0, 60, 20))
+        self.Btn_stacked_webdb_next_2.setStyleSheet("QPushButton { \n"
+"    color: rgb(0, 0, 127);\n"
+"    selection-background-color: rgb(255, 85, 0);\n"
+"    background-color: rgb(198, 178, 255);\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    font: 10pt \"MS Shell Dlg 2\";\n"
+"    border-radius: 5px;\n"
+"    border-color: beige;\n"
+"}                   \n"
+"QPushButton:enabled{\n"
+"    background-color: rgb(198, 178, 255);\n"
+"}                           \n"
+"QPushButton:pressed{ \n"
+"    background: red;\n"
+"}                            \n"
+"QPushButton:disabled{                             \n"
+"    background-color: gray;                \n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 85, 255);\n"
+"}   ")
+        self.Btn_stacked_webdb_next_2.setObjectName("Btn_stacked_webdb_next_2")
+        self.lbl_babepedia_image_info = QtWidgets.QLabel(parent=self.stacked_babepedia_label)
+        self.lbl_babepedia_image_info.setGeometry(QtCore.QRect(0, 0, 181, 16))
+        self.lbl_babepedia_image_info.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.lbl_babepedia_image_info.setObjectName("lbl_babepedia_image_info")
+        self.lbl_babepedia_image = QtWidgets.QLabel(parent=self.stacked_babepedia_label)
+        self.lbl_babepedia_image.setGeometry(QtCore.QRect(0, 20, 238, 280))
+        self.lbl_babepedia_image.setStyleSheet("border: 1px solid blue;")
+        self.lbl_babepedia_image.setText("")
+        self.lbl_babepedia_image.setScaledContents(True)
+        self.lbl_babepedia_image.setWordWrap(False)
+        self.lbl_babepedia_image.setObjectName("lbl_babepedia_image")
+        self.stacked_webdb_images.addWidget(self.stacked_babepedia_label)
+        self.lnEdit_IAFD_artistAlias = CustomLineEdit_double(parent=self.tab_performer)
+        self.lnEdit_IAFD_artistAlias.setGeometry(QtCore.QRect(743, 300, 131, 20))
+        self.lnEdit_IAFD_artistAlias.setStyleSheet("background-color: #FFFDD5;")
+        self.lnEdit_IAFD_artistAlias.setReadOnly(True)
+        self.lnEdit_IAFD_artistAlias.setCursorMoveStyle(QtCore.Qt.CursorMoveStyle.VisualMoveStyle)
+        self.lnEdit_IAFD_artistAlias.setObjectName("lnEdit_IAFD_artistAlias")
+        self.chkBox_iafd_enabled = QtWidgets.QCheckBox(parent=self.tab_performer)
+        self.chkBox_iafd_enabled.setEnabled(True)
+        self.chkBox_iafd_enabled.setGeometry(QtCore.QRect(722, 303, 15, 15))
+        self.chkBox_iafd_enabled.setText("")
+        self.chkBox_iafd_enabled.setChecked(True)
+        self.chkBox_iafd_enabled.setTristate(False)
+        self.chkBox_iafd_enabled.setObjectName("chkBox_iafd_enabled")
+        self.stacked_image_infos = QtWidgets.QStackedWidget(parent=self.tab_performer)
+        self.stacked_image_infos.setGeometry(QtCore.QRect(290, 520, 601, 301))
+        self.stacked_image_infos.setObjectName("stacked_image_infos")
+        self.perfomer_image = QtWidgets.QWidget()
+        self.perfomer_image.setObjectName("perfomer_image")
+        self.Btn_stacked_info_next_1 = QtWidgets.QPushButton(parent=self.perfomer_image)
+        self.Btn_stacked_info_next_1.setGeometry(QtCore.QRect(540, 0, 60, 20))
+        self.Btn_stacked_info_next_1.setStyleSheet("QPushButton { \n"
+"    color: rgb(0, 0, 127);\n"
+"    selection-background-color: rgb(255, 85, 0);\n"
+"    background-color: rgb(198, 178, 255);\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    font: 10pt \"MS Shell Dlg 2\";\n"
+"    border-radius: 5px;\n"
+"    border-color: beige;\n"
+"}                   \n"
+"QPushButton:enabled{\n"
+"    background-color: rgb(198, 178, 255);\n"
+"}                           \n"
+"QPushButton:pressed{ \n"
+"    background: red;\n"
+"}                            \n"
+"QPushButton:disabled{                             \n"
+"    background-color: gray;                \n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 85, 255);\n"
+"}   ")
+        self.Btn_stacked_info_next_1.setObjectName("Btn_stacked_info_next_1")
+        self.Btn_performer_next = QtWidgets.QPushButton(parent=self.perfomer_image)
+        self.Btn_performer_next.setEnabled(False)
+        self.Btn_performer_next.setGeometry(QtCore.QRect(260, 140, 20, 50))
+        self.Btn_performer_next.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.Btn_performer_next.setStyleSheet("QPushButton { \n"
+"    color: rgb(0, 0, 127);\n"
+"    selection-background-color: rgb(255, 85, 0);\n"
+"    background-color: rgb(198, 178, 255);\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    font: 14pt \"Consolas\";\n"
+"    border-radius: 5px;\n"
+"    border-color: beige;\n"
+"}                   \n"
+"QPushButton:enabled{\n"
+"    background-color: rgb(198, 178, 255);\n"
+"}                           \n"
+"QPushButton:pressed{ \n"
+"    background: red;\n"
+"}                            \n"
+"QPushButton:disabled{                             \n"
+"    background-color: gray;                \n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 85, 255);\n"
+"}   ")
+        self.Btn_performer_next.setObjectName("Btn_performer_next")
+        self.lbl_link_image_from_db = QtWidgets.QLabel(parent=self.perfomer_image)
+        self.lbl_link_image_from_db.setGeometry(QtCore.QRect(20, 20, 240, 280))
+        self.lbl_link_image_from_db.setStyleSheet("border: 1px solid blue;")
+        self.lbl_link_image_from_db.setText("")
+        self.lbl_link_image_from_db.setScaledContents(True)
+        self.lbl_link_image_from_db.setWordWrap(False)
+        self.lbl_link_image_from_db.setObjectName("lbl_link_image_from_db")
+        self.Btn_performer_prev = QtWidgets.QPushButton(parent=self.perfomer_image)
+        self.Btn_performer_prev.setEnabled(False)
+        self.Btn_performer_prev.setGeometry(QtCore.QRect(0, 140, 20, 50))
+        self.Btn_performer_prev.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.Btn_performer_prev.setStyleSheet("QPushButton { \n"
+"    color: rgb(0, 0, 127);\n"
+"    selection-background-color: rgb(255, 85, 0);\n"
+"    background-color: rgb(198, 178, 255);\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    font: 15pt \"Consolas\";\n"
+"    border-radius: 5px;\n"
+"    border-color: beige;\n"
+"}                   \n"
+"QPushButton:enabled{\n"
+"    background-color: rgb(198, 178, 255);\n"
+"}                           \n"
+"QPushButton:pressed{ \n"
+"    background: red;\n"
+"}                            \n"
+"QPushButton:disabled{                             \n"
+"    background-color: gray;                \n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 85, 255);\n"
+"}   ")
+        self.Btn_performer_prev.setObjectName("Btn_performer_prev")
+        self.lbl_performer_link = QtWidgets.QLabel(parent=self.perfomer_image)
+        self.lbl_performer_link.setGeometry(QtCore.QRect(20, 0, 461, 20))
         self.lbl_performer_link.setText("")
         self.lbl_performer_link.setObjectName("lbl_performer_link")
+        self.Btn_stacked_info_next_1.raise_()
+        self.Btn_performer_prev.raise_()
+        self.lbl_performer_link.raise_()
+        self.lbl_link_image_from_db.raise_()
+        self.Btn_performer_next.raise_()
+        self.stacked_image_infos.addWidget(self.perfomer_image)
+        self.logger_infos = QtWidgets.QWidget()
+        self.logger_infos.setObjectName("logger_infos")
+        self.Btn_stacked_info_next_2 = QtWidgets.QPushButton(parent=self.logger_infos)
+        self.Btn_stacked_info_next_2.setGeometry(QtCore.QRect(540, 0, 60, 20))
+        self.Btn_stacked_info_next_2.setStyleSheet("QPushButton { \n"
+"    color: rgb(0, 0, 127);\n"
+"    selection-background-color: rgb(255, 85, 0);\n"
+"    background-color: rgb(198, 178, 255);\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    font: 10pt \"MS Shell Dlg 2\";\n"
+"    border-radius: 5px;\n"
+"    border-color: beige;\n"
+"}                   \n"
+"QPushButton:enabled{\n"
+"    background-color: rgb(198, 178, 255);\n"
+"}                           \n"
+"QPushButton:pressed{ \n"
+"    background: red;\n"
+"}                            \n"
+"QPushButton:disabled{                             \n"
+"    background-color: gray;                \n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 85, 255);\n"
+"}   ")
+        self.Btn_stacked_info_next_2.setObjectName("Btn_stacked_info_next_2")
+        self.txtBrowser_loginfos = QtWidgets.QTextBrowser(parent=self.logger_infos)
+        self.txtBrowser_loginfos.setGeometry(QtCore.QRect(0, 20, 601, 281))
+        self.txtBrowser_loginfos.setStyleSheet("background-color: rgb(255, 250, 211)")
+        self.txtBrowser_loginfos.setObjectName("txtBrowser_loginfos")
+        self.lblinfos_on_imagestacked = QtWidgets.QLabel(parent=self.logger_infos)
+        self.lblinfos_on_imagestacked.setGeometry(QtCore.QRect(0, 0, 31, 20))
+        self.lblinfos_on_imagestacked.setObjectName("lblinfos_on_imagestacked")
+        self.lbl_infos_on_imagestacked = QtWidgets.QLabel(parent=self.logger_infos)
+        self.lbl_infos_on_imagestacked.setGeometry(QtCore.QRect(40, 0, 491, 20))
+        self.lbl_infos_on_imagestacked.setText("")
+        self.lbl_infos_on_imagestacked.setObjectName("lbl_infos_on_imagestacked")
+        self.Btn_delete_logs = QtWidgets.QPushButton(parent=self.logger_infos)
+        self.Btn_delete_logs.setGeometry(QtCore.QRect(449, 0, 81, 20))
+        self.Btn_delete_logs.setStyleSheet("QPushButton { \n"
+"    color: rgb(0, 0, 127);\n"
+"    selection-background-color: rgb(255, 85, 0);\n"
+"    background-color: rgb(198, 178, 255);\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    font: 10pt \"MS Shell Dlg 2\";\n"
+"    border-radius: 5px;\n"
+"    border-color: beige;\n"
+"}                   \n"
+"QPushButton:enabled{\n"
+"    background-color: rgb(198, 178, 255);\n"
+"}                           \n"
+"QPushButton:pressed{ \n"
+"    background: red;\n"
+"}                            \n"
+"QPushButton:disabled{                             \n"
+"    background-color: gray;                \n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 85, 255);\n"
+"}   ")
+        self.Btn_delete_logs.setObjectName("Btn_delete_logs")
+        self.stacked_image_infos.addWidget(self.logger_infos)
+        self.stacked_image_infos.raise_()
+        self.stacked_webdb_images.raise_()
         self.layoutWidget.raise_()
         self.layoutWidget.raise_()
         self.gBox_tattoo.raise_()
         self.gBox_piercing.raise_()
         self.txtEdit_performer_piercing.raise_()
-        self.lbl_link_image_from_db.raise_()
-        self.Btn_performer_prev.raise_()
-        self.Btn_performer_next.raise_()
-        self.lbl_iafd_image.raise_()
         self.grpBox_performer.raise_()
         self.layoutWidget_3.raise_()
         self.layoutWidget_4.raise_()
@@ -2182,7 +2409,7 @@ class Ui_MainWindow(object):
         self.lnEdit_DBIAFD_artistLink.raise_()
         self.lbl_checkWeb_IAFD_artistURL.raise_()
         self.lbl_checkWeb_BabePedia_artistURL.raise_()
-        self.lnEdit_DBBabePedia_artistLink.raise_()
+        self.lnEdit_DBBioWebsite_artistLink.raise_()
         self.Btn_performer_in_BabePedia.raise_()
         self.layoutWidget_8.raise_()
         self.layoutWidget_9.raise_()
@@ -2193,11 +2420,13 @@ class Ui_MainWindow(object):
         self.layoutWidget_13.raise_()
         self.Btn_DBArtist_Update.raise_()
         self.Btn_table_links_expanding.raise_()
-        self.Btn_delete_onlyfans_item.raise_()
+        self.Btn_onlyfans_delitem.raise_()
         self.Btn_delete_nation_item.raise_()
-        self.Btn_delete_onlyfans_item_2.raise_()
+        self.Btn_onlyfans_additem.raise_()
         self.chkBox_get_autom_iafd.raise_()
-        self.lbl_performer_link.raise_()
+        self.grpBox_performer_2.raise_()
+        self.lnEdit_IAFD_artistAlias.raise_()
+        self.chkBox_iafd_enabled.raise_()
         self.tabs.addTab(self.tab_performer, "")
         self.Btn_Refresh = QtWidgets.QPushButton(parent=self.centralwidget)
         self.Btn_Refresh.setEnabled(False)
@@ -2476,7 +2705,7 @@ class Ui_MainWindow(object):
         self.lblOrdner.setObjectName("lblOrdner")
         self.lbl_Dateiname = QtWidgets.QLabel(parent=self.grp_active_file)
         self.lbl_Dateiname.setGeometry(QtCore.QRect(70, 35, 700, 16))
-        self.lbl_Dateiname.setStyleSheet("background-color: rgb(255, 253, 213);")
+        self.lbl_Dateiname.setStyleSheet("background-color: #FFFDD5;")
         self.lbl_Dateiname.setText("")
         self.lbl_Dateiname.setObjectName("lbl_Dateiname")
         self.Btn_stacked_next_1 = QtWidgets.QPushButton(parent=self.grp_active_file)
@@ -2572,7 +2801,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_5.setStretch(0, 20)
         self.lbl_DatenSatz = QtWidgets.QLabel(parent=self.grpBox_scrap_settings)
         self.lbl_DatenSatz.setGeometry(QtCore.QRect(70, 20, 81, 21))
-        self.lbl_DatenSatz.setStyleSheet("background-color: rgb(255, 253, 213);")
+        self.lbl_DatenSatz.setStyleSheet("background-color: #FFFDD5;")
         self.lbl_DatenSatz.setFrameShape(QtWidgets.QFrame.Shape.Box)
         self.lbl_DatenSatz.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.lbl_DatenSatz.setText("")
@@ -2585,7 +2814,7 @@ class Ui_MainWindow(object):
         self.grpBox_link_auswahl.setObjectName("grpBox_link_auswahl")
         self.cBox_studio_links = QtWidgets.QComboBox(parent=self.grpBox_link_auswahl)
         self.cBox_studio_links.setGeometry(QtCore.QRect(10, 14, 231, 22))
-        self.cBox_studio_links.setStyleSheet("background-color: rgb(255, 253, 213);")
+        self.cBox_studio_links.setStyleSheet("background-color: #FFFDD5;")
         self.cBox_studio_links.setObjectName("cBox_studio_links")
         self.layoutWidget5 = QtWidgets.QWidget(parent=self.grpBox_scrap_settings)
         self.layoutWidget5.setGeometry(QtCore.QRect(170, 20, 149, 20))
@@ -2708,7 +2937,7 @@ class Ui_MainWindow(object):
         self.lbldb_performer.setObjectName("lbldb_performer")
         self.lnEdit_db_performer = QtWidgets.QLineEdit(parent=self.grpBox_suche_in_datenbank)
         self.lnEdit_db_performer.setGeometry(QtCore.QRect(100, 62, 481, 20))
-        self.lnEdit_db_performer.setStyleSheet("background-color: rgb(255, 253, 213);")
+        self.lnEdit_db_performer.setStyleSheet("background-color: #FFFDD5;")
         self.lnEdit_db_performer.setText("")
         self.lnEdit_db_performer.setObjectName("lnEdit_db_performer")
         self.lbldb_titel = QtWidgets.QLabel(parent=self.grpBox_suche_in_datenbank)
@@ -2716,7 +2945,7 @@ class Ui_MainWindow(object):
         self.lbldb_titel.setObjectName("lbldb_titel")
         self.lnEdit_db_titel = QtWidgets.QLineEdit(parent=self.grpBox_suche_in_datenbank)
         self.lnEdit_db_titel.setGeometry(QtCore.QRect(100, 22, 481, 20))
-        self.lnEdit_db_titel.setStyleSheet("background-color: rgb(255, 253, 213);")
+        self.lnEdit_db_titel.setStyleSheet("background-color: #FFFDD5;")
         self.lnEdit_db_titel.setText("")
         self.lnEdit_db_titel.setObjectName("lnEdit_db_titel")
         self.Btn_perfomsuche_in_DB = QtWidgets.QPushButton(parent=self.grpBox_suche_in_datenbank)
@@ -2781,7 +3010,7 @@ class Ui_MainWindow(object):
         self.lblJahr.setObjectName("lblJahr")
         self.lnEdit_db_jahr = QtWidgets.QLineEdit(parent=self.stacked_IAFD_Linkmaker)
         self.lnEdit_db_jahr.setGeometry(QtCore.QRect(40, 10, 71, 20))
-        self.lnEdit_db_jahr.setStyleSheet("background-color: rgb(255, 253, 213);")
+        self.lnEdit_db_jahr.setStyleSheet("background-color: #FFFDD5;")
         self.lnEdit_db_jahr.setText("")
         self.lnEdit_db_jahr.setObjectName("lnEdit_db_jahr")
         self.grpBox_Linkmaker = QtWidgets.QGroupBox(parent=self.stacked_IAFD_Linkmaker)
@@ -2814,7 +3043,7 @@ class Ui_MainWindow(object):
         self.Btn_IAFD_linkmaker.setObjectName("Btn_IAFD_linkmaker")
         self.lnEdit_IAFD_titel = QtWidgets.QLineEdit(parent=self.grpBox_Linkmaker)
         self.lnEdit_IAFD_titel.setGeometry(QtCore.QRect(10, 20, 771, 20))
-        self.lnEdit_IAFD_titel.setStyleSheet("background-color: rgb(255, 253, 213);")
+        self.lnEdit_IAFD_titel.setStyleSheet("background-color: #FFFDD5;")
         self.lnEdit_IAFD_titel.setText("")
         self.lnEdit_IAFD_titel.setObjectName("lnEdit_IAFD_titel")
         self.Btn_stacked_next_4 = QtWidgets.QPushButton(parent=self.stacked_IAFD_Linkmaker)
@@ -2849,31 +3078,6 @@ class Ui_MainWindow(object):
         self.stackedWidget.addWidget(self.stacked_IAFD_Linkmaker)
         self.stacked_IAFD_artist = QtWidgets.QWidget()
         self.stacked_IAFD_artist.setObjectName("stacked_IAFD_artist")
-        self.Btn_stacked_next_5 = QtWidgets.QPushButton(parent=self.stacked_IAFD_artist)
-        self.Btn_stacked_next_5.setGeometry(QtCore.QRect(820, 10, 60, 20))
-        self.Btn_stacked_next_5.setStyleSheet("QPushButton { \n"
-"    color: rgb(0, 0, 127);\n"
-"    selection-background-color: rgb(255, 85, 0);\n"
-"    background-color: rgb(198, 178, 255);\n"
-"    border-style: outset;\n"
-"    border-width: 2px;\n"
-"    font: 10pt \"MS Shell Dlg 2\";\n"
-"    border-radius: 5px;\n"
-"    border-color: beige;\n"
-"}                   \n"
-"QPushButton:enabled{\n"
-"    background-color: rgb(198, 178, 255);\n"
-"}                           \n"
-"QPushButton:pressed{ \n"
-"    background: red;\n"
-"}                            \n"
-"QPushButton:disabled{                             \n"
-"    background-color: gray;                \n"
-"}\n"
-"QPushButton:hover{\n"
-"    background-color: rgb(255, 85, 255);\n"
-"}   ")
-        self.Btn_stacked_next_5.setObjectName("Btn_stacked_next_5")
         self.grpBox_IAFD_performer = QtWidgets.QGroupBox(parent=self.stacked_IAFD_artist)
         self.grpBox_IAFD_performer.setGeometry(QtCore.QRect(0, 40, 891, 51))
         self.grpBox_IAFD_performer.setObjectName("grpBox_IAFD_performer")
@@ -2903,13 +3107,8 @@ class Ui_MainWindow(object):
 "    background-color: rgb(255, 85, 255);\n"
 "}   ")
         self.Btn_IAFD_perfomer_suche.setObjectName("Btn_IAFD_perfomer_suche")
-        self.lnEdit_IAFD_performer = QtWidgets.QLineEdit(parent=self.grpBox_IAFD_performer)
-        self.lnEdit_IAFD_performer.setGeometry(QtCore.QRect(10, 20, 641, 20))
-        self.lnEdit_IAFD_performer.setStyleSheet("background-color: rgb(255, 253, 213);")
-        self.lnEdit_IAFD_performer.setText("")
-        self.lnEdit_IAFD_performer.setObjectName("lnEdit_IAFD_performer")
         self.Btn_DB_perfomer_suche = QtWidgets.QPushButton(parent=self.grpBox_IAFD_performer)
-        self.Btn_DB_perfomer_suche.setGeometry(QtCore.QRect(659, 14, 101, 30))
+        self.Btn_DB_perfomer_suche.setGeometry(QtCore.QRect(380, 14, 101, 30))
         self.Btn_DB_perfomer_suche.setStyleSheet("QPushButton { \n"
 "    color: rgb(0, 0, 127);\n"
 "    selection-background-color: rgb(255, 85, 0);\n"
@@ -2933,6 +3132,18 @@ class Ui_MainWindow(object):
 "    background-color: rgb(255, 85, 255);\n"
 "}   ")
         self.Btn_DB_perfomer_suche.setObjectName("Btn_DB_perfomer_suche")
+        self.customlnEdit_IAFD_performer = CustomLineEdit(parent=self.grpBox_IAFD_performer)
+        self.customlnEdit_IAFD_performer.setGeometry(QtCore.QRect(10, 20, 361, 20))
+        self.customlnEdit_IAFD_performer.setStyleSheet("background-color: #FFFDD5;")
+        self.customlnEdit_IAFD_performer.setText("")
+        self.customlnEdit_IAFD_performer.setObjectName("customlnEdit_IAFD_performer")
+        self.lnEdit_create_iafd_link = QtWidgets.QLineEdit(parent=self.grpBox_IAFD_performer)
+        self.lnEdit_create_iafd_link.setEnabled(True)
+        self.lnEdit_create_iafd_link.setGeometry(QtCore.QRect(510, 20, 271, 20))
+        self.lnEdit_create_iafd_link.setStyleSheet("QLineEdit { background-color: #FFFDD5;}")
+        self.lnEdit_create_iafd_link.setReadOnly(False)
+        self.lnEdit_create_iafd_link.setClearButtonEnabled(False)
+        self.lnEdit_create_iafd_link.setObjectName("lnEdit_create_iafd_link")
         self.lblseiten = QtWidgets.QLabel(parent=self.stacked_IAFD_artist)
         self.lblseiten.setGeometry(QtCore.QRect(10, 11, 30, 16))
         self.lblseiten.setObjectName("lblseiten")
@@ -2941,7 +3152,7 @@ class Ui_MainWindow(object):
         self.lblsaetze.setObjectName("lblsaetze")
         self.lbl_performer_saetze = QtWidgets.QLabel(parent=self.stacked_IAFD_artist)
         self.lbl_performer_saetze.setGeometry(QtCore.QRect(400, 10, 31, 20))
-        self.lbl_performer_saetze.setStyleSheet("background-color: rgb(255, 253, 213);")
+        self.lbl_performer_saetze.setStyleSheet("background-color: #FFFDD5;")
         self.lbl_performer_saetze.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.lbl_performer_saetze.setObjectName("lbl_performer_saetze")
         self.Btn_seiten_vor = QtWidgets.QPushButton(parent=self.stacked_IAFD_artist)
@@ -2996,7 +3207,7 @@ class Ui_MainWindow(object):
         self.Btn_seiten_zurueck.setObjectName("Btn_seiten_zurueck")
         self.lnEdit_page = QtWidgets.QLineEdit(parent=self.stacked_IAFD_artist)
         self.lnEdit_page.setGeometry(QtCore.QRect(40, 10, 41, 20))
-        self.lnEdit_page.setStyleSheet("background-color: rgb(255, 253, 213)")
+        self.lnEdit_page.setStyleSheet("background-color: #FFFDD5")
         self.lnEdit_page.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.lnEdit_page.setObjectName("lnEdit_page")
         self.lblseiten_2 = QtWidgets.QLabel(parent=self.stacked_IAFD_artist)
@@ -3004,69 +3215,65 @@ class Ui_MainWindow(object):
         self.lblseiten_2.setObjectName("lblseiten_2")
         self.lnEdit_maxpage = QtWidgets.QLineEdit(parent=self.stacked_IAFD_artist)
         self.lnEdit_maxpage.setGeometry(QtCore.QRect(120, 10, 41, 20))
-        self.lnEdit_maxpage.setStyleSheet("background-color: rgb(255, 253, 213)")
+        self.lnEdit_maxpage.setStyleSheet("background-color: #FFFDD5")
         self.lnEdit_maxpage.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.lnEdit_maxpage.setReadOnly(True)
         self.lnEdit_maxpage.setObjectName("lnEdit_maxpage")
+        self.Btn_stacked_next_5 = QtWidgets.QPushButton(parent=self.stacked_IAFD_artist)
+        self.Btn_stacked_next_5.setGeometry(QtCore.QRect(820, 10, 60, 20))
+        self.Btn_stacked_next_5.setStyleSheet("QPushButton { \n"
+"    color: rgb(0, 0, 127);\n"
+"    selection-background-color: rgb(255, 85, 0);\n"
+"    background-color: rgb(198, 178, 255);\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    font: 10pt \"MS Shell Dlg 2\";\n"
+"    border-radius: 5px;\n"
+"    border-color: beige;\n"
+"}                   \n"
+"QPushButton:enabled{\n"
+"    background-color: rgb(198, 178, 255);\n"
+"}                           \n"
+"QPushButton:pressed{ \n"
+"    background: red;\n"
+"}                            \n"
+"QPushButton:disabled{                             \n"
+"    background-color: gray;                \n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 85, 255);\n"
+"}   ")
+        self.Btn_stacked_next_5.setObjectName("Btn_stacked_next_5")
+        self.Btn_DB_perfomer_table_update = QtWidgets.QPushButton(parent=self.stacked_IAFD_artist)
+        self.Btn_DB_perfomer_table_update.setGeometry(QtCore.QRect(660, 10, 101, 30))
+        self.Btn_DB_perfomer_table_update.setStyleSheet("QPushButton { \n"
+"    color: rgb(0, 0, 127);\n"
+"    selection-background-color: rgb(255, 85, 0);\n"
+"    background-color: rgb(198, 178, 255);\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    font: 10pt \"MS Shell Dlg 2\";\n"
+"    border-radius: 10px;\n"
+"    border-color: beige;\n"
+"}                   \n"
+"QPushButton:enabled{\n"
+"    background-color: rgb(198, 178, 255);\n"
+"}                           \n"
+"QPushButton:pressed{ \n"
+"    background: red;\n"
+"}                            \n"
+"QPushButton:disabled{                             \n"
+"    background-color: gray;                \n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 85, 255);\n"
+"}   ")
+        self.Btn_DB_perfomer_table_update.setObjectName("Btn_DB_perfomer_table_update")
         self.stackedWidget.addWidget(self.stacked_IAFD_artist)
         self.lbl_db_status = QtWidgets.QLabel(parent=self.centralwidget)
         self.lbl_db_status.setGeometry(QtCore.QRect(940, 940, 901, 20))
         self.lbl_db_status.setText("")
         self.lbl_db_status.setObjectName("lbl_db_status")
-        self.tblWdg_Daten = QtWidgets.QTableWidget(parent=self.centralwidget)
-        self.tblWdg_Daten.setGeometry(QtCore.QRect(30, 210, 890, 750))
-        self.tblWdg_Daten.setMaximumSize(QtCore.QSize(1830, 16777215))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(8)
-        self.tblWdg_Daten.setFont(font)
-        self.tblWdg_Daten.setTabletTracking(False)
-        self.tblWdg_Daten.setStyleSheet("background-color: rgb(255, 253, 213);\n"
-"")
-        self.tblWdg_Daten.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.SizeAdjustPolicy.AdjustToContents)
-        self.tblWdg_Daten.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.SelectedClicked)
-        self.tblWdg_Daten.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectionBehavior.SelectRows)
-        self.tblWdg_Daten.setColumnCount(0)
-        self.tblWdg_Daten.setObjectName("tblWdg_Daten")
-        self.tblWdg_Daten.setRowCount(0)
-        self.tblWdg_Daten.horizontalHeader().setCascadingSectionResizes(True)
-        self.tblWdg_Daten.horizontalHeader().setDefaultSectionSize(120)
-        self.tblWdg_Daten.horizontalHeader().setSortIndicatorShown(True)
-        self.tblWdg_Daten.horizontalHeader().setStretchLastSection(False)
-        self.tblWdg_Daten.verticalHeader().setVisible(False)
-        self.tblWdg_Daten.verticalHeader().setDefaultSectionSize(20)
-        self.tblWdg_Daten.verticalHeader().setMinimumSectionSize(16)
-        self.tblWdg_Daten.verticalHeader().setSortIndicatorShown(True)
-        self.tblWdg_Daten.verticalHeader().setStretchLastSection(False)
-        self.tblWdg_Files = QtWidgets.QTableWidget(parent=self.centralwidget)
-        self.tblWdg_Files.setGeometry(QtCore.QRect(30, 210, 891, 751))
-        self.tblWdg_Files.setMinimumSize(QtCore.QSize(891, 0))
-        self.tblWdg_Files.setMaximumSize(QtCore.QSize(1000, 16777215))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(8)
-        self.tblWdg_Files.setFont(font)
-        self.tblWdg_Files.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
-        self.tblWdg_Files.setStyleSheet("background-color: rgb(255, 253, 213);\n"
-"border: 1px solid grey;border-radius: 5px;\n"
-"")
-        self.tblWdg_Files.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.SizeAdjustPolicy.AdjustToContents)
-        self.tblWdg_Files.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.SelectedClicked)
-        self.tblWdg_Files.setObjectName("tblWdg_Files")
-        self.tblWdg_Files.setColumnCount(4)
-        self.tblWdg_Files.setRowCount(0)
-        item = QtWidgets.QTableWidgetItem()
-        item.setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignTop)
-        self.tblWdg_Files.setHorizontalHeaderItem(0, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tblWdg_Files.setHorizontalHeaderItem(1, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tblWdg_Files.setHorizontalHeaderItem(2, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tblWdg_Files.setHorizontalHeaderItem(3, item)
-        self.tblWdg_Files.verticalHeader().setDefaultSectionSize(20)
-        self.tblWdg_Files.verticalHeader().setMinimumSectionSize(16)
-        self.tblWdg_Files.verticalHeader().setSortIndicatorShown(True)
         self.Btn_table_daten_expanding = QtWidgets.QPushButton(parent=self.centralwidget)
         self.Btn_table_daten_expanding.setGeometry(QtCore.QRect(925, 540, 12, 60))
         self.Btn_table_daten_expanding.setStyleSheet("QPushButton { \n"
@@ -3093,8 +3300,101 @@ class Ui_MainWindow(object):
 "}   ")
         self.Btn_table_daten_expanding.setText("")
         self.Btn_table_daten_expanding.setObjectName("Btn_table_daten_expanding")
-        self.tblWdg_Files.raise_()
-        self.tblWdg_Daten.raise_()
+        self.stacked_tables = QtWidgets.QStackedWidget(parent=self.centralwidget)
+        self.stacked_tables.setGeometry(QtCore.QRect(30, 210, 890, 750))
+        self.stacked_tables.setObjectName("stacked_tables")
+        self.page_table_files = QtWidgets.QWidget()
+        self.page_table_files.setObjectName("page_table_files")
+        self.tblWdg_files = QtWidgets.QTableWidget(parent=self.page_table_files)
+        self.tblWdg_files.setGeometry(QtCore.QRect(0, 0, 890, 750))
+        self.tblWdg_files.setMinimumSize(QtCore.QSize(890, 0))
+        self.tblWdg_files.setMaximumSize(QtCore.QSize(1900, 890))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(8)
+        self.tblWdg_files.setFont(font)
+        self.tblWdg_files.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
+        self.tblWdg_files.setStyleSheet("background-color: #FFFDD5;\n"
+"border: 1px solid grey;border-radius: 5px;\n"
+"")
+        self.tblWdg_files.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.SizeAdjustPolicy.AdjustToContents)
+        self.tblWdg_files.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.SelectedClicked)
+        self.tblWdg_files.setObjectName("tblWdg_files")
+        self.tblWdg_files.setColumnCount(4)
+        self.tblWdg_files.setRowCount(0)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignTop)
+        self.tblWdg_files.setHorizontalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tblWdg_files.setHorizontalHeaderItem(1, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tblWdg_files.setHorizontalHeaderItem(2, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tblWdg_files.setHorizontalHeaderItem(3, item)
+        self.tblWdg_files.verticalHeader().setDefaultSectionSize(20)
+        self.tblWdg_files.verticalHeader().setMinimumSectionSize(16)
+        self.tblWdg_files.verticalHeader().setSortIndicatorShown(True)
+        self.stacked_tables.addWidget(self.page_table_files)
+        self.page_table_daten = QtWidgets.QWidget()
+        self.page_table_daten.setObjectName("page_table_daten")
+        self.tblWdg_daten = QtWidgets.QTableWidget(parent=self.page_table_daten)
+        self.tblWdg_daten.setGeometry(QtCore.QRect(0, 0, 890, 750))
+        self.tblWdg_daten.setMaximumSize(QtCore.QSize(1900, 890))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(8)
+        self.tblWdg_daten.setFont(font)
+        self.tblWdg_daten.setTabletTracking(False)
+        self.tblWdg_daten.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
+        self.tblWdg_daten.setStyleSheet("background-color: #FFFDD5;\n"
+"")
+        self.tblWdg_daten.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.SizeAdjustPolicy.AdjustToContents)
+        self.tblWdg_daten.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.SelectedClicked)
+        self.tblWdg_daten.setSelectionMode(QtWidgets.QAbstractItemView.SelectionMode.SingleSelection)
+        self.tblWdg_daten.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectionBehavior.SelectRows)
+        self.tblWdg_daten.setColumnCount(0)
+        self.tblWdg_daten.setObjectName("tblWdg_daten")
+        self.tblWdg_daten.setRowCount(0)
+        self.tblWdg_daten.horizontalHeader().setCascadingSectionResizes(True)
+        self.tblWdg_daten.horizontalHeader().setDefaultSectionSize(120)
+        self.tblWdg_daten.horizontalHeader().setSortIndicatorShown(True)
+        self.tblWdg_daten.horizontalHeader().setStretchLastSection(False)
+        self.tblWdg_daten.verticalHeader().setVisible(False)
+        self.tblWdg_daten.verticalHeader().setDefaultSectionSize(20)
+        self.tblWdg_daten.verticalHeader().setMinimumSectionSize(16)
+        self.tblWdg_daten.verticalHeader().setSortIndicatorShown(True)
+        self.tblWdg_daten.verticalHeader().setStretchLastSection(False)
+        self.stacked_tables.addWidget(self.page_table_daten)
+        self.page_table_performer = QtWidgets.QWidget()
+        self.page_table_performer.setObjectName("page_table_performer")
+        self.tblWdg_performer = QtWidgets.QTableWidget(parent=self.page_table_performer)
+        self.tblWdg_performer.setGeometry(QtCore.QRect(0, 0, 890, 750))
+        self.tblWdg_performer.setMaximumSize(QtCore.QSize(1900, 890))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(8)
+        self.tblWdg_performer.setFont(font)
+        self.tblWdg_performer.setTabletTracking(False)
+        self.tblWdg_performer.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
+        self.tblWdg_performer.setStyleSheet("background-color: #FFFDD5;\n"
+"")
+        self.tblWdg_performer.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.SizeAdjustPolicy.AdjustToContents)
+        self.tblWdg_performer.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.SelectedClicked)
+        self.tblWdg_performer.setSelectionMode(QtWidgets.QAbstractItemView.SelectionMode.SingleSelection)
+        self.tblWdg_performer.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectionBehavior.SelectRows)
+        self.tblWdg_performer.setColumnCount(0)
+        self.tblWdg_performer.setObjectName("tblWdg_performer")
+        self.tblWdg_performer.setRowCount(0)
+        self.tblWdg_performer.horizontalHeader().setCascadingSectionResizes(True)
+        self.tblWdg_performer.horizontalHeader().setDefaultSectionSize(120)
+        self.tblWdg_performer.horizontalHeader().setSortIndicatorShown(True)
+        self.tblWdg_performer.horizontalHeader().setStretchLastSection(False)
+        self.tblWdg_performer.verticalHeader().setVisible(False)
+        self.tblWdg_performer.verticalHeader().setDefaultSectionSize(20)
+        self.tblWdg_performer.verticalHeader().setMinimumSectionSize(16)
+        self.tblWdg_performer.verticalHeader().setSortIndicatorShown(True)
+        self.tblWdg_performer.verticalHeader().setStretchLastSection(False)
+        self.stacked_tables.addWidget(self.page_table_performer)
         self.stackedWidget.raise_()
         self.grp_rename.raise_()
         self.tabs.raise_()
@@ -3106,6 +3406,7 @@ class Ui_MainWindow(object):
         self.Btn_VideoDatenHolen.raise_()
         self.lbl_db_status.raise_()
         self.Btn_table_daten_expanding.raise_()
+        self.stacked_tables.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(parent=MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1884, 21))
@@ -3136,7 +3437,11 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         self.tabs.setCurrentIndex(3)
+        self.cBox_performer_fanside.setCurrentIndex(-1)
+        self.stacked_webdb_images.setCurrentIndex(0)
+        self.stacked_image_infos.setCurrentIndex(0)
         self.stackedWidget.setCurrentIndex(4)
+        self.stacked_tables.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -3198,11 +3503,11 @@ class Ui_MainWindow(object):
 "Datenbank"))
         self.lblDBRegie.setText(_translate("MainWindow", "Regie:"))
         self.lblDBRelease.setText(_translate("MainWindow", "Release Datum:"))
-        item = self.tblWdg_Performers.horizontalHeaderItem(0)
+        item = self.tblWdg_DB_performers.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Name"))
-        item = self.tblWdg_Performers.horizontalHeaderItem(1)
+        item = self.tblWdg_DB_performers.horizontalHeaderItem(1)
         item.setText(_translate("MainWindow", "Alias"))
-        item = self.tblWdg_Performers.horizontalHeaderItem(2)
+        item = self.tblWdg_DB_performers.horizontalHeaderItem(2)
         item.setText(_translate("MainWindow", "Action"))
         self.lblDBTitel.setText(_translate("MainWindow", "Titel:"))
         self.lblDBMovies.setText(_translate("MainWindow", "Movies:"))
@@ -3266,12 +3571,6 @@ class Ui_MainWindow(object):
         self.Btn_Anzahl_DBSceneCode.setWhatsThis(_translate("MainWindow", "SceneCode"))
         self.Btn_Anzahl_DBSceneCode.setText(_translate("MainWindow", "1"))
         self.tabs.setTabText(self.tabs.indexOf(self.tab_datenbank), _translate("MainWindow", "Datenbank"))
-        self.Btn_performer_prev.setToolTip(_translate("MainWindow", "vorheriges Bild"))
-        self.Btn_performer_prev.setWhatsThis(_translate("MainWindow", "Analyse"))
-        self.Btn_performer_prev.setText(_translate("MainWindow", "<<"))
-        self.Btn_performer_next.setToolTip(_translate("MainWindow", "nächstes Bild"))
-        self.Btn_performer_next.setWhatsThis(_translate("MainWindow", "Analyse"))
-        self.Btn_performer_next.setText(_translate("MainWindow", ">>"))
         self.grpBox_performer.setTitle(_translate("MainWindow", "Performer-Info für:"))
         self.lblperformer_sex_2.setText(_translate("MainWindow", "Ethnizität:"))
         self.cBox_performer_rasse.setItemText(1, _translate("MainWindow", "Kaukasien"))
@@ -3286,30 +3585,32 @@ class Ui_MainWindow(object):
         self.lblperformer_augen.setText(_translate("MainWindow", "Augenfarbe"))
         self.lblperformer_nation.setText(_translate("MainWindow", "Nation:"))
         self.lblperformer_gewicht.setText(_translate("MainWindow", "Gewicht"))
-        self.lnEdit_performer_gewicht.setInputMask(_translate("MainWindow", "999 kg"))
-        self.lnEdit_performer_gewicht.setText(_translate("MainWindow", " kg"))
+        self.lnEdit_performer_gewicht.setInputMask(_translate("MainWindow", "999"))
+        self.lbl_kg.setText(_translate("MainWindow", "kg"))
         self.lblperformer_groesse.setText(_translate("MainWindow", "Größe"))
-        self.lnEdit_performer_groesse.setInputMask(_translate("MainWindow", "999 cm"))
-        self.lnEdit_performer_groesse.setText(_translate("MainWindow", " cm"))
+        self.lnEdit_performer_groesse.setInputMask(_translate("MainWindow", "999"))
+        self.lbl_kg_2.setText(_translate("MainWindow", "cm"))
         self.txtEdit_performer_piercing.setPlaceholderText(_translate("MainWindow", "kein Eintrag"))
         self.gBox_piercing.setTitle(_translate("MainWindow", "  Piercing:"))
         self.txtEdit_performer_tattoo.setPlaceholderText(_translate("MainWindow", "kein Eintrag"))
         self.gBox_tattoo.setTitle(_translate("MainWindow", "Tattoo:"))
         self.Btn_Linksuche_in_IAFD_artist.setText(_translate("MainWindow", "Suche in IAFD"))
         self.lnEdit_DBIAFD_artistLink.setPlaceholderText(_translate("MainWindow", "kein Eintrag"))
-        self.lnEdit_DBBabePedia_artistLink.setPlaceholderText(_translate("MainWindow", "kein Eintrag"))
-        self.Btn_performer_in_BabePedia.setText(_translate("MainWindow", "Suche in BabePedia"))
+        self.lnEdit_DBBioWebsite_artistLink.setPlaceholderText(_translate("MainWindow", "kein Eintrag"))
+        self.Btn_performer_in_BabePedia.setText(_translate("MainWindow", "Suche in Bio Websides"))
         self.lblgeburtsort.setText(_translate("MainWindow", "Geburtsort:"))
         self.lblgeburtstag.setText(_translate("MainWindow", "Geburtstag:"))
-        self.lblonlyfans.setText(_translate("MainWindow", "OnlyFans:"))
+        self.lblonlyfans.setText(_translate("MainWindow", "Social Media:"))
         item = self.tblWdg_performer_links.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "ID"))
         item = self.tblWdg_performer_links.horizontalHeaderItem(1)
-        item.setText(_translate("MainWindow", "Link"))
+        item.setText(_translate("MainWindow", "Status"))
         item = self.tblWdg_performer_links.horizontalHeaderItem(2)
         item.setText(_translate("MainWindow", "Image"))
         item = self.tblWdg_performer_links.horizontalHeaderItem(3)
         item.setText(_translate("MainWindow", "Alias"))
+        item = self.tblWdg_performer_links.horizontalHeaderItem(4)
+        item.setText(_translate("MainWindow", "Status"))
         self.lblperformer_sex.setText(_translate("MainWindow", "Geschlecht:"))
         self.cBox_performer_sex.setItemText(1, _translate("MainWindow", "weiblich"))
         self.cBox_performer_sex.setItemText(2, _translate("MainWindow", "männlich"))
@@ -3320,13 +3621,35 @@ class Ui_MainWindow(object):
         self.lblaktiv.setText(_translate("MainWindow", "Aktiv:"))
         self.Btn_DBArtist_Update.setText(_translate("MainWindow", "Update in die\n"
 "Datenbank"))
-        self.Btn_delete_onlyfans_item.setToolTip(_translate("MainWindow", "Löscht ein Eintrag in der Combobox"))
-        self.Btn_delete_onlyfans_item.setText(_translate("MainWindow", "-"))
+        self.Btn_onlyfans_delitem.setToolTip(_translate("MainWindow", "Löscht ein Eintrag in der Combobox"))
+        self.Btn_onlyfans_delitem.setText(_translate("MainWindow", "-"))
         self.Btn_delete_nation_item.setToolTip(_translate("MainWindow", "Löscht ein Eintrag in der Combobox"))
         self.Btn_delete_nation_item.setText(_translate("MainWindow", "-"))
-        self.Btn_delete_onlyfans_item_2.setToolTip(_translate("MainWindow", "Addet ein Eintrag in der Combobox"))
-        self.Btn_delete_onlyfans_item_2.setText(_translate("MainWindow", "+"))
+        self.Btn_onlyfans_additem.setToolTip(_translate("MainWindow", "Addet ein Eintrag in der Combobox"))
+        self.Btn_onlyfans_additem.setText(_translate("MainWindow", "+"))
         self.chkBox_get_autom_iafd.setToolTip(_translate("MainWindow", "Automatisch Link erstellen und webscrapen"))
+        self.grpBox_performer_2.setTitle(_translate("MainWindow", "  Ordner:"))
+        self.lbl_iafd_image_info.setText(_translate("MainWindow", "IAFD Image"))
+        self.Btn_stacked_webdb_next_1.setToolTip(_translate("MainWindow", "nächste ist Datei-Infos holen"))
+        self.Btn_stacked_webdb_next_1.setText(_translate("MainWindow", " weiter >"))
+        self.Btn_stacked_webdb_next_2.setToolTip(_translate("MainWindow", "nächste ist Datei-Infos holen"))
+        self.Btn_stacked_webdb_next_2.setText(_translate("MainWindow", " weiter >"))
+        self.lbl_babepedia_image_info.setText(_translate("MainWindow", "BabePedia Image"))
+        self.chkBox_iafd_enabled.setToolTip(_translate("MainWindow", "IAFD Link Eintrag aktivieren/deaktivieren"))
+        self.chkBox_iafd_enabled.setStatusTip(_translate("MainWindow", "Default aktiv"))
+        self.Btn_stacked_info_next_1.setToolTip(_translate("MainWindow", "nächste ist Datei-Infos holen"))
+        self.Btn_stacked_info_next_1.setText(_translate("MainWindow", " weiter >"))
+        self.Btn_performer_next.setToolTip(_translate("MainWindow", "nächstes Bild"))
+        self.Btn_performer_next.setWhatsThis(_translate("MainWindow", "Analyse"))
+        self.Btn_performer_next.setText(_translate("MainWindow", ">>"))
+        self.Btn_performer_prev.setToolTip(_translate("MainWindow", "vorheriges Bild"))
+        self.Btn_performer_prev.setWhatsThis(_translate("MainWindow", "Analyse"))
+        self.Btn_performer_prev.setText(_translate("MainWindow", "<<"))
+        self.Btn_stacked_info_next_2.setToolTip(_translate("MainWindow", "nächste ist Datei-Infos holen"))
+        self.Btn_stacked_info_next_2.setText(_translate("MainWindow", " weiter >"))
+        self.lblinfos_on_imagestacked.setText(_translate("MainWindow", "Infos:"))
+        self.Btn_delete_logs.setToolTip(_translate("MainWindow", "nächste ist Datei-Infos holen"))
+        self.Btn_delete_logs.setText(_translate("MainWindow", "Logs löschen"))
         self.tabs.setTabText(self.tabs.indexOf(self.tab_performer), _translate("MainWindow", "Performers"))
         self.Btn_Refresh.setToolTip(_translate("MainWindow", "Refresh der Ordner-Struktur der Tabelle"))
         self.Btn_Refresh.setText(_translate("MainWindow", "Tabelle\n"
@@ -3385,17 +3708,17 @@ class Ui_MainWindow(object):
         self.lnEdit_IAFD_titel.setToolTip(_translate("MainWindow", "Release Datum (Jahr) eingeben !"))
         self.Btn_stacked_next_4.setToolTip(_translate("MainWindow", "nächste ist Datei-Infos holen"))
         self.Btn_stacked_next_4.setText(_translate("MainWindow", " weiter >"))
-        self.Btn_stacked_next_5.setToolTip(_translate("MainWindow", "nächste ist Datei-Infos holen"))
-        self.Btn_stacked_next_5.setText(_translate("MainWindow", " weiter >"))
         self.grpBox_IAFD_performer.setTitle(_translate("MainWindow", "Performer Name:"))
         self.Btn_IAFD_perfomer_suche.setToolTip(_translate("MainWindow", "Geschlecht auswählen !"))
         self.Btn_IAFD_perfomer_suche.setText(_translate("MainWindow", "IAFD Suche"))
-        self.lnEdit_IAFD_performer.setToolTip(_translate("MainWindow", "Release Datum (Jahr) eingeben !"))
         self.Btn_DB_perfomer_suche.setToolTip(_translate("MainWindow", "Darsteller Suche aus der Darsteller Datenbank, keine Movie Datenbank !"))
         self.Btn_DB_perfomer_suche.setText(_translate("MainWindow", "Suche in DB"))
+        self.customlnEdit_IAFD_performer.setToolTip(_translate("MainWindow", "Such Begriff eingeben"))
+        self.customlnEdit_IAFD_performer.setPlaceholderText(_translate("MainWindow", "Feiltasten VOR und ZURÜCK"))
+        self.lnEdit_create_iafd_link.setPlaceholderText(_translate("MainWindow", "IAFD Link für Copy Link"))
         self.lblseiten.setText(_translate("MainWindow", "Seite:"))
         self.lblsaetze.setText(_translate("MainWindow", "Anzahl der Datensätz/Seite:"))
-        self.lbl_performer_saetze.setText(_translate("MainWindow", "100"))
+        self.lbl_performer_saetze.setText(_translate("MainWindow", "10000"))
         self.Btn_seiten_vor.setToolTip(_translate("MainWindow", "1 Seite vor"))
         self.Btn_seiten_vor.setText(_translate("MainWindow", ">"))
         self.Btn_seiten_zurueck.setToolTip(_translate("MainWindow", "1 Seiten zurück"))
@@ -3403,18 +3726,28 @@ class Ui_MainWindow(object):
         self.lnEdit_page.setText(_translate("MainWindow", "1"))
         self.lblseiten_2.setText(_translate("MainWindow", "von:"))
         self.lnEdit_maxpage.setText(_translate("MainWindow", "1"))
-        self.tblWdg_Daten.setSortingEnabled(True)
-        self.tblWdg_Files.setSortingEnabled(False)
-        item = self.tblWdg_Files.horizontalHeaderItem(0)
+        self.Btn_stacked_next_5.setToolTip(_translate("MainWindow", "nächste ist Datei-Infos holen"))
+        self.Btn_stacked_next_5.setText(_translate("MainWindow", " weiter >"))
+        self.Btn_DB_perfomer_table_update.setToolTip(_translate("MainWindow", "Darsteller Suche aus der Darsteller Datenbank, keine Movie Datenbank !"))
+        self.Btn_DB_perfomer_table_update.setText(_translate("MainWindow", "Tabelle updaten"))
+        self.tblWdg_files.setToolTip(_translate("MainWindow", "Tabelle für Dateien"))
+        self.tblWdg_files.setSortingEnabled(False)
+        item = self.tblWdg_files.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Dateiname"))
-        item = self.tblWdg_Files.horizontalHeaderItem(1)
+        item = self.tblWdg_files.horizontalHeaderItem(1)
         item.setText(_translate("MainWindow", "Größe"))
-        item = self.tblWdg_Files.horizontalHeaderItem(2)
+        item = self.tblWdg_files.horizontalHeaderItem(2)
         item.setText(_translate("MainWindow", "Änderungsdatum"))
-        item = self.tblWdg_Files.horizontalHeaderItem(3)
+        item = self.tblWdg_files.horizontalHeaderItem(3)
         item.setText(_translate("MainWindow", "Typ"))
+        self.tblWdg_daten.setToolTip(_translate("MainWindow", "Tabelle für Video Daten"))
+        self.tblWdg_daten.setSortingEnabled(True)
+        self.tblWdg_performer.setToolTip(_translate("MainWindow", "Tabelle für Performer Daten"))
+        self.tblWdg_performer.setSortingEnabled(True)
         self.menuDatei.setTitle(_translate("MainWindow", "Datei"))
         self.actionDatei_Laden.setText(_translate("MainWindow", "Datei Laden"))
         self.actionDatei_ndern.setText(_translate("MainWindow", "Datei ändern"))
         self.actionDatei_Analyse.setText(_translate("MainWindow", "Datei Analyse"))
         self.actionEinstellungen.setText(_translate("MainWindow", "Einstellungen"))
+from gui.custom_lnEdit_IAFD_artistalias import CustomLineEdit_double
+from gui.custom_lnEdit_IAFD_performer import CustomLineEdit

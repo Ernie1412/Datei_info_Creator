@@ -1,0 +1,47 @@
+<RCC>
+  <qresource prefix="labels">
+    <file>_labels/website.png</file>
+    <file>_labels/fenster-schließen.png</file>
+    <file>_labels/delete_item.png</file>
+    <file>_labels/IAFD.jpg</file>
+    <file>_labels/404error.png</file>
+    <file>_labels/check_error.png</file>
+    <file>_labels/checking.png</file>
+    <file>_labels/done.png</file>
+    <file>_labels/loading_page.png</file>
+    <file>_labels/timeout.png</file>
+    <file>_labels/check.png</file>
+    <file>_labels/datei_loeschen.png</file>
+    <file>_labels/datei_rename.png</file>
+    <file>_labels/error.png</file>
+    <file>_labels/explorer.png</file>
+    <file>_labels/geschlecht.png</file>
+    <file>_labels/id_merge.png</file>
+    <file>_labels/image_ordner.png</file>
+    <file>_labels/kein-bild.jpg</file>
+    <file>_labels/link.png</file>
+    <file>_labels/load_image.png</file>
+    <file>_labels/load_table.png</file>
+    <file>_labels/merge_person.png</file>
+    <file>_labels/name_hinzufuegen.png</file>
+    <file>_labels/name_loeschen.png</file>
+    <file>_labels/new_database.png</file>
+    <file>_labels/next .png</file>
+    <file>_labels/nutzer.png</file>
+    <file>_labels/ordner.png</file>
+    <file>_labels/ordner_verschieben.png</file>
+    <file>_labels/sanduhr.gif</file>
+    <file>_labels/table_content.png</file>
+    <file>_labels/vlc.png</file>
+    <file>_labels/waiting.jpg</file>
+    <file>_labels/zeile_add.png</file>
+    <file>_labels/zeile_del.png</file>
+    <file>_labels/error.png</file>
+    <file>_labels/check.png</file>
+    <file>_labels/sanduhr.gif</file>
+    <file>_labels/link.png</file>
+    <file>_labels/image_ordner.png</file>
+    <file>_labels/id_merge.png</file>
+    <file>_labels/geschlecht.png</file>
+  </qresource>
+</RCC>

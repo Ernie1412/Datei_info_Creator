@@ -27,6 +27,7 @@ RASSE_JSON = Path(__file__).absolute().parent / 'jsons/rasse.json'
 
 DB_PATH = Path(__file__).absolute().parent / '__DB/'
 PROJECT_PATH = Path(__file__).absolute().parent
+ICON_PATH = PROJECT_PATH / 'grafics/_buttons/'
 
 SPIDER_MONITOR_UI = Path(__file__).absolute().parent / "gui/uic_imports/spidermonitor.ui"
 EINSTELLUNG_UI = Path(__file__).absolute().parent / "gui/uic_imports/einstellungen.ui"
@@ -37,6 +38,10 @@ DATEI_AUSWAHL_UI = Path(__file__).absolute().parent / "gui/uic_imports/datei_aus
 MAIN_UI = Path(__file__).absolute().parent / "gui/uic_imports/datei_info_creator.ui"
 BUTTONS_WEBSIDES_UI = Path(__file__).absolute().parent / "gui/uic_imports/button_websides.ui"
 TRANSFER_UI = Path(__file__).absolute().parent / "gui/uic_imports/transfer.ui"
+ADD_PERFORMER_UI = Path(__file__).absolute().parent / "gui/uic_imports/dialog_performer_add.ui"
+ID_MERGE_PERFORMER_UI = Path(__file__).absolute().parent / "gui/uic_imports/dialog_performer_id_merge.ui"
+ADD_NEW_PERFORMER_UI = Path(__file__).absolute().parent / "gui/uic_imports/dialog_performer_add_from_link.ui"
+ADD_NAMESLINK_PERFORMER_UI = Path(__file__).absolute().parent / "gui/uic_imports/dialog_performer_add_nameslink.ui"
 
 ### ------------------- Pfade zu den Datenbanken --------------------- ###
 SETTINGS_DB_PATH = str(Path(__file__).absolute().parent / '__DB/Webside_Settings.db')
