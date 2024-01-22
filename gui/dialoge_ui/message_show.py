@@ -1,9 +1,7 @@
 from PyQt6.QtWidgets import QStatusBar, QMessageBox
 from PyQt6.QtCore import QDateTime, QTimer
 
-from pathlib import Path
 from config import PROJECT_PATH
-
 
 def StatusBar(self,text,farbe):
     self.statusBar = QStatusBar()

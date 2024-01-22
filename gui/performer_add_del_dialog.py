@@ -1,29 +1,30 @@
 from PyQt6 import uic
 from PyQt6.QtCore import Qt, QPoint, QTimer
-from PyQt6.QtWidgets import QApplication, QDialog, QTableWidgetItem
+from PyQt6.QtWidgets import QApplication, QDialog, QTableWidgetItem, QMenu, QMainWindow
 
 from urllib.parse import urlparse
+from pathlib import Path
 
 from utils.database_settings.database_for_darsteller import DB_Darsteller, VideoData
-from utils.web_scapings.iafd_performer_link import IAFDInfos
-from utils.web_scapings.performer_infos_maske import PerformerInfosMaske
 
 from config import ADD_PERFORMER_UI, ID_MERGE_PERFORMER_UI, ADD_NEW_PERFORMER_UI, ADD_NAMESLINK_PERFORMER_UI
 
 class PerformerAddDel(QDialog):
     def __init__(self, parent, menu=None, Main= None): # von wo es kommt: None = add name und ordner       
-        super(PerformerAddDel,self).__init__() 
+        super(PerformerAddDel,self).__init__(Main) 
+        self.Main = Main
+        self.cmenu=parent 
+        if isinstance(self.cmenu, QMenu):
+            self.cmenu.dialog_shown = True
         ### ------- Performer Tabelle: Merge IDs ------------------------------------------------------ ###
         if menu=="merge": 
-            uic.loadUi(ID_MERGE_PERFORMER_UI, self)
-            self.Main = Main  
+            uic.loadUi(ID_MERGE_PERFORMER_UI, self)              
             self.accepted.connect(self.accepted_id_merge_performer)
             self.timer_start("id","id")
         ### ------------------------------------------------------------------------------------------- ###
 
         ### ------- Performer Link Tabelle: Zeile für eine neuen Performer Datensatz anlegen ---------- ###
-        elif menu=="add_new_performer":
-            self.Main = Main            
+        elif menu=="add_new_performer":                       
             if self.Main.tblWdg_performer_links.rowCount() <= 1:
                 self.Main.lbl_db_status.setText("Nur '1' Eintrag in der Tabelle")
                 return
@@ -36,8 +37,7 @@ class PerformerAddDel(QDialog):
 
         ### ------- Performer Link Tabelle: neuen Link eintragen --------------------------- ###     
         elif menu == "add_new_nameslink":            
-            uic.loadUi(ADD_NAMESLINK_PERFORMER_UI, self) 
-            self.Main = Main            
+            uic.loadUi(ADD_NAMESLINK_PERFORMER_UI, self)
             self.lbl_artist_id_db.setText(self.Main.grpBox_performer.title().replace("Performer-Info ID: ",""))           
             self.accepted.connect(self.accepted_add_new_nameslink)
             #self.Btn_image_scrape.clicked.connect(self.image_scrape)
@@ -47,12 +47,10 @@ class PerformerAddDel(QDialog):
         else:
             uic.loadUi(ADD_PERFORMER_UI, self)              
             self.accepted.connect(self.accepted_add_perfomer) 
-        ### ------------------------------------------------------------------------------------------- ### 
-        self.Main = Main
-        self.cmenu=parent 
-        self.cmenu.dialog_shown = True                 
+        ### ------------------------------------------------------------------------------------------- ###                          
         self.move(self.cmenu.context_menu.mapToGlobal(self.cmenu.context_menu.rect().topLeft())- QPoint(0, 30))
-        self.setStyleSheet("QDialog { border: 2px solid black; }")                
+        standard_grey = self.Main.palette().color(self.Main.backgroundRole()).name()
+        self.setStyleSheet(f""" QDialog {{border: 2px solid black; background-color: {standard_grey};}}""") # Use the QMainWindow's background color
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint)  
         self.rejected.connect(lambda: (setattr(self.cmenu, 'dialog_shown', False), self.close())) 
         self.exec()
@@ -93,7 +91,7 @@ class PerformerAddDel(QDialog):
             self.close()
         if not ordner:
             ordner=name  
-        #self.cmenu.dialog_shown = False          
+        self.cmenu.dialog_shown = False          
         self.cmenu.add_name_and_ordner.emit(name, ordner, sex)
         self.close() 
 
@@ -129,30 +127,21 @@ class PerformerAddDel(QDialog):
 
     ### ------ Performer Tabelle: Zeile für eine neuen Performer Datensatz anlegen ------------------------ ###
     def accepted_add_new_performer(self):        
-        name=self.lnEdit_name.text() 
-               
+        name=self.lnEdit_name.text()
         if not name:
             self.lineedit_error("keinen Namen eingegeben !","name", error=True)        
-        else:             
-            names_link_satz: dict={} 
-            datenbank_darsteller = DB_Darsteller(self.Main)
+        else:
             if self.lnEdit_ordner.text() == "":
                 self.lnEdit_ordner.setText(name)
             ordner=self.lnEdit_ordner.text()
+            datenbank_darsteller = DB_Darsteller(self.Main)
             artist_id = datenbank_darsteller.get_artistid_from_name_ordner(name, ordner)
             iafd_link = self.lnEdit_iafdlink.text()
             if iafd_link:
-                iafd_artist_id = datenbank_darsteller.get_artistid_from_nameslink(iafd_link)
-            if not (artist_id and iafd_artist_id):
+                artist_id = datenbank_darsteller.get_artistid_from_nameslink(iafd_link)
+            if artist_id == -1: # neuen Darsteller anlegen                
                 artist_id = datenbank_darsteller.add_artistid_from_name_ordner(name, ordner)
-                if iafd_link: 
-                    self.Main.lnEdit_DBIAFD_artistLink.setText(iafd_link)                
-                    iafd_infos = IAFDInfos(MainWindow=self.Main)
-                    iafd_infos.load_IAFD_performer_link()
-                    performer_infos_maske = PerformerInfosMaske(self.Main)  
-                    performer_infos_maske.save_iafd_image_in_datenbank() 
-                    names_id = datenbank_darsteller.get_namesid_from_nameslink(iafd_link)
-            self.cmenu.add_artist.emit(artist_id, names_id)        
+            self.cmenu.add_artist.emit(artist_id, iafd_link, name, ordner)        
             self.close()
 
     def check_name(self):
@@ -164,6 +153,12 @@ class PerformerAddDel(QDialog):
                 self.lnEdit_ordner.setText(name)
             ordner=self.lnEdit_ordner.text()
             datenbank_darsteller = DB_Darsteller(self.Main)
+            if self.lnEdit_iafdlink.text():
+                artist_id = datenbank_darsteller.get_artistid_from_nameslink(self.lnEdit_iafdlink.text())
+                if artist_id != -1: # hat etwas in der datenbank gefunden
+                    nameslink_iafd = datenbank_darsteller.get_nameslink_dataset_from_artistid(artist_id)
+                    ordner = Path(nameslink_iafd["Image"]).parent.name
+                    self.lnEdit_ordner.setText(ordner)
             errview = datenbank_darsteller.get_minidatas_from_ordner(ordner) 
             artist_data_json=VideoData().load_from_json()           
             if not artist_data_json:
@@ -203,7 +198,10 @@ class PerformerAddDel(QDialog):
                 self.Main.lbl_db_status.setStyleSheet('background-color:')
                 artist_id = int(self.lbl_artist_id_db.text())            
                 names_link_satz = self.set_names_link_satz_in_dict(link)
-            self.cmenu.add_namesid.emit(artist_id, names_link_satz, studio_id)        
+            if isinstance(self.cmenu, QMenu):
+                self.cmenu.add_namesid.emit(artist_id, names_link_satz, studio_id) 
+            elif isinstance(self.cmenu, QMainWindow): 
+                self.cmenu.add_namesid.emit(artist_id, names_link_satz, studio_id)         
             self.close()
     
     def check_nameslink(self):
@@ -226,18 +224,19 @@ class PerformerAddDel(QDialog):
             elif names_id and is_vorhanden == False:                
                 self.Btn_id_merge.setEnabled(True)
                 daten_satz = datenbank_darsteller.get_nameslink_dataset_from_namesid(names_id)
-                artist_id = datenbank_darsteller.get_artistid_from_nameslink(link)
-                self.lbl_artist_id2_db.setText(f"{artist_id}")
-                self.lbl_names_id_db.setText(f"{daten_satz[0]}")
-                self.lbl_link_db.setText(daten_satz[1])
-                self.lbl_ordner_db.setText(daten_satz[2])                
-                self.lbl_alias_db.setText(daten_satz[3])
+                if daten_satz:
+                    artist_id = datenbank_darsteller.get_artistid_from_nameslink(link)
+                    self.lbl_artist_id2_db.setText(f"{artist_id}")
+                    self.lbl_names_id_db.setText(f"{daten_satz[0]}")
+                    self.lbl_link_db.setText(daten_satz[1])
+                    self.lbl_ordner_db.setText(daten_satz[2])                
+                    self.lbl_alias_db.setText(daten_satz[3])
             elif is_vorhanden:
                 self.lineedit_error(f"{link} schon in der Performer Links Tabelle !", "link", error=True)
                 self.lnEdit_link.setText("")
 
     def button_accepted_id_merge_performer(self):
-        self.cmenu.dialog_shown = False
+        #self.cmenu.dialog_shown = False
         artist_id1 = int(self.lbl_artist_id_db.text())
         artist_id2 = int(self.lbl_artist_id2_db.text())
         self.cmenu.merge_ids.emit(artist_id1, artist_id2)

@@ -24,6 +24,7 @@ MEDIA_JSON_PATH = Path(__file__).absolute().parent / "jsons/media.json"
 DATENBANK_JSON_PATH = Path(__file__).absolute().parent / "jsons/datenbank.json"
 DB_RECORD_JSON = Path(__file__).absolute().parent / 'jsons/db_record.json'
 RASSE_JSON = Path(__file__).absolute().parent / 'jsons/rasse.json'
+IAFD_INFOS_JSON_PATH = Path(__file__).absolute().parent / 'jsons/iafd_infos.json'
 
 DB_PATH = Path(__file__).absolute().parent / '__DB/'
 PROJECT_PATH = Path(__file__).absolute().parent
@@ -42,6 +43,11 @@ ADD_PERFORMER_UI = Path(__file__).absolute().parent / "gui/uic_imports/dialog_pe
 ID_MERGE_PERFORMER_UI = Path(__file__).absolute().parent / "gui/uic_imports/dialog_performer_id_merge.ui"
 ADD_NEW_PERFORMER_UI = Path(__file__).absolute().parent / "gui/uic_imports/dialog_performer_add_from_link.ui"
 ADD_NAMESLINK_PERFORMER_UI = Path(__file__).absolute().parent / "gui/uic_imports/dialog_performer_add_nameslink.ui"
+URL_INPUT_DIALOG_UI = Path(__file__).absolute().parent / "gui/uic_imports/url_input_dialog.ui"
+GENDER_AUSWAHL_UI = Path(__file__).absolute().parent / "gui/uic_imports/dlg_gender_auswahl.ui"
+NATIONS_AUSWAHL_UI = Path(__file__).absolute().parent / "gui/uic_imports/dlg_nations_auswahl.ui"
+SOCIAL_MEDIA_AUSWAHL_UI = Path(__file__).absolute().parent / "gui/uic_imports/dlg_social_media_auswahl.ui"
+SOCIAL_MEDIA_LINK_UI = Path(__file__).absolute().parent / "gui/uic_imports/dialog_set_socialmedia_link.ui"
 
 ### ------------------- Pfade zu den Datenbanken --------------------- ###
 SETTINGS_DB_PATH = str(Path(__file__).absolute().parent / '__DB/Webside_Settings.db')

@@ -59,12 +59,13 @@ class LoadPerformerImages():
               
 
     def load_website_image_in_label(self): 
-        image_url=""
+        image_url: str=""
         url = self.Main.tblWdg_performer_links.selectedItems()[1].text()
-        current_row = self.Main.tblWdg_performer_links.currentRow()
-        baseurl=urlparse(url).scheme +"://"+urlparse(url).netloc+"/"                      
+        current_row = self.Main.tblWdg_performer_links.currentRow() 
+        base_url = self.get_base_url(url)
         webside_settings = Webside_Settings(MainWindow=self.Main)
-        name_element_xpath, name_element_attri, name_element_title, image_url_xpath, image_url_attri, studio, java = webside_settings.hole_artist_image(baseurl)
+        name_element_xpath, name_element_attri, name_element_title, image_url_xpath, image_url_attri, studio, java = webside_settings.hole_artist_image(base_url)
+        
         content = self.open_url(url, studio, java, image_url_xpath)
         if content is None:            
             return 
@@ -86,51 +87,54 @@ class LoadPerformerImages():
                 raise ValueError("Kein WebElement gefunden")
         except (etree.XPathEvalError, TypeError, ValueError) as e:
             StatusBar(self.Main,f"Fehler beim laden vom Image. Fehler: {e} bei Studio: {studio}","#FF0000")
-            return
-        alias: str=""        
-        if name_element: 
-            regex = ast.literal_eval(name_element_attri)           
-            alias=re.sub(regex, "", name_element[0].text_content()) 
-            alias = alias.title() if name_element_title else alias      
-        self.Main.tblWdg_performer_links.setItem(current_row,3,QTableWidgetItem(alias))        
+            return                
+        alias = self.get_alias(name_element[0], name_element_attri, name_element_title)
+        
+        label_height = 280
+        label_width = 0
+        pixmap = QPixmap()
+        image_pfad = ""
         if image_element:
-            if image_url_attri:
-                if image_url_attri.startswith("/"):
-                    image_url_attri.replace("/","")
-                    baseurl
-                image_url = image_element[0].get(image_url_attri)
-                image_url = f"https:{image_url}" if image_url.startswith("//") else image_url
-            else:
-                image_url = image_element 
-            try:               
+            image_url = self.get_image_url(image_url_attri, url, base_url, image_element[0]) 
+            try: 
+                if not image_url:
+                    raise ValueError
                 response = requests.get(image_url, headers=HEADERS)
             except requests.exceptions.MissingSchema:
                 StatusBar(self.Main,f"Es ist kein Bild auf der Webside des Studios '{studio}' zu sehen (Dummy)","#FF0000")
                 self.image_label_set_kein_bild()
                 return
-            image_data = response.content
-            pixmap = QPixmap()
-            pixmap.loadFromData(image_data)        
-            label_height = 280            
-            id=self.get_id(url)
-            image_pfad=f"__artists_Images/{self.ordner}/[{studio}]-{id}.jpg"
-            self.Main.tblWdg_performer_links.setItem(current_row,2,QTableWidgetItem(image_pfad))
-            PerformerInfosMaske(self.Main).setColortoRow(self.Main.tblWdg_performer_links,current_row, '#FFFD00')
-            try:
-                label_width = int(label_height * pixmap.width() / pixmap.height())
-            except ZeroDivisionError as e:
-                self.Main.lbl_db_status.setText(f"load_website_image_in_label: {self.Main.lnEdit_performer_info.text()} --> Fehler: {e}")
+            except ValueError:
+                StatusBar(self.Main,f"Es ist kein Bild auf der Webside des Studios '{studio}' vorhanden !","#FF0000")
                 self.image_label_set_kein_bild()
-                return 
+                return    
+            else:                
+                pixmap.loadFromData(response.content)   
+                id=self.get_id(url)
+                image_pfad=f"__artists_Images/{self.ordner}/[{studio}]-{id}.jpg"                
+                try:
+                    label_width = int(label_height * pixmap.width() / pixmap.height())
+                except ZeroDivisionError as e:
+                    self.Main.lbl_db_status.setText(f"load_website_image_in_label: {self.Main.lnEdit_performer_info.text()} --> Fehler: {e}")
+                    self.image_label_set_kein_bild()
+                    return                                 
+                self.check_folder(image_pfad)
+                pixmap.save(str(PROJECT_PATH / image_pfad), "JPEG") 
+        # finally: Ausgabe in die Tabelle 
+        self.set_image_result_in_ui(alias, current_row, label_width, label_height, image_pfad, pixmap)        
+    
+    def set_image_result_in_ui(self, alias: str, current_row: int, label_width: int, label_height: int, image_pfad: str, pixmap: QPixmap) -> None:
+        self.Main.tblWdg_performer_links.setItem(current_row,3,QTableWidgetItem(alias))        
+        self.Main.tblWdg_performer_links.setItem(current_row,2,QTableWidgetItem(image_pfad))
+        if (alias or image_pfad):
+            PerformerInfosMaske(self.Main).setColortoRow(self.Main.tblWdg_performer_links,current_row, '#FFFD00')
+        if image_pfad:
             self.Main.Btn_performer_next.setGeometry(label_width+20,140,20,50)                                                
             self.Main.lbl_link_image_from_db.setGeometry(20, 20, label_width, label_height)         
             self.Main.lbl_link_image_from_db.setPixmap(pixmap)
-            self.check_folder(image_pfad)
-            pixmap.save(str(PROJECT_PATH / image_pfad), "JPEG")            
-        else:
-            self.image_label_set_kein_bild()                                   
-            self.Main.tblWdg_performer_links.setItem(current_row,2,QTableWidgetItem(""))  
-    
+        else: 
+            self.image_label_set_kein_bild()
+
     def image_label_set_kein_bild(self):
         pixmap = QPixmap(":/labels/_labels/kein-bild.jpg") #560x660                   
         self.Main.lbl_link_image_from_db.setPixmap(pixmap.scaled(240, 280, Qt.AspectRatioMode.KeepAspectRatio))        
@@ -152,6 +156,30 @@ class LoadPerformerImages():
                 return id_value
         return ""
     
+    def get_alias(self, name_element, name_element_attri: str, name_element_title: str) -> str:
+        alias = ""
+        if name_element is not None: 
+            regex = ast.literal_eval(name_element_attri)           
+            alias = re.sub(regex, "", name_element.text_content()) 
+            alias = alias.title() if name_element_title else alias
+        return alias
+
+    def get_image_url(self, image_url_attri: str, url: str, base_url: str, image_element) -> str:
+        if not image_url_attri:
+            return ""
+        else:
+            baseurl: str=""
+            if image_url_attri.startswith("/"):
+                image_url_attri = image_url_attri.replace("/","")
+                baseurl = base_url
+            image_url = f"{baseurl}{image_element.get(image_url_attri)}"
+            image_url = f"https:{image_url}" if image_url.startswith("//") else image_url
+        return image_url            
+
+    def get_base_url(self, url):
+        return urlparse(url).scheme +"://"+urlparse(url).netloc+"/"
+    
+
 if __name__ == '__main__':
     LoadPerformerImages()
 

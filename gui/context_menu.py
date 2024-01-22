@@ -19,6 +19,7 @@ from utils.web_scapings.scrap_with_requests import VideoUpdater
 from utils.database_settings.database_for_darsteller import DB_Darsteller
 from utils.web_scapings.load_performer_images_from_websites import LoadPerformerImages
 from utils.web_scapings.performer_infos_maske import PerformerInfosMaske
+from utils.web_scapings.iafd_performer_link import IAFDInfos
 
 from gui.dialoge_ui.message_show import MsgBox, StatusBar, blink_label
 
@@ -29,7 +30,7 @@ import gui.resource_collection_files.labels_rc
 class ContextMenu(QMenu):
     add_name_and_ordner=pyqtSignal(str, str, int)    
     merge_ids=pyqtSignal(int,int)
-    add_artist=pyqtSignal(int, int)
+    add_artist=pyqtSignal(int, str, str, str) # artist_id, iafd_link, name
     add_namesid=pyqtSignal(int, dict, int) # artist_id, names_link_satz, studio_id
 
     def __init__(self, parent = None ):
@@ -62,9 +63,9 @@ class ContextMenu(QMenu):
     def showContextMenu_in_performer_links(self, pos: int) -> None: # tblWdg_performer_links
         action_header: QAction = self.set_header_on_contextmenu("Tabelle Performer Links")
         menu_dict: dict = {
-            "Zeile hinzufügen": ("zeile_add.png", lambda: PerformerAddDel(self, "add_new_nameslink", self.Main) if not self.dialog_shown else None),
+            "Zeile hinzufügen": ("zeile_add.png", lambda: PerformerAddDel(self, menu="add_new_nameslink", Main=self.Main) if not self.dialog_shown else None),
             "Zeile löschen": ("zeile_del.png", self.delete_item),
-            "Zeile für eine neuen Performer Datensatz anlegen": ("new_database.png", lambda: PerformerAddDel(self, "add_new_performer", self.Main) if not self.dialog_shown else None), 
+            "Zeile für eine neuen Performer Datensatz anlegen": ("new_database.png", lambda: PerformerAddDel(self, menu="add_new_performer", Main=self.Main) if not self.dialog_shown else None), 
             "Refresh Tabelle neu aus Datenbank": ("load_table.png", self.refresh_performer_links_tabelle),
             "Lade Bild von Website": ("load_image.png", self.load_image_from_webside),
             "Tabellenspalten am Text anpassen": ("table_content.png", self.context_resize),
@@ -129,24 +130,47 @@ class ContextMenu(QMenu):
             StatusBar(self.Main,"Kein Name oder nichts in der Tabelle drin !","#FF0000")
     
     ### ----------------- Zeile für eine neuen Performer Datensatz anlegen ------------------------ ### 
-    def add_performer_from_link_resultsignal(self, artist_id: int, names_id):
-        is_updated: int=0
+    def add_performer_from_link_resultsignal(self, artist_id: int, iafd_link, name, ordner):
+        is_updated: int=0         
+        message = ""	     
+        iafd_msg = "" 
+        links = []
+        zeilen = []
         datenbank_darsteller=DB_Darsteller(MainWindow=self.Main)
+
+        for zeile in range(self.Main.tblWdg_performer_links.rowCount()): # check welche Zeilen ausgewählt sind
+            item = self.Main.tblWdg_performer_links.item(zeile, 0) # NamesID 
+            if item and item.isSelected():
+                if iafd_link:
+                    msg, is_update=self.update_performer_from_iafd_link(artist_id, iafd_link, name, ordner, datenbank_darsteller)
+                    is_updated +=is_update 
+                    iafd_msg ="(incl IAFD)"
+                    message += f"<tr><td>{msg}</td></tr>"                  
+                errview, is_update = datenbank_darsteller.update_artistid_from_names_id(f"{item.text()}", artist_id)
+                is_updated += is_update 
+                zeilen.append(zeile)               
+                links.append(self.Main.tblWdg_performer_links.item(zeile, 1).text())                
+        for zeile in zeilen:
+            self.Main.tblWdg_performer_links.removeRow(zeile)
+        message += f"<tr><td>{is_updated} Links {iafd_msg} sind verschoben worden</td></tr>"        
         artist_data = datenbank_darsteller.get_performer_dataset_from_artistid(artist_id) 
         keys_to_include = ['ArtistID', 'Name', 'Ordner']
         filtered_data = {key: artist_data[0][key] for key in keys_to_include}         
-        message = f"<tr><td>{', '.join(map(str, filtered_data.values()))}<td><th>" 
-        for zeile in range(self.Main.tblWdg_performer_links.rowCount()):
-            item = self.Main.tblWdg_performer_links.item(zeile, 0) # NamesID 
-            if item and item.isSelected():
-                errview, is_update = datenbank_darsteller.update_artistid_from_names_id(f"{item.text()}", artist_id)
-                self.Main.tblWdg_performer_links.removeRow(zeile)
-                is_updated += is_update
-        message += f"<tr><td>{is_updated} Links sind verschoben worden<td><th>"
-        if names_id > 0:
-            message += f"<tr><td>1 IAFDLink mit ID: {names_id} sind hinzugefügt worden<td><th>"
-        MsgBox(self, f"<table border='1'><tr><th>  Performer hinzugefügt  </th><tr>{message}</table>","i")
+        message += f"<tr><td>{', '.join(map(str, filtered_data.values()))}<td><th>"        
+        MsgBox(self, f"<table border='1'><tr><th>  Performer hinzugefügt  </th></tr>{message}</table>","i")
 
+    def update_performer_from_iafd_link(self, artist_id: int, iafd_link: str, name: str, ordner: str, datenbank_darsteller):    
+        iafd_artist_id = datenbank_darsteller.get_artistid_from_nameslink(iafd_link)
+        if iafd_artist_id != -1: # kein iafd link gefunden, neu anlegen
+            return "IAFD Link schon da", 0
+        else:
+            iafd_infos = IAFDInfos(MainWindow=self.Main)
+            iafd_infos.load_IAFD_performer_link(iafd_link, str(iafd_artist_id), name) # IAFD daten von der website scrapen 
+            performer_infos_maske = PerformerInfosMaske(self.Main)
+            message = performer_infos_maske.update_iafd_datensatz_from_json(artist_id, ordner) # performer update with iafd datas
+            perfid = performer_infos_maske.get_perfid_from_iafd_link(iafd_link)
+            performer_infos_maske.names_link_from_iafd(ordner, perfid, iafd_link, artist_id, datenbank_darsteller) # iafd names datensatz neu anlegen
+            return message, 1  
     ### ------------------------------------------------------------------------------------------- ###
     
     ### ------------------- Refresh Performer Links Tabelle --------------------------------------- ###
@@ -174,7 +198,7 @@ class ContextMenu(QMenu):
         folder = Path(PROJECT_PATH / "__artists_Images" / self.Main.lnEdit_performer_ordner.text())
         if Path(folder).exists() and self.Main.lnEdit_performer_ordner.text() != "":# alle Dateien, die nicht in 'images' enthalten löschen
             [file.unlink() for file in folder.glob('*') if str(file.name) not in [str(image.name) for image in images]]
-        if len(list(folder.iterdir())) == 0:
+        if Path(folder).exists() and len(list(folder.iterdir())) == 0:
             try:
                 Path(folder).unlink()
             except FileNotFoundError as e:
@@ -218,62 +242,62 @@ class ContextMenu(QMenu):
 
     def showContextMenu_in_DBSceneCode(self, pos: int) -> None:
         action_header: QAction = self.set_header_on_contextmenu("Webscrapen von Scene Code !")       
-        menu_dict = self.action_links(self.scrap_scenecode)
+        menu_dict=self.action_links(self.scrap_scenecode)
         self.show_context_menu(pos, action_header, menu_dict)
 
     def showContextMenu_in_DBTags(self, pos: int) -> None:
-        action_header: QAction = self.set_header_on_contextmenu("Webscrapen von Scene Code !")       
-        menu_dict = self.action_links(self.scrap_tags)
+        action_header: QAction = self.set_header_on_contextmenu("Webscrapen von Tags !")       
+        menu_dict= self.action_links(self.scrap_tags)
         self.show_context_menu(pos, action_header, menu_dict)
 
     def showContextMenu_in_DBProDate(self, pos: int) -> None:
         action_header: QAction = self.set_header_on_contextmenu("Webscrapen von Productions Datum !")       
-        menu_dict = self.action_links(self.scrap_prodate)
+        menu_dict= self.action_links(self.scrap_prodate)
         self.show_context_menu(pos, action_header, menu_dict)
 
     def showContextMenu_in_Synopsis(self, pos: int) -> None:
         action_header: QAction = self.set_header_on_contextmenu("Webscrapen von Synopsis !")       
         menu_dict = self.action_links(self.scrap_synopsis)
         if self.Main.lnEdit_DBData18Link:
-            menu_dict["Data18"] = functools.partial(self.scrap_synopsis, self.Main.lnEdit_DBData18Link.text())
+            menu_dict["Data18"] = ("data18_20.png", functools.partial(self.scrap_synopsis, self.Main.lnEdit_DBData18Link.text()))
         if self.Main.lnEdit_DBIAFDLink:            
-            menu_dict["IAFD"] = functools.partial(self.scrap_synopsis,self.Main.lnEdit_DBIAFDLink.text())
+            menu_dict["IAFD"] = ("iafd_20.png", functools.partial(self.scrap_synopsis,self.Main.lnEdit_DBIAFDLink.text()))
         self.show_context_menu(pos, action_header, menu_dict)
 
     def showContextMenu_in_regie(self, pos: int) -> None:
         action_header: QAction = self.set_header_on_contextmenu("Webscrapen von Regieseur !")       
         menu_dict = self.action_links(self.scrap_regie)
         if self.Main.lnEdit_DBData18Link:
-            menu_dict["Data18"] = functools.partial(self.scrap_regie, self.Main.lnEdit_DBData18Link.text())
+            menu_dict["Data18"] = ("data18_20.png", functools.partial(self.scrap_regie, self.Main.lnEdit_DBData18Link.text()))
         if self.Main.lnEdit_DBIAFDLink:            
-            menu_dict["IAFD"] = functools.partial(self.scrap_regie,self.Main.lnEdit_DBIAFDLink.text())
+            menu_dict["IAFD"] = ("iafd_20.png", functools.partial(self.scrap_regie,self.Main.lnEdit_DBIAFDLink.text()))
         self.show_context_menu(pos, action_header, menu_dict)
 
     def showContextMenu_in_serie(self, pos: int) -> None:
         action_header: QAction = self.set_header_on_contextmenu("Webscrapen von Serie/Unter-Studio !")       
         menu_dict = self.action_links(self.scrap_serie)
         if self.Main.lnEdit_DBData18Link:
-            menu_dict["Data18"] = functools.partial(self.scrap_serie, self.Main.lnEdit_DBData18Link.text())
+            menu_dict["Data18"] = ("data18_20.png", functools.partial(self.scrap_serie, self.Main.lnEdit_DBData18Link.text()))
         if self.Main.lnEdit_DBIAFDLink:            
-            menu_dict["IAFD"] = functools.partial(self.scrap_serie,self.Main.lnEdit_DBIAFDLink.text())
+            menu_dict["IAFD"] = ("iafd_20.png", functools.partial(self.scrap_serie,self.Main.lnEdit_DBIAFDLink.text()))
         self.show_context_menu(pos, action_header, menu_dict)
 
     def showContextMenu_in_release(self, pos: int) -> None:
         action_header: QAction = self.set_header_on_contextmenu("Webscrapen von Release Datum !")       
         menu_dict = self.action_links(self.scrap_release)
         if self.Main.lnEdit_DBData18Link:
-            menu_dict["Data18"] = functools.partial(self.scrap_release, self.Main.lnEdit_DBData18Link.text())
+            menu_dict["Data18"] = ("data18_20.png", functools.partial(self.scrap_release, self.Main.lnEdit_DBData18Link.text()))
         if self.Main.lnEdit_DBIAFDLink:            
-            menu_dict["IAFD"] = functools.partial(self.scrap_release,self.Main.lnEdit_DBIAFDLink.text())
+            menu_dict["IAFD"] = ("iafd_20.png", functools.partial(self.scrap_release,self.Main.lnEdit_DBIAFDLink.text()))
         self.show_context_menu(pos, action_header, menu_dict)
 
     def showContextMenu_in_movies(self, pos: int) -> None:
         action_header: QAction = self.set_header_on_contextmenu("Webscrapen von Movies und Alias !")       
-        menu_dict = self.action_links(self.scrap_movies)
+        menu_dict=self.action_links(self.scrap_movies)
         if self.Main.lnEdit_DBData18Link:
-            menu_dict["Data18"] = functools.partial(self.scrap_movies, self.Main.lnEdit_DBData18Link.text())
+            menu_dict["Data18"] = ("data18_20.png", functools.partial(self.scrap_movies, self.Main.lnEdit_DBData18Link.text()))
         if self.Main.lnEdit_DBIAFDLink:            
-            menu_dict["IAFD"] = functools.partial(self.scrap_movies,self.Main.lnEdit_DBIAFDLink.text())
+            menu_dict["IAFD"] = ("iafd_20.png", functools.partial(self.scrap_movies,self.Main.lnEdit_DBIAFDLink.text()))
         self.show_context_menu(pos, action_header, menu_dict)
 
     def show_context_menu(self, pos: int, action_header: QAction, menu_dict: dict) -> None:
@@ -296,11 +320,12 @@ class ContextMenu(QMenu):
         return action_readonly 
 
     def action_links(self, scraper_function) -> dict:        
-        menu_dict = {}        
+        menu_dict = {} 
+        icon="www.png"       
         for index in range(self.Main.model_database_weblinks.rowCount()):
             links = self.Main.model_database_weblinks.data(self.Main.model_database_weblinks.index(index, 0))
-            web_link = links.split("/")[2]
-            menu_dict[web_link] = functools.partial(scraper_function, links)            
+            web_link = links.split("/")[2] 
+            menu_dict[web_link] = (icon, functools.partial(scraper_function, links))           
         return menu_dict
 
 
@@ -308,14 +333,16 @@ class ContextMenu(QMenu):
     def showContextMenu_in_performer_search(self, pos: int) -> None: # tblWdg_performer
         action_header: QAction = self.set_header_on_contextmenu("Tabelle Performer Suche") 
         menu_dict: dict = {
-            "Zeile/Namen hinzufügen": ("name_hinzufuegen.png", lambda: PerformerAddDel(self, self.Main) if not self.dialog_shown else None),
+            "Zeile/Namen hinzufügen": ("name_hinzufuegen.png", lambda: PerformerAddDel(self, Main=self.Main) if not self.dialog_shown else None),
             "Zeile/Namen löschen": ("name_loeschen.png", self.delete_performer),
-            "Zeile/Namen zusammenfügen/mergen mit ID": ("merge_person.png", lambda: PerformerAddDel(self, "merge", self.Main) if not self.dialog_shown else None) }
+            "Zeile/Namen zusammenfügen/mergen mit ID": ("merge_person.png", lambda: PerformerAddDel(self, menu="merge", Main=self.Main) if not self.dialog_shown else None) }
         self.show_context_menu(pos, action_header, menu_dict)
 #### ----------- Aktionen in dem 'Menu: Performer Tabelle' ------------------------------------- #####
 #### ------------------------------------------------------------------------------------------- #####
     ### ------------------------ Zeile/Name hinzufügen ----------------------------- ###
     def perfomer_add_resultsignal(self, name: str, ordner: str, sex: int):
+        self.context_menu.close()
+        del self.context_menu
         datenbank_darsteller = DB_Darsteller(MainWindow=self.Main)
         performer_data={"Name": name,
                         "Ordner": ordner,
@@ -342,8 +369,11 @@ class ContextMenu(QMenu):
                 StatusBar(self.Main,"Fehler beim Datensatz adden: 'Verschiedene Ordner angeben !'","#FF0000")
         QTimer.singleShot(1000, lambda :self.Main.statusBar.setStyleSheet('background-color:')) 
 
+
     ### ------------------------ Zeile/Namen löschen ------------------------------------------------ ###
     def delete_performer(self):
+        self.context_menu.close()
+        del self.context_menu
         datenbank_darsteller=DB_Darsteller(MainWindow=self.Main)
         artist_id = self.Main.tblWdg_performer.selectedItems()[0].text()
         is_delete = datenbank_darsteller.delete_performer_dataset(artist_id)
@@ -361,6 +391,8 @@ class ContextMenu(QMenu):
     
     ### ----------------------- Zeile/Namen zusammenfügen / Mergen mit ID --------------------------- ###
     def merge_performer_resultsignal(self, first_artist_id, artist_id):
+        self.context_menu.close()
+        del self.context_menu
         datenbank_darsteller = DB_Darsteller(self.Main) 
         performer_infos_maske = PerformerInfosMaske(self.Main) 
         message: str="" 
@@ -407,7 +439,7 @@ class ContextMenu(QMenu):
         else:
             message += f"{self.delete_artist_id(artist_id, datenbank_darsteller)}" if self.delete_artist_id(artist_id, datenbank_darsteller) else ""
             MsgBox(self, f"<table border='1'><tr><th>  Performer Link Tabelle  </th></tr><tr><td>Keine Einträge in der Performer Link Tabelle</td></tr>{message}</table>","i")
-
+        
     def delete_old_artist_id(self, artist_id: int, datenbank_darsteller) -> str:
         datenbank_darsteller.delete_performer_dataset(artist_id)
         items = self.Main.tblWdg_performer.findItems(str(artist_id), Qt.MatchFlag.MatchExactly)
@@ -498,7 +530,7 @@ class ContextMenu(QMenu):
         new_ids = set(ids_2) - set(ids_1)
         updated_ids = set(ids_2) - new_ids
         return list(new_ids), list(updated_ids) 
-
+### ------------------------------------------------------------------------------------ ###
                      
     def showContextMenu_in_Files(self, pos: int) -> None: 
         action_header: QAction = self.set_header_on_contextmenu("Datei Aktionen") 
@@ -512,21 +544,48 @@ class ContextMenu(QMenu):
 ### ------------------------------------------------------------------------------------ ###
 ### ------------------------------- Datei Verarbeitung --------------------------------- ###
 ### ------------------------------------------------------------------------------------ ###
+    ### ------------------------------- Datei löschen im ContextMenu ------------------------------ ###
     def file_delete(self):
-        self.DIA_Loeschen = uic.loadUi(LOESCH_DIALOG_UI)
-        self.DIA_Loeschen.lbl_DELDatei.setText(self.Main.tblWdg_files.selectedItems()[0].text())
-        self.DIA_Loeschen.Btn_OK_Abbruch.accepted.connect(self.Main.Datei_loeschen)
-        self.DIA_Loeschen.Btn_OK_Abbruch.rejected.connect(self.DIA_Loeschen.rejected)
-        self.DIA_Loeschen.exec()
+        self.qdialog_loeschen = uic.loadUi(LOESCH_DIALOG_UI)
+        self.qdialog_loeschen.lbl_DELDatei.setText(self.Main.tblWdg_files.selectedItems()[0].text())
+        self.qdialog_loeschen.Btn_OK_Abbruch.accepted.connect(self.datei_loeschen)
+        self.qdialog_loeschen.Btn_OK_Abbruch.rejected.connect(self.qdialog_loeschen.rejected)
+        self.qdialog_loeschen.exec()
+    
+    def datei_loeschen(self):
+        old_file=self.Main.tblWdg_files.selectedItems()[0].text()
+        dir=self.Main.lbl_Ordner.text()
+        Path(dir,old_file+".mp4").unlink()
+        StatusBar(self, f"gelöschte Dateiname: {old_file}","#efffb7")
+        zeile=self.Main.tblWdg_files.currentRow()-1
+        if zeile>=0:
+            self.Main.tblWdg_files.setCurrentCell(zeile, 0)
+            self.refresh_table()
+        else:
+            self.Main.tblWdg_files.clearContents()
+            self.Main.tblWdg_files.setRowCount(0)
+        self.qdialog_loeschen.hide()
 
     ### ------------------------------- Datei umbenennen im ContextMenu ------------------------------ ###
     def file_rename_from_table(self):
-        self.DIA_Rename = uic.loadUi(RENAME_DIALOG_UI)
-        self.DIA_Rename.lnEdit_Rename.setText(self.Main.tblWdg_files.selectedItems()[0].text())
-        self.DIA_Rename.Btn_OK_Abbruch.accepted.connect(self.Main.Datei_Rename)
-        self.DIA_Rename.Btn_OK_Abbruch.rejected.connect(self.DIA_Rename.rejected)
-        self.DIA_Rename.exec()
-        self.Main.tblWdg_files.update()  
+        self.qdialog_rename = uic.loadUi(RENAME_DIALOG_UI)
+        self.qdialog_rename.lnEdit_Rename.setText(self.Main.tblWdg_files.selectedItems()[0].text())
+        self.qdialog_rename.Btn_OK_Abbruch.accepted.connect(self.datei_rename)
+        self.qdialog_rename.Btn_OK_Abbruch.rejected.connect(self.qdialog_rename.rejected)
+        self.qdialog_rename.exec()          
+    
+    def datei_rename(self):
+        old_file=self.Main.tblWdg_files.selectedItems()[0].text()+".mp4"
+        new_file=self.qdialog_rename.lnEdit_Rename.text()+".mp4"
+        self.Main.lbl_Dateiname.setText(new_file)
+        dir=self.Main.lbl_Ordner.text()
+
+        errview=self.Main.file_rename(dir,old_file,new_file)
+        if errview=="":
+            StatusBar(self, f"Datei in {new_file} umbennant","#efffb7")
+            self.Info_Datei_Laden(True)            
+            self.Main.tblWdg_files.update()
+        self.qdialog_rename.close()
     
     ### ----------------------------------- VLC starten im ContextMenu ------------------------------- ### 
     def play_vlc(self):
@@ -601,20 +660,24 @@ class ContextMenu(QMenu):
         else:
             websides.check_loading_labelshow("")
             synopsis: str = None            
-            video_updater = VideoUpdater(self)        
+            video_updater = VideoUpdater(self.Main)        
             db_website_settings = Webside_Settings(MainWindow=self.Main)
             settings_data = SettingsData()
 
+            message=None
             baselink="/".join(link.split("/")[:3])+"/"
-            errorview, settings_data = db_website_settings.get_videodatas_from_baselink(baselink)
-            if not errorview:            
-                studio=settings_data.get_data()["Name"]
-                errorview, content, driver = video_updater.open_url_webside(link, settings_data.get_data()["Click"])
-                synopsis = video_updater.hole_beschreibung_xpath_settings(errorview, content, driver)
+            errview, settings_data = db_website_settings.get_videodatas_from_baselink(baselink)
+            if not errview:                
+                errview, content, driver = video_updater.open_url_no_javascript(link, settings_data.get_data()["Click"])
+                if not errview:
+                    synopsis = video_updater.hole_beschreibung_xpath_settings(content, driver, link)
+                else: 
+                    message=f"beim Scrapen von Videobeschreibung ist dieser Fehler: {errview}"
                 if synopsis:
                     websides.set_daten_with_tooltip("txtEdit_DB", "Synopsis", baselink, synopsis)
             else:
-                MsgBox(self.Main, f"beim scrape von Videobeschreibung ist dieser Fehler: {errorview}","w")
+                message=f"beim Scrapen von Videobeschreibung ist dieser Fehler: {errview}"
+                MsgBox(self.Main, message,"w")
             websides.check_loaded_labelshow("")
 
     def scrap_movies(self, link: str) -> None:        

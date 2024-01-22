@@ -18,7 +18,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>erotisch.ico</normaloff>erotisch.ico</iconset>
+    <normaloff>C:/Users/Nutzer/.designer/backup/erotisch.ico</normaloff>C:/Users/Nutzer/.designer/backup/erotisch.ico</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTabWidget" name="tabs">
@@ -59,6 +59,12 @@ border-radius: 5px;}</string>
     </property>
     <property name="currentIndex">
      <number>3</number>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>25</width>
+      <height>25</height>
+     </size>
     </property>
     <widget class="QWidget" name="tab_info">
      <property name="focusPolicy">
@@ -3078,13 +3084,13 @@ border: 1px solid grey;border-radius: 5px;}</string>
        <rect>
         <x>20</x>
         <y>110</y>
-        <width>191</width>
+        <width>431</width>
         <height>22</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_9">
        <item>
-        <widget class="QLabel" name="lblperformer_sex_2">
+        <widget class="QLabel" name="lblperformer_rasse">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
            <horstretch>0</horstretch>
@@ -3097,63 +3103,16 @@ border: 1px solid grey;border-radius: 5px;}</string>
         </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="cBox_performer_rasse">
+        <widget class="CustomComboBoxCheck" name="cBox_performer_rasse">
          <property name="minimumSize">
           <size>
            <width>100</width>
            <height>0</height>
           </size>
          </property>
-         <item>
-          <property name="text">
-           <string/>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Kaukasien</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Asiatisch</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Schwarz</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Latin</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Ethnisch</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Südasiatisch</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Kaukasien/Latina</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Kaukasien/Indianer</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Kaukasien/Asiatisch/Latina/Indianer</string>
-          </property>
-         </item>
+         <property name="editable">
+          <bool>false</bool>
+         </property>
         </widget>
        </item>
       </layout>
@@ -3161,8 +3120,8 @@ border: 1px solid grey;border-radius: 5px;}</string>
      <widget class="QWidget" name="layoutWidget_4">
       <property name="geometry">
        <rect>
-        <x>220</x>
-        <y>110</y>
+        <x>260</x>
+        <y>80</y>
         <width>190</width>
         <height>22</height>
        </rect>
@@ -3205,216 +3164,13 @@ color: rgb(213, 213, 213);}
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="layoutWidget_5">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>140</y>
-        <width>391</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_11">
-       <item>
-        <widget class="QLabel" name="lblperformer_nation">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>Nation:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QComboBox" name="cBox_performer_nation">
-         <property name="minimumSize">
-          <size>
-           <width>300</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>400</width>
-           <height>16777215</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="layoutWidget_6">
-      <property name="geometry">
-       <rect>
-        <x>710</x>
-        <y>170</y>
-        <width>211</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_12">
-       <item>
-        <widget class="QLabel" name="lblperformer_gewicht">
-         <property name="minimumSize">
-          <size>
-           <width>40</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>40</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Gewicht</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="lnEdit_performer_gewicht">
-         <property name="minimumSize">
-          <size>
-           <width>40</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>40</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="contextMenuPolicy">
-          <enum>Qt::CustomContextMenu</enum>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLineEdit,QTextEdit { 
-background-color: #FFFDD5;}
-QLineEdit:hover,QTextEdit:hover {
-border: 2px solid rgb(49, 50, 62);}
-QLineEdit:focus,QTextEdit:focus {
-border: 2px inset rgb(85, 170, 255);}
-QLineEdit::placeholderText { 
-color: rgb(213, 213, 213);}
-
-
-
-
-</string>
-         </property>
-         <property name="inputMask">
-          <string>999</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="placeholderText">
-          <string notr="true">0</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="lbl_kg">
-         <property name="text">
-          <string>kg</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="layoutWidget_7">
-      <property name="geometry">
-       <rect>
-        <x>710</x>
-        <y>140</y>
-        <width>190</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_13">
-       <item>
-        <widget class="QLabel" name="lblperformer_groesse">
-         <property name="minimumSize">
-          <size>
-           <width>40</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>40</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Größe</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="lnEdit_performer_groesse">
-         <property name="minimumSize">
-          <size>
-           <width>40</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>40</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="contextMenuPolicy">
-          <enum>Qt::CustomContextMenu</enum>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLineEdit,QTextEdit { 
-background-color: #FFFDD5;}
-QLineEdit:hover,QTextEdit:hover {
-border: 2px solid rgb(49, 50, 62);}
-QLineEdit:focus,QTextEdit:focus {
-border: 2px inset rgb(85, 170, 255);}
-QLineEdit::placeholderText { 
-color: rgb(213, 213, 213);}
-
-
-
-
-</string>
-         </property>
-         <property name="inputMask">
-          <string>999</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="placeholderText">
-          <string notr="true">0</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="lbl_kg_2">
-         <property name="text">
-          <string>cm</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
      <widget class="QTextEdit" name="txtEdit_performer_piercing">
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>220</y>
-        <width>371</width>
-        <height>61</height>
+        <y>230</y>
+        <width>430</width>
+        <height>60</height>
        </rect>
       </property>
       <property name="contextMenuPolicy">
@@ -3439,9 +3195,9 @@ QToolTip {min-width: 350px;}</string>
      <widget class="QGroupBox" name="gBox_piercing">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>199</y>
-        <width>391</width>
+        <x>30</x>
+        <y>210</y>
+        <width>431</width>
         <height>81</height>
        </rect>
       </property>
@@ -3452,10 +3208,10 @@ QToolTip {min-width: 350px;}</string>
      <widget class="QTextEdit" name="txtEdit_performer_tattoo">
       <property name="geometry">
        <rect>
-        <x>430</x>
-        <y>221</y>
-        <width>371</width>
-        <height>61</height>
+        <x>470</x>
+        <y>230</y>
+        <width>430</width>
+        <height>60</height>
        </rect>
       </property>
       <property name="contextMenuPolicy">
@@ -3480,9 +3236,9 @@ QToolTip {min-width: 350px;}</string>
      <widget class="QGroupBox" name="gBox_tattoo">
       <property name="geometry">
        <rect>
-        <x>420</x>
-        <y>200</y>
-        <width>391</width>
+        <x>469</x>
+        <y>210</y>
+        <width>431</width>
         <height>81</height>
        </rect>
       </property>
@@ -3586,66 +3342,16 @@ color: rgb(213, 213, 213);}
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QLabel" name="lbl_checkWeb_BabePedia_artistURL">
-      <property name="geometry">
-       <rect>
-        <x>879</x>
-        <y>330</y>
-        <width>21</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: #FFFDD5;</string>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::Box</enum>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="scaledContents">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="lnEdit_DBBioWebsite_artistLink">
-      <property name="geometry">
-       <rect>
-        <x>157</x>
-        <y>330</y>
-        <width>561</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QLineEdit,QTextEdit { 
-background-color: #FFFDD5;}
-QLineEdit:hover,QTextEdit:hover {
-border: 2px solid rgb(49, 50, 62);}
-QLineEdit:focus,QTextEdit:focus {
-border: 2px inset rgb(85, 170, 255);}
-QLineEdit::placeholderText { 
-color: rgb(213, 213, 213);}
-
-
-
-
-</string>
-      </property>
-      <property name="placeholderText">
-       <string>kein Eintrag</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="Btn_performer_in_BabePedia">
+     <widget class="CustomButton" name="Btn_performer_in_BabePedia">
       <property name="enabled">
        <bool>false</bool>
       </property>
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>60</x>
         <y>330</y>
-        <width>121</width>
-        <height>23</height>
+        <width>50</width>
+        <height>25</height>
        </rect>
       </property>
       <property name="font">
@@ -3658,31 +3364,26 @@ color: rgb(213, 213, 213);}
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">QPushButton { 
-	color: rgb(0, 0, 127);
-	selection-background-color: rgb(255, 85, 0);
-	background-color: rgb(198, 178, 255);
-	border-style: outset;
-	border-width: 2px;
-	font:8pt &quot;MS Shell Dlg 2&quot;;
-	border-radius: 5px;
-	border-color: beige;
-}                   
-QPushButton:enabled{
-	background-color: rgb(198, 178, 255);
-}                           
-QPushButton:pressed{ 
-	background: red;
-}                            
-QPushButton:disabled{                             
-	background-color: gray;                
-}
-QPushButton:hover{
-	background-color: rgb(255, 85, 255);
-}   </string>
+       <string notr="true"/>
       </property>
       <property name="text">
-       <string>Suche in Bio Websides</string>
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../resource_collection_files/buttons.qrc">
+        <normaloff>:/Buttons/_buttons/performer_biosites/babepedia.png</normaloff>:/Buttons/_buttons/performer_biosites/babepedia.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>50</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
       </property>
      </widget>
      <widget class="QWidget" name="layoutWidget_8">
@@ -3779,80 +3480,6 @@ color: rgb(213, 213, 213);}
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="layoutWidget_10">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>170</y>
-        <width>391</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_16">
-       <property name="spacing">
-        <number>0</number>
-       </property>
-       <item>
-        <widget class="QLabel" name="lblonlyfans">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>65</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>65</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Social Media:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QComboBox" name="cBox_performer_fanside">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>100</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>400</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="editable">
-          <bool>true</bool>
-         </property>
-         <property name="currentText">
-          <string/>
-         </property>
-         <property name="currentIndex">
-          <number>-1</number>
-         </property>
-         <property name="insertPolicy">
-          <enum>QComboBox::InsertAfterCurrent</enum>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
      <widget class="QTableWidget" name="tblWdg_performer_links">
       <property name="geometry">
        <rect>
@@ -3941,62 +3568,7 @@ color: rgb(213, 213, 213);}
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>80</y>
-        <width>191</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_7">
-       <item>
-        <widget class="QLabel" name="lblperformer_sex">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>Geschlecht:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QComboBox" name="cBox_performer_sex">
-         <property name="minimumSize">
-          <size>
-           <width>100</width>
-           <height>0</height>
-          </size>
-         </property>
-         <item>
-          <property name="text">
-           <string/>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>weiblich</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>männlich</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>transsexuell</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="layoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>220</x>
+        <x>60</x>
         <y>80</y>
         <width>190</width>
         <height>22</height>
@@ -4260,126 +3832,6 @@ QPushButton:hover{
       </property>
       <property name="text">
        <string/>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="Btn_onlyfans_delitem">
-      <property name="geometry">
-       <rect>
-        <x>415</x>
-        <y>168</y>
-        <width>30</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="toolTip">
-       <string>Löscht ein Eintrag in der Combobox</string>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton { 
-	color: rgb(0, 0, 127);
-	selection-background-color: rgb(255, 85, 0);
-	background-color: rgb(198, 178, 255);
-	border-style: outset;
-	border-width: 2px;
-	font: 18pt &quot;MS Shell Dlg 2&quot;;
-	border-radius: 5px;
-	border-color: beige;
-}                   
-QPushButton:enabled{
-	background-color: rgb(198, 178, 255);
-}                           
-QPushButton:pressed{ 
-	background: red;
-}                            
-QPushButton:disabled{                             
-	background-color: gray;                
-}
-QPushButton:hover{
-	background-color: rgb(255, 85, 255);
-}   </string>
-      </property>
-      <property name="text">
-       <string>-</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="Btn_delete_nation_item">
-      <property name="geometry">
-       <rect>
-        <x>415</x>
-        <y>138</y>
-        <width>30</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="toolTip">
-       <string>Löscht ein Eintrag in der Combobox</string>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton { 
-	color: rgb(0, 0, 127);
-	selection-background-color: rgb(255, 85, 0);
-	background-color: rgb(198, 178, 255);
-	border-style: outset;
-	border-width: 2px;
-	font: 18pt &quot;MS Shell Dlg 2&quot;;
-	border-radius: 5px;
-	border-color: beige;
-}                   
-QPushButton:enabled{
-	background-color: rgb(198, 178, 255);
-}                           
-QPushButton:pressed{ 
-	background: red;
-}                            
-QPushButton:disabled{                             
-	background-color: gray;                
-}
-QPushButton:hover{
-	background-color: rgb(255, 85, 255);
-}   </string>
-      </property>
-      <property name="text">
-       <string>-</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="Btn_onlyfans_additem">
-      <property name="geometry">
-       <rect>
-        <x>445</x>
-        <y>168</y>
-        <width>30</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="toolTip">
-       <string>Addet ein Eintrag in der Combobox</string>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton { 
-	color: rgb(0, 0, 127);
-	selection-background-color: rgb(255, 85, 0);
-	background-color: rgb(198, 178, 255);
-	border-style: outset;
-	border-width: 2px;
-	font: 18pt &quot;MS Shell Dlg 2&quot;;
-	border-radius: 5px;
-	border-color: beige;
-}                   
-QPushButton:enabled{
-	background-color: rgb(198, 178, 255);
-}                           
-QPushButton:pressed{ 
-	background: red;
-}                            
-QPushButton:disabled{                             
-	background-color: gray;                
-}
-QPushButton:hover{
-	background-color: rgb(255, 85, 255);
-}   </string>
-      </property>
-      <property name="text">
-       <string>+</string>
       </property>
      </widget>
      <widget class="QCheckBox" name="chkBox_get_autom_iafd">
@@ -4674,7 +4126,7 @@ QPushButton:hover{
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="perfomer_image">
        <widget class="QPushButton" name="Btn_stacked_info_next_1">
@@ -4906,6 +4358,11 @@ QPushButton:hover{
           <height>281</height>
          </rect>
         </property>
+        <property name="font">
+         <font>
+          <family>Arial Unicode MS</family>
+         </font>
+        </property>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(255, 250, 211)</string>
         </property>
@@ -4978,6 +4435,1253 @@ QPushButton:hover{
        </widget>
       </widget>
      </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>711</x>
+        <y>141</y>
+        <width>107</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_12">
+       <item>
+        <widget class="QLabel" name="lblperformer_groesse">
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>40</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Größe</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lnEdit_performer_groesse">
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>40</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="contextMenuPolicy">
+          <enum>Qt::CustomContextMenu</enum>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLineEdit,QTextEdit { 
+background-color: #FFFDD5;}
+QLineEdit:hover,QTextEdit:hover {
+border: 2px solid rgb(49, 50, 62);}
+QLineEdit:focus,QTextEdit:focus {
+border: 2px inset rgb(85, 170, 255);}
+QLineEdit::placeholderText { 
+color: rgb(213, 213, 213);}
+
+
+
+
+</string>
+         </property>
+         <property name="inputMask">
+          <string>999</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="placeholderText">
+          <string notr="true">0</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lbl_kg_2">
+         <property name="text">
+          <string>cm</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>711</x>
+        <y>171</y>
+        <width>105</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_13">
+       <item>
+        <widget class="QLabel" name="lblperformer_gewicht">
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>40</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Gewicht</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lnEdit_performer_gewicht">
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>40</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="contextMenuPolicy">
+          <enum>Qt::CustomContextMenu</enum>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLineEdit,QTextEdit { 
+background-color: #FFFDD5;}
+QLineEdit:hover,QTextEdit:hover {
+border: 2px solid rgb(49, 50, 62);}
+QLineEdit:focus,QTextEdit:focus {
+border: 2px inset rgb(85, 170, 255);}
+QLineEdit::placeholderText { 
+color: rgb(213, 213, 213);}
+
+
+
+
+</string>
+         </property>
+         <property name="inputMask">
+          <string>999</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="placeholderText">
+          <string notr="true">0</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lbl_kg">
+         <property name="text">
+          <string>kg</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QPushButton" name="Btn_iafd_link_copy">
+      <property name="geometry">
+       <rect>
+        <x>698</x>
+        <y>300</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>kopiert den Link in die Ziwschenablage</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normalon>:/labels/_labels/copy_clip.png</normalon>
+       </iconset>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="CustomButton" name="Btn_performer_in_theporndb">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>330</y>
+        <width>50</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <pointsize>8</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../resource_collection_files/buttons.qrc">
+        <normaloff>:/Buttons/_buttons/performer_biosites/theporn_db.png</normaloff>:/Buttons/_buttons/performer_biosites/theporn_db.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>50</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="CustomButton" name="Btn_performer_in_indexxx">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>330</y>
+        <width>50</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <pointsize>8</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../resource_collection_files/buttons.qrc">
+        <normaloff>:/Buttons/_buttons/performer_biosites/indexxx.png</normaloff>:/Buttons/_buttons/performer_biosites/indexxx.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>50</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Btn_performers_gender">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>74</y>
+        <width>30</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>klicken, um Gender Auswahl zu treffen</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../resource_collection_files/buttons.qrc">
+        <normaloff>:/Buttons/_buttons/gender/person-weiblich.png</normaloff>:/Buttons/_buttons/gender/person-weiblich.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="CustomButton" name="Btn_performer_in_TheNude">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>330</y>
+        <width>50</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <pointsize>8</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../resource_collection_files/buttons.qrc">
+        <normaloff>:/Buttons/_buttons/performer_biosites/thenude.png</normaloff>:/Buttons/_buttons/performer_biosites/thenude.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>50</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="CustomButton" name="Btn_performer_in_TheOnes">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>300</x>
+        <y>330</y>
+        <width>50</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <pointsize>8</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../resource_collection_files/buttons.qrc">
+        <normaloff>:/Buttons/_buttons/performer_biosites/FreeOnes.png</normaloff>:/Buttons/_buttons/performer_biosites/FreeOnes.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>50</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>137</y>
+        <width>421</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="0,0,0,0,0,0,0,0,0">
+       <property name="sizeConstraint">
+        <enum>QLayout::SetMinimumSize</enum>
+       </property>
+       <item>
+        <widget class="QLabel" name="lnlnation">
+         <property name="minimumSize">
+          <size>
+           <width>65</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>65</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Nationalität:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="Btn_nations_edititem">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>1</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>25</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Editiere von Nationalität</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../resource_collection_files/buttons.qrc">
+           <normaloff>:/Buttons/_buttons/stift-25.png</normaloff>:/Buttons/_buttons/stift-25.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>25</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lbl_performer_nation_1">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>33</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>33</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="scaledContents">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lbl_performer_nation_2">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>33</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>33</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lbl_performer_nation_3">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>33</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>33</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lbl_performer_nation_4">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>33</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>33</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lbl_performer_nation_5">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>33</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>33</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lbl_performer_nation_6">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>33</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>33</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lbl_performer_nation_7">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>33</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>33</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QPushButton" name="Btn_performers_socialmedia_8">
+      <property name="geometry">
+       <rect>
+        <x>320</x>
+        <y>176</y>
+        <width>25</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="toolTip">
+       <string>klicken, um Gender Auswahl zu treffen</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../resource_collection_files/buttons.qrc">
+        <normaloff>:/Buttons/_buttons/socialmedia/fancentro-25.png</normaloff>:/Buttons/_buttons/socialmedia/fancentro-25.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Btn_social_media_edititem">
+      <property name="geometry">
+       <rect>
+        <x>94</x>
+        <y>176</y>
+        <width>25</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>1</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="toolTip">
+       <string>Editiere von Nationalität</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../resource_collection_files/buttons.qrc">
+        <normaloff>:/Buttons/_buttons/stift-25.png</normaloff>:/Buttons/_buttons/stift-25.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Btn_performers_socialmedia_9">
+      <property name="geometry">
+       <rect>
+        <x>350</x>
+        <y>176</y>
+        <width>25</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>25</width>
+        <height>21</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../resource_collection_files/buttons.qrc">
+        <normaloff>:/Buttons/_buttons/socialmedia/linktree-25.png</normaloff>:/Buttons/_buttons/socialmedia/linktree-25.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Btn_performers_socialmedia_10">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>176</y>
+        <width>25</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>25</width>
+        <height>21</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../resource_collection_files/buttons.qrc">
+        <normaloff>:/Buttons/_buttons/socialmedia/loyalfans-25.png</normaloff>:/Buttons/_buttons/socialmedia/loyalfans-25.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lblsocialmedia">
+      <property name="geometry">
+       <rect>
+        <x>24</x>
+        <y>176</y>
+        <width>70</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>70</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>70</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Social Media:</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Btn_biowebsite_edititem">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>330</y>
+        <width>25</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="toolTip">
+       <string>Adden, Löschen von Social Media Links</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../resource_collection_files/buttons.qrc">
+        <normaloff>:/Buttons/_buttons/stift-25.png</normaloff>:/Buttons/_buttons/stift-25.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Btn_performers_socialmedia_1">
+      <property name="geometry">
+       <rect>
+        <x>132</x>
+        <y>176</y>
+        <width>25</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="toolTip">
+       <string>klicken, um Gender Auswahl zu treffen</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../resource_collection_files/buttons.qrc">
+        <normaloff>:/Buttons/_buttons/socialmedia/twitter-25.png</normaloff>:/Buttons/_buttons/socialmedia/twitter-25.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Btn_performers_socialmedia_2">
+      <property name="geometry">
+       <rect>
+        <x>159</x>
+        <y>176</y>
+        <width>25</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="toolTip">
+       <string>klicken, um Gender Auswahl zu treffen</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../resource_collection_files/buttons.qrc">
+        <normaloff>:/Buttons/_buttons/socialmedia/onlyfans-25.png</normaloff>:/Buttons/_buttons/socialmedia/onlyfans-25.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Btn_performers_socialmedia_3">
+      <property name="geometry">
+       <rect>
+        <x>186</x>
+        <y>176</y>
+        <width>25</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="toolTip">
+       <string>klicken, um Gender Auswahl zu treffen</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../resource_collection_files/buttons.qrc">
+        <normaloff>:/Buttons/_buttons/socialmedia/instagram-25.png</normaloff>:/Buttons/_buttons/socialmedia/instagram-25.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Btn_performers_socialmedia_4">
+      <property name="geometry">
+       <rect>
+        <x>212</x>
+        <y>176</y>
+        <width>25</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="toolTip">
+       <string>klicken, um Gender Auswahl zu treffen</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../resource_collection_files/buttons.qrc">
+        <normaloff>:/Buttons/_buttons/socialmedia/facebook-25.png</normaloff>:/Buttons/_buttons/socialmedia/facebook-25.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Btn_performers_socialmedia_5">
+      <property name="geometry">
+       <rect>
+        <x>238</x>
+        <y>176</y>
+        <width>25</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="toolTip">
+       <string>klicken, um Gender Auswahl zu treffen</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../resource_collection_files/buttons.qrc">
+        <normaloff>:/Buttons/_buttons/socialmedia/tiktok-25.png</normaloff>:/Buttons/_buttons/socialmedia/tiktok-25.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Btn_performers_socialmedia_6">
+      <property name="geometry">
+       <rect>
+        <x>263</x>
+        <y>176</y>
+        <width>25</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="toolTip">
+       <string>klicken, um Gender Auswahl zu treffen</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../resource_collection_files/buttons.qrc">
+        <normaloff>:/Buttons/_buttons/socialmedia/www-25.png</normaloff>:/Buttons/_buttons/socialmedia/www-25.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Btn_performers_socialmedia_7">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>176</y>
+        <width>25</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../resource_collection_files/buttons.qrc">
+        <normaloff>:/Buttons/_buttons/socialmedia/twitch-25.png</normaloff>:/Buttons/_buttons/socialmedia/twitch-25.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+     </widget>
+     <zorder>lblsocialmedia</zorder>
+     <zorder>Btn_biowebsite_edititem</zorder>
+     <zorder>Btn_performers_socialmedia_1</zorder>
+     <zorder>Btn_performers_socialmedia_2</zorder>
+     <zorder>Btn_performers_socialmedia_3</zorder>
+     <zorder>Btn_performers_socialmedia_4</zorder>
+     <zorder>Btn_performers_socialmedia_5</zorder>
+     <zorder>Btn_performers_socialmedia_6</zorder>
+     <zorder>Btn_performers_socialmedia_7</zorder>
+     <zorder>layoutWidget</zorder>
+     <zorder>layoutWidget</zorder>
      <zorder>stacked_image_infos</zorder>
      <zorder>stacked_webdb_images</zorder>
      <zorder>layoutWidget</zorder>
@@ -4988,32 +5692,33 @@ QPushButton:hover{
      <zorder>grpBox_performer</zorder>
      <zorder>layoutWidget_3</zorder>
      <zorder>layoutWidget_4</zorder>
-     <zorder>layoutWidget_5</zorder>
-     <zorder>layoutWidget_6</zorder>
-     <zorder>layoutWidget_7</zorder>
      <zorder>txtEdit_performer_tattoo</zorder>
      <zorder>Btn_Linksuche_in_IAFD_artist</zorder>
      <zorder>lnEdit_DBIAFD_artistLink</zorder>
      <zorder>lbl_checkWeb_IAFD_artistURL</zorder>
-     <zorder>lbl_checkWeb_BabePedia_artistURL</zorder>
-     <zorder>lnEdit_DBBioWebsite_artistLink</zorder>
      <zorder>Btn_performer_in_BabePedia</zorder>
      <zorder>layoutWidget_8</zorder>
      <zorder>layoutWidget_9</zorder>
-     <zorder>layoutWidget_10</zorder>
      <zorder>tblWdg_performer_links</zorder>
      <zorder>layoutWidget_11</zorder>
      <zorder>layoutWidget_12</zorder>
      <zorder>layoutWidget_13</zorder>
      <zorder>Btn_DBArtist_Update</zorder>
      <zorder>Btn_table_links_expanding</zorder>
-     <zorder>Btn_onlyfans_delitem</zorder>
-     <zorder>Btn_delete_nation_item</zorder>
-     <zorder>Btn_onlyfans_additem</zorder>
      <zorder>chkBox_get_autom_iafd</zorder>
      <zorder>grpBox_performer_2</zorder>
      <zorder>lnEdit_IAFD_artistAlias</zorder>
      <zorder>chkBox_iafd_enabled</zorder>
+     <zorder>Btn_iafd_link_copy</zorder>
+     <zorder>Btn_performer_in_theporndb</zorder>
+     <zorder>Btn_performer_in_indexxx</zorder>
+     <zorder>Btn_performers_gender</zorder>
+     <zorder>Btn_performer_in_TheNude</zorder>
+     <zorder>Btn_performer_in_TheOnes</zorder>
+     <zorder>Btn_performers_socialmedia_8</zorder>
+     <zorder>Btn_social_media_edititem</zorder>
+     <zorder>Btn_performers_socialmedia_9</zorder>
+     <zorder>Btn_performers_socialmedia_10</zorder>
     </widget>
    </widget>
    <widget class="QPushButton" name="Btn_Refresh">
@@ -6720,7 +7425,7 @@ QPushButton:hover{
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="page_table_files">
      <widget class="QTableWidget" name="tblWdg_files">
@@ -6779,29 +7484,6 @@ border: 1px solid grey;border-radius: 5px;
       <attribute name="verticalHeaderShowSortIndicator" stdset="0">
        <bool>true</bool>
       </attribute>
-      <column>
-       <property name="text">
-        <string>Dateiname</string>
-       </property>
-       <property name="textAlignment">
-        <set>AlignLeading|AlignTop</set>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Größe</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Änderungsdatum</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Typ</string>
-       </property>
-      </column>
      </widget>
     </widget>
     <widget class="QWidget" name="page_table_daten">
@@ -7041,6 +7723,16 @@ border: 1px solid grey;border-radius: 5px;
    <class>CustomLineEdit_double</class>
    <extends>QLineEdit</extends>
    <header location="global">gui.custom_lnEdit_IAFD_artistalias</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomButton</class>
+   <extends>QPushButton</extends>
+   <header location="global">gui.custom_Btn_website_bio</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomComboBoxCheck</class>
+   <extends>QComboBox</extends>
+   <header location="global">gui.custom_cBox_check</header>
   </customwidget>
  </customwidgets>
  <resources>

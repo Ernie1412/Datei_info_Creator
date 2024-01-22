@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="gui/resource_collection_files/Logos">
+    <file>_labels/nations/creole.png</file>
     <file>../../grafics/DigitalPlayground/DigitalPlayground_90x40.png</file>
     <file>../../grafics/DigitalPlayground/DigitalPlayground_160x60.png</file>
     <file>../../grafics/BlackInWhite/BlackInWhite_90x40.jpg</file>
@@ -88,8 +89,6 @@
     <file>../../grafics/FullpornNetwork/FullpornNetwork_90x40.png</file>
     <file>../../grafics/FullpornNetwork/FullpornNetwork_160x60.png</file>
     <file>../../grafics/FamilyXXX/FamilyXXX_160x60.jpg</file>
-    <file>../../grafics/no-logo_160x60.jpg</file>
-    <file>../../grafics/no-logo_90x40.jpg</file>
     <file>../../grafics/NewSensations/NewSensations_90x40.jpg</file>
     <file>../../grafics/NewSensations/NewSensations_160x60.jpg</file>
     <file>../../grafics/NannySpy/NannySpy_90x40.png</file>

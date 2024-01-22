@@ -1,6 +1,32 @@
 <RCC>
   <qresource prefix="Buttons">
+    <file>_buttons/socialmedia/loyalfans-25.png</file>
+    <file>_buttons/socialmedia/linktree-25.png</file>
+    <file>_buttons/socialmedia/fancentro-25.png</file>
+    <file>_buttons/socialmedia/twitch-25.png</file>
+    <file>_buttons/stift-25.png</file>
+    <file>_buttons/delete-25.png</file>
+    <file>_buttons/adden-25.png</file>
+    <file>_buttons/ok.png</file>
+    <file>_buttons/fenster-schließen.png</file>
     <file>_buttons/no-logo_90x40.jpg</file>
+    <file>_buttons/gender/maennlich-75.png</file>
+    <file>_buttons/gender/person-maennlich.png</file>
+    <file>_buttons/gender/person-trans.png</file>
+    <file>_buttons/gender/person-weiblich.png</file>
+    <file>_buttons/gender/transgender-75.png</file>
+    <file>_buttons/gender/weiblich-75.png</file>
+    <file>_buttons/performer_biosites/babepedia.png</file>
+    <file>_buttons/performer_biosites/FreeOnes.png</file>
+    <file>_buttons/performer_biosites/indexxx.png</file>
+    <file>_buttons/performer_biosites/thenude.png</file>
+    <file>_buttons/performer_biosites/theporn_db.png</file>
     <file>_buttons/no-logo_160x60.jpg</file>
+    <file>_buttons/socialmedia/facebook-25.png</file>
+    <file>_buttons/socialmedia/instagram-25.png</file>
+    <file>_buttons/socialmedia/onlyfans-25.png</file>
+    <file>_buttons/socialmedia/tiktok-25.png</file>
+    <file>_buttons/socialmedia/twitter-25.png</file>
+    <file>_buttons/socialmedia/www-25.png</file>
   </qresource>
 </RCC>
