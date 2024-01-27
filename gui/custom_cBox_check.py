@@ -1,14 +1,16 @@
-from PyQt6.QtWidgets import QComboBox, QDialog
-from PyQt6.QtGui import QStandardItemModel, QStandardItem, QPixmap
-from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QComboBox
+from PyQt6.QtGui import QStandardItemModel, QStandardItem
+from PyQt6.QtCore import Qt, pyqtSignal
 
 import gui.resource_collection_files.labels_rc
 from utils.database_settings.database_for_darsteller import DB_Darsteller
 
 class CustomComboBoxCheck(QComboBox):
+    update_buttonChanged = pyqtSignal(bool)
     def __init__(self, parent):        
         super().__init__(parent)
-        self.widget = parent                
+        self.widget = parent 
+        
         self.setModel(QStandardItemModel(self))
         self.setEditable(True)
         self.view().pressed.connect(self.handleItemPressed) 
@@ -26,9 +28,10 @@ class CustomComboBoxCheck(QComboBox):
         self.setPlaceholderText(f"-- Wähle {self.type} --")
 
     def handleItemPressed(self, index):        
-        item = self.model().itemFromIndex(index)
+        item = self.model().itemFromIndex(index) 
+        self.update_buttonChanged.emit(True)              
         if item.checkState() == Qt.CheckState.Checked:
-            item.setCheckState(Qt.CheckState.Unchecked)                        
+            item.setCheckState(Qt.CheckState.Unchecked)                                    
         elif self.type == "Nation":
             if len(self.get_checked_items()) < self.max_labels:
                 item.setCheckState(Qt.CheckState.Checked)
@@ -72,13 +75,17 @@ class CustomComboBoxCheck(QComboBox):
     def clear_labels(self):
         for label_number in range(1,self.max_labels):
             label = getattr(self.widget, f"lbl_nation_{label_number}")
-            label.clear() 
+            label.setProperty("nation","")
+            label.setStyleSheet("")  
+            label.setToolTip("") 
 
     def set_text_icon_in_labels(self):        
         checked_items = self.get_checked_items()        
         for label_number, text in enumerate(checked_items,1):                       
-            label = getattr(self.widget, f"lbl_nation_{label_number}")            
-            label.setPixmap(self.get_icon(text))
+            label = getattr(self.widget, f"lbl_nation_{label_number}")
+            label.setProperty("nation",text)
+            icon_path = self.get_icon(text)            
+            label.setStyleSheet(f"QLabel {{ background-image: url({icon_path});}}")
             label.setToolTip(text)  
 
     def get_icon(self, text):        

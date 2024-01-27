@@ -14,22 +14,22 @@ class SocialMediaLink(QDialog):
         self.Main = parent 
         self.button = button
        
-        uic.loadUi(SOCIAL_MEDIA_LINK_UI, self)
+        uic.loadUi(SOCIAL_MEDIA_LINK_UI, self)        
+        self.accepted.connect(self.accepted_socialmedia_link) 
+        self.rejected.connect(self.close)       
+        self.Btn_socialmedia_del.clicked.connect(self.delete_socialmedia_link)
         icon, button_link=self.get_icon_text_from_main_window(button)
         self.lbl_socialmedia_icon.setPixmap(QPixmap(icon.pixmap(25, 25)))
         self.lnEdit_socialmedia_link.setText(button_link)
         standard_grey = self.Main.palette().color(self.Main.backgroundRole()).name()
         self.setStyleSheet(f""" QDialog {{border: 2px solid black; background-color: {standard_grey};}}""")              
-        self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
-        self.Btn_socialmedia_del.clicked.connect(self.delete_socialmedia_link)
-        self.accepted.connect(self.accepted_socialmedia_link)
-        self.rejected.connect(self.close) 
+        self.setWindowFlags(Qt.WindowType.FramelessWindowHint)                 
         self.exec()
 
     def accepted_socialmedia_link(self):
-        zahl=int(self.button)
-        social_media_link=self.lnEdit_socialmedia_link.text()
-        value=self.get_socialmedia_icon(social_media_link)
+        zahl = int(self.button)
+        social_media_link = self.lnEdit_socialmedia_link.text()
+        value = self.get_socialmedia_icon(social_media_link)
         self.Main.set_socialmedia_in_button(social_media_link, value, zahl)
         self.close()
 
@@ -62,8 +62,7 @@ class SocialMediaLink(QDialog):
     
     def get_icon_text_from_main_window(self, button): 
         button_name = getattr(self.Main,f"Btn_performers_socialmedia_{button}")
-        return button_name.icon(), button_name.toolTip()
-        
+        return button_name.icon(), button_name.toolTip()        
 
 if __name__ == '__main__':
     SocialMediaLink(QDialog)

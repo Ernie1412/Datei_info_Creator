@@ -1,7 +1,7 @@
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtCore import Qt
 
-from config import IAFD_INFOS_JSON_PATH, PROJECT_PATH
+from config import WEBINFOS_JSON_PATH, PROJECT_PATH
 from pathlib import Path
 
 from utils.database_settings.database_for_darsteller import DB_Darsteller
@@ -13,10 +13,15 @@ class ClearingWidget():
 
         #### ----- einiges Labels erstmal unsichtbar setzen ----- ####
     ##############################################################
-    def invisible_lbl_anzahl(self):
+    def invisible_movie_btn_anzahl(self):
         lbl_anzahl_db: list = ["SceneCode", "ProDate", "Release", "Regie", "Serie", "Dauer", "Movies", "Synopsis", "Tags"]        
         for anzahl in lbl_anzahl_db:
             getattr(self.Main, f"Btn_Anzahl_DB{anzahl}").setVisible(False)
+        
+    def invisible_performer_btn_anzahl(self):
+        performers_button_selections = ["hair", "eye", "birthplace", "birthday", "height", "boobs", "tattoo", "piercing", "body", "weight", "activ"]
+        for button_selection in performers_button_selections:
+            getattr(self.Main, f"Btn_{button_selection}_selection").setVisible(False)
     
     def invisible_any_labels(self):
         labels: list = ["SceneCode", "ProDate", "Regie", "_checkWeb_Data18URL", "_checkWeb_URL", "_checkWeb_IAFDURL"]
@@ -68,19 +73,42 @@ class ClearingWidget():
             if widget_obj:
                 widget_obj.setToolTip("")
                 break
+    
+    def performers_tab_widgets(self, type_of_widget: str) -> list:
+        widget_list=[]
+        iafd_artist = ["IAFD_artistAlias", "DBIAFD_artistLink"]
+        lineedits = ["hair", "eye", "birthplace", "birthday", "boobs", "body", "activ", "height", "weight"]
+        tooltips = ["sex", "rasse", "nation", "fanside"]
+        textedits = ["piercing", "tattoo"]
+        if "tooltip" in type_of_widget:
+            widget_list.append(tooltips + lineedits + textedits)
+        if "line_" in type_of_widget:
+            widget_list.append(lineedits)
+        if type_of_widget == "text":
+            widget_list.append(textedits)
+        if "performer" in type_of_widget:            
+            for lineedit in lineedits:
+                widget_list.append(f"performer_{lineedit}") 
+        if "lineprefix_perf" in type_of_widget:            
+            for lineedit in lineedits:
+                widget_list.append(f"lnEdit_performer_{lineedit}")
+        if "textprefix_perf" in type_of_widget:            
+            for textedit in textedits:
+                widget_list.append(f"txtEdit_performer_{textedit}")
+        if "lineiafd" in type_of_widget:
+            for artist in iafd_artist:
+                widget_list.append(f"lnEdit_{artist}") 
+        if "iafd_" in type_of_widget:
+            widget_list.append(iafd_artist)
+        return widget_list
 
     def clear_maske(self):                 
         elements_to_reset = [
-            (self.tooltip_claering, ["sex", "rasse", "nation", "fanside", "haar", "augen", "geburtsort", "geburtstag", "boobs",
-                                       "bodytyp", "aktiv", "groesse", "gewicht", "piercing", "tattoo"]),
+            (self.tooltip_claering, self.performers_tab_widgets("tooltip")),            
             (self.clear_label_and_tooltip, ["iafd_image", "babepedia_image", "link_image_from_db"]),
-            (self.clear_line_edit_and_tooltip, ["IAFD_artistAlias", "DBIAFD_artistLink", 
-                                "DBBioWebsite_artistLink", "performer_ordner", "performer_info",
-                                "performer_geburtstag", "performer_geburtsort", "performer_boobs", 
-                                "performer_gewicht", "performer_groesse", "performer_bodytyp", 
-                                "performer_haar", "performer_augen", "performer_aktiv"]),
+            (self.clear_line_edit_and_tooltip, self.performers_tab_widgets("performer_line")),
             (self.clear_combobox_and_list, ["performer_rasse"]),
-            (self.clear_text_edit, ["performer_piercing", "performer_tattoo"]),
+            (self.clear_text_edit, self.performers_tab_widgets("performer_text_iafd_")),
             (self.set_default_table, ["performer_links"]),
             (self.clear_nations, [1,2,3,4,5,6,7]),
             (self.clear_social_media, ["1","2","3","4","5","6","7","8","9","10"])    ]
@@ -91,7 +119,7 @@ class ClearingWidget():
                 else:
                     method(widget)
         self.Main.grpBox_performer.setTitle("Performer-Info für:")  
-        Path(IAFD_INFOS_JSON_PATH).unlink(missing_ok=True) 
+        Path(WEBINFOS_JSON_PATH).unlink(missing_ok=True) 
         Path(PROJECT_PATH / "iafd_performer.jpg").unlink(missing_ok=True) 
         self.Main.Btn_IAFD_perfomer_suche.setEnabled(False)
         self.Main.Btn_IAFD_perfomer_suche.setToolTip("Geschlecht auswählen !")  
@@ -184,8 +212,7 @@ class ClearingWidget():
         getattr(self.Main,f"{button}IAFD").setEnabled(bool(iafd.text()) and bolean)       
 
         self.Main.Btn_addDatei.setEnabled(bolean)
-        self.Main.Btn_DBUpdate.setEnabled(bolean)
-            
+        self.Main.Btn_DBUpdate.setEnabled(bolean)            
 
     def buttons_enabled(self, bolean: bool, buttons: list) -> None:        
         for info in buttons:
@@ -196,11 +223,7 @@ class ClearingWidget():
             bio_widgets=getattr(self.Main, f"Btn_performer_in_{widget}")
             bio_widgets.setEnabled(bolean)
             if not bolean:
-                bio_widgets.setToolTip("") 
-
-
-
-
+                bio_widgets.setToolTip("")
 
             
 # Abschluss

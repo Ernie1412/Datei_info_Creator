@@ -588,9 +588,8 @@ class Infos_WebSides():
 
     def set_daten_with_tooltip(self, widget_typ: str, art: str, quelle: str, daten: str, artist=False) -> None:
         tooltip_text = f"{quelle}: Kein Eintrag"
-        if daten:
-            anzahl = f"({len(daten)}) " if len(daten) > 30 else ""
-            tooltip_text = f"{quelle}: {anzahl}-> {daten[:40]}"
+        if daten:            
+            tooltip_text = f"{quelle}: {daten[:40]}"
             self.set_daten_in_maske(widget_typ, art, quelle, daten, artist) 
         self.set_tooltip_text(widget_typ, art, tooltip_text, quelle)      
 

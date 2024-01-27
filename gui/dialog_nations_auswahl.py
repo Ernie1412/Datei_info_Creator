@@ -38,15 +38,16 @@ class NationsAuswahl(QDialog):
         self.clear_all_nations_labels()
         checked_items = self.cBox_nations.get_checked_items()        
         for widget_number, text in enumerate(checked_items, 1):            
-            label = getattr(self.Main, f"lbl_performer_nation_{widget_number}")                        
-            label.setStyleSheet(f"background-image: {self.cBox_nations.get_icon(text)}")            
+            label = getattr(self.Main, f"lbl_performer_nation_{widget_number}") 
+            label.setProperty("nation",text)                       
+            label.setStyleSheet(f"QLabel {{background-image: url({self.cBox_nations.get_icon(text)});}}")            
             label.setToolTip(text) 
     
     def set_checked_nations(self):        
         for widget_number in range(1, self.max_labels):
-            nation = getattr(self.Main, f"lbl_performer_nation_{widget_number}").toolTip().split(": ")
-            if len(nation) > 1: 
-                index = self.cBox_nations.findText(nation[1])               
+            nation = getattr(self.Main, f"lbl_performer_nation_{widget_number}").property("nation")
+            if nation: 
+                index = self.cBox_nations.findText(nation)               
                 self.cBox_nations.setChecked(index)
 
     def clear_all_nations_labels(self) -> None:

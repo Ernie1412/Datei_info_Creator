@@ -10,13 +10,6 @@ class CustomComboBoxCheckIcon(QComboBox):
         self.view().pressed.connect(self.handleItemPressed)        
         self.addItems() 
         self.setEditable(True) 
-        self.lineEdit().installEventFilter(self)
-
-    def eventFilter(self, obj, event):
-        if obj is self.lineEdit():
-        # Ignorieren Sie das MouseButtonPress-Event, um das Klicken zu verhindern
-            print(event.type())
-        return super().eventFilter(obj, event)
 
     def addItems(self):
         for index, (item_text, icon_path) in enumerate(self.widgets.items_dict.items()):             
@@ -31,10 +24,11 @@ class CustomComboBoxCheckIcon(QComboBox):
             item.setCheckState(Qt.CheckState.Unchecked)
             self.clear_labels()            
         else:
-            if len(self.get_checked_items()) < self.widgets.max_labels-1:
+            item_count = len(self.get_checked_items())+1
+            if item_count <= self.widgets.max_labels:
                 item.setCheckState(Qt.CheckState.Checked)
             else:
-                self.setCurrentText("maximale Anzahl an Labels erreicht")
+                self.setCurrentText(f"maximale Anzahl an Labels erreicht ({item_count}>{self.widgets.max_labels})")
         self.set_text_icon_in_labels()
     
     def get_next_visible_label(self):
@@ -50,17 +44,8 @@ class CustomComboBoxCheckIcon(QComboBox):
             item = self.model().itemFromIndex(model_index)
             if item.checkState() == Qt.CheckState.Checked: 
                 checked_items.append((item.text(),self.itemIcon(model_index.row())))
-        return checked_items  
+        return checked_items 
     
-    def filterItems(self, text):
-        self.lineEdit().blockSignals(True)  # Blockiere das Signal
-        self.clear()
-        for item_text, icon_path in self.widgets.items_dict.items():
-            if item_text.lower().startswith(text.lower()):
-                icon_path = f":/Buttons/_buttons/{self.widgets.type}/{icon_path}-25.png"
-                self.addItem(QIcon(icon_path), item_text)
-        self.lineEdit().blockSignals(False)  # Aktiviere das Signal wieder
-
     def set_text_icon_in_labels(self):        
         checked_items = self.get_checked_items()        
         for label_number, (text, icon) in enumerate(checked_items,1):                       

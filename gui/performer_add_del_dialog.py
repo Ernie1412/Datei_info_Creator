@@ -9,7 +9,7 @@ from utils.database_settings.database_for_darsteller import DB_Darsteller, Video
 
 from config import ADD_PERFORMER_UI, ID_MERGE_PERFORMER_UI, ADD_NEW_PERFORMER_UI, ADD_NAMESLINK_PERFORMER_UI
 
-class PerformerAddDel(QDialog):
+class PerformerAddDel(QDialog):    
     def __init__(self, parent, menu=None, Main= None): # von wo es kommt: None = add name und ordner       
         super(PerformerAddDel,self).__init__(Main) 
         self.Main = Main

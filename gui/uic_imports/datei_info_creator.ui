@@ -3135,7 +3135,7 @@ border: 1px solid grey;border-radius: 5px;}</string>
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lnEdit_performer_augen">
+        <widget class="QLineEdit" name="lnEdit_performer_eye">
          <property name="contextMenuPolicy">
           <enum>Qt::CustomContextMenu</enum>
          </property>
@@ -3164,34 +3164,6 @@ color: rgb(213, 213, 213);}
        </item>
       </layout>
      </widget>
-     <widget class="QTextEdit" name="txtEdit_performer_piercing">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>230</y>
-        <width>430</width>
-        <height>60</height>
-       </rect>
-      </property>
-      <property name="contextMenuPolicy">
-       <enum>Qt::CustomContextMenu</enum>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QLineEdit,QTextEdit { 
-background-color: #FFFDD5;}
-QLineEdit:hover,QTextEdit:hover {
-border: 2px solid rgb(49, 50, 62);}
-QLineEdit:focus,QTextEdit:focus {
-border: 2px inset rgb(85, 170, 255);}
-QToolTip {min-width: 350px;}</string>
-      </property>
-      <property name="acceptRichText">
-       <bool>false</bool>
-      </property>
-      <property name="placeholderText">
-       <string>kein Eintrag</string>
-      </property>
-     </widget>
      <widget class="QGroupBox" name="gBox_piercing">
       <property name="geometry">
        <rect>
@@ -3204,34 +3176,75 @@ QToolTip {min-width: 350px;}</string>
       <property name="title">
        <string>  Piercing:</string>
       </property>
-     </widget>
-     <widget class="QTextEdit" name="txtEdit_performer_tattoo">
-      <property name="geometry">
-       <rect>
-        <x>470</x>
-        <y>230</y>
-        <width>430</width>
-        <height>60</height>
-       </rect>
-      </property>
-      <property name="contextMenuPolicy">
-       <enum>Qt::CustomContextMenu</enum>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QLineEdit,QTextEdit { 
+      <widget class="QPushButton" name="Btn_piercing_selection">
+       <property name="geometry">
+        <rect>
+         <x>415</x>
+         <y>10</y>
+         <width>16</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial Black</family>
+         <pointsize>10</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="toolTip">
+        <string>mehrere Eintrage bei Regieseur zur Auswahl</string>
+       </property>
+       <property name="whatsThis">
+        <string>Regie</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton { 
+	border-radius: 5px;
+	border: 1px solid rgb(49, 50, 62);
+	background-color: rgb(170, 255, 127);
+	color: rgb(255, 0, 0);
+}
+QPushButton:hover{
+	background-color: rgb(255, 0, 0);
+	color: rgb(170, 255, 127)
+}  </string>
+       </property>
+       <property name="text">
+        <string>1</string>
+       </property>
+      </widget>
+      <widget class="QTextEdit" name="txtEdit_performer_piercing">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>20</y>
+         <width>430</width>
+         <height>60</height>
+        </rect>
+       </property>
+       <property name="contextMenuPolicy">
+        <enum>Qt::CustomContextMenu</enum>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLineEdit,QTextEdit { 
 background-color: #FFFDD5;}
 QLineEdit:hover,QTextEdit:hover {
 border: 2px solid rgb(49, 50, 62);}
 QLineEdit:focus,QTextEdit:focus {
 border: 2px inset rgb(85, 170, 255);}
 QToolTip {min-width: 350px;}</string>
-      </property>
-      <property name="acceptRichText">
-       <bool>false</bool>
-      </property>
-      <property name="placeholderText">
-       <string>kein Eintrag</string>
-      </property>
+       </property>
+       <property name="acceptRichText">
+        <bool>false</bool>
+       </property>
+       <property name="placeholderText">
+        <string>kein Eintrag</string>
+       </property>
+      </widget>
+      <zorder>txtEdit_performer_piercing</zorder>
+      <zorder>Btn_piercing_selection</zorder>
      </widget>
      <widget class="QGroupBox" name="gBox_tattoo">
       <property name="geometry">
@@ -3245,6 +3258,75 @@ QToolTip {min-width: 350px;}</string>
       <property name="title">
        <string>Tattoo:</string>
       </property>
+      <widget class="QPushButton" name="Btn_tattoo_selection">
+       <property name="geometry">
+        <rect>
+         <x>415</x>
+         <y>10</y>
+         <width>16</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial Black</family>
+         <pointsize>10</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="toolTip">
+        <string>mehrere Eintrage bei Regieseur zur Auswahl</string>
+       </property>
+       <property name="whatsThis">
+        <string>Regie</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton { 
+	border-radius: 5px;
+	border: 1px solid rgb(49, 50, 62);
+	background-color: rgb(170, 255, 127);
+	color: rgb(255, 0, 0);
+}
+QPushButton:hover{
+	background-color: rgb(255, 0, 0);
+	color: rgb(170, 255, 127)
+}  </string>
+       </property>
+       <property name="text">
+        <string>1</string>
+       </property>
+      </widget>
+      <widget class="QTextEdit" name="txtEdit_performer_tattoo">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>20</y>
+         <width>430</width>
+         <height>60</height>
+        </rect>
+       </property>
+       <property name="contextMenuPolicy">
+        <enum>Qt::CustomContextMenu</enum>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLineEdit,QTextEdit { 
+background-color: #FFFDD5;}
+QLineEdit:hover,QTextEdit:hover {
+border: 2px solid rgb(49, 50, 62);}
+QLineEdit:focus,QTextEdit:focus {
+border: 2px inset rgb(85, 170, 255);}
+QToolTip {min-width: 350px;}</string>
+       </property>
+       <property name="acceptRichText">
+        <bool>false</bool>
+       </property>
+       <property name="placeholderText">
+        <string>kein Eintrag</string>
+       </property>
+      </widget>
+      <zorder>txtEdit_performer_tattoo</zorder>
+      <zorder>Btn_tattoo_selection</zorder>
      </widget>
      <widget class="QPushButton" name="Btn_Linksuche_in_IAFD_artist">
       <property name="enabled">
@@ -3404,7 +3486,7 @@ color: rgb(213, 213, 213);}
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lnEdit_performer_geburtsort">
+        <widget class="QLineEdit" name="lnEdit_performer_birthplace">
          <property name="contextMenuPolicy">
           <enum>Qt::CustomContextMenu</enum>
          </property>
@@ -3451,7 +3533,7 @@ color: rgb(213, 213, 213);}
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lnEdit_performer_geburtstag">
+        <widget class="QLineEdit" name="lnEdit_performer_birthday">
          <property name="contextMenuPolicy">
           <enum>Qt::CustomContextMenu</enum>
          </property>
@@ -3583,7 +3665,7 @@ color: rgb(213, 213, 213);}
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lnEdit_performer_haar">
+        <widget class="QLineEdit" name="lnEdit_performer_hair">
          <property name="contextMenuPolicy">
           <enum>Qt::CustomContextMenu</enum>
          </property>
@@ -3680,7 +3762,7 @@ color: rgb(213, 213, 213);}
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lnEdit_performer_bodytyp">
+        <widget class="QLineEdit" name="lnEdit_performer_body">
          <property name="contextMenuPolicy">
           <enum>Qt::CustomContextMenu</enum>
          </property>
@@ -3727,7 +3809,7 @@ color: rgb(213, 213, 213);}
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lnEdit_performer_aktiv">
+        <widget class="QLineEdit" name="lnEdit_performer_activ">
          <property name="contextMenuPolicy">
           <enum>Qt::CustomContextMenu</enum>
          </property>
@@ -4449,32 +4531,35 @@ QPushButton:hover{
         <widget class="QLabel" name="lblperformer_groesse">
          <property name="minimumSize">
           <size>
-           <width>40</width>
+           <width>45</width>
            <height>0</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>40</width>
+           <width>45</width>
            <height>16777215</height>
           </size>
          </property>
          <property name="text">
-          <string>Größe</string>
+          <string>Größe:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lnEdit_performer_groesse">
+        <widget class="QLineEdit" name="lnEdit_performer_height">
          <property name="minimumSize">
           <size>
-           <width>40</width>
+           <width>35</width>
            <height>0</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>40</width>
+           <width>35</width>
            <height>16777215</height>
           </size>
          </property>
@@ -4530,32 +4615,35 @@ color: rgb(213, 213, 213);}
         <widget class="QLabel" name="lblperformer_gewicht">
          <property name="minimumSize">
           <size>
-           <width>40</width>
+           <width>45</width>
            <height>0</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>40</width>
+           <width>45</width>
            <height>16777215</height>
           </size>
          </property>
          <property name="text">
-          <string>Gewicht</string>
+          <string>Gewicht:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lnEdit_performer_gewicht">
+        <widget class="QLineEdit" name="lnEdit_performer_weight">
          <property name="minimumSize">
           <size>
-           <width>40</width>
+           <width>35</width>
            <height>0</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>40</width>
+           <width>35</width>
            <height>16777215</height>
           </size>
          </property>
@@ -5671,6 +5759,359 @@ color: rgb(213, 213, 213);}
        </size>
       </property>
      </widget>
+     <widget class="QPushButton" name="Btn_hair_selection">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>70</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string>mehrere Eintrage bei Regieseur zur Auswahl</string>
+      </property>
+      <property name="whatsThis">
+       <string>Regie</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton { 
+	border-radius: 5px;
+	border: 1px solid rgb(49, 50, 62);
+	background-color: rgb(170, 255, 127);
+	color: rgb(255, 0, 0);
+}
+QPushButton:hover{
+	background-color: rgb(255, 0, 0);
+	color: rgb(170, 255, 127)
+}  </string>
+      </property>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Btn_eye_selection">
+      <property name="geometry">
+       <rect>
+        <x>440</x>
+        <y>70</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string>mehrere Eintrage bei Regieseur zur Auswahl</string>
+      </property>
+      <property name="whatsThis">
+       <string>Regie</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton { 
+	border-radius: 5px;
+	border: 1px solid rgb(49, 50, 62);
+	background-color: rgb(170, 255, 127);
+	color: rgb(255, 0, 0);
+}
+QPushButton:hover{
+	background-color: rgb(255, 0, 0);
+	color: rgb(170, 255, 127)
+}  </string>
+      </property>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Btn_birthplace_selection">
+      <property name="geometry">
+       <rect>
+        <x>780</x>
+        <y>70</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string>mehrere Eintrage bei Regieseur zur Auswahl</string>
+      </property>
+      <property name="whatsThis">
+       <string>Regie</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton { 
+	border-radius: 5px;
+	border: 1px solid rgb(49, 50, 62);
+	background-color: rgb(170, 255, 127);
+	color: rgb(255, 0, 0);
+}
+QPushButton:hover{
+	background-color: rgb(255, 0, 0);
+	color: rgb(170, 255, 127)
+}  </string>
+      </property>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Btn_birthday_selection">
+      <property name="geometry">
+       <rect>
+        <x>680</x>
+        <y>100</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string>mehrere Eintrage bei Regieseur zur Auswahl</string>
+      </property>
+      <property name="whatsThis">
+       <string>Regie</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton { 
+	border-radius: 5px;
+	border: 1px solid rgb(49, 50, 62);
+	background-color: rgb(170, 255, 127);
+	color: rgb(255, 0, 0);
+}
+QPushButton:hover{
+	background-color: rgb(255, 0, 0);
+	color: rgb(170, 255, 127)
+}  </string>
+      </property>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Btn_activ_selection">
+      <property name="geometry">
+       <rect>
+        <x>890</x>
+        <y>100</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string>mehrere Eintrage bei Regieseur zur Auswahl</string>
+      </property>
+      <property name="whatsThis">
+       <string>Regie</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton { 
+	border-radius: 5px;
+	border: 1px solid rgb(49, 50, 62);
+	background-color: rgb(170, 255, 127);
+	color: rgb(255, 0, 0);
+}
+QPushButton:hover{
+	background-color: rgb(255, 0, 0);
+	color: rgb(170, 255, 127)
+}  </string>
+      </property>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Btn_height_selection">
+      <property name="geometry">
+       <rect>
+        <x>810</x>
+        <y>130</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string>mehrere Eintrage bei Regieseur zur Auswahl</string>
+      </property>
+      <property name="whatsThis">
+       <string>Regie</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton { 
+	border-radius: 5px;
+	border: 1px solid rgb(49, 50, 62);
+	background-color: rgb(170, 255, 127);
+	color: rgb(255, 0, 0);
+}
+QPushButton:hover{
+	background-color: rgb(255, 0, 0);
+	color: rgb(170, 255, 127)
+}  </string>
+      </property>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Btn_boobs_selection">
+      <property name="geometry">
+       <rect>
+        <x>680</x>
+        <y>130</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string>mehrere Eintrage bei Regieseur zur Auswahl</string>
+      </property>
+      <property name="whatsThis">
+       <string>Regie</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton { 
+	border-radius: 5px;
+	border: 1px solid rgb(49, 50, 62);
+	background-color: rgb(170, 255, 127);
+	color: rgb(255, 0, 0);
+}
+QPushButton:hover{
+	background-color: rgb(255, 0, 0);
+	color: rgb(170, 255, 127)
+}  </string>
+      </property>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Btn_weight_selection">
+      <property name="geometry">
+       <rect>
+        <x>810</x>
+        <y>160</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string>mehrere Eintrage bei Regieseur zur Auswahl</string>
+      </property>
+      <property name="whatsThis">
+       <string>Regie</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton { 
+	border-radius: 5px;
+	border: 1px solid rgb(49, 50, 62);
+	background-color: rgb(170, 255, 127);
+	color: rgb(255, 0, 0);
+}
+QPushButton:hover{
+	background-color: rgb(255, 0, 0);
+	color: rgb(170, 255, 127)
+}  </string>
+      </property>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Btn_body_selection">
+      <property name="geometry">
+       <rect>
+        <x>680</x>
+        <y>160</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string>mehrere Eintrage bei Regieseur zur Auswahl</string>
+      </property>
+      <property name="whatsThis">
+       <string>Regie</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton { 
+	border-radius: 5px;
+	border: 1px solid rgb(49, 50, 62);
+	background-color: rgb(170, 255, 127);
+	color: rgb(255, 0, 0);
+}
+QPushButton:hover{
+	background-color: rgb(255, 0, 0);
+	color: rgb(170, 255, 127)
+}  </string>
+      </property>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </widget>
+     <zorder>gBox_tattoo</zorder>
+     <zorder>gBox_piercing</zorder>
      <zorder>lblsocialmedia</zorder>
      <zorder>Btn_biowebsite_edititem</zorder>
      <zorder>Btn_performers_socialmedia_1</zorder>
@@ -5686,13 +6127,9 @@ color: rgb(213, 213, 213);}
      <zorder>stacked_webdb_images</zorder>
      <zorder>layoutWidget</zorder>
      <zorder>layoutWidget</zorder>
-     <zorder>gBox_tattoo</zorder>
-     <zorder>gBox_piercing</zorder>
-     <zorder>txtEdit_performer_piercing</zorder>
      <zorder>grpBox_performer</zorder>
      <zorder>layoutWidget_3</zorder>
      <zorder>layoutWidget_4</zorder>
-     <zorder>txtEdit_performer_tattoo</zorder>
      <zorder>Btn_Linksuche_in_IAFD_artist</zorder>
      <zorder>lnEdit_DBIAFD_artistLink</zorder>
      <zorder>lbl_checkWeb_IAFD_artistURL</zorder>
@@ -5719,6 +6156,15 @@ color: rgb(213, 213, 213);}
      <zorder>Btn_social_media_edititem</zorder>
      <zorder>Btn_performers_socialmedia_9</zorder>
      <zorder>Btn_performers_socialmedia_10</zorder>
+     <zorder>Btn_hair_selection</zorder>
+     <zorder>Btn_eye_selection</zorder>
+     <zorder>Btn_birthplace_selection</zorder>
+     <zorder>Btn_birthday_selection</zorder>
+     <zorder>Btn_activ_selection</zorder>
+     <zorder>Btn_height_selection</zorder>
+     <zorder>Btn_boobs_selection</zorder>
+     <zorder>Btn_weight_selection</zorder>
+     <zorder>Btn_body_selection</zorder>
     </widget>
    </widget>
    <widget class="QPushButton" name="Btn_Refresh">
@@ -7425,7 +7871,7 @@ QPushButton:hover{
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="page_table_files">
      <widget class="QTableWidget" name="tblWdg_files">
@@ -7588,56 +8034,42 @@ border: 1px solid grey;border-radius: 5px;
        <font>
         <family>Arial</family>
         <pointsize>8</pointsize>
+        <stylestrategy>PreferAntialias</stylestrategy>
        </font>
-      </property>
-      <property name="tabletTracking">
-       <bool>false</bool>
       </property>
       <property name="contextMenuPolicy">
        <enum>Qt::CustomContextMenu</enum>
       </property>
-      <property name="toolTip">
-       <string>Tabelle für Performer Daten</string>
-      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: #FFFDD5;
+       <string notr="true">background-color: rgb(255, 250, 211)
 </string>
-      </property>
-      <property name="sizeAdjustPolicy">
-       <enum>QAbstractScrollArea::AdjustToContents</enum>
-      </property>
-      <property name="editTriggers">
-       <set>QAbstractItemView::SelectedClicked</set>
-      </property>
-      <property name="selectionMode">
-       <enum>QAbstractItemView::SingleSelection</enum>
       </property>
       <property name="selectionBehavior">
        <enum>QAbstractItemView::SelectRows</enum>
       </property>
-      <property name="sortingEnabled">
-       <bool>true</bool>
-      </property>
       <property name="columnCount">
        <number>0</number>
       </property>
-      <attribute name="horizontalHeaderCascadingSectionResizes">
+      <attribute name="horizontalHeaderVisible">
        <bool>true</bool>
       </attribute>
-      <attribute name="horizontalHeaderDefaultSectionSize">
-       <number>120</number>
+      <attribute name="horizontalHeaderCascadingSectionResizes">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="horizontalHeaderHighlightSections">
+       <bool>false</bool>
       </attribute>
       <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
        <bool>true</bool>
-      </attribute>
-      <attribute name="horizontalHeaderStretchLastSection">
-       <bool>false</bool>
       </attribute>
       <attribute name="verticalHeaderVisible">
        <bool>false</bool>
       </attribute>
       <attribute name="verticalHeaderDefaultSectionSize">
        <number>20</number>
+      </attribute>
+      <attribute name="verticalHeaderHighlightSections">
+       <bool>false</bool>
       </attribute>
       <attribute name="verticalHeaderMinimumSectionSize">
        <number>16</number>

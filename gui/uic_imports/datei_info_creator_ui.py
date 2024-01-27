@@ -1476,9 +1476,9 @@ class Ui_MainWindow(object):
         self.lblperformer_augen = QtWidgets.QLabel(parent=self.layoutWidget_4)
         self.lblperformer_augen.setObjectName("lblperformer_augen")
         self.horizontalLayout_10.addWidget(self.lblperformer_augen)
-        self.lnEdit_performer_augen = QtWidgets.QLineEdit(parent=self.layoutWidget_4)
-        self.lnEdit_performer_augen.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
-        self.lnEdit_performer_augen.setStyleSheet("QLineEdit,QTextEdit { \n"
+        self.lnEdit_performer_eye = QtWidgets.QLineEdit(parent=self.layoutWidget_4)
+        self.lnEdit_performer_eye.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
+        self.lnEdit_performer_eye.setStyleSheet("QLineEdit,QTextEdit { \n"
 "background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
@@ -1491,12 +1491,34 @@ class Ui_MainWindow(object):
 "\n"
 "\n"
 "")
-        self.lnEdit_performer_augen.setText("")
-        self.lnEdit_performer_augen.setPlaceholderText("kein Eintrag")
-        self.lnEdit_performer_augen.setObjectName("lnEdit_performer_augen")
-        self.horizontalLayout_10.addWidget(self.lnEdit_performer_augen)
-        self.txtEdit_performer_piercing = QtWidgets.QTextEdit(parent=self.tab_performer)
-        self.txtEdit_performer_piercing.setGeometry(QtCore.QRect(30, 230, 430, 60))
+        self.lnEdit_performer_eye.setText("")
+        self.lnEdit_performer_eye.setPlaceholderText("kein Eintrag")
+        self.lnEdit_performer_eye.setObjectName("lnEdit_performer_eye")
+        self.horizontalLayout_10.addWidget(self.lnEdit_performer_eye)
+        self.gBox_piercing = QtWidgets.QGroupBox(parent=self.tab_performer)
+        self.gBox_piercing.setGeometry(QtCore.QRect(30, 210, 431, 81))
+        self.gBox_piercing.setObjectName("gBox_piercing")
+        self.Btn_piercing_selection = QtWidgets.QPushButton(parent=self.gBox_piercing)
+        self.Btn_piercing_selection.setGeometry(QtCore.QRect(415, 10, 16, 16))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setWeight(50)
+        self.Btn_piercing_selection.setFont(font)
+        self.Btn_piercing_selection.setStyleSheet("QPushButton { \n"
+"    border-radius: 5px;\n"
+"    border: 1px solid rgb(49, 50, 62);\n"
+"    background-color: rgb(170, 255, 127);\n"
+"    color: rgb(255, 0, 0);\n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 0, 0);\n"
+"    color: rgb(170, 255, 127)\n"
+"}  ")
+        self.Btn_piercing_selection.setObjectName("Btn_piercing_selection")
+        self.txtEdit_performer_piercing = QtWidgets.QTextEdit(parent=self.gBox_piercing)
+        self.txtEdit_performer_piercing.setGeometry(QtCore.QRect(0, 20, 430, 60))
         self.txtEdit_performer_piercing.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
         self.txtEdit_performer_piercing.setStyleSheet("QLineEdit,QTextEdit { \n"
 "background-color: #FFFDD5;}\n"
@@ -1507,11 +1529,32 @@ class Ui_MainWindow(object):
 "QToolTip {min-width: 350px;}")
         self.txtEdit_performer_piercing.setAcceptRichText(False)
         self.txtEdit_performer_piercing.setObjectName("txtEdit_performer_piercing")
-        self.gBox_piercing = QtWidgets.QGroupBox(parent=self.tab_performer)
-        self.gBox_piercing.setGeometry(QtCore.QRect(30, 210, 431, 81))
-        self.gBox_piercing.setObjectName("gBox_piercing")
-        self.txtEdit_performer_tattoo = QtWidgets.QTextEdit(parent=self.tab_performer)
-        self.txtEdit_performer_tattoo.setGeometry(QtCore.QRect(470, 230, 430, 60))
+        self.txtEdit_performer_piercing.raise_()
+        self.Btn_piercing_selection.raise_()
+        self.gBox_tattoo = QtWidgets.QGroupBox(parent=self.tab_performer)
+        self.gBox_tattoo.setGeometry(QtCore.QRect(469, 210, 431, 81))
+        self.gBox_tattoo.setObjectName("gBox_tattoo")
+        self.Btn_tattoo_selection = QtWidgets.QPushButton(parent=self.gBox_tattoo)
+        self.Btn_tattoo_selection.setGeometry(QtCore.QRect(415, 10, 16, 16))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setWeight(50)
+        self.Btn_tattoo_selection.setFont(font)
+        self.Btn_tattoo_selection.setStyleSheet("QPushButton { \n"
+"    border-radius: 5px;\n"
+"    border: 1px solid rgb(49, 50, 62);\n"
+"    background-color: rgb(170, 255, 127);\n"
+"    color: rgb(255, 0, 0);\n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 0, 0);\n"
+"    color: rgb(170, 255, 127)\n"
+"}  ")
+        self.Btn_tattoo_selection.setObjectName("Btn_tattoo_selection")
+        self.txtEdit_performer_tattoo = QtWidgets.QTextEdit(parent=self.gBox_tattoo)
+        self.txtEdit_performer_tattoo.setGeometry(QtCore.QRect(0, 20, 430, 60))
         self.txtEdit_performer_tattoo.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
         self.txtEdit_performer_tattoo.setStyleSheet("QLineEdit,QTextEdit { \n"
 "background-color: #FFFDD5;}\n"
@@ -1522,9 +1565,8 @@ class Ui_MainWindow(object):
 "QToolTip {min-width: 350px;}")
         self.txtEdit_performer_tattoo.setAcceptRichText(False)
         self.txtEdit_performer_tattoo.setObjectName("txtEdit_performer_tattoo")
-        self.gBox_tattoo = QtWidgets.QGroupBox(parent=self.tab_performer)
-        self.gBox_tattoo.setGeometry(QtCore.QRect(469, 210, 431, 81))
-        self.gBox_tattoo.setObjectName("gBox_tattoo")
+        self.txtEdit_performer_tattoo.raise_()
+        self.Btn_tattoo_selection.raise_()
         self.Btn_Linksuche_in_IAFD_artist = QtWidgets.QPushButton(parent=self.tab_performer)
         self.Btn_Linksuche_in_IAFD_artist.setEnabled(False)
         self.Btn_Linksuche_in_IAFD_artist.setGeometry(QtCore.QRect(60, 300, 91, 23))
@@ -1604,9 +1646,9 @@ class Ui_MainWindow(object):
         self.lblgeburtsort = QtWidgets.QLabel(parent=self.layoutWidget_8)
         self.lblgeburtsort.setObjectName("lblgeburtsort")
         self.horizontalLayout_14.addWidget(self.lblgeburtsort)
-        self.lnEdit_performer_geburtsort = QtWidgets.QLineEdit(parent=self.layoutWidget_8)
-        self.lnEdit_performer_geburtsort.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
-        self.lnEdit_performer_geburtsort.setStyleSheet("QLineEdit,QTextEdit { \n"
+        self.lnEdit_performer_birthplace = QtWidgets.QLineEdit(parent=self.layoutWidget_8)
+        self.lnEdit_performer_birthplace.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
+        self.lnEdit_performer_birthplace.setStyleSheet("QLineEdit,QTextEdit { \n"
 "background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
@@ -1619,10 +1661,10 @@ class Ui_MainWindow(object):
 "\n"
 "\n"
 "")
-        self.lnEdit_performer_geburtsort.setText("")
-        self.lnEdit_performer_geburtsort.setPlaceholderText("kein Eintrag")
-        self.lnEdit_performer_geburtsort.setObjectName("lnEdit_performer_geburtsort")
-        self.horizontalLayout_14.addWidget(self.lnEdit_performer_geburtsort)
+        self.lnEdit_performer_birthplace.setText("")
+        self.lnEdit_performer_birthplace.setPlaceholderText("kein Eintrag")
+        self.lnEdit_performer_birthplace.setObjectName("lnEdit_performer_birthplace")
+        self.horizontalLayout_14.addWidget(self.lnEdit_performer_birthplace)
         self.layoutWidget_9 = QtWidgets.QWidget(parent=self.tab_performer)
         self.layoutWidget_9.setGeometry(QtCore.QRect(500, 110, 190, 22))
         self.layoutWidget_9.setObjectName("layoutWidget_9")
@@ -1632,9 +1674,9 @@ class Ui_MainWindow(object):
         self.lblgeburtstag = QtWidgets.QLabel(parent=self.layoutWidget_9)
         self.lblgeburtstag.setObjectName("lblgeburtstag")
         self.horizontalLayout_15.addWidget(self.lblgeburtstag)
-        self.lnEdit_performer_geburtstag = QtWidgets.QLineEdit(parent=self.layoutWidget_9)
-        self.lnEdit_performer_geburtstag.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
-        self.lnEdit_performer_geburtstag.setStyleSheet("QLineEdit,QTextEdit { \n"
+        self.lnEdit_performer_birthday = QtWidgets.QLineEdit(parent=self.layoutWidget_9)
+        self.lnEdit_performer_birthday.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
+        self.lnEdit_performer_birthday.setStyleSheet("QLineEdit,QTextEdit { \n"
 "background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
@@ -1647,10 +1689,10 @@ class Ui_MainWindow(object):
 "\n"
 "\n"
 "")
-        self.lnEdit_performer_geburtstag.setText("")
-        self.lnEdit_performer_geburtstag.setPlaceholderText("kein Eintrag")
-        self.lnEdit_performer_geburtstag.setObjectName("lnEdit_performer_geburtstag")
-        self.horizontalLayout_15.addWidget(self.lnEdit_performer_geburtstag)
+        self.lnEdit_performer_birthday.setText("")
+        self.lnEdit_performer_birthday.setPlaceholderText("kein Eintrag")
+        self.lnEdit_performer_birthday.setObjectName("lnEdit_performer_birthday")
+        self.horizontalLayout_15.addWidget(self.lnEdit_performer_birthday)
         self.tblWdg_performer_links = QtWidgets.QTableWidget(parent=self.tab_performer)
         self.tblWdg_performer_links.setGeometry(QtCore.QRect(30, 360, 870, 140))
         font = QtGui.QFont()
@@ -1694,9 +1736,9 @@ class Ui_MainWindow(object):
         self.lblperformer_haar = QtWidgets.QLabel(parent=self.layoutWidget3)
         self.lblperformer_haar.setObjectName("lblperformer_haar")
         self.horizontalLayout_8.addWidget(self.lblperformer_haar)
-        self.lnEdit_performer_haar = QtWidgets.QLineEdit(parent=self.layoutWidget3)
-        self.lnEdit_performer_haar.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
-        self.lnEdit_performer_haar.setStyleSheet("QLineEdit,QTextEdit { \n"
+        self.lnEdit_performer_hair = QtWidgets.QLineEdit(parent=self.layoutWidget3)
+        self.lnEdit_performer_hair.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
+        self.lnEdit_performer_hair.setStyleSheet("QLineEdit,QTextEdit { \n"
 "background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
@@ -1709,10 +1751,10 @@ class Ui_MainWindow(object):
 "\n"
 "\n"
 "")
-        self.lnEdit_performer_haar.setText("")
-        self.lnEdit_performer_haar.setPlaceholderText("kein Eintrag")
-        self.lnEdit_performer_haar.setObjectName("lnEdit_performer_haar")
-        self.horizontalLayout_8.addWidget(self.lnEdit_performer_haar)
+        self.lnEdit_performer_hair.setText("")
+        self.lnEdit_performer_hair.setPlaceholderText("kein Eintrag")
+        self.lnEdit_performer_hair.setObjectName("lnEdit_performer_hair")
+        self.horizontalLayout_8.addWidget(self.lnEdit_performer_hair)
         self.layoutWidget_11 = QtWidgets.QWidget(parent=self.tab_performer)
         self.layoutWidget_11.setGeometry(QtCore.QRect(500, 140, 190, 22))
         self.layoutWidget_11.setObjectName("layoutWidget_11")
@@ -1751,9 +1793,9 @@ class Ui_MainWindow(object):
         self.lblbodytyp = QtWidgets.QLabel(parent=self.layoutWidget_12)
         self.lblbodytyp.setObjectName("lblbodytyp")
         self.horizontalLayout_18.addWidget(self.lblbodytyp)
-        self.lnEdit_performer_bodytyp = QtWidgets.QLineEdit(parent=self.layoutWidget_12)
-        self.lnEdit_performer_bodytyp.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
-        self.lnEdit_performer_bodytyp.setStyleSheet("QLineEdit,QTextEdit { \n"
+        self.lnEdit_performer_body = QtWidgets.QLineEdit(parent=self.layoutWidget_12)
+        self.lnEdit_performer_body.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
+        self.lnEdit_performer_body.setStyleSheet("QLineEdit,QTextEdit { \n"
 "background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
@@ -1766,10 +1808,10 @@ class Ui_MainWindow(object):
 "\n"
 "\n"
 "")
-        self.lnEdit_performer_bodytyp.setText("")
-        self.lnEdit_performer_bodytyp.setPlaceholderText("kein Eintrag")
-        self.lnEdit_performer_bodytyp.setObjectName("lnEdit_performer_bodytyp")
-        self.horizontalLayout_18.addWidget(self.lnEdit_performer_bodytyp)
+        self.lnEdit_performer_body.setText("")
+        self.lnEdit_performer_body.setPlaceholderText("kein Eintrag")
+        self.lnEdit_performer_body.setObjectName("lnEdit_performer_body")
+        self.horizontalLayout_18.addWidget(self.lnEdit_performer_body)
         self.layoutWidget_13 = QtWidgets.QWidget(parent=self.tab_performer)
         self.layoutWidget_13.setGeometry(QtCore.QRect(710, 110, 190, 22))
         self.layoutWidget_13.setObjectName("layoutWidget_13")
@@ -1779,9 +1821,9 @@ class Ui_MainWindow(object):
         self.lblaktiv = QtWidgets.QLabel(parent=self.layoutWidget_13)
         self.lblaktiv.setObjectName("lblaktiv")
         self.horizontalLayout_19.addWidget(self.lblaktiv)
-        self.lnEdit_performer_aktiv = QtWidgets.QLineEdit(parent=self.layoutWidget_13)
-        self.lnEdit_performer_aktiv.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
-        self.lnEdit_performer_aktiv.setStyleSheet("QLineEdit,QTextEdit { \n"
+        self.lnEdit_performer_activ = QtWidgets.QLineEdit(parent=self.layoutWidget_13)
+        self.lnEdit_performer_activ.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
+        self.lnEdit_performer_activ.setStyleSheet("QLineEdit,QTextEdit { \n"
 "background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
@@ -1794,10 +1836,10 @@ class Ui_MainWindow(object):
 "\n"
 "\n"
 "")
-        self.lnEdit_performer_aktiv.setText("")
-        self.lnEdit_performer_aktiv.setPlaceholderText("kein Eintrag")
-        self.lnEdit_performer_aktiv.setObjectName("lnEdit_performer_aktiv")
-        self.horizontalLayout_19.addWidget(self.lnEdit_performer_aktiv)
+        self.lnEdit_performer_activ.setText("")
+        self.lnEdit_performer_activ.setPlaceholderText("kein Eintrag")
+        self.lnEdit_performer_activ.setObjectName("lnEdit_performer_activ")
+        self.horizontalLayout_19.addWidget(self.lnEdit_performer_activ)
         self.Btn_DBArtist_Update = QtWidgets.QPushButton(parent=self.tab_performer)
         self.Btn_DBArtist_Update.setEnabled(False)
         self.Btn_DBArtist_Update.setGeometry(QtCore.QRect(768, 25, 120, 40))
@@ -2138,15 +2180,16 @@ class Ui_MainWindow(object):
         self.horizontalLayout_12.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_12.setObjectName("horizontalLayout_12")
         self.lblperformer_groesse = QtWidgets.QLabel(parent=self.layoutWidget4)
-        self.lblperformer_groesse.setMinimumSize(QtCore.QSize(40, 0))
-        self.lblperformer_groesse.setMaximumSize(QtCore.QSize(40, 16777215))
+        self.lblperformer_groesse.setMinimumSize(QtCore.QSize(45, 0))
+        self.lblperformer_groesse.setMaximumSize(QtCore.QSize(45, 16777215))
+        self.lblperformer_groesse.setAlignment(QtCore.Qt.AlignmentFlag.AlignRight|QtCore.Qt.AlignmentFlag.AlignTrailing|QtCore.Qt.AlignmentFlag.AlignVCenter)
         self.lblperformer_groesse.setObjectName("lblperformer_groesse")
         self.horizontalLayout_12.addWidget(self.lblperformer_groesse)
-        self.lnEdit_performer_groesse = QtWidgets.QLineEdit(parent=self.layoutWidget4)
-        self.lnEdit_performer_groesse.setMinimumSize(QtCore.QSize(40, 0))
-        self.lnEdit_performer_groesse.setMaximumSize(QtCore.QSize(40, 16777215))
-        self.lnEdit_performer_groesse.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
-        self.lnEdit_performer_groesse.setStyleSheet("QLineEdit,QTextEdit { \n"
+        self.lnEdit_performer_height = QtWidgets.QLineEdit(parent=self.layoutWidget4)
+        self.lnEdit_performer_height.setMinimumSize(QtCore.QSize(35, 0))
+        self.lnEdit_performer_height.setMaximumSize(QtCore.QSize(35, 16777215))
+        self.lnEdit_performer_height.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
+        self.lnEdit_performer_height.setStyleSheet("QLineEdit,QTextEdit { \n"
 "background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
@@ -2159,10 +2202,10 @@ class Ui_MainWindow(object):
 "\n"
 "\n"
 "")
-        self.lnEdit_performer_groesse.setText("")
-        self.lnEdit_performer_groesse.setPlaceholderText("0")
-        self.lnEdit_performer_groesse.setObjectName("lnEdit_performer_groesse")
-        self.horizontalLayout_12.addWidget(self.lnEdit_performer_groesse)
+        self.lnEdit_performer_height.setText("")
+        self.lnEdit_performer_height.setPlaceholderText("0")
+        self.lnEdit_performer_height.setObjectName("lnEdit_performer_height")
+        self.horizontalLayout_12.addWidget(self.lnEdit_performer_height)
         self.lbl_kg_2 = QtWidgets.QLabel(parent=self.layoutWidget4)
         self.lbl_kg_2.setObjectName("lbl_kg_2")
         self.horizontalLayout_12.addWidget(self.lbl_kg_2)
@@ -2173,15 +2216,16 @@ class Ui_MainWindow(object):
         self.horizontalLayout_13.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_13.setObjectName("horizontalLayout_13")
         self.lblperformer_gewicht = QtWidgets.QLabel(parent=self.layoutWidget5)
-        self.lblperformer_gewicht.setMinimumSize(QtCore.QSize(40, 0))
-        self.lblperformer_gewicht.setMaximumSize(QtCore.QSize(40, 16777215))
+        self.lblperformer_gewicht.setMinimumSize(QtCore.QSize(45, 0))
+        self.lblperformer_gewicht.setMaximumSize(QtCore.QSize(45, 16777215))
+        self.lblperformer_gewicht.setAlignment(QtCore.Qt.AlignmentFlag.AlignRight|QtCore.Qt.AlignmentFlag.AlignTrailing|QtCore.Qt.AlignmentFlag.AlignVCenter)
         self.lblperformer_gewicht.setObjectName("lblperformer_gewicht")
         self.horizontalLayout_13.addWidget(self.lblperformer_gewicht)
-        self.lnEdit_performer_gewicht = QtWidgets.QLineEdit(parent=self.layoutWidget5)
-        self.lnEdit_performer_gewicht.setMinimumSize(QtCore.QSize(40, 0))
-        self.lnEdit_performer_gewicht.setMaximumSize(QtCore.QSize(40, 16777215))
-        self.lnEdit_performer_gewicht.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
-        self.lnEdit_performer_gewicht.setStyleSheet("QLineEdit,QTextEdit { \n"
+        self.lnEdit_performer_weight = QtWidgets.QLineEdit(parent=self.layoutWidget5)
+        self.lnEdit_performer_weight.setMinimumSize(QtCore.QSize(35, 0))
+        self.lnEdit_performer_weight.setMaximumSize(QtCore.QSize(35, 16777215))
+        self.lnEdit_performer_weight.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
+        self.lnEdit_performer_weight.setStyleSheet("QLineEdit,QTextEdit { \n"
 "background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
@@ -2194,10 +2238,10 @@ class Ui_MainWindow(object):
 "\n"
 "\n"
 "")
-        self.lnEdit_performer_gewicht.setText("")
-        self.lnEdit_performer_gewicht.setPlaceholderText("0")
-        self.lnEdit_performer_gewicht.setObjectName("lnEdit_performer_gewicht")
-        self.horizontalLayout_13.addWidget(self.lnEdit_performer_gewicht)
+        self.lnEdit_performer_weight.setText("")
+        self.lnEdit_performer_weight.setPlaceholderText("0")
+        self.lnEdit_performer_weight.setObjectName("lnEdit_performer_weight")
+        self.horizontalLayout_13.addWidget(self.lnEdit_performer_weight)
         self.lbl_kg = QtWidgets.QLabel(parent=self.layoutWidget5)
         self.lbl_kg.setObjectName("lbl_kg")
         self.horizontalLayout_13.addWidget(self.lbl_kg)
@@ -2597,6 +2641,179 @@ class Ui_MainWindow(object):
         self.Btn_performers_socialmedia_7.setIcon(icon18)
         self.Btn_performers_socialmedia_7.setIconSize(QtCore.QSize(25, 25))
         self.Btn_performers_socialmedia_7.setObjectName("Btn_performers_socialmedia_7")
+        self.Btn_hair_selection = QtWidgets.QPushButton(parent=self.tab_performer)
+        self.Btn_hair_selection.setGeometry(QtCore.QRect(240, 70, 16, 16))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setWeight(50)
+        self.Btn_hair_selection.setFont(font)
+        self.Btn_hair_selection.setStyleSheet("QPushButton { \n"
+"    border-radius: 5px;\n"
+"    border: 1px solid rgb(49, 50, 62);\n"
+"    background-color: rgb(170, 255, 127);\n"
+"    color: rgb(255, 0, 0);\n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 0, 0);\n"
+"    color: rgb(170, 255, 127)\n"
+"}  ")
+        self.Btn_hair_selection.setObjectName("Btn_hair_selection")
+        self.Btn_eye_selection = QtWidgets.QPushButton(parent=self.tab_performer)
+        self.Btn_eye_selection.setGeometry(QtCore.QRect(440, 70, 16, 16))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setWeight(50)
+        self.Btn_eye_selection.setFont(font)
+        self.Btn_eye_selection.setStyleSheet("QPushButton { \n"
+"    border-radius: 5px;\n"
+"    border: 1px solid rgb(49, 50, 62);\n"
+"    background-color: rgb(170, 255, 127);\n"
+"    color: rgb(255, 0, 0);\n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 0, 0);\n"
+"    color: rgb(170, 255, 127)\n"
+"}  ")
+        self.Btn_eye_selection.setObjectName("Btn_eye_selection")
+        self.Btn_birthplace_selection = QtWidgets.QPushButton(parent=self.tab_performer)
+        self.Btn_birthplace_selection.setGeometry(QtCore.QRect(780, 70, 16, 16))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setWeight(50)
+        self.Btn_birthplace_selection.setFont(font)
+        self.Btn_birthplace_selection.setStyleSheet("QPushButton { \n"
+"    border-radius: 5px;\n"
+"    border: 1px solid rgb(49, 50, 62);\n"
+"    background-color: rgb(170, 255, 127);\n"
+"    color: rgb(255, 0, 0);\n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 0, 0);\n"
+"    color: rgb(170, 255, 127)\n"
+"}  ")
+        self.Btn_birthplace_selection.setObjectName("Btn_birthplace_selection")
+        self.Btn_birthday_selection = QtWidgets.QPushButton(parent=self.tab_performer)
+        self.Btn_birthday_selection.setGeometry(QtCore.QRect(680, 100, 16, 16))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setWeight(50)
+        self.Btn_birthday_selection.setFont(font)
+        self.Btn_birthday_selection.setStyleSheet("QPushButton { \n"
+"    border-radius: 5px;\n"
+"    border: 1px solid rgb(49, 50, 62);\n"
+"    background-color: rgb(170, 255, 127);\n"
+"    color: rgb(255, 0, 0);\n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 0, 0);\n"
+"    color: rgb(170, 255, 127)\n"
+"}  ")
+        self.Btn_birthday_selection.setObjectName("Btn_birthday_selection")
+        self.Btn_activ_selection = QtWidgets.QPushButton(parent=self.tab_performer)
+        self.Btn_activ_selection.setGeometry(QtCore.QRect(890, 100, 16, 16))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setWeight(50)
+        self.Btn_activ_selection.setFont(font)
+        self.Btn_activ_selection.setStyleSheet("QPushButton { \n"
+"    border-radius: 5px;\n"
+"    border: 1px solid rgb(49, 50, 62);\n"
+"    background-color: rgb(170, 255, 127);\n"
+"    color: rgb(255, 0, 0);\n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 0, 0);\n"
+"    color: rgb(170, 255, 127)\n"
+"}  ")
+        self.Btn_activ_selection.setObjectName("Btn_activ_selection")
+        self.Btn_height_selection = QtWidgets.QPushButton(parent=self.tab_performer)
+        self.Btn_height_selection.setGeometry(QtCore.QRect(810, 130, 16, 16))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setWeight(50)
+        self.Btn_height_selection.setFont(font)
+        self.Btn_height_selection.setStyleSheet("QPushButton { \n"
+"    border-radius: 5px;\n"
+"    border: 1px solid rgb(49, 50, 62);\n"
+"    background-color: rgb(170, 255, 127);\n"
+"    color: rgb(255, 0, 0);\n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 0, 0);\n"
+"    color: rgb(170, 255, 127)\n"
+"}  ")
+        self.Btn_height_selection.setObjectName("Btn_height_selection")
+        self.Btn_boobs_selection = QtWidgets.QPushButton(parent=self.tab_performer)
+        self.Btn_boobs_selection.setGeometry(QtCore.QRect(680, 130, 16, 16))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setWeight(50)
+        self.Btn_boobs_selection.setFont(font)
+        self.Btn_boobs_selection.setStyleSheet("QPushButton { \n"
+"    border-radius: 5px;\n"
+"    border: 1px solid rgb(49, 50, 62);\n"
+"    background-color: rgb(170, 255, 127);\n"
+"    color: rgb(255, 0, 0);\n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 0, 0);\n"
+"    color: rgb(170, 255, 127)\n"
+"}  ")
+        self.Btn_boobs_selection.setObjectName("Btn_boobs_selection")
+        self.Btn_weight_selection = QtWidgets.QPushButton(parent=self.tab_performer)
+        self.Btn_weight_selection.setGeometry(QtCore.QRect(810, 160, 16, 16))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setWeight(50)
+        self.Btn_weight_selection.setFont(font)
+        self.Btn_weight_selection.setStyleSheet("QPushButton { \n"
+"    border-radius: 5px;\n"
+"    border: 1px solid rgb(49, 50, 62);\n"
+"    background-color: rgb(170, 255, 127);\n"
+"    color: rgb(255, 0, 0);\n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 0, 0);\n"
+"    color: rgb(170, 255, 127)\n"
+"}  ")
+        self.Btn_weight_selection.setObjectName("Btn_weight_selection")
+        self.Btn_body_selection = QtWidgets.QPushButton(parent=self.tab_performer)
+        self.Btn_body_selection.setGeometry(QtCore.QRect(680, 160, 16, 16))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setWeight(50)
+        self.Btn_body_selection.setFont(font)
+        self.Btn_body_selection.setStyleSheet("QPushButton { \n"
+"    border-radius: 5px;\n"
+"    border: 1px solid rgb(49, 50, 62);\n"
+"    background-color: rgb(170, 255, 127);\n"
+"    color: rgb(255, 0, 0);\n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 0, 0);\n"
+"    color: rgb(170, 255, 127)\n"
+"}  ")
+        self.Btn_body_selection.setObjectName("Btn_body_selection")
+        self.gBox_tattoo.raise_()
+        self.gBox_piercing.raise_()
         self.lblsocialmedia.raise_()
         self.Btn_biowebsite_edititem.raise_()
         self.Btn_performers_socialmedia_1.raise_()
@@ -2612,13 +2829,9 @@ class Ui_MainWindow(object):
         self.stacked_webdb_images.raise_()
         self.layoutWidget.raise_()
         self.layoutWidget.raise_()
-        self.gBox_tattoo.raise_()
-        self.gBox_piercing.raise_()
-        self.txtEdit_performer_piercing.raise_()
         self.grpBox_performer.raise_()
         self.layoutWidget_3.raise_()
         self.layoutWidget_4.raise_()
-        self.txtEdit_performer_tattoo.raise_()
         self.Btn_Linksuche_in_IAFD_artist.raise_()
         self.lnEdit_DBIAFD_artistLink.raise_()
         self.lbl_checkWeb_IAFD_artistURL.raise_()
@@ -2645,6 +2858,15 @@ class Ui_MainWindow(object):
         self.Btn_social_media_edititem.raise_()
         self.Btn_performers_socialmedia_9.raise_()
         self.Btn_performers_socialmedia_10.raise_()
+        self.Btn_hair_selection.raise_()
+        self.Btn_eye_selection.raise_()
+        self.Btn_birthplace_selection.raise_()
+        self.Btn_birthday_selection.raise_()
+        self.Btn_activ_selection.raise_()
+        self.Btn_height_selection.raise_()
+        self.Btn_boobs_selection.raise_()
+        self.Btn_weight_selection.raise_()
+        self.Btn_body_selection.raise_()
         self.tabs.addTab(self.tab_performer, "")
         self.Btn_Refresh = QtWidgets.QPushButton(parent=self.centralwidget)
         self.Btn_Refresh.setEnabled(False)
@@ -3582,24 +3804,22 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(8)
+        font.setStyleStrategy(QtGui.QFont.StyleStrategy.PreferAntialias)
         self.tblWdg_performer.setFont(font)
-        self.tblWdg_performer.setTabletTracking(False)
         self.tblWdg_performer.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
-        self.tblWdg_performer.setStyleSheet("background-color: #FFFDD5;\n"
+        self.tblWdg_performer.setStyleSheet("background-color: rgb(255, 250, 211)\n"
 "")
-        self.tblWdg_performer.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.SizeAdjustPolicy.AdjustToContents)
-        self.tblWdg_performer.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.SelectedClicked)
-        self.tblWdg_performer.setSelectionMode(QtWidgets.QAbstractItemView.SelectionMode.SingleSelection)
         self.tblWdg_performer.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectionBehavior.SelectRows)
         self.tblWdg_performer.setColumnCount(0)
         self.tblWdg_performer.setObjectName("tblWdg_performer")
         self.tblWdg_performer.setRowCount(0)
-        self.tblWdg_performer.horizontalHeader().setCascadingSectionResizes(True)
-        self.tblWdg_performer.horizontalHeader().setDefaultSectionSize(120)
+        self.tblWdg_performer.horizontalHeader().setVisible(True)
+        self.tblWdg_performer.horizontalHeader().setCascadingSectionResizes(False)
+        self.tblWdg_performer.horizontalHeader().setHighlightSections(False)
         self.tblWdg_performer.horizontalHeader().setSortIndicatorShown(True)
-        self.tblWdg_performer.horizontalHeader().setStretchLastSection(False)
         self.tblWdg_performer.verticalHeader().setVisible(False)
         self.tblWdg_performer.verticalHeader().setDefaultSectionSize(20)
+        self.tblWdg_performer.verticalHeader().setHighlightSections(False)
         self.tblWdg_performer.verticalHeader().setMinimumSectionSize(16)
         self.tblWdg_performer.verticalHeader().setSortIndicatorShown(True)
         self.tblWdg_performer.verticalHeader().setStretchLastSection(False)
@@ -3649,7 +3869,7 @@ class Ui_MainWindow(object):
         self.stacked_webdb_images.setCurrentIndex(0)
         self.stacked_image_infos.setCurrentIndex(1)
         self.stackedWidget.setCurrentIndex(4)
-        self.stacked_tables.setCurrentIndex(0)
+        self.stacked_tables.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -3782,10 +4002,16 @@ class Ui_MainWindow(object):
         self.grpBox_performer.setTitle(_translate("MainWindow", "Performer-Info für:"))
         self.lblperformer_rasse.setText(_translate("MainWindow", "Ethnizität:"))
         self.lblperformer_augen.setText(_translate("MainWindow", "Augenfarbe"))
-        self.txtEdit_performer_piercing.setPlaceholderText(_translate("MainWindow", "kein Eintrag"))
         self.gBox_piercing.setTitle(_translate("MainWindow", "  Piercing:"))
-        self.txtEdit_performer_tattoo.setPlaceholderText(_translate("MainWindow", "kein Eintrag"))
+        self.Btn_piercing_selection.setToolTip(_translate("MainWindow", "mehrere Eintrage bei Regieseur zur Auswahl"))
+        self.Btn_piercing_selection.setWhatsThis(_translate("MainWindow", "Regie"))
+        self.Btn_piercing_selection.setText(_translate("MainWindow", "1"))
+        self.txtEdit_performer_piercing.setPlaceholderText(_translate("MainWindow", "kein Eintrag"))
         self.gBox_tattoo.setTitle(_translate("MainWindow", "Tattoo:"))
+        self.Btn_tattoo_selection.setToolTip(_translate("MainWindow", "mehrere Eintrage bei Regieseur zur Auswahl"))
+        self.Btn_tattoo_selection.setWhatsThis(_translate("MainWindow", "Regie"))
+        self.Btn_tattoo_selection.setText(_translate("MainWindow", "1"))
+        self.txtEdit_performer_tattoo.setPlaceholderText(_translate("MainWindow", "kein Eintrag"))
         self.Btn_Linksuche_in_IAFD_artist.setText(_translate("MainWindow", "Suche in IAFD"))
         self.lnEdit_DBIAFD_artistLink.setPlaceholderText(_translate("MainWindow", "kein Eintrag"))
         self.lblgeburtsort.setText(_translate("MainWindow", "Geburtsort:"))
@@ -3829,11 +4055,11 @@ class Ui_MainWindow(object):
         self.lblinfos_on_imagestacked.setText(_translate("MainWindow", "Infos:"))
         self.Btn_delete_logs.setToolTip(_translate("MainWindow", "nächste ist Datei-Infos holen"))
         self.Btn_delete_logs.setText(_translate("MainWindow", "Logs löschen"))
-        self.lblperformer_groesse.setText(_translate("MainWindow", "Größe"))
-        self.lnEdit_performer_groesse.setInputMask(_translate("MainWindow", "999"))
+        self.lblperformer_groesse.setText(_translate("MainWindow", "Größe:"))
+        self.lnEdit_performer_height.setInputMask(_translate("MainWindow", "999"))
         self.lbl_kg_2.setText(_translate("MainWindow", "cm"))
-        self.lblperformer_gewicht.setText(_translate("MainWindow", "Gewicht"))
-        self.lnEdit_performer_gewicht.setInputMask(_translate("MainWindow", "999"))
+        self.lblperformer_gewicht.setText(_translate("MainWindow", "Gewicht:"))
+        self.lnEdit_performer_weight.setInputMask(_translate("MainWindow", "999"))
         self.lbl_kg.setText(_translate("MainWindow", "kg"))
         self.Btn_iafd_link_copy.setToolTip(_translate("MainWindow", "kopiert den Link in die Ziwschenablage"))
         self.Btn_performers_gender.setToolTip(_translate("MainWindow", "klicken, um Gender Auswahl zu treffen"))
@@ -3849,6 +4075,33 @@ class Ui_MainWindow(object):
         self.Btn_performers_socialmedia_4.setToolTip(_translate("MainWindow", "klicken, um Gender Auswahl zu treffen"))
         self.Btn_performers_socialmedia_5.setToolTip(_translate("MainWindow", "klicken, um Gender Auswahl zu treffen"))
         self.Btn_performers_socialmedia_6.setToolTip(_translate("MainWindow", "klicken, um Gender Auswahl zu treffen"))
+        self.Btn_hair_selection.setToolTip(_translate("MainWindow", "mehrere Eintrage bei Regieseur zur Auswahl"))
+        self.Btn_hair_selection.setWhatsThis(_translate("MainWindow", "Regie"))
+        self.Btn_hair_selection.setText(_translate("MainWindow", "1"))
+        self.Btn_eye_selection.setToolTip(_translate("MainWindow", "mehrere Eintrage bei Regieseur zur Auswahl"))
+        self.Btn_eye_selection.setWhatsThis(_translate("MainWindow", "Regie"))
+        self.Btn_eye_selection.setText(_translate("MainWindow", "1"))
+        self.Btn_birthplace_selection.setToolTip(_translate("MainWindow", "mehrere Eintrage bei Regieseur zur Auswahl"))
+        self.Btn_birthplace_selection.setWhatsThis(_translate("MainWindow", "Regie"))
+        self.Btn_birthplace_selection.setText(_translate("MainWindow", "1"))
+        self.Btn_birthday_selection.setToolTip(_translate("MainWindow", "mehrere Eintrage bei Regieseur zur Auswahl"))
+        self.Btn_birthday_selection.setWhatsThis(_translate("MainWindow", "Regie"))
+        self.Btn_birthday_selection.setText(_translate("MainWindow", "1"))
+        self.Btn_activ_selection.setToolTip(_translate("MainWindow", "mehrere Eintrage bei Regieseur zur Auswahl"))
+        self.Btn_activ_selection.setWhatsThis(_translate("MainWindow", "Regie"))
+        self.Btn_activ_selection.setText(_translate("MainWindow", "1"))
+        self.Btn_height_selection.setToolTip(_translate("MainWindow", "mehrere Eintrage bei Regieseur zur Auswahl"))
+        self.Btn_height_selection.setWhatsThis(_translate("MainWindow", "Regie"))
+        self.Btn_height_selection.setText(_translate("MainWindow", "1"))
+        self.Btn_boobs_selection.setToolTip(_translate("MainWindow", "mehrere Eintrage bei Regieseur zur Auswahl"))
+        self.Btn_boobs_selection.setWhatsThis(_translate("MainWindow", "Regie"))
+        self.Btn_boobs_selection.setText(_translate("MainWindow", "1"))
+        self.Btn_weight_selection.setToolTip(_translate("MainWindow", "mehrere Eintrage bei Regieseur zur Auswahl"))
+        self.Btn_weight_selection.setWhatsThis(_translate("MainWindow", "Regie"))
+        self.Btn_weight_selection.setText(_translate("MainWindow", "1"))
+        self.Btn_body_selection.setToolTip(_translate("MainWindow", "mehrere Eintrage bei Regieseur zur Auswahl"))
+        self.Btn_body_selection.setWhatsThis(_translate("MainWindow", "Regie"))
+        self.Btn_body_selection.setText(_translate("MainWindow", "1"))
         self.tabs.setTabText(self.tabs.indexOf(self.tab_performer), _translate("MainWindow", "Performers"))
         self.Btn_Refresh.setToolTip(_translate("MainWindow", "Refresh der Ordner-Struktur der Tabelle"))
         self.Btn_Refresh.setText(_translate("MainWindow", "Tabelle\n"
@@ -3933,8 +4186,6 @@ class Ui_MainWindow(object):
         self.tblWdg_files.setSortingEnabled(False)
         self.tblWdg_daten.setToolTip(_translate("MainWindow", "Tabelle für Video Daten"))
         self.tblWdg_daten.setSortingEnabled(True)
-        self.tblWdg_performer.setToolTip(_translate("MainWindow", "Tabelle für Performer Daten"))
-        self.tblWdg_performer.setSortingEnabled(True)
         self.menuDatei.setTitle(_translate("MainWindow", "Datei"))
         self.actionDatei_Laden.setText(_translate("MainWindow", "Datei Laden"))
         self.actionDatei_ndern.setText(_translate("MainWindow", "Datei ändern"))

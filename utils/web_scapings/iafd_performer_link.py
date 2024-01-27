@@ -19,7 +19,7 @@ from utils.database_settings.database_for_darsteller import DB_Darsteller
 from gui.dialog_gender_auswahl import GenderAuswahl
 from gui.dialoge_ui import StatusBar
 
-from config import HEADERS, PROJECT_PATH, RASSE_JSON, IAFD_INFOS_JSON_PATH
+from config import HEADERS, PROJECT_PATH, WEBINFOS_JSON_PATH
 
 class IAFDInfos():
 
@@ -123,11 +123,12 @@ class IAFDInfos():
 
     
     def load_IAFD_performer_link(self, iafd_url: str, id: int, name: str):
-        infos: dict={} 
+        type = "iafd"
+        iafd_infos: dict={type:{}} 
         iafd_widget: str="IAFD_artist"
         func_break=False
 
-        json.dump(infos,open(IAFD_INFOS_JSON_PATH,'w'),indent=4, sort_keys=True)
+        json.dump(iafd_infos,open(WEBINFOS_JSON_PATH,'w'),indent=4, sort_keys=True)
         
         infos_webside=Infos_WebSides(self.Main)
         infos_webside.check_loading_labelshow(iafd_widget)                
@@ -190,7 +191,8 @@ class IAFDInfos():
         infos=self.boobs_abfrage_iafd(content, infos_webside, infos)
         infos=self.onlyfans_abfrage_iafd(content, infos_webside, infos)
         infos=self.load_image_in_label(content, id, name, infos)
-        json.dump(infos,open(IAFD_INFOS_JSON_PATH,'w'),indent=4, sort_keys=True)
+        iafd_infos[type]=infos
+        json.dump(iafd_infos,open(WEBINFOS_JSON_PATH,'w'),indent=4, sort_keys=True)
         infos_webside.check_loaded_labelshow("IAFD_artist")              
       
     def generate_iafd_search_url(self, search_term):
@@ -256,9 +258,9 @@ class IAFDInfos():
         
         haar_element=content.xpath("//p[contains(string(),'Hair Color')]/following::p[1]")
         haar_text=haar_element[0].text_content().strip() if haar_element else None        
-        if haar_text not in [None, "", "No data", self.Main.lnEdit_performer_haar.text()]:        
+        if haar_text not in [None, "", "No data"]:        
              infos["Haarfarbe"]=haar_text
-        infos_webside.set_tooltip_text("lnEdit_performer_", "haar", f"IAFD: {haar_text}", "IAFD")
+        infos_webside.set_tooltip_text("lnEdit_performer_", "hair", f"IAFD: {haar_text}", "IAFD")
         return infos
 
     ### ------------------- Gewicht von IAFD bekommen ---------------------------- ###
@@ -267,10 +269,10 @@ class IAFDInfos():
         
         gewicht_element=content.xpath("//p[contains(string(),'Weight')]/following::p[1]")
         gewicht_text=gewicht_element[0].text_content() if gewicht_element else None        
-        if gewicht_text not in [None, "", "No data", self.Main.lnEdit_performer_gewicht.text()]:
+        if gewicht_text not in [None, "", "No data"]:
             gewicht_text = re.search(r'lbs \((\d+)', gewicht_text).group(1) if re.search(r'lbs \((\d+)', gewicht_text) else ""
             infos["Gewicht"]=gewicht_text 
-        infos_webside.set_tooltip_text("lnEdit_performer_", "gewicht", f"IAFD: {gewicht_text} kg", "IAFD")
+        infos_webside.set_tooltip_text("lnEdit_performer_", "weight", f"IAFD: {gewicht_text} kg", "IAFD")
         return infos
 
     ### ------------------- Körper-Größe von IAFD bekommen ---------------------------- ###
@@ -279,10 +281,10 @@ class IAFDInfos():
         
         groesse_element=content.xpath("//p[contains(string(),'Height')]/following::p[1]")
         groesse_text=groesse_element[0].text_content().strip() if groesse_element else None        
-        if groesse_text not in [None, "", "No data", self.Main.lnEdit_performer_groesse.text()]:
+        if groesse_text not in [None, "", "No data"]:
             groesse_text = re.search(r'inches \((\d+)', groesse_text).group(1) if re.search(r'inches \((\d+)', groesse_text) else "N/A"
             infos["Groesse"]=groesse_text
-        infos_webside.set_tooltip_text("lnEdit_performer_", "groesse", f"IAFD: {groesse_text} cm", "IAFD")
+        infos_webside.set_tooltip_text("lnEdit_performer_", "height", f"IAFD: {groesse_text} cm", "IAFD")
         return infos
 
     ### ------------------- Körper-Größe von IAFD bekommen ---------------------------- ###
@@ -291,9 +293,9 @@ class IAFDInfos():
         
         geburtsort_element=content.xpath("//p[contains(string(),'Birthplace')]/following::p[1]")
         geburtsort_text=geburtsort_element[0].text_content().strip() if geburtsort_element else None        
-        if geburtsort_text not in [None, "", "No data", self.Main.lnEdit_performer_geburtsort.text()]:
+        if geburtsort_text not in [None, "", "No data"]:
             infos["Birth_Place"] = geburtsort_text
-        infos_webside.set_tooltip_text("lnEdit_performer_", "geburtsort", f"IAFD: {geburtsort_text}", "IAFD")
+        infos_webside.set_tooltip_text("lnEdit_performer_", "birthplace", f"IAFD: {geburtsort_text}", "IAFD")
         return infos
 
     def geburtstag_abfrage_iafd(self, content, infos_webside, infos):        
@@ -301,12 +303,12 @@ class IAFDInfos():
         
         geburtstag_element=content.xpath("//p[contains(string(),'Birthday')]/following::p[1]")
         geburtstag_text=geburtstag_element[0].text_content().strip() if geburtstag_element else None        
-        if geburtstag_text not in [None, "", "No data", self.Main.lnEdit_performer_geburtstag.text()]:
+        if geburtstag_text not in [None, "", "No data"]:
             if " (" in geburtstag_text:
                 geburtstag_text, _ = geburtstag_text.split(" (",1)
                 geburtstag_text = datetime.strptime(geburtstag_text, "%B %d, %Y").strftime("%d.%m.%Y")
                 infos["Geburtstag"] = geburtstag_text
-        infos_webside.set_tooltip_text("lnEdit_performer_", "geburtstag", f"IAFD: {geburtstag_text}", "IAFD")
+        infos_webside.set_tooltip_text("lnEdit_performer_", "birthday", f"IAFD: {geburtstag_text}", "IAFD")
         return infos
 
     def piercing_abfrage_iafd(self, content, infos_webside, infos):        
@@ -315,7 +317,7 @@ class IAFDInfos():
         piercing_element=content.xpath("//p[contains(string(),'Piercings')]/following::p[1]")
         piercing_text=piercing_element[0].text_content().strip() if piercing_element else ""
         a=self.Main.txtEdit_performer_piercing.toPlainText()      
-        if piercing_text not in [None, "", "No data", self.Main.txtEdit_performer_piercing.toPlainText()]:         
+        if piercing_text not in [None, "", "No data"]:         
              infos["Piercing"] = piercing_text 
         infos_webside.set_tooltip_text("txtEdit_performer_", "piercing", f"IAFD: {piercing_text[:40]}", "IAFD")
         return infos
@@ -325,7 +327,7 @@ class IAFDInfos():
         
         tattoo_element=content.xpath("//p[contains(string(),'Tattoos')]/following::p[1]")
         tattoo_text=tattoo_element[0].text_content().strip() if tattoo_element else ""        
-        if tattoo_text not in [None, "", "No data", self.Main.txtEdit_performer_tattoo.toPlainText()]:          
+        if tattoo_text not in [None, "", "No data"]:          
              infos["Tattoo"] = tattoo_text
         infos_webside.set_tooltip_text("txtEdit_performer_", "tattoo", f"IAFD: {tattoo_text[:40]}", "IAFD")
         return infos
@@ -336,13 +338,13 @@ class IAFDInfos():
         
         aktiv_element=content.xpath("//p[contains(string(),'Years Active')]/following::p[1]")
         aktiv_text=aktiv_element[0].text_content().strip() if aktiv_element else None        
-        if aktiv_text not in [None, "", "No data", self.Main.lnEdit_performer_aktiv.text()]: 
+        if aktiv_text not in [None, "", "No data"]: 
             if " (" in aktiv_text:
                 aktiv_text,_=aktiv_text.split(" (",1)
                 aktiv = "Ja" if aktiv_text.split("-",1)[1]=="2023" else "Nein"  
             aktiv_text= f"{aktiv} von: {aktiv_text}" 
             infos["Aktiv"] = aktiv_text
-        infos_webside.set_tooltip_text("lnEdit_performer_", "aktiv", f"IAFD: {aktiv_text}", "IAFD")
+        infos_webside.set_tooltip_text("lnEdit_performer_", "activ", f"IAFD: {aktiv_text}", "IAFD")
         return infos
 
     def boobs_abfrage_iafd(self, content, infos_webside, infos):        
@@ -350,7 +352,7 @@ class IAFDInfos():
         
         boobs_element=content.xpath("//p[contains(string(),'Measurements')]/following::p[1]")
         boobs_text=boobs_element[0].text_content().strip() if boobs_element else None        
-        if boobs_text not in [None, "", "No data", self.Main.lnEdit_performer_boobs.text()]: 
+        if boobs_text not in [None, "", "No data"]: 
             boobs_text, _ = boobs_text.split("-",1)           
             infos["Boobs"] = boobs_text  
         infos_webside.set_tooltip_text("lnEdit_performer_", "boobs", f"IAFD: {boobs_text}", "IAFD")

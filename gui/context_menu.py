@@ -1,7 +1,7 @@
 from PyQt6 import uic
 from PyQt6.QtWidgets import QMenu, QTableWidgetItem 
 from PyQt6.QtGui import QAction, QCursor, QIcon, QPixmap
-from PyQt6.QtCore import Qt, QTimer, pyqtSignal, QCoreApplication
+from PyQt6.QtCore import Qt, QTimer,  QCoreApplication, pyqtSignal
 
 import functools
 import json
@@ -32,11 +32,10 @@ class ContextMenu(QMenu):
     merge_ids=pyqtSignal(int,int)
     add_artist=pyqtSignal(int, str, str, str) # artist_id, iafd_link, name
     add_namesid=pyqtSignal(int, dict, int) # artist_id, names_link_satz, studio_id
-
-    def __init__(self, parent = None ):
+    def __init__(self, parent = None):
         super().__init__()
         self.Main = parent
-        self.dialog_shown = False
+        self.dialog_shown = False        
         self.add_name_and_ordner.connect(self.perfomer_add_resultsignal) 
         self.merge_ids.connect(self.merge_performer_resultsignal) 
         self.add_artist.connect(self.add_performer_from_link_resultsignal)
@@ -46,18 +45,17 @@ class ContextMenu(QMenu):
     ### --------------------------------------------------------------------- ###
     def showContextMenu(self, pos: int, widget_name) -> None:
         current_widget = self.sender()        
-        if current_widget:            
-            # Hier je nach widget_name die entsprechende Aktion ausführen
-            if current_widget == self.Main.tblWdg_files:
-                self.showContextMenu_in_Files(current_widget.mapToGlobal(pos))
-            elif current_widget == self.Main.txtEdit_DBSynopsis:
-                self.showContextMenu_in_Synopsis(current_widget.mapToGlobal(pos))
-            elif current_widget == self.Main.txtEdit_DBTags:
-                self.showContextMenu_in_DBTags(current_widget.mapToGlobal(pos))
-            elif current_widget == self.Main.tblWdg_performer_links:
-                self.showContextMenu_in_performer_links(current_widget.mapToGlobal(pos))
-            elif current_widget == self.Main.tblWdg_performer:
-                self.showContextMenu_in_performer_search(current_widget.mapToGlobal(pos)) 
+        if current_widget:
+            widget_actions = {
+                self.Main.tblWdg_performer: self.showContextMenu_in_performer_search,
+                self.Main.tblWdg_files: self.showContextMenu_in_Files,
+                self.Main.txtEdit_DBSynopsis: self.showContextMenu_in_Synopsis,
+                self.Main.txtEdit_DBTags: self.showContextMenu_in_DBTags,
+                self.Main.tblWdg_performer_links: self.showContextMenu_in_performer_links                
+            }
+            action = widget_actions.get(current_widget)
+            if action:
+                action(current_widget.mapToGlobal(pos))
 
 #### ----------- Aufruf für die 'Performer Links Tabelle' ------------------------------ #####
     def showContextMenu_in_performer_links(self, pos: int) -> None: # tblWdg_performer_links
@@ -340,9 +338,7 @@ class ContextMenu(QMenu):
 #### ----------- Aktionen in dem 'Menu: Performer Tabelle' ------------------------------------- #####
 #### ------------------------------------------------------------------------------------------- #####
     ### ------------------------ Zeile/Name hinzufügen ----------------------------- ###
-    def perfomer_add_resultsignal(self, name: str, ordner: str, sex: int):
-        self.context_menu.close()
-        del self.context_menu
+    def perfomer_add_resultsignal(self, name: str, ordner: str, sex: int):        
         datenbank_darsteller = DB_Darsteller(MainWindow=self.Main)
         performer_data={"Name": name,
                         "Ordner": ordner,
@@ -351,14 +347,15 @@ class ContextMenu(QMenu):
                         "ArtistLink": None,
                         "ImagePfad": None}
         errview, artist_neu, sex_neu, link_neu, new_artist_id = datenbank_darsteller.addDarsteller_in_db(performer_data)
-        if new_artist_id != 0:
+        if new_artist_id != 0:            
             aktuelle_zeile = self.Main.tblWdg_performer.currentRow()
             neue_zeile = aktuelle_zeile + 1
             self.Main.tblWdg_performer.insertRow(neue_zeile)
             self.Main.tblWdg_performer.setItem(neue_zeile, 0, QTableWidgetItem(f'{new_artist_id}'))
             self.Main.tblWdg_performer.setItem(neue_zeile, 1, QTableWidgetItem(name))
             self.Main.tblWdg_performer.setItem(neue_zeile, 2, QTableWidgetItem(ordner))
-            self.Main.tblWdg_performer.setItem(neue_zeile, 5, QTableWidgetItem((f'{sex}')))
+            self.Main.tblWdg_performer.setItem(neue_zeile, 5, QTableWidgetItem((f'{sex}')))            
+            self.Main.tblWdg_performer.update()            
             StatusBar(self.Main,f"{artist_neu} Datensatz wurde neu hinzugefügt","#3ADF00")
         else:
             if errview:
@@ -369,11 +366,8 @@ class ContextMenu(QMenu):
                 StatusBar(self.Main,"Fehler beim Datensatz adden: 'Verschiedene Ordner angeben !'","#FF0000")
         QTimer.singleShot(1000, lambda :self.Main.statusBar.setStyleSheet('background-color:')) 
 
-
     ### ------------------------ Zeile/Namen löschen ------------------------------------------------ ###
-    def delete_performer(self):
-        self.context_menu.close()
-        del self.context_menu
+    def delete_performer(self):        
         datenbank_darsteller=DB_Darsteller(MainWindow=self.Main)
         artist_id = self.Main.tblWdg_performer.selectedItems()[0].text()
         is_delete = datenbank_darsteller.delete_performer_dataset(artist_id)

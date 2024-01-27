@@ -46,7 +46,7 @@ from config import MAIN_UI, BUTTONS_WEBSIDES_UI, TRANSFER_UI
 ### -------------------------------------------------------------------- ###StatusBar
 ### --------------------- HauptFenster --------------------------------- ###
 ### -------------------------------------------------------------------- ###
-class Haupt_Fenster(QMainWindow):    
+class Haupt_Fenster(QMainWindow):       
     def __init__(self, parent=None):
         super(Haupt_Fenster,self).__init__(parent)        
         uic.loadUi(MAIN_UI,self)
@@ -64,7 +64,8 @@ class Haupt_Fenster(QMainWindow):
         
         #### -----------  setze Sichtbarkeit auf "False" ----------- #####
         clearing_widget = ClearingWidget(self)         
-        clearing_widget.invisible_lbl_anzahl()
+        clearing_widget.invisible_movie_btn_anzahl()
+        clearing_widget.invisible_performer_btn_anzahl()
         clearing_widget.invisible_any_labels()
         clearing_widget.clear_social_media_in_buttons()
         datenbank_performers = DB_Darsteller(self)
@@ -79,7 +80,7 @@ class Haupt_Fenster(QMainWindow):
     
     def buttons_connections(self, clearing_widget): 
         self.show_performers_images = ShowPerformerImages(self)                    
-    ###-------------------------auf Klicks reagieren--------------------------------------###                
+    ###-------------------------auf Klicks reagieren--------------------------------------###
         ### --------------------------------------- #####
         ### --- Buttons auf den Haupt Widget ------ #####
         self.Btn_Laden.clicked.connect(self.Infos_ExifToolHolen)
@@ -147,6 +148,7 @@ class Haupt_Fenster(QMainWindow):
         self.tblWdg_files.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers) # onlyRead Table
         ### --- Context Menus ---------------------- ### 
         self.tblWdg_files.customContextMenuRequested.connect(lambda pos, widget_obj=self.tblWdg_files: self.showContextMenu(pos, widget_obj))
+        self.tblWdg_performer.customContextMenuRequested.connect(lambda pos, widget_obj=self.tblWdg_performer: self.showContextMenu(pos, widget_obj))      
         self.tblWdg_performer_links.customContextMenuRequested.connect(lambda pos, widget_obj=self.tblWdg_performer_links: self.showContextMenu(pos, widget_obj))
         ### ------------ Text/Tab Wechsel Reaktion ------------------ ###
         self.lnEdit_URL.textChanged.connect(lambda index: self.Btn_Linksuche_in_DB.setEnabled(bool(self.lnEdit_URL.text().startswith("https://"))))
@@ -178,6 +180,7 @@ class Haupt_Fenster(QMainWindow):
         self.chkBox_iafd_enabled.stateChanged.connect(self.toggle_iafd_performer_state)
         self.lnEdit_IAFD_artistAlias.doubleClicked.connect(self.take_iafdname_in_name)
         self.Btn_delete_logs.clicked.connect(lambda :self.txtBrowser_loginfos.clear())
+        self.cBox_performer_rasse.update_buttonChanged.connect(lambda enabled: self.Btn_DBArtist_Update.setEnabled(enabled))
         self.Btn_nations_edititem.clicked.connect(lambda :NationsAuswahl(parent=self))
         self.Btn_social_media_edititem.clicked.connect(lambda :SocialMediaAuswahl(parent=self, type="socialmedia", items_dict=self.get_social_media_dict()))        
         # for zahl in range(1,10):
@@ -185,7 +188,7 @@ class Haupt_Fenster(QMainWindow):
         for widget in self.get_bio_websites(widget=True):
             getattr(self, f"Btn_performer_in_{widget}").TooltipChanged.connect(lambda :self.Btn_DBArtist_Update.setEnabled(True))
         
-        widgets = self.performers_tab_widgets()
+        widgets = clearing_widget.performers_tab_widgets("lineprefix_perf_textprefix_perf_lineiafd")
         for widget in widgets:
             if widget not in ["lnEdit_DBIAFD_artistLink"]:
                 getattr(self, widget).textChanged.connect(partial(self.performer_text_change, widget=widget, color_hex='#FFFD00'))    
@@ -241,17 +244,15 @@ class Haupt_Fenster(QMainWindow):
             StatusBar(self, "IAFD Alias Text Feld ist leer !", "#FF0000")
 
     def set_performer_maske_text_connect(self, disconnect=False):
-        widgets = self.performers_tab_widgets()
+        clearing_widget = ClearingWidget(self)
+        widgets = clearing_widget.performers_tab_widgets("lineprefix_perf_textprefix_perf_lineiafd")
         for widget in widgets:
             getattr(self, widget).blockSignals(disconnect)     
 
     def performer_text_change(self, widget, color_hex='#FFFDD5'):        
         if color_hex=='#FFFD00':
             self.Btn_DBArtist_Update.setEnabled(True)
-        if isinstance(getattr(self, widget), QTextEdit):            
-            new_text = getattr(self, widget).toPlainText() 
-        else:       
-            new_text = getattr(self, widget).text() 
+        new_text = getattr(self, widget).toPlainText() if isinstance(getattr(self, widget), QTextEdit) else getattr(self, widget).text()           
         if new_text != self.previous_text.get(widget, ""):
             self.previous_text[widget] = new_text 
             color_hex = '#FFFD00' if new_text !="" else '#FFFDD5'
@@ -268,12 +269,7 @@ class Haupt_Fenster(QMainWindow):
                     QLineEdit:hover,QTextEdit:hover {border: 2px solid rgb(49, 50, 62);} \
                     QLineEdit:focus,QTextEdit:focus {border: 2px inset rgb(85, 170, 255);} \
                     QLineEdit::placeholderText {color: #FFFDD5;}"
-        getattr(self, widget).setStyleSheet(default_style)
-    
-    def performers_tab_widgets(self):
-        return ["lnEdit_performer_haar", "lnEdit_IAFD_artistAlias", "lnEdit_performer_geburtsort","lnEdit_performer_geburtstag",
-                "lnEdit_performer_boobs", "lnEdit_performer_bodytyp", "lnEdit_performer_aktiv", "lnEdit_performer_groesse", "lnEdit_performer_gewicht",
-                "txtEdit_performer_piercing", "txtEdit_performer_tattoo", "lnEdit_DBIAFD_artistLink","lnEdit_performer_augen"]
+        getattr(self, widget).setStyleSheet(default_style) 
 
     def tab_changed_handler(self, index: int) -> None:
         if index == 0:
@@ -565,7 +561,6 @@ class Haupt_Fenster(QMainWindow):
             self.tblWdg_performer.raise_()
             self.tabs.setCurrentWidget(self.tab_performer) 
             self.tblWdg_performer.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
-            self.tblWdg_performer.customContextMenuRequested.connect(lambda pos, widget_obj=self.tblWdg_performer: self.showContextMenu(pos, widget_obj))      
             self.customlnEdit_IAFD_performer.addToHistory(self.customlnEdit_IAFD_performer.text())            
             self.lnEdit_page.setText("1")
             self.lnEdit_maxpage.setText("1")
@@ -652,11 +647,11 @@ class Haupt_Fenster(QMainWindow):
         header_labels=self.get_header_for_performers_table()
         self.tblWdg_performer.setColumnCount(len(header_labels))
         self.tblWdg_performer.setHorizontalHeaderLabels(header_labels)
-        for zeile, artist_data in enumerate(artist_data_json):            
-            self.tblWdg_performer.setRowCount(zeile+1)
+        for row, artist_data in enumerate(artist_data_json):            
+            self.tblWdg_performer.setRowCount(row+1)
             for column, db_feld_name in enumerate(header_labels): 
-                self.tblWdg_performer.setItem(zeile,column,QTableWidgetItem(f'{artist_data[db_feld_name]}'))  
-        self.tblWdg_performer.setCurrentCell(zeile, 0)   
+                self.tblWdg_performer.setItem(row,column,QTableWidgetItem(f'{artist_data[db_feld_name]}'))  
+        self.tblWdg_performer.setCurrentCell(row, 0)   
 
     ### ---------------------------------------------------------------------- ###
     ### ---- Infos aus der Datenbank holen, um Dateien mit Daten zu füllen --- ###

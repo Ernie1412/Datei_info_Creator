@@ -107,14 +107,14 @@ class DB_Darsteller:
         self.open_database()
         if self.db.isOpen(): 
             with self.managed_query() as query:
-                query.prepare("SELECT NationID FROM Nationen WHERE Nation_ger = :Nation_ger;")  
-                query.bindValue(":Nation_ger", nations_ger)                                             
+                query.prepare("SELECT NationID FROM Nationen WHERE NationVolk_GER = :NationVolk_GER;")  
+                query.bindValue(":NationVolk_GER", nations_ger)                                             
                 query.exec()       
                 if query.next(): 
                     nations_id=query.value("NationID")
                     errview = f"'{self.get_nations_id_from_nations_ger.__name__}': {query.lastError().text()} (query1)" if query.lastError().text() else None
                 else:                    
-                    errview = f"'{self.get_nations_id_from_nations_ger.__name__}': kein '{nations_id}' gefunden in der Datenbank" if nations_id == -1 else f"'{self.get_nations_id_from_nations_ger.__name__}': {query.lastError().text()} (query)"
+                    errview = f"'{self.get_nations_id_from_nations_ger.__name__}': kein '{nations_ger}' gefunden in der Datenbank" if nations_id == -1 else f"'{self.get_nations_id_from_nations_ger.__name__}': {query.lastError().text()} (query)"
         else:
             errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.get_nations_id_from_nations_ger.__name__}'" if self.db.lastError().text() else errview                      
         if errview:
@@ -400,14 +400,14 @@ class DB_Darsteller:
         return artist_id   
     
     def get_all_datas_from_database(self, performers: str, page_number: int=1) -> str:
-        errview = None  
-        nations = ""      
-        page_size = 10000
+        errview: str = None 
+        page_size: int = 10000
         offset = (page_number - 1) * page_size
         artist_data = VideoData()
         ### ---------------- database ---------------- ###
         self.open_database()
         if self.db.isOpen():
+            ### ------------ totale Anzahl der Suchanfrage ermitteln ------------------ ###
             with self.managed_query() as query:
                 query.prepare("SELECT COUNT(*) FROM DB_Artist WHERE Name LIKE :Name;")
                 query.bindValue(":Name", performers)
@@ -418,7 +418,7 @@ class DB_Darsteller:
                     self.Main.lnEdit_maxpage.setText(f"{max_pages}")
                 else:
                     errview = f"Fehler beim Abrufen der Gesamtanzahl der Einträge: {query.lastError().text()}"
-
+            ### ------------ eigentliche Suchanfrage ------------------ ###
             with self.managed_query() as query:
                 query.prepare(f"SELECT * FROM DB_Artist WHERE Name LIKE :Name LIMIT :Limit OFFSET :Offset;")
                 query.bindValue(":Name", performers)
@@ -429,6 +429,7 @@ class DB_Darsteller:
                     artist_data.initialize(query.record()) 
                     artist_id=query.value("ArtistID")
                     errview = f"'{self.get_all_datas_from_database.__name__}': {errview} (query1)" if query.lastError().text() else errview
+                    ### ------------ Nationen Suchanfrage ------------------ ###
                     with self.managed_query() as query1:
                         query1.prepare("SELECT NationVolk_GER FROM Person_Nation JOIN Nationen ON Nationen.NationID=Person_Nation.NationID WHERE ArtistID=:ArtistID")
                         query1.bindValue(":ArtistID", artist_id)
@@ -438,15 +439,16 @@ class DB_Darsteller:
                             nation_list.append(query1.value("NationVolk_GER"))
                             errview = f"'{self.get_all_datas_from_database.__name__}': {errview} (query2)" if query.lastError().text() else errview 
                         nations=", ".join(nation_list)
+                    ### ------------ Rassen Suchanfrage ------------------ ###
                     with self.managed_query() as query1:
                         query1.prepare("SELECT Rasse_ger FROM Person_Rasse JOIN Rassen ON Rassen.RassenID=Person_Rasse.RassenID WHERE ArtistID=:ArtistID")
                         query1.bindValue(":ArtistID", artist_id)
                         query1.exec() 
-                        rasse_ger = []               
+                        rasse_list = []               
                         while query1.next():                            
-                            rasse_ger.append(query1.value("Rasse_ger"))
+                            rasse_list.append(query1.value("Rasse_ger"))
                             errview = f"'{self.get_all_datas_from_database.__name__}': {errview} (query2)" if query.lastError().text() else errview 
-                        rasse_ger="/".join(rasse_ger)  
+                        rasse_ger = "/".join(rasse_list)  
                     data=artist_data.get_data() # daten aus der Klasse bekommen, ansonsten nur eine Speicheradresse                                                
                     data[len(data)-1]["Nation"]=nations # "Nation" wird dem letzten 'index' '(len(data)-1)' hinzugefügt
                     data[len(data)-1]["Rassen"]=rasse_ger # "Rasse_ger" wird dem letzten '
@@ -941,53 +943,181 @@ class DB_Darsteller:
     ############################################################################################
     ###------------------------ Daten aus der Datenbank adden and updaten zusammen --------- ###
     ############################################################################################
+    ###------------------------ Update/Add -- Rassen --------------------------------------- ###
     def update_or_add_rassen_datensatz(self, rassen_ids: list, artist_id: int) -> Tuple[str, bool]:
-        errview: str=None
-        is_update: int=0
-        # ------ database ------- #
+        errview: str = None
+        update_or_add: int = 0 
+        is_update: bool=False       
+        # ------ Datenbankverbindung öffnen ------- #
         self.open_database()
-        if self.db.isOpen():
-            with self.managed_query() as query:
-                data = [(None, rassen_id, artist_id) for rassen_id in rassen_ids]
-                query.prepare("INSERT OR REPLACE INTO Person_Rasse (PersonID, RassenID, ArtistID) VALUES (NULL, ?, ?);")                
-                for _, rassen_id, artist_id in data:
-                    query.addBindValue(rassen_id)
-                    query.addBindValue(artist_id)
-                    if query.exec(): 
-                        if query.numRowsAffected() > 0:                   
-                            is_update += 1
-                        errview = query.lastError().text() if query.lastError().text() else None
-                is_update = True if is_update == len(rassen_ids) else False                    
+        if self.db.isOpen(): 
+            # Bestehende Rassen-IDs abrufen
+            errview, existing_personids_rassenids = self.get_existing_rassen_ids(artist_id, errview)
+            # Löschen von nicht mehr zutreffenden Einträgen
+            for existing_person_id, existing_rassen_id in existing_personids_rassenids:
+                if existing_rassen_id not in rassen_ids:
+                    errview, delete = self.delete_rassen_datensatz(existing_rassen_id, artist_id, errview)
+                    update_or_add += delete
+                # Hinzufügen von fehlenden Einträgen
+            for rassen_id in rassen_ids:
+                existing_person_id = next((person_id for person_id, existing_rassen_id in existing_personids_rassenids if existing_rassen_id == rassen_id), None)
+                if existing_person_id is None:
+                    # PersonID nicht gefunden, also hinzufügen
+                    errview, added = self.add_rassen_datensatz(rassen_id, artist_id, errview)
+                    update_or_add += added
+                else:
+                    # PersonID gefunden, also aktualisieren
+                    errview, update = self.update_rasseid_datensatz(existing_person_id, rassen_id, artist_id, errview)
+                    update_or_add += update
+            # Überprüfen, ob Änderungen vorgenommen wurden
+            is_update = update_or_add == (len(rassen_ids) or len(existing_personids_rassenids))                
         else:
-            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.update_performer_datensatz.__name__}'" if self.db.lastError().text() else errview          
+            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.update_or_add_rassen_datensatz.__name__}'" if self.db.lastError().text() else errview          
         if errview:
             self.db_fehler(errview)
         self.close_database()
         return errview, is_update
     
-    def update_or_add_nations_datensatz(self, nations_ids: list, artist_id: int) -> Tuple[str, bool]:
-        errview: str=None
-        is_update: int=0
-        # ------ database ------- #
+    def get_existing_rassen_ids(self, artist_id: int, errview: str) -> list:
+        existing_person_rassen_ids: list = []
+        with self.managed_query() as query:
+            query.prepare("SELECT PersonID, RassenID FROM Person_Rasse WHERE ArtistID=:ArtistID;")
+            query.bindValue(":ArtistID", artist_id)
+            query.exec()
+            if query.lastError().isValid():
+                # Ein Fehler ist aufgetreten
+                errview = query.lastError().text()
+            else:
+                while query.next():
+                    existing_person_rassen_ids.append((query.value(0), query.value(1)))            
+        del query
+        return errview, existing_person_rassen_ids
+    
+    def delete_rassen_datensatz(self, rassen_id: int, artist_id: int, errview: str) -> int:
+        del_dataset: int = 0
+        with self.managed_query() as query:
+            query.prepare("DELETE FROM Person_Rasse WHERE RassenID=:RassenID AND ArtistID=:ArtistID;")
+            query.bindValue(":RassenID", rassen_id)
+            query.bindValue(":ArtistID", artist_id)
+            query.exec()
+            errview = query.lastError().text() if query.lastError().text() else errview
+            del_dataset = query.numRowsAffected()
+        del query
+        return errview, del_dataset
+    
+    def add_rassen_datensatz(self, rassen_id: int, artist_id: int, errview: str) -> int:
+        del_dataset: int = 0
+        with self.managed_query() as query:
+            query.prepare("INSERT INTO Person_Rasse (PersonID, RassenID, ArtistID) VALUES (NULL, :RassenID, :ArtistID);")
+            query.bindValue(":RassenID", rassen_id)
+            query.bindValue(":ArtistID", artist_id)
+            query.exec()
+            errview = query.lastError().text() if query.lastError().text() else errview
+            add_dataset = query.numRowsAffected()
+        del query
+        return errview, add_dataset
+    
+    def update_rasseid_datensatz(self, person_id: int, rassen_id: int, artist_id: int, errview: str) -> int:
+        update_dataset: int = 0
+        with self.managed_query() as query:
+            query.prepare("UPDATE Person_Rasse SET RassenID=:RassenID WHERE PersonID=:PersonID AND ArtistID=:ArtistID;")
+            query.bindValue(":PersonID", person_id)
+            query.bindValue(":RassenID", rassen_id)
+            query.bindValue(":ArtistID", artist_id)
+            query.exec()
+            errview = query.lastError().text() if query.lastError().text() else errview
+            update_dataset = query.numRowsAffected()
+        del query
+        return errview, update_dataset
+    ### ---------------------------------------------------------------------------------- ###
+    ###------------------------ Update/Add -- Nationen ----------------------------------- ###
+    def update_or_add_nation_datensatz(self, nation_ids: list, artist_id: int) -> Tuple[str, bool]:
+        errview: str = None
+        update_or_add: int = 0 
+        is_update: bool=False       
+        # ------ Datenbankverbindung öffnen ------- #
         self.open_database()
-        if self.db.isOpen():
-            with self.managed_query() as query:
-                data = [(None, nations_id, artist_id) for nations_id in nations_ids]
-                query.prepare("INSERT OR REPLACE INTO Person_Nation (PersonID, NationID, ArtistID) VALUES (NULL, ?, ?);")                
-                for _, nations_id, artist_id in data:
-                    query.addBindValue(nations_id)
-                    query.addBindValue(artist_id)
-                    if query.exec(): 
-                        if query.numRowsAffected() > 0:                   
-                            is_update += 1
-                        errview = query.lastError().text() if query.lastError().text() else None
-                is_update = True if is_update == len(nations_ids) else False                    
+        if self.db.isOpen(): 
+            # Bestehende Nation-IDs abrufen
+            errview, existing_personids_nationids = self.get_existing_nation_ids(artist_id, errview)
+            # Löschen von nicht mehr zutreffenden Einträgen
+            for existing_person_id, existing_nation_id in existing_personids_nationids:
+                if existing_nation_id not in nation_ids:
+                    errview, delete = self.delete_nation_datensatz(existing_nation_id, artist_id, errview)
+                    update_or_add += delete
+                # Hinzufügen von fehlenden Einträgen
+            for nation_id in nation_ids:
+                existing_person_id = next((person_id for person_id, existing_nation_id in existing_personids_nationids if existing_nation_id == nation_id), None)
+                if existing_person_id is None:
+                    # PersonID nicht gefunden, also hinzufügen
+                    errview, added = self.add_nation_datensatz(nation_id, artist_id, errview)
+                    update_or_add += added
+                else:
+                    # PersonID gefunden, also aktualisieren
+                    errview, update = self.update_nationid_datensatz(existing_person_id, nation_id, artist_id, errview)
+                    update_or_add += update
+            # Überprüfen, ob Änderungen vorgenommen wurden
+            is_update = update_or_add == (len(nation_ids) or len(existing_personids_nationids))                
         else:
-            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.update_or_add_nations_datensatz.__name__}'" if self.db.lastError().text() else errview          
+            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.update_or_add_nation_datensatz.__name__}'" if self.db.lastError().text() else errview          
         if errview:
             self.db_fehler(errview)
         self.close_database()
         return errview, is_update
+    
+    def get_existing_nation_ids(self, artist_id: int, errview: str) -> list:
+        existing_person_nation_ids: list = []
+        with self.managed_query() as query:
+            query.prepare("SELECT PersonID, NationID FROM Person_Nation WHERE ArtistID=:ArtistID;")
+            query.bindValue(":ArtistID", artist_id)
+            query.exec()
+            if query.lastError().isValid():
+                # Ein Fehler ist aufgetreten
+                errview = query.lastError().text()
+            else:
+                while query.next():
+                    existing_person_nation_ids.append((query.value(0), query.value(1)))            
+        del query
+        return errview, existing_person_nation_ids
+    
+    def delete_nation_datensatz(self, nation_id: int, artist_id: int, errview: str) -> int:
+        del_dataset: int = 0
+        with self.managed_query() as query:
+            query.prepare("DELETE FROM Person_Nation WHERE NationID=:NationID AND ArtistID=:ArtistID;")
+            query.bindValue(":NationID", nation_id)
+            query.bindValue(":ArtistID", artist_id)
+            query.exec()
+            errview = query.lastError().text() if query.lastError().text() else errview
+            del_dataset = query.numRowsAffected()
+        del query
+        return errview, del_dataset
+    
+    def add_nation_datensatz(self, nation_id: int, artist_id: int, errview: str) -> int:
+        del_dataset: int = 0
+        with self.managed_query() as query:
+            query.prepare("INSERT INTO Person_Nation (PersonID, NationID, ArtistID) VALUES (NULL, :NationID, :ArtistID);")
+            query.bindValue(":NationID", nation_id)
+            query.bindValue(":ArtistID", artist_id)
+            query.exec()
+            errview = query.lastError().text() if query.lastError().text() else errview
+            add_dataset = query.numRowsAffected()
+        del query
+        return errview, add_dataset
+    
+    def update_nationid_datensatz(self, person_id: int, nation_id: int, artist_id: int, errview: str) -> int:
+        update_dataset: int = 0
+        with self.managed_query() as query:
+            query.prepare("UPDATE Person_Nation SET NationID=:NationID WHERE PersonID=:PersonID AND ArtistID=:ArtistID;")
+            query.bindValue(":PersonID", person_id)
+            query.bindValue(":NationID", nation_id)
+            query.bindValue(":ArtistID", artist_id)
+            query.exec()
+            errview = query.lastError().text() if query.lastError().text() else errview
+            update_dataset = query.numRowsAffected()
+        del query
+        return errview, update_dataset
+    ### ---------------------------------------------------------------------------------- ###
+    
     
     ############################################################################################ 
     ###------------------------ Daten aus der Datenbank löschen/deleten -------------------- ###
