@@ -3111,7 +3111,7 @@ border: 1px solid grey;border-radius: 5px;}</string>
           </size>
          </property>
          <property name="editable">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -4991,7 +4991,7 @@ color: rgb(213, 213, 213);}
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="lbl_performer_nation_1">
+        <widget class="QLabel" name="lbl_performer_nation_0">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
            <horstretch>0</horstretch>
@@ -5021,6 +5021,34 @@ color: rgb(213, 213, 213);}
          </property>
          <property name="scaledContents">
           <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lbl_performer_nation_1">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>33</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>33</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string/>
          </property>
         </widget>
        </item>
@@ -5164,37 +5192,9 @@ color: rgb(213, 213, 213);}
          </property>
         </widget>
        </item>
-       <item>
-        <widget class="QLabel" name="lbl_performer_nation_7">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>33</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>33</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
       </layout>
      </widget>
-     <widget class="QPushButton" name="Btn_performers_socialmedia_8">
+     <widget class="QPushButton" name="Btn_performers_socialmedia_7">
       <property name="geometry">
        <rect>
         <x>320</x>
@@ -5288,7 +5288,7 @@ color: rgb(213, 213, 213);}
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QPushButton" name="Btn_performers_socialmedia_9">
+     <widget class="QPushButton" name="Btn_performers_socialmedia_8">
       <property name="geometry">
        <rect>
         <x>350</x>
@@ -5332,7 +5332,7 @@ color: rgb(213, 213, 213);}
        </size>
       </property>
      </widget>
-     <widget class="QPushButton" name="Btn_performers_socialmedia_10">
+     <widget class="QPushButton" name="Btn_performers_socialmedia_9">
       <property name="geometry">
        <rect>
         <x>380</x>
@@ -5451,7 +5451,7 @@ color: rgb(213, 213, 213);}
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QPushButton" name="Btn_performers_socialmedia_1">
+     <widget class="QPushButton" name="Btn_performers_socialmedia_0">
       <property name="geometry">
        <rect>
         <x>132</x>
@@ -5495,7 +5495,7 @@ color: rgb(213, 213, 213);}
        </size>
       </property>
      </widget>
-     <widget class="QPushButton" name="Btn_performers_socialmedia_2">
+     <widget class="QPushButton" name="Btn_performers_socialmedia_1">
       <property name="geometry">
        <rect>
         <x>159</x>
@@ -5539,7 +5539,7 @@ color: rgb(213, 213, 213);}
        </size>
       </property>
      </widget>
-     <widget class="QPushButton" name="Btn_performers_socialmedia_3">
+     <widget class="QPushButton" name="Btn_performers_socialmedia_2">
       <property name="geometry">
        <rect>
         <x>186</x>
@@ -5583,7 +5583,7 @@ color: rgb(213, 213, 213);}
        </size>
       </property>
      </widget>
-     <widget class="QPushButton" name="Btn_performers_socialmedia_4">
+     <widget class="QPushButton" name="Btn_performers_socialmedia_3">
       <property name="geometry">
        <rect>
         <x>212</x>
@@ -5627,7 +5627,7 @@ color: rgb(213, 213, 213);}
        </size>
       </property>
      </widget>
-     <widget class="QPushButton" name="Btn_performers_socialmedia_5">
+     <widget class="QPushButton" name="Btn_performers_socialmedia_4">
       <property name="geometry">
        <rect>
         <x>238</x>
@@ -5671,7 +5671,7 @@ color: rgb(213, 213, 213);}
        </size>
       </property>
      </widget>
-     <widget class="QPushButton" name="Btn_performers_socialmedia_6">
+     <widget class="QPushButton" name="Btn_performers_socialmedia_5">
       <property name="geometry">
        <rect>
         <x>263</x>
@@ -5715,7 +5715,7 @@ color: rgb(213, 213, 213);}
        </size>
       </property>
      </widget>
-     <widget class="QPushButton" name="Btn_performers_socialmedia_7">
+     <widget class="QPushButton" name="Btn_performers_socialmedia_6">
       <property name="geometry">
        <rect>
         <x>290</x>
@@ -6114,13 +6114,13 @@ QPushButton:hover{
      <zorder>gBox_piercing</zorder>
      <zorder>lblsocialmedia</zorder>
      <zorder>Btn_biowebsite_edititem</zorder>
+     <zorder>Btn_performers_socialmedia_0</zorder>
      <zorder>Btn_performers_socialmedia_1</zorder>
      <zorder>Btn_performers_socialmedia_2</zorder>
      <zorder>Btn_performers_socialmedia_3</zorder>
      <zorder>Btn_performers_socialmedia_4</zorder>
      <zorder>Btn_performers_socialmedia_5</zorder>
      <zorder>Btn_performers_socialmedia_6</zorder>
-     <zorder>Btn_performers_socialmedia_7</zorder>
      <zorder>layoutWidget</zorder>
      <zorder>layoutWidget</zorder>
      <zorder>stacked_image_infos</zorder>
@@ -6152,10 +6152,10 @@ QPushButton:hover{
      <zorder>Btn_performers_gender</zorder>
      <zorder>Btn_performer_in_TheNude</zorder>
      <zorder>Btn_performer_in_TheOnes</zorder>
-     <zorder>Btn_performers_socialmedia_8</zorder>
+     <zorder>Btn_performers_socialmedia_7</zorder>
      <zorder>Btn_social_media_edititem</zorder>
+     <zorder>Btn_performers_socialmedia_8</zorder>
      <zorder>Btn_performers_socialmedia_9</zorder>
-     <zorder>Btn_performers_socialmedia_10</zorder>
      <zorder>Btn_hair_selection</zorder>
      <zorder>Btn_eye_selection</zorder>
      <zorder>Btn_birthplace_selection</zorder>

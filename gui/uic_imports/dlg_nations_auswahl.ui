@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>451</width>
-    <height>73</height>
+    <height>104</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,20 +17,61 @@
    <item row="0" column="0">
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
+      <widget class="QLabel" name="lbl_maxlabels">
+       <property name="minimumSize">
+        <size>
+         <width>430</width>
+         <height>25</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>25</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>maximale Anzahl an Labels erreicht</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="CustomComboBoxCheck" name="cBox_nations">
        <property name="minimumSize">
         <size>
-         <width>100</width>
+         <width>430</width>
          <height>0</height>
         </size>
        </property>
        <property name="editable">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
       </widget>
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QLabel" name="lbl_nation_0">
+         <property name="minimumSize">
+          <size>
+           <width>33</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>33</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
        <item>
         <widget class="QLabel" name="lbl_nation_1">
          <property name="minimumSize">
@@ -83,6 +124,9 @@
            <height>25</height>
           </size>
          </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -101,9 +145,6 @@
            <width>33</width>
            <height>25</height>
           </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true"/>
          </property>
          <property name="text">
           <string/>
@@ -131,25 +172,6 @@
        </item>
        <item>
         <widget class="QLabel" name="lbl_nation_6">
-         <property name="minimumSize">
-          <size>
-           <width>33</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>33</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="lbl_nation_7">
          <property name="minimumSize">
           <size>
            <width>33</width>

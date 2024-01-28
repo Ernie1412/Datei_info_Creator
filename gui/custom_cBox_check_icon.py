@@ -5,10 +5,10 @@ from PyQt6.QtCore import Qt, QSize
 class CustomComboBoxCheckIcon(QComboBox):
     def __init__(self, parent):        
         super().__init__(parent) 
-        self.widgets = parent
-                
+        self.widgets = parent                
         self.view().pressed.connect(self.handleItemPressed)        
         self.addItems() 
+        self.closeOnLineEditClick = False
         self.setEditable(True) 
 
     def addItems(self):
@@ -18,13 +18,12 @@ class CustomComboBoxCheckIcon(QComboBox):
             self.model().item(index, self.modelColumn()).setCheckState(Qt.CheckState.Unchecked)
     
     def handleItemPressed(self, index):        
-        item = self.model().itemFromIndex(index)
-        
+        item = self.model().itemFromIndex(index)        
         if item.checkState() == Qt.CheckState.Checked:
             item.setCheckState(Qt.CheckState.Unchecked)
             self.clear_labels()            
         else:
-            item_count = len(self.get_checked_items())+1
+            item_count = len(self.get_checked_items())
             if item_count <= self.widgets.max_labels:
                 item.setCheckState(Qt.CheckState.Checked)
             else:
@@ -32,7 +31,7 @@ class CustomComboBoxCheckIcon(QComboBox):
         self.set_text_icon_in_labels()
     
     def get_next_visible_label(self):
-        index = 1
+        index = 0
         while not hasattr(self.widgets,f"lbl_{self.widgets.type}_{index}").isVisible():             
             index += 1
         return getattr(self.widgets,f"lbl_{self.widgets.type}_{index}")
@@ -48,13 +47,13 @@ class CustomComboBoxCheckIcon(QComboBox):
     
     def set_text_icon_in_labels(self):        
         checked_items = self.get_checked_items()        
-        for label_number, (text, icon) in enumerate(checked_items,1):                       
+        for label_number, (text, icon) in enumerate(checked_items):                       
             label = getattr(self.widgets, f"lbl_{self.widgets.type}_{label_number}")            
             label.setPixmap((icon.pixmap(QSize(25, 25))))
             label.setToolTip(text)             
 
     def clear_labels(self):
-        for label_number in range(1,self.widgets.max_labels):
+        for label_number in range(self.widgets.max_labels):
             label = getattr(self.widgets, f"lbl_{self.widgets.type}_{label_number}")
             label.clear()                        
     

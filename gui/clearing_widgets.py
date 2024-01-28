@@ -99,19 +99,21 @@ class ClearingWidget():
             for artist in iafd_artist:
                 widget_list.append(f"lnEdit_{artist}") 
         if "iafd_" in type_of_widget:
-            widget_list.append(iafd_artist)
+            for artist in iafd_artist:
+                widget_list.append(artist)
         return widget_list
 
-    def clear_maske(self):                 
+    def clear_maske(self):
+        a= self.performers_tab_widgets("performer_text_iafd_")                 
         elements_to_reset = [
             (self.tooltip_claering, self.performers_tab_widgets("tooltip")),            
             (self.clear_label_and_tooltip, ["iafd_image", "babepedia_image", "link_image_from_db"]),
-            (self.clear_line_edit_and_tooltip, self.performers_tab_widgets("performer_line")),
+            (self.clear_line_edit_and_tooltip, self.performers_tab_widgets("performer_line_iafd_")),
             (self.clear_combobox_and_list, ["performer_rasse"]),
-            (self.clear_text_edit, self.performers_tab_widgets("performer_text_iafd_")),
+            (self.clear_text_edit, self.performers_tab_widgets("text")),
             (self.set_default_table, ["performer_links"]),
-            (self.clear_nations, [1,2,3,4,5,6,7]),
-            (self.clear_social_media, ["1","2","3","4","5","6","7","8","9","10"])    ]
+            (self.clear_nations, [0,1,2,3,4,5,6]),
+            (self.clear_social_media, [0,1,2,3,4,5,6,7,8,9])    ]
         for method, widgets in elements_to_reset:
             for widget in widgets:
                 if  method==self.tooltip_claering:
@@ -148,7 +150,7 @@ class ClearingWidget():
             widget.setToolTip("")           
 
     def clear_social_media_in_buttons(self) -> None:
-        for i in range(1,11):
+        for i in range(10):
             self.clear_social_media(f"{i}")
 
     def clear_social_media(self, widget_name: str ) -> None:

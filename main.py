@@ -69,7 +69,7 @@ class Haupt_Fenster(QMainWindow):
         clearing_widget.invisible_any_labels()
         clearing_widget.clear_social_media_in_buttons()
         datenbank_performers = DB_Darsteller(self)
-        self.cBox_performer_rasse.addItems("Rasse", self.all_rassen_ger(datenbank_performers), datenbank_performers)        
+        self.cBox_performer_rasse.addItems(self, "Rasse", self.all_rassen_ger(datenbank_performers), datenbank_performers)        
         self.buttons_connections(clearing_widget)
 
     def all_rassen_ger(self, datenbank_performers)-> list:
@@ -183,8 +183,7 @@ class Haupt_Fenster(QMainWindow):
         self.cBox_performer_rasse.update_buttonChanged.connect(lambda enabled: self.Btn_DBArtist_Update.setEnabled(enabled))
         self.Btn_nations_edititem.clicked.connect(lambda :NationsAuswahl(parent=self))
         self.Btn_social_media_edititem.clicked.connect(lambda :SocialMediaAuswahl(parent=self, type="socialmedia", items_dict=self.get_social_media_dict()))        
-        # for zahl in range(1,10):
-        #     getattr(self,f"Btn_performers_socialmedia_{zahl}").clicked.connect(lambda :SocialMediaAuswahl(self, widget=zahl))   
+         
         for widget in self.get_bio_websites(widget=True):
             getattr(self, f"Btn_performer_in_{widget}").TooltipChanged.connect(lambda :self.Btn_DBArtist_Update.setEnabled(True))
         
@@ -825,11 +824,11 @@ class Haupt_Fenster(QMainWindow):
         infos_webside = Infos_WebSides(MainWindow=self)
         datenbank_darsteller = DB_Darsteller(self)
         socialmedias = self.get_social_media_dict()
-        social_media_links=social_medias.split("\n") if social_medias else ""
-        for zahl, social_media_link in enumerate(social_media_links, 1): # zahl startet mit 1
+        social_media_links = social_medias.split("\n") if social_medias else ""
+        for zahl, social_media_link in enumerate(social_media_links): # zahl startet mit 1
             found = False         
             for key, value in socialmedias.items():
-                if key in social_media_link:
+                if value in social_media_link:
                     self.set_socialmedia_in_button(social_media_link, value, zahl)
                     found = True
                     break 
@@ -841,8 +840,7 @@ class Haupt_Fenster(QMainWindow):
     def get_social_media_dict(self):
         return  {"https://twitter.com": "twitter",
                 "https://www.facebook.com/": "facebook",
-                "https://www.instagram.com/": "instagram",
-                "https://instagram.com/": "instagram",
+                "https://www.instagram.com/": "instagram",                
                 "https://onlyfans.com/": "onlyfans",
                 "https://fancentro.com/": "fancentro",
                 "https://linktr.ee/": "linktree",
@@ -850,7 +848,7 @@ class Haupt_Fenster(QMainWindow):
                 "https://www.twitch.tv/": "twitch"} 
 
     def set_socialmedia_in_button(self, social_media_link: str, value: str, zahl: int):
-        if zahl <= 10:        
+        if zahl <= 9:        
             button=getattr(self,f"Btn_performers_socialmedia_{zahl}")
             button.setProperty("social_media", social_media_link)            
             button.setVisible(True)
@@ -1089,18 +1087,6 @@ class Haupt_Fenster(QMainWindow):
             self.lstWdg_Darstellerin.addItem(item.text())
             self.lstWdg_Darsteller.takeItem(self.lstWdg_Darsteller.row(item))  
   
-    # def DarstellerZusammen(self):        
-    #     Darsteller,Darstellerin,und=("","","")
-    #     for item in range(self.lstWdg_Darstellerin.count()):
-    #         Darstellerin+=self.lstWdg_Darstellerin.item(item).text()+", "
-    #     for item in range(self.lstWdg_Darsteller.count()):
-    #         Darsteller+=self.lstWdg_Darsteller.item(item).text()+"(m), "
-    #         und=" & "
-    #     d=Darstellerin[:-2]
-    #     if d.find(", ")!=-1 and und=="":
-    #         d=d[:d.rfind(", ")]+" & "+d[d.rfind(", ")+2:]               
-    #     return d+und+Darsteller[:-2]
-    
     def get_actors(self, actor_list: QListWidget, gender: str)-> str:
         return gender.join([actor_list.item(item).text() for item in range(actor_list.count())])
     

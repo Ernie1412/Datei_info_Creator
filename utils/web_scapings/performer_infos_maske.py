@@ -128,13 +128,13 @@ class PerformerInfosMaske():
             if nation_shortsymbol==None:
                 print(f"Nation '{nation_ger}' nicht in Datenbank gefunden")
             else:
-                getattr(self.Main,f"lbl_performer_nation_{zahl+1}").setProperty("nation", nation_ger)            
-                getattr(self.Main,f"lbl_performer_nation_{zahl+1}").setStyleSheet(f"background-image: url(:/labels/_labels/nations/{nation_shortsymbol.lower()}.png);")
-                infos_webside.set_tooltip_text(f"lbl_performer_nation_{zahl+1}", "", f"{art}: {nation_ger}", art)
+                getattr(self.Main,f"lbl_performer_nation_{zahl}").setProperty("nation", nation_ger)            
+                getattr(self.Main,f"lbl_performer_nation_{zahl}").setStyleSheet(f"background-image: url(:/labels/_labels/nations/{nation_shortsymbol.lower()}.png);")
+                infos_webside.set_tooltip_text(f"lbl_performer_nation_{zahl}", "", f"{art}: {nation_ger}", art)
 
     def get_social_media_from_buttons(self) -> str: 
         social_medias: str=""
-        for index in range(1,11):
+        for index in range(10):
             social_media=getattr(self.Main, f"Btn_performers_socialmedia_{index}").toolTip().replace("Datenbank: ", "")
             if social_media:
                 social_medias += social_media +"\n"
@@ -187,7 +187,7 @@ class PerformerInfosMaske():
     
     def get_nations_from_labels(self) -> str:
         nations: str = []
-        for zahl in range(1,7): 
+        for zahl in range(7): 
             nation=getattr(self.Main,f"lbl_performer_nation_{zahl}").property("nation") 
             if nation:
                 nations.append(nation)

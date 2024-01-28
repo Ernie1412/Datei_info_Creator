@@ -16,8 +16,7 @@ class SocialMediaAuswahl(QDialog):
             self.type = kwargs["type"]
         if "items_dict" in kwargs:
             self.items_dict = kwargs["items_dict"]
-        self.max_labels = 11 # (10 + 1)
-       
+        self.max_labels = 10 # 0-9 +1       
         uic.loadUi(SOCIAL_MEDIA_AUSWAHL_UI, self)        
         self.setupUi() 
 
@@ -33,7 +32,7 @@ class SocialMediaAuswahl(QDialog):
 
     def accepted_socialmedias(self):
         checked_items = getattr(self, f"cBox_{self.type}").get_checked_items()
-        button_number = 1
+        button_number = 0
         while button_number <= self.max_labels and checked_items:
             button = getattr(self.Main, f"Btn_performers_{self.type}_{button_number}")
             if not button.isVisible():
