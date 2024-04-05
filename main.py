@@ -1,8 +1,9 @@
 from PyQt6 import uic
 from PyQt6.QtCore import Qt, QTimer, QDateTime, QTranslator, QVariantAnimation, pyqtSlot
 from PyQt6.QtWidgets import QMainWindow, QAbstractItemView, QTableWidgetItem, QApplication, QPushButton, QWidget, QListWidgetItem , \
-    QListWidget, QLineEdit, QTextEdit, QTableWidget
+    QListWidget, QLineEdit, QTextEdit, QTableWidget, QMenu
 from PyQt6.QtGui import QMovie, QPixmap, QKeyEvent, QStandardItem, QStandardItemModel, QColor, QBrush, QIcon
+from PyQt6.QtTest import QTest
 
 
 
@@ -17,18 +18,26 @@ import win32com.client
 from pathlib import Path
 from typing import List, Tuple
 from scrapy.settings import Settings
+from urllib.parse import urlparse
 from functools import partial
 
 import gui.resource_collection_files.logo_rc
 import gui.resource_collection_files.buttons_rc
 
 from utils.database_settings import DB_Darsteller, Webside_Settings, ScrapingData, VideoData
-from utils.web_scapings.websides import Infos_WebSides
+from utils.database_settings.database_for_pornbox import PornBoxLinks
+from utils.web_scapings.datenbank_scene_maske import DatenbankSceneMaske
+from gui.context_menus.context_menu_for_buttons import CustomMenuButtons
+from utils.web_scapings.scape_iafd import ScrapeIAFDScene
+from utils.web_scapings.scrape_data18 import ScrapeData18
+from utils.web_scapings.theporndb.scrape_scene_the_porn_db import ScrapeThePornDBScene
 from utils.web_scapings.iafd_performer_link import IAFDInfos
 from utils.web_scapings.performer_infos_maske import PerformerInfosMaske
 from utils.threads import FileTransferThread, ExifSaveThread
-from utils.umwandeln import from_classname_to_import, count_days
-from gui.dialoge_ui.message_show import StatusBar, MsgBox, status_fehler_ausgabe, blink_label
+from utils.web_scapings.theporndb.scrape_scene_the_porn_db import ScrapeThePornDBScene
+from utils.database_settings.search_title_from_db import SearchTitle
+from utils.helpers.umwandeln import from_classname_to_import, count_days
+from gui.helpers.message_show import StatusBar, MsgBox, status_fehler_ausgabe, blink_label
 from gui.dialoge_ui.einstellungen import Einstellungen
 from gui.dialoge_ui.dialog_daten_auswahl import Dlg_Daten_Auswahl
 from gui.dialog_nations_auswahl import NationsAuswahl
@@ -38,6 +47,7 @@ from gui.clearing_widgets import ClearingWidget
 from gui.dialog_gender_auswahl import GenderAuswahl
 from gui.dialog_social_media_auswahl import SocialMediaAuswahl
 from gui.dialog_socialmedia_link import SocialMediaLink
+from gui.copy_datas_in_gui import CopyDatasInGui
 
 from config import EXIFTOOLPFAD
 from config import BUTTONSNAMES_JSON_PATH, PROCESS_JSON_PATH, MEDIA_JSON_PATH, DATENBANK_JSON_PATH
@@ -65,9 +75,10 @@ class Haupt_Fenster(QMainWindow):
         #### -----------  setze Sichtbarkeit auf "False" ----------- #####
         clearing_widget = ClearingWidget(self)         
         clearing_widget.invisible_movie_btn_anzahl()
+        clearing_widget.invisible_database_link()
         clearing_widget.invisible_performer_btn_anzahl()
         clearing_widget.invisible_any_labels()
-        clearing_widget.clear_social_media_in_buttons()
+        clearing_widget.clear_social_media_in_buttons()        
         datenbank_performers = DB_Darsteller(self)
         self.cBox_performer_rasse.addItems(self, "Rasse", self.all_rassen_ger(datenbank_performers), datenbank_performers)        
         self.buttons_connections(clearing_widget)
@@ -79,7 +90,7 @@ class Haupt_Fenster(QMainWindow):
         return items       
     
     def buttons_connections(self, clearing_widget): 
-        self.show_performers_images = ShowPerformerImages(self)                    
+        self.show_performers_images = ShowPerformerImages(self)  
     ###-------------------------auf Klicks reagieren--------------------------------------###
         ### --------------------------------------- #####
         ### --- Buttons auf den Haupt Widget ------ #####
@@ -92,30 +103,35 @@ class Haupt_Fenster(QMainWindow):
         ### --- Buttons auf den Infos Tab ------ #####
         self.Btn_logo_am_infos_tab.clicked.connect(self.Websides_Auswahl)
         self.Btn_AddArtist.clicked.connect(self.AddArtist)
-        self.Btn_Linksuche_in_DB.clicked.connect(self.linksuche_in_db) 
+        self.Btn_Linksuche_in_DB.clicked.connect(lambda: SearchTitle(self).linksuche_in_db()) 
         self.Btn_Rechts.clicked.connect(self.AddRechts)
-        self.Btn_Links.clicked.connect(self.AddLinks)       
+        self.Btn_Links.clicked.connect(self.AddLinks)
+        self.Btn_copy_runtime.clicked.connect(lambda: CopyDatasInGui(self).copy_runtime_set_in_moviedb())       
         ### ------------------------------------- ####
         ### --- Buttons auf den Analyse Tab ---- #####
         self.Btn_logo_am_analyse_tab.clicked.connect(self.Websides_Auswahl)
-        self.Btn_titel_suche.clicked.connect(self.titel_suche)
-        self.Btn_name_suche.clicked.connect(self.performer_suche)
+        self.Btn_titel_suche.clicked.connect(lambda: SearchTitle(self).search_title())
+        self.Btn_name_suche.clicked.connect(lambda: SearchTitle(self).performer_suche())
         self.cBox_performers.currentIndexChanged.connect(self.show_performers_images.show_performer_picture)
         self.Btn_next.clicked.connect(self.show_performers_images.show_next_picture_in_label)
         self.Btn_prev.clicked.connect(self.show_performers_images.show_previous_picture_in_label)
         ### -------------------------------------- #####
         ### --- Buttons auf den Datenbank Tab ---- ##### 
-        self.Btn_logo_am_db_tab.clicked.connect(self.Websides_Auswahl)
-        self.Btn_Linksuche_in_URL.clicked.connect(self.webscrap_url)
+        self.Btn_logo_am_db_tab.clicked.connect(self.Websides_Auswahl)        
         self.Btn_Linksuche_in_Data18.clicked.connect(self.webscrap_data18)
+        #self.Btn_Linksuche_in_TPDB.clicked.connect(self.webscrap_tpdb)
         self.Btn_Linksuche_in_IAFD.clicked.connect(self.webscrap_iafd)
         self.Btn_AddLink.clicked.connect(self.addLink)
         self.Btn_delLink.clicked.connect(self.delete_link_from_listview)
         self.Btn_AddPerformer.clicked.connect(self.add_performers)
-        self.Btn_delPerformer.clicked.connect(self.del_performers)          
-        self.Btn_Clipboard.clicked.connect(self.CopyText)
+        self.Btn_delPerformer.clicked.connect(self.del_performers) 
         self.Btn_DBUpdate.clicked.connect(self.single_DBupdate)
         self.Btn_addDatei.clicked.connect(self.add_db_in_datei)
+        self.Btn_pornbox_links.clicked.connect(self.add_all_pornbox_links)
+        self.Btn_copy_dbdata18.clicked.connect(lambda: CopyDatasInGui(self).data18Link_update())
+        self.Btn_copy_dbtheporndb.clicked.connect(lambda: CopyDatasInGui(self).ThePornDBLink_update())
+        self.Btn_copy_dbiafd.clicked.connect(lambda: CopyDatasInGui(self).IAFDLink_update())
+        self.Btn_Clipboard.clicked.connect(lambda: CopyDatasInGui(self).copy_text_to_clipboard())
         ### ---------- Button auf den datenbank Tab per for Loop ----------- ####
         felder = ["SceneCode", "ProDate", "Release", "Regie", "Serie", "Dauer", "Movies", "Synopsis", "Tags"]                                          
         for feld in felder:            
@@ -135,26 +151,30 @@ class Haupt_Fenster(QMainWindow):
         self.Btn_get_last_side.clicked.connect(self.gui_last_side) 
         self.Btn_start_spider.clicked.connect(self.start_spider)  
         self.Btn_RadioBtn_rename.clicked.connect(self.file_rename_from_infos) 
-        self.Btn_Titelsuche_in_DB.clicked.connect(self.titel_suche)
-        self.Btn_perfomsuche_in_DB.clicked.connect(self.performer_suche)          
+        self.Btn_Titelsuche_in_DB.clicked.connect(lambda: SearchTitle(self).search_title())
+        self.Btn_perfomsuche_in_DB.clicked.connect(lambda: SearchTitle(self).performer_suche_in_scene())          
         self.rdBtn_rename.clicked.connect(self.radioBtn_file_rename)         
-        self.actionEinstellungen.triggered.connect(lambda :Einstellungen(self).einstellungen_ui.show())
+        self.actionEinstellungen.triggered.connect(lambda :Einstellungen(self).show())
         self.tblWdg_daten.horizontalHeader().sectionClicked.connect(lambda index: self.tblWdg_daten.setSortingEnabled(not self.tblWdg_daten.isSortingEnabled()))
-        self.tblWdg_daten.clicked.connect(self.DB_Anzeige)
+        self.tblWdg_daten.itemClicked.connect(self.show_database_for_movies)
         self.tblWdg_performer.horizontalHeader().sectionClicked.connect(lambda index: self.tblWdg_performer.setSortingEnabled(not self.tblWdg_performer.isSortingEnabled()))
-        self.tblWdg_performer.clicked.connect(self.DB_Anzeige)
-        self.tblWdg_files.clicked.connect(self.Ordner_Infos)        
+        self.tblWdg_performer.itemClicked.connect(self.show_database_for_performers)
+        self.tblWdg_files.itemClicked.connect(self.Ordner_Infos)        
         self.tblWdg_files.horizontalHeader().sectionClicked.connect(lambda index: self.tblWdg_files.setSortingEnabled(not self.tblWdg_files.isSortingEnabled()))        
         self.tblWdg_files.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers) # onlyRead Table
         ### --- Context Menus ---------------------- ### 
         self.tblWdg_files.customContextMenuRequested.connect(lambda pos, widget_obj=self.tblWdg_files: self.showContextMenu(pos, widget_obj))
         self.tblWdg_performer.customContextMenuRequested.connect(lambda pos, widget_obj=self.tblWdg_performer: self.showContextMenu(pos, widget_obj))      
         self.tblWdg_performer_links.customContextMenuRequested.connect(lambda pos, widget_obj=self.tblWdg_performer_links: self.showContextMenu(pos, widget_obj))
+        self.tblWdg_DB_performers.customContextMenuRequested.connect(lambda pos, widget_obj=self.tblWdg_DB_performers: self.showContextMenu(pos, widget_obj))
+        clearing_widget.set_website_bio_enabled(self.get_bio_websites(widget=True), False)
+        self.set_website_bio_context_menu()
         ### ------------ Text/Tab Wechsel Reaktion ------------------ ###
         self.lnEdit_URL.textChanged.connect(lambda index: self.Btn_Linksuche_in_DB.setEnabled(bool(self.lnEdit_URL.text().startswith("https://"))))
         self.tabs.currentChanged.connect(self.tab_changed_handler)
         self.lnEdit_DBIAFDLink.textChanged.connect(self.Web_IAFD_change)
-        self.lnEdit_DBData18Link.textChanged.connect(self.Web_Data18_change)              
+        self.lnEdit_DBData18Link.textChanged.connect(self.Web_Data18_change)
+        self.lnEdit_DBThePornDBLink.textChanged.connect(self.Web_ThePornDB_change)              
         self.lnEdit_URL.textChanged.connect(self.link_isin_from_db)
         self.lnEdit_db_titel.textChanged.connect(self.titelsuche_in_DB_aktiv)
         self.lnEdit_db_performer.textChanged.connect(self.performersuche_in_DB_aktiv)
@@ -163,7 +183,7 @@ class Haupt_Fenster(QMainWindow):
         self.lnEdit_DBIAFD_artistLink.textChanged.connect(self.Web_IAFD_artist_change)         
         self.Btn_IAFD_perfomer_suche.clicked.connect(self.get_IAFD_performer_link)
         self.Btn_Linksuche_in_IAFD_artist.clicked.connect(self.load_IAFD_performer_link)
-        self.Btn_performers_gender.clicked.connect(lambda :GenderAuswahl(self))
+        self.Btn_performers_gender.clicked.connect(lambda :GenderAuswahl(self).exec())
         self.Btn_DB_perfomer_suche.clicked.connect(self.datenbank_performer_suche) 
         self.customlnEdit_IAFD_performer.returnPressed.connect(self.datenbank_performer_suche)       
         self.Btn_DBArtist_Update.clicked.connect(self.update_datensatz)
@@ -181,11 +201,12 @@ class Haupt_Fenster(QMainWindow):
         self.lnEdit_IAFD_artistAlias.doubleClicked.connect(self.take_iafdname_in_name)
         self.Btn_delete_logs.clicked.connect(lambda :self.txtBrowser_loginfos.clear())
         self.cBox_performer_rasse.update_buttonChanged.connect(lambda enabled: self.Btn_DBArtist_Update.setEnabled(enabled))
-        self.Btn_nations_edititem.clicked.connect(lambda :NationsAuswahl(parent=self))
-        self.Btn_social_media_edititem.clicked.connect(lambda :SocialMediaAuswahl(parent=self, type="socialmedia", items_dict=self.get_social_media_dict()))        
+        self.Btn_nations_edititem.clicked.connect(lambda :NationsAuswahl(parent=self).exec())
+        self.Btn_social_media_edititem.clicked.connect(lambda :SocialMediaAuswahl(parent=self, items_dict=self.get_social_media_dict()).exec())        
          
-        for widget in self.get_bio_websites(widget=True):
-            getattr(self, f"Btn_performer_in_{widget}").TooltipChanged.connect(lambda :self.Btn_DBArtist_Update.setEnabled(True))
+        for widget in self.get_bio_websites(widget=True):  # wenn bio_websites änderungen sind, dann Update aktiv
+            btn = getattr(self, f"Btn_performer_in_{widget}")
+            btn.tooltipChanged.connect(self.check_avaible_bio_websites) 
         
         widgets = clearing_widget.performers_tab_widgets("lineprefix_perf_textprefix_perf_lineiafd")
         for widget in widgets:
@@ -204,15 +225,23 @@ class Haupt_Fenster(QMainWindow):
     
     def get_bio_websites(self, widget=False, url=False) -> list:
         widgets_urls ={"BabePedia": "https://www.babepedia.com/", 
-                     "theporndb": "https://api.metadataapi.net/",
+                     "theporndb": "https://api.theporndb.net",
                      "indexxx": "https://www.indexxx.com/",
                      "TheNude": "https://www.thenude.com/",
-                     "TheOnes": "https://www.freeones.com/" }        
+                     "Freeones": "https://www.freeones.com/" }        
         if widget:
             return list(widgets_urls.keys())
         if url:
             return list(widgets_urls.values())
         return widgets_urls
+
+    def check_avaible_bio_websites(self):
+        button = self.sender() 
+        for name, url in self.get_bio_websites().items(): 
+            if button.toolTip().startswith(url):
+                button_name= button.objectName().replace("Btn_performer_in_", "")
+                ClearingWidget(self).set_website_bio_enabled([button_name],True)
+                self.Btn_DBArtist_Update.setEnabled(True)
 
     def toggle_iafd_performer_state(self, is_checked):        
         is_change=False
@@ -273,20 +302,20 @@ class Haupt_Fenster(QMainWindow):
     def tab_changed_handler(self, index: int) -> None:
         if index == 0:
             self.tblWdg_daten.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
-            self.stacked_tables.setCurrentWidget(self.page_table_files) 
+            self.stacked_tables.setCurrentWidget(self.stacked_page_table_files) 
             self.stackedWidget.setCurrentWidget(self.stacked_active_file)
 
         if index == 1:
             self.tblWdg_daten.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
-            self.stacked_tables.setCurrentWidget(self.page_table_daten)             
+            self.stacked_tables.setCurrentWidget(self.stacked_page_table_daten)             
             self.stackedWidget.setCurrentWidget(self.stacked_db_abfrage)           
             self.set_analyse_daten()
 
         if index ==2: 
             self.tblWdg_daten.setContextMenuPolicy(Qt.ContextMenuPolicy.DefaultContextMenu)
-            self.stacked_tables.setCurrentWidget(self.page_table_daten)           
+            self.stacked_tables.setCurrentWidget(self.stacked_page_table_daten)           
             self.stackedWidget.setCurrentWidget(self.stacked_IAFD_Linkmaker) 
-            header_labels = self.get_header_for_movie_table()
+            header_labels = SearchTitle(self).get_header_for_movie_table()
             self.tblWdg_daten.setColumnCount(len(header_labels))
             self.tblWdg_daten.setHorizontalHeaderLabels(header_labels)          
             links = self.lstView_database_weblinks.model().data(self.lstView_database_weblinks.model().index(0, 0))
@@ -295,7 +324,7 @@ class Haupt_Fenster(QMainWindow):
 
         if index ==3:
             self.tblWdg_performer.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
-            self.stacked_tables.setCurrentWidget(self.page_table_performer)         
+            self.stacked_tables.setCurrentWidget(self.stacked_page_table_performer)         
             self.stackedWidget.setCurrentWidget(self.stacked_IAFD_artist)
             self.stacked_image_infos.setCurrentWidget(self.perfomer_image)
             header_labels=self.get_header_for_performers_table()            
@@ -303,36 +332,57 @@ class Haupt_Fenster(QMainWindow):
             self.tblWdg_performer.setHorizontalHeaderLabels(header_labels)
             self.tblWdg_performer_links.setColumnWidth(4, 20)
 
-    def set_studio_in_db_tab(self, links):
-        scraping_data = ScrapingData(MainWindow=self)
-        studio_name = scraping_data.from_link_to_studio(links.split("/")[2])
+    def set_studio_in_db_tab(self, link):
+        baselink = urlparse(link).netloc
+        scraping_data = ScrapingData(MainWindow=self)        
+        studio_name = scraping_data.from_link_to_studio(baselink)
+        self.set_button_from_studioname(studio_name)
+    
+    def set_button_from_studioname(self, studio_name):
         db_webside_settings = Webside_Settings(MainWindow=self)
         errorview, studio, logo = db_webside_settings.get_buttonlogo_from_studio(studio_name)  
         if errorview:
             logo="background-image: url(':/Buttons/_buttons/no-logo_90x40.jpg')"
             studio="kein Studio ausgewählt !"
-        self.Btn_logo_am_db_tab.setStyleSheet(logo)
-        self.Btn_logo_am_db_tab.setToolTip(studio)
+        self.set_database_tab_enabled(logo, studio)
 
     def showContextMenu(self, pos: int, widget_name):        
         current_widget = self.sender()
         if current_widget:
             context_menu = ContextMenu(self)
-            context_menu.showContextMenu(current_widget.mapToGlobal(pos), widget_name)
+            context_menu.showContextMenu(current_widget.mapToGlobal(pos), widget_name)   
+
+    def set_website_bio_context_menu(self) -> None:
+        for widget in self.get_bio_websites(widget=True):
+            bio_button = getattr(self, f"Btn_performer_in_{widget}")
+            bio_button.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+            bio_button.customContextMenuRequested.connect(self.show_context_menu)         
+
+    def show_context_menu(self, pos):
+        current_widget = self.sender()        
+        menu = CustomMenuButtons(self)
+        menu.show_context_menu(current_widget, current_widget.mapToGlobal(pos)) 
     
     def refresh_table(self, new_file: str=None) -> None: 
-        sort = self.tblWdg_files.isSortingEnabled()
-        gesuchter_text = new_file if new_file else self.tblWdg_files.selectedItems()[0].text() # wenn es vom rename func kommt, new_file            
+        sort = self.tblWdg_files.isSortingEnabled()          
         self.tblWdg_files.hide()
         self.Info_Datei_Laden(refresh=True)
         QTimer.singleShot(300, lambda :self.tblWdg_files.show())
-        self.tblWdg_files.setSortingEnabled(sort)
+        self.tblWdg_files.setSortingEnabled(sort)         
+        if new_file:            
+            self.activate_item(new_file)
+        elif self.tblWdg_files.selectedItems():
+            self.activate_item(self.tblWdg_files.selectedItems()[0].text())       
+           
+
+    def activate_item(self, gesuchter_text):
         for row in range(self.tblWdg_files.rowCount()):
             item = self.tblWdg_files.item(row, 0)  # Hier 0 für die erste Spalte, ändere es entsprechend
             if item and item.text() == gesuchter_text:
                 item.setSelected(True)
-                # Du hast die gewünschte Zeile gefunden (row)
-                break  
+                item_pos = self.tblWdg_files.visualItemRect(item).center()
+                QTest.mouseClick(self.tblWdg_files, Qt.MouseButton.LeftButton, pos=item_pos)
+                break                
 
     def add_current_text_to_combobox(self):
         current_text = self.cBox_performer_fanside.currentText()        
@@ -363,8 +413,9 @@ class Haupt_Fenster(QMainWindow):
         # Lösche die JSON-Datei und beende die Funktion
             if Path(DATENBANK_JSON_PATH).exists():
                 Path(DATENBANK_JSON_PATH).unlink()
-                self.invisible_lbl_anzahl()
-                ClearingWidget(self).loesche_DB_maske()
+                clearing = ClearingWidget(self)
+                clearing.invisible_movie_btn_anzahl()
+                clearing.loesche_DB_maske()
             return
 
         if Path(DATENBANK_JSON_PATH).exists():
@@ -397,13 +448,13 @@ class Haupt_Fenster(QMainWindow):
         if Path(DATENBANK_JSON_PATH).exists():            
             set = json.loads(DATENBANK_JSON_PATH.read_bytes())
             return set[info_art].keys(),set[info_art].values()
-        return [], []
-    
+        return [], []    
 
     def auswahl_btn_ok_radiobutton(self):
         self.Auswahl.reject()
         db_webside_settings = Webside_Settings(MainWindow=self)
-        errorview,verschiebe_ordner = db_webside_settings.hole_verschiebe_ordner(self.lbl_SuchStudio.text())
+        print(self.lnEdit_Studio.text())
+        errorview, verschiebe_ordner = db_webside_settings.hole_verschiebe_ordner(self.lnEdit_Studio.text())
         move_file = self.tblWdg_files.selectedItems()[0].text()+".mp4" 
         if self.Auswahl.rdBtn_TargetDatei.isChecked():            
             Path(self.lbl_Ordner.text(), move_file).unlink()             
@@ -425,11 +476,18 @@ class Haupt_Fenster(QMainWindow):
         self.Transfer.setWindowTitle("Datei Transfer ins richtige Ordner !")      
         self.Transfer.btn_OK_transfer.raise_()                
         self.Transfer.lbl_speed.setStyleSheet("background-color: none;font: none;")
+        self.Transfer.lbl_Dest_Folder.setStyleSheet("background-color: none;font: none;")
         self.Transfer.label_gif_transfer.setVisible(True)        
-        self.movie = QMovie(str(Path(__file__).absolute().parent / "grafics/transfer.gif"))
-        self.Transfer.label_gif_transfer.setMovie(self.movie) 
-        self.movie.start()                         
-        self.startTransfer(directory +"/"+ move_file,verschiebe_ordner +"/"+ move_file)
+        self.movie = QMovie(":/labels/_dialog_label/transfer.gif")        
+        if Path(verschiebe_ordner).exists(): 
+            self.Transfer.label_gif_transfer.setMovie(self.movie)   
+            self.startTransfer(directory +"/"+ move_file,verschiebe_ordner +"/"+ move_file)            
+            self.movie.start()
+        else:
+            self.Transfer.label_gif_transfer.setPixmap(QPixmap(":/labels/_dialog_label/sign-error-icon.png"))
+            self.Transfer.lbl_Dest_Folder.setStyleSheet("background-color: #ff3000")
+            self.Transfer.lbl_Dest_Folder.setText(f"Ordner '{verschiebe_ordner}' nicht vorhanden !") 
+            self.Transfer.btn_OK_transfer.clicked.connect(self.Transfer.close)
 
     def startTransfer(self, source_path: str, dest_path: str) -> None:
         self.Transfer.btn_Stop.raise_()        
@@ -452,7 +510,7 @@ class Haupt_Fenster(QMainWindow):
         self.transferThread.finished.disconnect()  
         self.transferThread.quit()        
         self.movie.stop()
-        self.Transfer.label_gif_transfer.setPixmap(QPixmap(str(Path(__file__).absolute().parent / "grafics/sign-error-icon.png)")))       
+        self.Transfer.label_gif_transfer.setPixmap(QPixmap(":/labels/_dialog_label/sign-error-icon.png"))      
         Path(self.transferThread.target_path).unlink()
         minutes, seconds = divmod(remaining_time, 60) 
         self.Transfer.lbl_speed.setText(f"{avg_speed:.2f} MB/s - geschätzte Zeit bis zum Ende: {minutes:02d}:{seconds:02d}s > ABBRUCH !!!")
@@ -463,7 +521,7 @@ class Haupt_Fenster(QMainWindow):
         self.transferThread.quit()
         self.transferThread.wait()
         self.movie.stop()
-        self.Transfer.label_gif_transfer.setPixmap(QPixmap(str(Path(__file__).absolute().parent / "grafics/Info.jpg")))
+        self.Transfer.label_gif_transfer.setPixmap(QPixmap(":/labels/_dialog_label/Info.jpg"))
         self.Transfer.lbl_speed.setText("100 MB/s - geschätzte Zeit bis zum Ende: 00:00s > FERTIG !!!")        
         if (Path(self.transferThread.source_path).stat().st_size == Path(self.transferThread.target_path).stat().st_size
            and self.transferThread.source_path!=self.transferThread.target_path):
@@ -474,63 +532,18 @@ class Haupt_Fenster(QMainWindow):
 
     # IAFD Link Maker
     def IAFDLink(self):
-        infos_webside = Infos_WebSides(MainWindow=self)
+        infos_webside = DatenbankSceneMaske(MainWindow=self)
         titel = self.lnEdit_Titel.text()
         jahr = self.lnEdit_Jahr.text()
         infos_webside.IAFDLink(titel,jahr)
-
-    # kopiere den Text welcher aktiv ist vom Datenbank Tab in die Zwischenablage        
-    def CopyText(self):
-        txt: str=None
-        widget_name: str=None
-        clip_settings = {
-            "lnEdit_DBRegie" : "Director: {txt}",
-            "lnEdit_DBProDate" : "Comments:\nDate of Production: {txt}",
-            "lnEdit_DBRelease" : "Release Date: {txt}",
-            "lnEdit_DBDauer" : "Minutes: {txt}",
-            "txtEdit_DBMovies" : "Appears In:\n{txt}",
-            "txtEdit_DBSynopsis" : "Synopsis:\n{txt}",
-        }
-        focused_widget = self.grpBox_Daten.focusWidget()  # Das aktuell fokussierte Widget
-
-        if isinstance(focused_widget, QLineEdit):
-            text = focused_widget.text()
-            widget_name = focused_widget.objectName()
-        elif isinstance(focused_widget, QTextEdit):
-            text = focused_widget.toPlainText()
-            widget_name = focused_widget.objectName()
-
-        if text:                                                   
-            if widget_name in clip_settings.keys():                
-                pyperclip.copy(clip_settings[widget_name].format(txt=text))
-                self.txtEdit_Clipboard.setPlainText(clip_settings[widget_name].format(txt=text))
-            else: 
-                pyperclip.copy(text)
-                self.txtEdit_Clipboard.setPlainText(text)
-        else:
-            self.txtEdit_Clipboard.setPlainText("❌ kein Feld aktiv !") 
-
+    
     def dialog_auswahl(self):
     # Erstellen Sie eine Instanz des Dlg_Daten_Auswahl-Dialogs
         dlg = Dlg_Daten_Auswahl(MainWindow=self)
         # Rufen Sie die exec-Methode auf, um das Dialogfenster anzuzeigen
-        dlg.exec()
+        dlg.exec()  
+            
 
-    
-    def linksuche_in_db(self):        
-        link: str = self.lnEdit_URL.text()
-        studio: str = self.lnEdit_Studio.text()  
-
-        if self.is_studio_in_database(studio):
-            scraping_data = ScrapingData(MainWindow=self)
-            errorview = scraping_data.hole_link_aus_db(link, studio)
-            if errorview:
-                MsgBox(self, errorview,"w") 
-            else:                
-                self.tabelle_erstellen_fuer_movie()              
-                self.DB_Anzeige()
-        else:
-            MsgBox(self, f"Es gibt noch keine Datenbank für: <{studio}>","w")
 
     def update_page_and_search(self, new_page):
         if self.customlnEdit_IAFD_performer.text() != "":
@@ -618,22 +631,7 @@ class Haupt_Fenster(QMainWindow):
             widget_table.setGeometry(0, 0, 890, 750)
             self.Btn_table_daten_expanding.move(925, 540)
     
-    ### ------------------------ Movie Info Tabelle ----------------------- ###
-    def get_header_for_movie_table(self):
-        return ["Titel", "WebSideLink", "IAFDLink", "Performers", "Alias", "Action","Dauer", "ReleaseDate", "ProductionDate",
-                "Serie","Regie","SceneCode","Movies","Synopsis","Tags"]
 
-    def tabelle_erstellen_fuer_movie(self):
-        self.stacked_tables.setCurrentWidget(self.page_table_daten)        
-        video_data_json=VideoData().load_from_json()
-        header_labels = self.get_header_for_movie_table()  
-        self.tblWdg_daten.setColumnCount(len(header_labels))
-        self.tblWdg_daten.setHorizontalHeaderLabels(header_labels)      
-        for zeile, video_data in enumerate(video_data_json):            
-            self.tblWdg_daten.setRowCount(zeile+1)
-            for column, db_feld_name in enumerate(header_labels): 
-                self.tblWdg_daten.setItem(zeile,column,QTableWidgetItem(f'{video_data[db_feld_name]}'))
-        self.tblWdg_daten.setCurrentCell(zeile, 0)
 
     ### ------------------------ Performer Tabelle ----------------------- ###
     def get_header_for_performers_table(self):
@@ -641,7 +639,7 @@ class Haupt_Fenster(QMainWindow):
                 "OnlyFans", "Boobs","Gewicht", "Groesse","Bodytyp", "Piercing","Tattoo","Haarfarbe", "Augenfarbe","Aktiv"]
 
     def tabelle_erstellen_fuer_performer(self): 
-        self.stacked_tables.setCurrentWidget(self.page_table_performer)        
+        self.stacked_tables.setCurrentWidget(self.stacked_page_table_performer)        
         artist_data_json=VideoData().load_from_json()
         header_labels=self.get_header_for_performers_table()
         self.tblWdg_performer.setColumnCount(len(header_labels))
@@ -650,53 +648,7 @@ class Haupt_Fenster(QMainWindow):
             self.tblWdg_performer.setRowCount(row+1)
             for column, db_feld_name in enumerate(header_labels): 
                 self.tblWdg_performer.setItem(row,column,QTableWidgetItem(f'{artist_data[db_feld_name]}'))  
-        self.tblWdg_performer.setCurrentCell(row, 0)   
-
-    ### ---------------------------------------------------------------------- ###
-    ### ---- Infos aus der Datenbank holen, um Dateien mit Daten zu füllen --- ###
-    ### ---------------------------------------------------------------------- ###
-    @pyqtSlot()
-    def titel_suche(self):
-        self.tblWdg_daten.setRowCount(0)        
-        if self.sender() == self.Btn_Titelsuche_in_DB:
-            studio: str=self.Btn_logo_am_db_tab.toolTip() 
-            titel_db: str=self.lnEdit_db_titel.text().replace("'","''") 
-            self.lnEdit_db_titel.setText(titel_db)
-        else: 
-            studio: str=self.lbl_SuchStudio.text()   
-            titel_db: str=self.lnEdit_analyse_titel.text().replace("'","''") 
-            self.lnEdit_db_titel.setText(titel_db) 
-
-        if self.is_studio_in_database(studio):
-            self.lnEdit_db_titel.setText(self.lnEdit_analyse_titel.text())
-            scraping_data = ScrapingData(MainWindow=self)
-            errorview = scraping_data.hole_titel_aus_db(titel_db, studio)
-            if errorview:
-                MsgBox(self, errorview,"w") 
-            else:                
-                self.tabelle_erstellen_fuer_movie() 
-        else:
-            MsgBox(self, f"Es gibt noch keine Datenbank für: <{studio}>","w")
-
-    @pyqtSlot()
-    def performer_suche(self):
-        self.tblWdg_performer.clear()
-        if self.sender() == self.Btn_perfomsuche_in_DB: # Button auf den Movie Datenbank Tab/Stacked
-            studio: str=self.Btn_logo_am_db_tab.toolTip()
-            name_db: str=self.lnEdit_db_performer.text()
-        else:                                           # Button auf den Analyse Tab/Stacked
-            studio: str=self.lbl_SuchStudio.text()
-            name_db: str=self.cBox_performers.currentText()                
-        
-        if self.is_studio_in_database(studio):
-            scraping_data = ScrapingData(MainWindow=self)
-            errorview: str=scraping_data.hole_link_von_performer(name_db, studio)  # erstellt auch in tblWdg_daten die Liste          
-            if errorview:
-                MsgBox(self, errorview,"w") 
-            else:                
-                self.tabelle_erstellen_fuer_movie()
-        else:
-            MsgBox(self, f"Es gibt noch keine Datenbank für: <{studio}>","w")
+        self.tblWdg_performer.setCurrentCell(row, 0)  
    
     ### ---------------------------------------------------------------------------- ###
     ### ---- von Datienamen zum Titel in der DB splitten, Titel, Namen Link usw. --- ###
@@ -718,9 +670,8 @@ class Haupt_Fenster(QMainWindow):
             artist_name = database_darsteller.suche_nach_artistname(file_name_part) 
             if any(file_name_part in name for name in artist_name):
                 file_name=file_name.replace(file_name_part,"").strip()
-                name_all.extend(artist_name) 
-
-        return(studio, file_name, name_all)
+                name_all.extend(artist_name)
+        return(studio, file_name, sorted(name_all))
     
     def copy_clipboard_iafdlink(self):
         pyperclip.copy(self.lnEdit_DBIAFD_artistLink.text())
@@ -742,24 +693,49 @@ class Haupt_Fenster(QMainWindow):
     ### ---- vom Basislink incl IAFD Link, gucken ob es da schon einn Eintrag für gibt ----- ###
     ### ------------------------------------------------------------------------------------ ###
     def link_isin_from_db(self): 
-        link= self.lnEdit_URL.text()                 
-        base_url: str = "/".join(link.split("/")[:3])
+        link = self.lnEdit_URL.text()                 
+        base_url = self.get_baselink(link)
         iafdlink = link if link.startswith("https://www.iafd.com/") else None
         scraping_data  = ScrapingData(MainWindow=self)
-        link_in_db = scraping_data.is_link_in_db(base_url, iafdlink) # schaut ob weblink oder iafdlink da is 
+        if base_url or iafdlink:
+            link_in_db = scraping_data.is_link_in_db(base_url, iafdlink) # schaut ob weblink oder iafdlink da is 
         self.Btn_addDatei.setEnabled(link_in_db)            
 
-
+    def get_baselink(self, url):
+        parsed_url = urlparse(url)
+        scheme = parsed_url.scheme
+        base_url = parsed_url.netloc
+        return scheme + "://" + base_url
+    
     def link_maker(self):
         if self.lnEdit_IAFD_titel.text()!="" and self.lnEdit_db_jahr.text()!="":            
-            title=self.lnEdit_IAFD_titel.text().lower().replace(" ","+")            
-            hostname=f'https://www.iafd.com/title.rme/title={title}/year={self.lnEdit_db_jahr.text()[:4]}/{title.replace("+","-")}.htm'
-            pyperclip.copy(hostname)
-            self.txtEdit_Clipboard.setPlainText(f"IAFD Link: \n{hostname}")
+            self.link_maker_iafd()
+        elif self.lnEdit_DBTitel.text()!="" and self.lnEdit_DBRelease.text()!="":
+            self.lnEdit_IAFD_titel.setText(self.set_iafd_conform(self.lnEdit_DBTitel.text()))
+            self.lnEdit_db_jahr.setText(self.lnEdit_DBRelease.text()[:4])
+            self.link_maker_iafd()
+        else:
+            MsgBox(self, "Bitte Titel und Jahr angeben","w")
+    
+    def set_iafd_conform(self, title):
+        change_letters_dict = {"The ": "", 
+                               "A ": "",
+                               " & ": " and ",
+                               "?": "",
+                               "!": ""}
+        for key, value in change_letters_dict.items():
+            title = title.replace(key, value)         
+        return title
+
+    def link_maker_iafd(self):
+        title=self.lnEdit_IAFD_titel.text().lower().replace(" ","+")            
+        hostname=f'https://www.iafd.com/title.rme/title={title}/year={self.lnEdit_db_jahr.text()[:4]}/{title.replace("+","-")}.htm'
+        pyperclip.copy(hostname)
+        self.txtEdit_Clipboard.setPlainText(f"IAFD Link: \n{hostname}")
 
     def Web_IAFD_change(self):        
-        infos_webside = Infos_WebSides(MainWindow=self)
-        infos_webside.Web_IAFD_change() 
+        scrape_iafd_scene = ScrapeIAFDScene(MainWindow=self)
+        scrape_iafd_scene.Web_IAFD_change() 
 
     def Web_IAFD_artist_change(self):
         if self.chkBox_iafd_enabled.isChecked():            
@@ -769,8 +745,7 @@ class Haupt_Fenster(QMainWindow):
 
     def performer_tab_update_tabelle(self):
         performer_infos_maske = PerformerInfosMaske(MainWindow=self)
-        performer_infos_maske.update_tabelle()
-                                
+        performer_infos_maske.update_tabelle()                                
 
     def get_IAFD_performer_link(self): 
         iafd_infos = IAFDInfos(MainWindow=self)
@@ -779,35 +754,37 @@ class Haupt_Fenster(QMainWindow):
     def load_IAFD_performer_link(self): 
         iafd_infos = IAFDInfos(MainWindow=self)
         iafd_link=self.lnEdit_DBIAFD_artistLink.text()
-        id = self.grpBox_performer.title().replace("Performer-Info ID: ","")
+        id = self.grpBox_performer_name.title().replace("Performer-Info ID: ","")
         name = self.lnEdit_performer_info.text()
         iafd_infos.load_IAFD_performer_link(iafd_link, id, name) 
         PerformerInfosMaske(self).set_iafd_infos_in_ui()       
 
     def Web_Data18_change(self):
-        infos_webside = Infos_WebSides(MainWindow=self)
-        infos_webside.Web_Data18_change()  
+        scrape_data18_scene = ScrapeData18(MainWindow=self)
+        scrape_data18_scene.Web_Data18_change() 
+
+    def Web_ThePornDB_change(self):
+        scrape_theporndb_scene = ScrapeThePornDBScene(MainWindow=self)
+        #infos_webside.Web_Data18_change() 
 
     def webscrap_data18(self):        
         self.lbl_checkWeb_Data18URL.setVisible(True)
-        infos_webside = Infos_WebSides(MainWindow=self)
-        infos_webside.webscrap_data18() 
-    
-    def webscrap_url(self):
-        self.lbl_checkWeb_URL.setVisible(True)               
-        infos_webside = Infos_WebSides(MainWindow=self)
-        infos_webside.webscrap_url()
+        scrape_data18_scene = ScrapeData18(MainWindow=self)
+        scrape_data18_scene.webscrap_data18()  
 
     def webscrap_iafd(self):
         self.lbl_checkWeb_IAFDURL.setVisible(True)
-        infos_webside = Infos_WebSides(MainWindow=self)
-        infos_webside.webscrap_iafd()
+        scrape_iafd_scene = ScrapeIAFDScene(MainWindow=self)
+        scrape_iafd_scene.webscrap_iafd()
 
+    def webscrap_theporndb(self):
+        self.lbl_checkWeb_ThePornDBURL.setVisible(True)
+        scrape_theporndb_scene = ScrapeThePornDBScene(MainWindow=self)
+        scrape_theporndb_scene.webscrap_scene()
 
     def videodaten_holen(self):
-        self.stackedWidget.setCurrentIndex(1) 
-        studio = self.lnEdit_Studio.text()      
-
+        self.stackedWidget.setCurrentWidget(self.stacked_web_scan)
+        studio = self.lnEdit_Studio.text()  
         db_webside_settings = Webside_Settings(MainWindow=self) 
         errorview, links = db_webside_settings.from_studio_to_all_baselinks(studio) 
         if errorview:
@@ -820,9 +797,7 @@ class Haupt_Fenster(QMainWindow):
                 self.cBox_studio_links.addItem(link) 
 
     ### --------------- Social Media Button -------------------- ###
-    def set_social_media_in_buttons(self, social_medias):
-        infos_webside = Infos_WebSides(MainWindow=self)
-        datenbank_darsteller = DB_Darsteller(self)
+    def set_social_media_in_buttons(self, social_medias):  
         socialmedias = self.get_social_media_dict()
         social_media_links = social_medias.split("\n") if social_medias else ""
         for zahl, social_media_link in enumerate(social_media_links): # zahl startet mit 1
@@ -843,18 +818,22 @@ class Haupt_Fenster(QMainWindow):
                 "https://www.instagram.com/": "instagram",                
                 "https://onlyfans.com/": "onlyfans",
                 "https://fancentro.com/": "fancentro",
-                "https://linktr.ee/": "linktree",
+                "https://linktr.ee/": "linktr.ee",
                 "https://www.loyalfans.com/": "loyalfans",
-                "https://www.twitch.tv/": "twitch"} 
+                "https://www.twitch.tv/": "twitch",
+                "https://www.manyvids.com/": "manyvids",
+                "https://www.youtube.com/": "youtube",
+                "https://fansly.com/.com/": "fansly",
+                "https://www.snapchat.com/": "snapchat"} 
 
     def set_socialmedia_in_button(self, social_media_link: str, value: str, zahl: int):
         if zahl <= 9:        
-            button=getattr(self,f"Btn_performers_socialmedia_{zahl}")
-            button.setProperty("social_media", social_media_link)            
-            button.setVisible(True)
+            button = getattr(self,f"Btn_performers_socialmedia_{zahl}")
+            button.setProperty("social_media", social_media_link)  
             button.setIcon(QIcon(f":/Buttons/_buttons/socialmedia/{value}-25.png"))
-            button.clicked.connect(lambda _, num=zahl: SocialMediaLink(self, button=str(num)))
-            button.setToolTip(social_media_link)        
+            button.clicked.connect(lambda _, num=zahl: SocialMediaLink(self, button=str(num)).exec())
+            button.setToolTip(social_media_link)    
+            button.setVisible(True)
 
     def check_own_website(self, social_media_link: str) -> None:
         name=self.lnEdit_performer_info.text().lower()
@@ -924,7 +903,7 @@ class Haupt_Fenster(QMainWindow):
         directory = Path(self.lbl_Ordner.text())
         if not refresh:
             einstellungen_ui = Einstellungen(self)
-            directory = einstellungen_ui.Info_Datei()
+            directory = einstellungen_ui.get_last_folder()
         if directory and directory.exists() and directory.is_dir(): 
             self.tblWdg_files.setRowCount(0)           
             self.tblWdg_files.clearContents()
@@ -999,12 +978,15 @@ class Haupt_Fenster(QMainWindow):
             if not studio:            
                 self.Btn_VideoDatenHolen.setEnabled(False)
                 self.lnEdit_Studio.setText("")             
-        else:    
-            self.Btn_logo_am_db_tab.setStyleSheet(logo)
-            self.Btn_logo_am_db_tab.setToolTip(studio)    
-            self.Btn_DBUpdate.setEnabled(bool(self.lnEdit_DBTitel.text())) ### wenn "" deaktiv
-            self.Btn_addDatei.setEnabled(bool(self.lnEdit_DBTitel.text())) ### wenn !="" aktiv
+        else: 
+            self.set_database_tab_enabled(logo, studio)   
 
+    def set_database_tab_enabled(self, logo, studio) -> None:
+        self.Btn_logo_am_db_tab.setStyleSheet(logo)
+        self.Btn_logo_am_db_tab.setToolTip(studio) 
+        self.Btn_pornbox_links.setVisible(studio == "PornWorld")
+        self.Btn_DBUpdate.setEnabled(bool(self.lnEdit_DBTitel.text())) ### wenn "" deaktiv
+        self.Btn_addDatei.setEnabled(bool(self.lnEdit_DBTitel.text())) ### wenn !="" aktiv
 
     def ordner_transfer_zurueck(self,save: bool, target_path: str=None) -> None:
         if hasattr(self, 'Transfer'):
@@ -1030,8 +1012,7 @@ class Haupt_Fenster(QMainWindow):
                     self.make_simlink(movies,verschiebe_ordner,move_file)         
             else:
                 MsgBox(self, error,"w")  
-        self.tblWdg_files.update() 
-
+        self.refresh_table(self.lbl_Dateiname.text()[:-4]) 
     
     def windows_file_filter(self, file_name):
         # Definieren Sie einen regulären Ausdruck, um ungültige Zeichen zu finden
@@ -1041,6 +1022,7 @@ class Haupt_Fenster(QMainWindow):
         return cleaned_file_name
 
     def make_simlink(self,movies,verschiebe_ordner,move_file):
+        ziel_symlink=""
         if not movies[0]:
             return        
         for movie_name in movies:                                    
@@ -1052,18 +1034,10 @@ class Haupt_Fenster(QMainWindow):
                 symlink_meldung = f'/ Symlink >{dateiname}.lnk< erstellt !'
             else:
                 scene_nr = movie_name[6:movie_name.find(": ")] + "_"
-                movie_name = movie_name[movie_name.find(": ") + 2:]
-                
-                if Path(verschiebe_ordner, "_Movies").exists():
-                    ziel_verzeichnis = Path(verschiebe_ordner, "_Movies", movie_name.strip())
-                elif Path(einsvor_verschiebe_ordner, "_Movies").exists():
-                    ziel_verzeichnis = Path(einsvor_verschiebe_ordner, "_Movies", movie_name.strip())
-                else:
-                    ziel_verzeichnis = None
-                
+                movie_name = movie_name[movie_name.find(": ") + 2:]                
+                ziel_verzeichnis = self.get_ziel_verzeichnis(einsvor_verschiebe_ordner, movie_name)                
                 dateiname = f"{scene_nr}{move_file}.lnk"
                 symlink_meldung = f'/ Symlink >{dateiname}< erstellt !'
-
             if ziel_verzeichnis:
                 dateiname = self.windows_file_filter(dateiname)
                 ziel_symlink = ziel_verzeichnis / dateiname
@@ -1072,14 +1046,22 @@ class Haupt_Fenster(QMainWindow):
 
             # Erstelle den Symbolic Link            
             shell = win32com.client.Dispatch("WScript.Shell")
-            link = shell.CreateShortcut(str(ziel_symlink))
+            link = shell.CreateShortcut(f"{ziel_symlink}")
             link.TargetPath = verschiebe_ordner +"\\"+ move_file
             try:
                 link.Save()
             except Exception as e:
                 symlink_meldung=f"Fehler beim Erstellen des Symlinks: {e}"
             StatusBar(self, f"Datei {move_file} wird in {verschiebe_ordner} verschoben ... Fertig !!{symlink_meldung}","#efffb7")       
-        
+
+    def get_ziel_verzeichnis(self, einsvor_verschiebe_ordner, movie_name):
+        ziel_verzeichnis = Path(einsvor_verschiebe_ordner, "_Movies", movie_name.strip())
+        if not ziel_verzeichnis.exists():
+            try:
+                ziel_verzeichnis.mkdir()
+            except Exception as e:
+                ziel_verzeichnis = None            
+        return ziel_verzeichnis
     def AddLinks(self):
         listItems=self.lstWdg_Darsteller.selectedItems()
         if not listItems: return        
@@ -1087,16 +1069,16 @@ class Haupt_Fenster(QMainWindow):
             self.lstWdg_Darstellerin.addItem(item.text())
             self.lstWdg_Darsteller.takeItem(self.lstWdg_Darsteller.row(item))  
   
-    def get_actors(self, actor_list: QListWidget, gender: str)-> str:
-        return gender.join([actor_list.item(item).text() for item in range(actor_list.count())])
+    def get_actors(self, actor_list: QListWidget, comma: str, gender: str)-> str:
+        return comma.join([actor_list.item(item).text() + gender for item in range(actor_list.count())])
     
     def format_actors(self, ampers_and: str, comma: str)-> str: # amper_and = "&"
-        female = self.get_female_actors(self.lstWdg_Darstellerin, comma)
-        male = self.get_male_actors(self.lstWdg_Darsteller), f"(m){comma}"
-        if comma in female and male:
-            return female[:female.rfind(comma)] + ampers_and + male[male.rfind(comma)+2:] 
+        female = self.get_actors(self.lstWdg_Darstellerin, comma, "")
+        male = self.get_actors(self.lstWdg_Darsteller, comma, "(m)")
+        if female and male:
+            return f"{female}{ampers_and}{male}"
         else:
-            return female[:-2]        
+            return f"{female}"       
 
     def Infos_Speichern(self):        
         old_file=self.lbl_Dateiname.text()
@@ -1110,30 +1092,31 @@ class Haupt_Fenster(QMainWindow):
         StatusBar(self, f"Fertig ! / {process_output['stderr']} / Es sind {actors_added} Darsteller in die DB hinzugefügt worden","#f3f0ff")        
         directory=self.lbl_Ordner.text()
 
-        directory_filename=Path(directory,new_file) 
-        err=self.file_rename(directory,old_file,new_file) 
+        directory_filename = Path(directory, new_file) 
+        err = self.file_rename(directory, old_file, new_file) 
         if Path(directory_filename).exists and not err:                           
             date=self.check_date(self.lnEdit_ProJahr.text())
             actors=self.format_actors(ampers_and=";", comma=";")                                         
-            metadata={f'-Quicktime:CreateDate={self.lnEdit_ErstellDatum.text()}',
-                    f'-ContentCreateDate#={date}',
-                    f'-Microsoft:Director={self.lnEdit_Regie.text()}',
-                    f'-Microsoft:PromotionURL={self.lnEdit_IAFDURL.text()}',
-                    f'-Microsoft:AuthorURL={self.lnEdit_URL.text()}',
-                    f'-Microsoft:Writer={self.lnEdit_ProDate.text()}',                                
-                    f'-Microsoft:Publisher={self.lnEdit_Studio.text()}',
-                    f'-Microsoft:Producer={self.lnEdit_NebenSide.text()}',
-                    f'-Microsoft:EncodedBy={self.lnEdit_Data18URL.text()}',                                             
-                    f'-Microsoft:Category={self.txtBrw_Tags.toPlainText().strip()}',
-                    f'-Microsoft:InitialKey={self.lnEdit_SceneCode.text()}',
-                    f'-ItemList:Artist={actors}',
-                    f'-ItemList:Title={self.lnEdit_Titel.text()}',             
-                    f'-ItemList:Comment={self.txtBrw_Beschreibung.toPlainText().strip()}',
-                    f'-ItemList:Genre={self.txtBrw_Movies.toPlainText().strip()}' }  
+            metadata = {
+                'Quicktime:CreateDate': self.lnEdit_ErstellDatum.text(),
+                'ContentCreateDate#': date,
+                'Microsoft:Director': self.lnEdit_Regie.text(),
+                'Microsoft:PromotionURL': self.lnEdit_IAFDURL.text(),
+                'Microsoft:AuthorURL': self.lnEdit_URL.text(),
+                'Microsoft:Writer': self.lnEdit_ProDate.text(),
+                'Microsoft:Publisher': self.lnEdit_Studio.text(),
+                'Microsoft:Producer': self.lnEdit_NebenSide.text(),
+                'Microsoft:EncodedBy': self.lnEdit_ThePornDBURL.text(),
+                'Microsoft:Category': self.txtBrw_Tags.toPlainText().strip(),
+                'Microsoft:InitialKey': self.lnEdit_SceneCode.text(),
+                'ItemList:Artist': actors,
+                'ItemList:Title': self.lnEdit_Titel.text(),
+                'ItemList:Comment': self.txtBrw_Beschreibung.toPlainText().strip(),
+                'ItemList:Genre': self.txtBrw_Movies.toPlainText().strip()  }  
             self.Transfer = uic.loadUi(TRANSFER_UI) 
             self.Transfer.btn_OK_exif.setEnabled(True)
             self.Transfer.btn_OK_exif.raise_()
-            self.movie = QMovie(str(Path(__file__).absolute().parent / "grafics/exiftool_processing.gif")) 
+            self.movie = QMovie(":/labels/_dialog_label/exiftool_processing.gif") 
             self.Transfer.lbl_Dest_Folder.setText("")
             self.Transfer.setWindowTitle("Speichern von MetaTags mit Hilfe von ExifTool !")
             self.Transfer.label_gif_transfer.setMovie(self.movie)
@@ -1151,9 +1134,9 @@ class Haupt_Fenster(QMainWindow):
     def create_exiftool_command(self, file: str, metadata: dict) -> list:
         command = [EXIFTOOLPFAD, '-m', '-overwrite_original'] 
         for key, value in metadata.items():
-            command.append(f'-{key}={value}')        
-        return command.append(str(file))
-
+            command.append(f'-{key}={value}')  
+        command.append(str(file))      
+        return command
     
     def add_actors_if_exist(self)-> bool:
         isda: int=0
@@ -1166,12 +1149,14 @@ class Haupt_Fenster(QMainWindow):
         for item in range(self.lstWdg_Darstellerin.count()):
             name=self.lstWdg_Darstellerin.item(item).text() 
             name_data["Name"]=name
+            name_data["Ordner"]=name
             name_data["Geschlecht"]=1                                               
             errview, artist_neu, sex_neu, link_neu, new_artist_id=database_darsteller.addDarsteller_in_db(name_data, self.lnEdit_Studio.text())
             isda+=artist_neu                 
         for item in range(self.lstWdg_Darsteller.count()):
             name=self.lstWdg_Darsteller.item(item).text() 
             name_data["Name"]=name
+            name_data["Ordner"]=name
             name_data["Geschlecht"]=2                        
             errview, artist_neu, sex_neu, link_neu, new_artist_id=database_darsteller.addDarsteller_in_db(name_data, self.lnEdit_Studio.text())
             isda+=artist_neu
@@ -1179,7 +1164,7 @@ class Haupt_Fenster(QMainWindow):
 
     def single_DBupdate(self):
         link_items: list = []
-        infos_webside = Infos_WebSides(MainWindow=self)
+        infos_webside = DatenbankSceneMaske(MainWindow=self)
 
         for index in range(self.model_database_weblinks.rowCount()):
             item = self.model_database_weblinks.data(self.model_database_weblinks.index(index, 0))
@@ -1191,39 +1176,37 @@ class Haupt_Fenster(QMainWindow):
         else:
             studio=self.Btn_logo_am_infos_tab.toolTip()                       
         infos_webside.update_db_and_ui(studio, WebSideLink) 
-
     
-    def DB_Anzeige(self):        
+    def show_database_for_performers(self):
+        self.clear_mask()
+        self.Btn_DBArtist_Update.setEnabled(False)             
+        performer_infos_maske = PerformerInfosMaske(MainWindow=self)
+        performer_infos_maske.artist_infos_in_maske()
+
+    def show_database_for_movies(self): 
+        self.clear_mask("movie")
+        self.datenbank_save("delete")
+        self.model_database_weblinks.clear()        
+        self.tblWdg_DB_performers.setRowCount(0)                       
+        self.lnEdit_DBTitel.setText(self.tblWdg_daten.selectedItems()[1].text())
+        self.tabs.setCurrentIndex(2)  # Tab für Datenbank aktiv
+        infos_webside = DatenbankSceneMaske(MainWindow=self)
+        infos_webside.set_datas_in_database()
+        ClearingWidget(self).enabled_db_buttons(True)
+
+    def clear_mask(self, type: str=None) -> None:
         clearing = ClearingWidget(self)         
         elements_to_reset = ["SceneCode", "ProDate", "Release", "Regie", "Serie", "Dauer", "Movies", "Synopsis", "Tags"]            
         for widgets in elements_to_reset:
-            clearing.tooltip_claering(widgets) 
-
-        current_index = self.stackedWidget.currentIndex()     
-        if current_index == self.stackedWidget.indexOf(self.stacked_IAFD_artist):
-            self.Btn_DBArtist_Update.setEnabled(False) 
-            performer_infos_maske = PerformerInfosMaske(MainWindow=self)
-            performer_infos_maske.artist_infos_in_maske()
-
-        else:
-            ### ----- kompette Maske löschen incl. json Infos ------- ### 
-            self.datenbank_save("delete")
-            self.model_database_weblinks.clear()
-            self.tblWdg_DB_performers.clear() 
-                      
-            self.lnEdit_DBTitel.setText(self.tblWdg_daten.selectedItems()[0].text()) 
-            self.tabs.setCurrentIndex(2)  # Tab für Datenbank aktiv
-
-            infos_webside = Infos_WebSides(MainWindow=self)
-            infos_webside.DB_Anzeige()
-            clearing.enabled_db_buttons(True)
-        
+            clearing.tooltip_claering(widgets)
+        if type=='movie':
+            for widget_name in ["DBData18Link", "DBIAFDLink"]:
+                clearing.clear_line_edit_and_tooltip(widget_name)    
 
     def addLink(self):        
         link = self.lnEdit_addLink.text()
         zeit = QDateTime.currentDateTime().toString('hh:mm:ss')
-        if link.startswith("https://"):
-            self.Btn_Linksuche_in_URL.setEnabled(True)
+        if link.startswith("https://"):            
             item = QStandardItem(link)
             self.model_database_weblinks.appendRow(item)
             self.lnEdit_addLink.clear()
@@ -1255,8 +1238,7 @@ class Haupt_Fenster(QMainWindow):
                 if selected_item is not None:
                     selected_text = selected_item.text()
                 else:
-                    selected_text = "Leeren Link"
-                    self.Btn_Linksuche_in_URL.setEnabled(False)
+                    selected_text = "Leeren Link"                    
                 self.lbl_db_status.setText(f"{zeit}: »{selected_text}« wurde gelöscht !")
             else:
                 self.lbl_db_status.setText(f"{zeit}: Ungültige Auswahl.")
@@ -1297,20 +1279,34 @@ class Haupt_Fenster(QMainWindow):
         self.lnEdit_Titel.setText(self.lnEdit_DBTitel.text())
         self.lnEdit_URL.setText(self.lstView_database_weblinks.model().data(self.lstView_database_weblinks.model().index(0, 0)))
         self.lnEdit_ErstellDatum.setText(self.lnEdit_DBRelease.text())
-        self.lnEdit_Data18URL.setText(self.lnEdit_DBData18Link.text() if self.lnEdit_DBData18Link.text() != "" else self.lnEdit_Data18URL.text())        
+        self.lnEdit_ThePornDBURL.setText(self.lnEdit_DBThePornDBLink.text())        
         self.lnEdit_IAFDURL.setText(self.lnEdit_DBIAFDLink.text())
-        self.lnEdit_ProJahr.setText(self.lnEdit_DBProDate.text()[:4] if not self.lnEdit_DBProDate.text() else self.lnEdit_DBRelease.text()[:4])
+        self.lnEdit_ProJahr.setText(self.lnEdit_DBProDate.text()[-4:] if self.lnEdit_DBProDate.text() else self.lnEdit_DBRelease.text()[:4])
         self.lnEdit_ProDate.setText(self.lnEdit_DBProDate.text())
         self.lnEdit_NebenSide.setText(self.lnEdit_DBSerie.text().replace(" ",""))        
         self.lnEdit_Regie.setText(self.lnEdit_DBRegie.text()) 
         self.txtBrw_Movies.setText(self.txtEdit_DBMovies.toPlainText())       
         self.lnEdit_SceneCode.setText(self.lnEdit_DBSceneCode.text())                
-        self.txtBrw_Beschreibung.setText(self.txtEdit_DBSynopsis.toPlainText()+"\n"+self.txtEdit_DBMovies.toPlainText())      
-        self.txtBrw_Tags.setText(self.txtEdit_DBTags.toPlainText())        
+        self.txtBrw_Beschreibung.setText(self.txtEdit_DBSynopsis.toPlainText())      
+        self.txtBrw_Tags.setText(self.txtEdit_DBTags.toPlainText()) 
+        gesuchter_text = self.lbl_Dateiname.text()[:-4]
+        self.activate_item(gesuchter_text)  
 
-    def startExifSave(self,source_path: str, command: str) -> None:
+    def add_all_pornbox_links(self):
+        self.lstView_database_weblinks.model().removeRows(0, self.lstView_database_weblinks.model().rowCount())
+        letter = self.lnEdit_DBTitel.text()[-6:]
+        data18_link = self.lnEdit_DBData18Link.text()
+        tpdb_link = self.lnEdit_DBThePornDBLink.text()
+        iafd_link = self.lnEdit_DBIAFDLink.text().lower()
+        movie = self.txtEdit_DBMovies.toPlainText()
+        PornBoxLinks(self).hole_links_von_PornWorld(letter, data18_link, tpdb_link, iafd_link,  movie) 
+        studio = self.Btn_logo_am_db_tab.toolTip() 
+        self.get_video_data_from_database(studio, self.lnEdit_DBTitel.text())
+        self.show_database_for_movies()  
+
+    def startExifSave(self, source_path: str, command: str) -> None:
         self.Transfer.btn_OK_exif.setEnabled(False)        
-        self.ExifSaveThread = ExifSaveThread(source_path,command)
+        self.ExifSaveThread = ExifSaveThread(source_path, command)
         self.ExifSaveThread.Exif_Progress.connect(self.Exif_Progress) 
         self.ExifSaveThread.finished.connect(self.Exif_finished)  
         self.ExifSaveThread.start()          
@@ -1332,7 +1328,7 @@ class Haupt_Fenster(QMainWindow):
         self.Transfer.prgBar_Transfer.setValue(100)
         self.ExifSaveThread.quit()        
         self.movie.stop()
-        self.Transfer.label_gif_transfer.setPixmap(QPixmap(str(Path(__file__).absolute().parent / "grafics/Info.jpg"))) 
+        self.Transfer.label_gif_transfer.setPixmap(QPixmap(":/labels/_dialog_label/Info.jpg")) 
         minutes_start, seconds_start = divmod(start_time, 60)        
         self.Transfer.lbl_speed.setText(f"{speed:.2f} MB/s - nach Ende: {minutes_start:02d}:{seconds_start:02d}s > FERTIG ! {process_output['stdout']}")
         self.Transfer.btn_OK_exif.clicked.connect(lambda: self.ordner_transfer_zurueck(True))
@@ -1366,7 +1362,7 @@ class Haupt_Fenster(QMainWindow):
             return str(os_err)
         else:
             self.lbl_Dateiname.setText(new_file)
-            self.refresh_table(new_file)            
+            self.refresh_table(new_file[:-4])            
         return None
     
     ### ------- file_format, nach bekannten Muster vorbereiten ---------- #
@@ -1420,13 +1416,9 @@ class Haupt_Fenster(QMainWindow):
 
     def metatags_in_ui_laden(self):
         with open(MEDIA_JSON_PATH,'r') as file:
-            file_media_info = json.loads(file.read())[0]        
-        actors = file_media_info.get("Artist")                
-        if actors:                     
-            actor_male, actor_female = ([i[:-3] for i in actors.split("/") if "(m)" in i],\
-                                            [i for i in actors.split("/") if "(m)" not in i])
-            actor_male.extend(actor_female)                    
-            self.add_actors_in_ui(actor_male)                    
+            file_media_info = json.loads(file.read())[0] 
+        self.split_actors_and_put_ui(file_media_info.get("Artist")) 
+
         atom_dict ={"AuthorURL":self.lnEdit_URL,
                     "Director":self.lnEdit_Regie,
                     "PromotionURL":self.lnEdit_IAFDURL,
@@ -1448,13 +1440,17 @@ class Haupt_Fenster(QMainWindow):
                     "ImageSize":self.lbl_Resize,
                     "VideoFrameRate":self.lbl_FrameRate,
                     "AvgBitrate":self.lbl_Bitrate,                            
-                    "EncodedBy":self.lnEdit_Data18URL,      }
+                    "EncodedBy":self.lnEdit_ThePornDBURL,      }
         for atom,item in atom_dict.items(): 
             if file_media_info.get(atom):                                                                
                 inhalt=file_media_info.get(atom)                    
                 item.setText(str(inhalt))
 
-    
+    def split_actors_and_put_ui(self, actor_string: str) -> None:
+        if actor_string is not None:       
+            actors = [actor.replace("(m)","").strip() for actor in re.split('[;/]', actor_string) if actor.strip()]                                   
+            self.add_actors_in_ui(actors)
+        
     def set_analyse_daten(self):
         clearing = ClearingWidget(self)
         clearing.buttons_enabled(False, ["logo_am_analyse_tab", "name_suche", "titel_suche"])
@@ -1462,7 +1458,7 @@ class Haupt_Fenster(QMainWindow):
         filename: str=self.lbl_Dateiname.text()
 
         self.lbl_analyse_fuer.setText(filename)        
-        studio_name, titel, artist=self.filename_analyse(filename)
+        studio_name, titel, artist = self.filename_analyse(filename)
         self.grpBox_analyse_name.setTitle(f"Darstellername:       Anzahl: {len(artist)}")
 
         db_webside_settings = Webside_Settings(MainWindow=self)               
@@ -1522,12 +1518,14 @@ class Haupt_Fenster(QMainWindow):
             for performer in actors:
                 item = QListWidgetItem(performer)                
                 is_vorhanden, geschlecht = database_darsteller.isdaDarsteller(performer)                
-                if is_vorhanden and geschlecht > 1:
+                if is_vorhanden:
                     item.setBackground(QBrush(QColor("#e9ff1d")))
-                    widget_variable_m.addItem(item)
+                    if geschlecht > 1:                        
+                        widget_variable_m.addItem(item)
+                    else:
+                        widget_variable_w.addItem(item)
                 else:
-                    item.setBackground(QBrush(QColor("#e9ff1d"))) 
-                widget_variable_w.addItem(item) 
+                    widget_variable_w.addItem(item)
 
     def gui_last_side(self):                
         studio: str = self.lnEdit_Studio.text()
@@ -1559,7 +1557,7 @@ class Haupt_Fenster(QMainWindow):
                 if errorview:
                     StatusBar(self, "Fehler beim Holen der letzten Page Nummer aus der Datenbank","#F78181")
             else:
-                websides = Infos_WebSides(MainWindow=self)
+                websides = DatenbankSceneMaske(MainWindow=self)
                 last_page_number = websides.get_last_page_from_webside(baselink) 
 
             db_webside_settings.add_lastVisite(baselink, datetime.now().strftime("%Y %m %d %H:%M"))

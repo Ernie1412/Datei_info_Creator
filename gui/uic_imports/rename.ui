@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>448</width>
-    <height>342</height>
+    <width>490</width>
+    <height>375</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,8 +24,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>451</width>
-     <height>241</height>
+     <width>481</width>
+     <height>281</height>
     </rect>
    </property>
    <property name="sizePolicy">
@@ -34,11 +34,11 @@
      <verstretch>3</verstretch>
     </sizepolicy>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-image: url(:/labels/_labels/dialog_windows/rename.png);</string>
+   </property>
    <property name="text">
     <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap>../grafics/rename.png</pixmap>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
@@ -47,8 +47,8 @@
   <widget class="QDialogButtonBox" name="Btn_OK_Abbruch">
    <property name="geometry">
     <rect>
-     <x>170</x>
-     <y>307</y>
+     <x>210</x>
+     <y>340</y>
      <width>101</width>
      <height>31</height>
     </rect>
@@ -88,8 +88,8 @@ QPushButton:hover{
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>250</y>
-     <width>431</width>
+     <y>290</y>
+     <width>471</width>
      <height>51</height>
     </rect>
    </property>
@@ -106,7 +106,7 @@ border: 1px solid grey;border-radius: 5px;}</string>
      <rect>
       <x>10</x>
       <y>20</y>
-      <width>411</width>
+      <width>471</width>
       <height>22</height>
      </rect>
     </property>
@@ -119,6 +119,8 @@ border: 1px solid grey;border-radius: 5px;}</string>
   <zorder>lbl_Rename</zorder>
   <zorder>Btn_OK_Abbruch</zorder>
  </widget>
- <resources/>
+ <resources>
+  <include location="../resource_collection_files/labels.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -1,12 +1,29 @@
 <RCC>
   <qresource prefix="Buttons">
+    <file>_labels/loading_progress.gif</file>
+    <file>_buttons/performer_biosites/BabePedia.png</file>
+    <file>_buttons/performer_biosites/BabePedia_disabled.png</file>
+    <file>_buttons/performer_biosites/Freeones.png</file>
+    <file>_buttons/performer_biosites/Freeones_disabled.png</file>
+    <file>_buttons/performer_biosites/indexxx.png</file>
+    <file>_buttons/performer_biosites/indexxx_disabled.png</file>
+    <file>_buttons/performer_biosites/TheNude.png</file>
+    <file>_buttons/performer_biosites/TheNude_disabled.png</file>
+    <file>_buttons/performer_biosites/theporndb.png</file>
+    <file>_buttons/performer_biosites/theporndb_disabled.png</file>
+    <file>studios/PornBox/pornbox_link.jpg</file>
     <file>_buttons/socialmedia/loyalfans-25.png</file>
-    <file>_buttons/socialmedia/linktree-25.png</file>
     <file>_buttons/socialmedia/fancentro-25.png</file>
     <file>_buttons/socialmedia/twitch-25.png</file>
     <file>_buttons/stift-25.png</file>
     <file>_buttons/delete-25.png</file>
+    <file>_buttons/socialmedia/linktr.ee-25.png</file>
+    <file>_buttons/socialmedia/youtube-25.png</file>
+    <file>_buttons/socialmedia/snapchat-25.png</file>
+    <file>_buttons/socialmedia/manyvids-25.png</file>
+    <file>_buttons/socialmedia/fansly-25.png</file>
     <file>_buttons/adden-25.png</file>
+    <file>_buttons/socialmedia/allmylinks-25.png</file>
     <file>_buttons/ok.png</file>
     <file>_buttons/fenster-schließen.png</file>
     <file>_buttons/no-logo_90x40.jpg</file>
@@ -20,7 +37,6 @@
     <file>_buttons/performer_biosites/FreeOnes.png</file>
     <file>_buttons/performer_biosites/indexxx.png</file>
     <file>_buttons/performer_biosites/thenude.png</file>
-    <file>_buttons/performer_biosites/theporn_db.png</file>
     <file>_buttons/no-logo_160x60.jpg</file>
     <file>_buttons/socialmedia/facebook-25.png</file>
     <file>_buttons/socialmedia/instagram-25.png</file>

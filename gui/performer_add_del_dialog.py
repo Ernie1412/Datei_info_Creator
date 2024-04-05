@@ -38,7 +38,7 @@ class PerformerAddDel(QDialog):
         ### ------- Performer Link Tabelle: neuen Link eintragen --------------------------- ###     
         elif menu == "add_new_nameslink":            
             uic.loadUi(ADD_NAMESLINK_PERFORMER_UI, self)
-            self.lbl_artist_id_db.setText(self.Main.grpBox_performer.title().replace("Performer-Info ID: ",""))           
+            self.lbl_artist_id_db.setText(self.Main.grpBox_performer_name.title().replace("Performer-Info ID: ",""))           
             self.accepted.connect(self.accepted_add_new_nameslink)
             #self.Btn_image_scrape.clicked.connect(self.image_scrape)
             self.Btn_id_merge.clicked.connect(self.button_accepted_id_merge_performer)

@@ -48,10 +48,10 @@ class ExifSaveThread(QThread):
             self.is_running: bool = False
 
         if stderr == "":            
-            process_output["stdout"]: str = stdout
+            process_output["stdout"]= stdout
         else:
-            process_output["stderr"]: str = stderr
-            process_output["stdout"]: str = stdout
+            process_output["stderr"] = stderr
+            process_output["stdout"] = stdout
 
         json.dump(process_output, open(PROCESS_JSON_PATH, 'w'), indent=4, sort_keys=True)
         self.finished.emit(self.avg_speed, int(self.elapsed_time))

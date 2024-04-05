@@ -403,7 +403,7 @@ class DB_Darsteller:
         errview: str = None 
         page_size: int = 10000
         offset = (page_number - 1) * page_size
-        artist_data = VideoData()
+        artist_data = VideoData()        
         ### ---------------- database ---------------- ###
         self.open_database()
         if self.db.isOpen():
@@ -449,7 +449,7 @@ class DB_Darsteller:
                             rasse_list.append(query1.value("Rasse_ger"))
                             errview = f"'{self.get_all_datas_from_database.__name__}': {errview} (query2)" if query.lastError().text() else errview 
                         rasse_ger = "/".join(rasse_list)  
-                    data=artist_data.get_data() # daten aus der Klasse bekommen, ansonsten nur eine Speicheradresse                                                
+                    data = artist_data.get_data() # daten aus der Klasse bekommen, ansonsten nur eine Speicheradresse                                                
                     data[len(data)-1]["Nation"]=nations # "Nation" wird dem letzten 'index' '(len(data)-1)' hinzugefügt
                     data[len(data)-1]["Rassen"]=rasse_ger # "Rasse_ger" wird dem letzten '
                     artist_data.save_data(data) # speichert die bearbeiteten Daten in die Klasse wieder rein                                               
@@ -466,8 +466,8 @@ class DB_Darsteller:
         return errview
 
     def get_minidatas_from_ordner(self, ordner: str) -> str:
-        errview = None 
-        artist_data = VideoData()
+        errview = None  
+        artist_data = VideoData()       
 
         self.open_database()
         if self.db.isOpen():
@@ -873,13 +873,18 @@ class DB_Darsteller:
     def update_performer_datensatz(self, performer_data: dict) -> Tuple[str, bool]:
         errview: str=None        
         is_update: bool=False
+        updates = []
+        for key, value in performer_data.items():
+            if value is None:
+                updates.append(f"{key} = NULL")
+            else:
+                updates.append(f"{key} = :{key}")
+            placeholders = ", ".join(updates)
 
         self.open_database()
         if self.db.isOpen():
-            with self.managed_query() as query:                 
-                placeholders = ', '.join([f"{field}=:{field}" for field in performer_data.keys() if field != "ArtistID"])
-                sql_query = f'UPDATE DB_Artist SET {placeholders} WHERE ArtistID= :ArtistID;'
-                query.prepare(sql_query)
+            with self.managed_query() as query:
+                query.prepare(f"UPDATE DB_Artist SET {placeholders} WHERE ArtistID= :ArtistID;")
                 query.bindValue(":ArtistID",performer_data["ArtistID"])
                 for field, value in performer_data.items():
                     if field != "ArtistID":
@@ -1270,7 +1275,7 @@ class DB_Darsteller:
         return [ids, links, images, aliases]
     
     def get_performer_dataset_from_artistid(self, artist_id: int) -> dict:
-        errview: str = None 
+        errview: str = None
         artist_data = VideoData()
 
         self.open_database()

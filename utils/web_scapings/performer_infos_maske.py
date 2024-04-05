@@ -9,12 +9,14 @@ from urllib.parse import urlparse
 import time
 import logging
 
-from utils.web_scapings.websides import Infos_WebSides
+from utils.web_scapings.datenbank_scene_maske import DatenbankSceneMaske
+from gui.helpers.set_tootip_text import SetDatenInMaske, SetTooltipText
 from utils.database_settings.database_for_darsteller import DB_Darsteller
 from utils.web_scapings.iafd_performer_link import IAFDInfos
 from gui.clearing_widgets import ClearingWidget
 from gui.dialog_gender_auswahl import GenderAuswahl
-from gui.dialoge_ui.message_show import StatusBar, blink_label, MsgBox
+from gui.dialog_performer_mask_selection import PerformMaskSelection
+from gui.helpers.message_show import StatusBar, blink_label, MsgBox
 
 from config import PROJECT_PATH, WEBINFOS_JSON_PATH
 
@@ -26,29 +28,29 @@ class PerformerInfosMaske():
         logging.basicConfig(filename='log_updates.log', level=logging.INFO, 
             format='%(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')      
 
-    def artist_infos_in_maske(self):
-        self.Main.set_performer_maske_text_connect(disconnect=True)
-        clearing = ClearingWidget(self.Main)
-        clearing.clear_maske()
-        self.clear_button_color()
-        clearing.set_website_bio_enabled(self.Main.get_bio_websites(widget=True), False)
+    def artist_infos_in_maske(self): 
         iafd_infos=IAFDInfos(MainWindow=self.Main)
-        infos_webside=Infos_WebSides(MainWindow=self.Main)
-        datenbank_darsteller = DB_Darsteller(MainWindow=self.Main)       
-        selected_items = self.Main.tblWdg_performer.selectedItems()
+        infos_webside=DatenbankSceneMaske(MainWindow=self.Main)
+        datenbank_darsteller = DB_Darsteller(MainWindow=self.Main) 
+        data_mask = SetDatenInMaske(self.Main)   
+        tooltip_text = SetTooltipText(self.Main) 
+        clearing = ClearingWidget(self.Main)  
+
+        self.Main.set_performer_maske_text_connect(disconnect=True)        
+        clearing.clear_maske()
+        self.clear_button_color()                 
+        selected_items = self.Main.tblWdg_performer.selectedItems()        
         ### --------- Name Überschrift setzen ------------------------- ###
-        self.Main.grpBox_performer.setTitle(f"Performer-Info ID: {selected_items[0].text()}")         
+        self.Main.grpBox_performer_name.setTitle(f"Performer-Info ID: {selected_items[0].text()}")         
         self.Main.lnEdit_performer_info.setText(selected_items[1].text().strip()) # Name
-        self.Main.lnEdit_performer_ordner.setText(selected_items[2].text().strip()) # Ordner
-        if self.Main.grpBox_performer.title()!="Performer-Info ID:":
-            clearing.set_website_bio_enabled(self.Main.get_bio_websites(widget=True), True)    
+        self.Main.lnEdit_performer_ordner.setText(selected_items[2].text().strip()) # Ordner            
         ### --------- Geschlechts QComboBox setzen -------------------- ###         
-        gender_auswahl = GenderAuswahl(self.Main, False)
+        gender_auswahl = GenderAuswahl(self.Main, False)        
         gender_auswahl.set_icon_in_gender_button(selected_items[5].text())        
         ### --------- Rasse QComboBox setzen ------------------------- ### 
-        self.set_rasse_in_combobox(selected_items[0].text(), infos_webside)        
+        self.set_rasse_in_combobox(selected_items[0].text(), tooltip_text)        
         ### --------- Nation QComboBox setzen -- von englisch(DB) in deutsch(Maske) ------ ###        
-        self.set_nations_in_labels(selected_items[7].text(), infos_webside)  
+        self.set_nations_in_labels(selected_items[7].text(), tooltip_text)  
         ### --------- Fan Side/OnlyFans QComboBox setzen -------------- ###
         self.Main.set_social_media_in_buttons(selected_items[10].text())
         ### --------- Quell Links in QTableWidget setzen -------------- ### 
@@ -62,15 +64,15 @@ class PerformerInfosMaske():
                 self.Main.chkBox_iafd_enabled.setChecked(True)
                 self.Main.Btn_Linksuche_in_IAFD_artist.setEnabled(True)
                 self.Main.lbl_checkWeb_IAFD_artistURL.setStyleSheet("background-image: url(':/labels/_labels/check.png')")
-            infos_webside.set_daten_in_maske("lnEdit_DB", "IAFD_artistLink", "Datenbank", selected_items[3].text(), artist=True)
+            data_mask.set_daten_in_maske("lnEdit_DB", "IAFD_artistLink", "Datenbank", selected_items[3].text(), artist=True)
         elif self.Main.chkBox_get_autom_iafd.isChecked():
              self.Main.lnEdit_create_iafd_link.setText(selected_items[1].text())                      
              iafd_infos.get_IAFD_performer_link() 
              self.Main.Btn_Linksuche_in_IAFD_artist.setEnabled(True)         
         ### --------- Bio Website(u.a. BabePedia) Link setzen -------------------------------- ###
         if selected_items[4].text():
-            for bio_sites in selected_items[4].text().split("\n"):                      
-                self.set_bio_websites_tooltip(bio_sites)  
+            bio_sites=selected_items[4].text().split("\n")                      
+            self.set_bio_websites_tooltip(bio_sites)  
         ### ----------- Rest in Maske packen ------------ ###        
         infos_webside.set_daten_with_tooltip("lnEdit_performer_", "birthday", "Datenbank", selected_items[8].text(),artist=True)
         infos_webside.set_daten_with_tooltip("lnEdit_performer_", "birthplace", "Datenbank", selected_items[9].text(),artist=True)
@@ -86,41 +88,49 @@ class PerformerInfosMaske():
         ### ----------- IAFD Image in Label setzen ------- ###
         errview, image_pfad = datenbank_darsteller.get_iafd_image(selected_items[0].text())
         if image_pfad and Path(PROJECT_PATH / image_pfad).exists():
-            infos_webside.set_tooltip_text("lbl_", "iafd_image", f"Datenbank: '{image_pfad}'", "Datenbank")
+            tooltip_text.set_tooltip_text("lbl_", "iafd_image", f"Datenbank: '{image_pfad}'", "Datenbank")
             pixmap = QPixmap()
             pixmap.load(str(image_pfad))
             self.Main.stacked_webdb_images.setCurrentWidget(self.Main.stacked_iafd_label)
         else:
-            infos_webside.set_tooltip_text("lbl_", "iafd_image", f"Datenbank: 'Kein Bild gespeichert'", "Datenbank")                              
+            tooltip_text.set_tooltip_text("lbl_", "iafd_image", f"Datenbank: 'Kein Bild gespeichert'", "Datenbank")                              
             pixmap = QPixmap(":/labels/_labels/kein-bild.jpg")                   
         self.Main.lbl_iafd_image.setPixmap(pixmap.scaled(238, 280, Qt.AspectRatioMode.KeepAspectRatio))        
         ### ----------- BabePedia Image in Label setzen ------- ###
         errview, image_pfad = datenbank_darsteller.get_babepedia_image(selected_items[0].text())
         if image_pfad and Path(PROJECT_PATH / image_pfad).exists():
-            infos_webside.set_tooltip_text("lbl_", "babepedia_image", f"Datenbank: '{image_pfad}'", "Datenbank")
+            tooltip_text.set_tooltip_text("lbl_", "babepedia_image", f"Datenbank: '{image_pfad}'", "Datenbank")
             pixmap = QPixmap()
             pixmap.load(str(image_pfad))
             self.Main.stacked_webdb_images.setCurrentWidget(self.Main.stacked_babepedia_label)
         else:
-            infos_webside.set_tooltip_text("lbl_", "babepedia_image", f"Datenbank: 'Kein Bild gespeichert'", "Datenbank")                              
+            tooltip_text.set_tooltip_text("lbl_", "babepedia_image", f"Datenbank: 'Kein Bild gespeichert'", "Datenbank")                              
             pixmap = QPixmap(":/labels/_labels/kein-bild.jpg")                   
         self.Main.lbl_babepedia_image.setPixmap(pixmap.scaled(238, 280, Qt.AspectRatioMode.KeepAspectRatio))
         self.Main.set_performer_maske_text_connect(disconnect=False)         
 
-    def set_bio_websites_tooltip(self, bio_sites: str):                
-        for bio_url_key, bio_url_value in self.Main.get_bio_websites().items(): # widget : url
-            if bio_sites.startswith(bio_url_value):
-                getattr(self.Main,f"Btn_performer_in_{bio_url_key}").setToolTip(bio_sites)
+    def set_bio_websites_tooltip(self, bio_sites: str):        
+        clearing = ClearingWidget(self.Main) 
+        for biosite in bio_sites:               
+            for bio_name, bio_url in self.Main.get_bio_websites().items():                
+                btn_widget = getattr(self.Main,f"Btn_performer_in_{bio_name}") # widget : url
+                if biosite.startswith(bio_url):
+                    clearing.set_website_bio_enabled([bio_name], True)
+                    btn_widget.setToolTip(biosite)            
 
-    def set_rasse_in_combobox(self, artist_id, infos_webside):        
+    def set_rasse_in_combobox(self, artist_id, tooltip_text):        
         database_darsteller = DB_Darsteller(self.Main)
-        rassen_ids = database_darsteller.get_rassenids_from_artistid(int(artist_id))
+        try:
+            rassen_ids = database_darsteller.get_rassenids_from_artistid(int(artist_id))
+        except ValueError:
+            print(artist_id)
+            rassen_ids=[]
         for rassen_id in rassen_ids:
             self.Main.cBox_performer_rasse.setChecked(rassen_id-1)         
         rasse=self.Main.cBox_performer_rasse.currentText()  
-        infos_webside.set_tooltip_text("cBox_performer_", "rasse", f"Datenbank: {rasse}", "Datenbank")
+        tooltip_text.set_tooltip_text("cBox_performer_", "rasse", f"Datenbank: {rasse}", "Datenbank")
 
-    def set_nations_in_labels(self, nations: str, infos_webside, art="Datenbank"):
+    def set_nations_in_labels(self, nations: str, tooltip_text, art="Datenbank"):
         nations=nations.split(", ") if nations else ""
         datenbank_darsteller = DB_Darsteller(self.Main)
         for zahl, nation_ger in enumerate(nations):
@@ -130,7 +140,7 @@ class PerformerInfosMaske():
             else:
                 getattr(self.Main,f"lbl_performer_nation_{zahl}").setProperty("nation", nation_ger)            
                 getattr(self.Main,f"lbl_performer_nation_{zahl}").setStyleSheet(f"background-image: url(:/labels/_labels/nations/{nation_shortsymbol.lower()}.png);")
-                infos_webside.set_tooltip_text(f"lbl_performer_nation_{zahl}", "", f"{art}: {nation_ger}", art)
+                tooltip_text.set_tooltip_text(f"lbl_performer_nation_{zahl}", "", f"{art}: {nation_ger}", art)
 
     def get_social_media_from_buttons(self) -> str: 
         social_medias: str=""
@@ -140,17 +150,17 @@ class PerformerInfosMaske():
                 social_medias += social_media +"\n"
         return social_medias[:-1]
     
-    def get_bio_websites_from_buttons(self) -> str:
+    def get_bio_websites_from_buttons(self) -> str: # von allen links ein datenbank eintrag
         bio_websites: str=""
-        for key in self.Main.get_bio_websites(widget=True):
-            bio_website=getattr(self.Main, f"Btn_performer_in_{key}").toolTip()
+        for biowebsite in self.Main.get_bio_websites(widget=True):
+            bio_website = getattr(self.Main, f"Btn_performer_in_{biowebsite}").toolTip()
             if bio_website:
                 bio_websites += bio_website +"\n"
         return bio_websites[:-1]
 
     def get_artistdata_from_ui(self, database: bool=False) -> Tuple[dict, list]:
         datenbank_darsteller=DB_Darsteller(MainWindow=self.Main)
-        artist_id = int(self.Main.grpBox_performer.title().replace("Performer-Info ID: ",""))
+        artist_id = int(self.Main.grpBox_performer_name.title().replace("Performer-Info ID: ",""))
         ### -------------- Geschlecht für update vorbereiten ------------------ ###        
         gender_auswahl = GenderAuswahl(self.Main, False)
         gender = gender_auswahl.get_gender_from_button()        
@@ -163,7 +173,7 @@ class PerformerInfosMaske():
             "ArtistID" : artist_id,
             "Name": self.Main.lnEdit_performer_info.text().strip(),
             "Ordner": self.Main.lnEdit_performer_ordner.text().strip(),
-            "IAFDLink": self.Main.lnEdit_DBIAFD_artistLink.text().strip(),
+            "IAFDLink": self.Main.lnEdit_DBIAFD_artistLink.text().strip(),            
             "BabePedia": self.get_bio_websites_from_buttons(),
             "Geschlecht": gender,            
             "Rassen": rassen,
@@ -179,7 +189,8 @@ class PerformerInfosMaske():
             "Tattoo": self.Main.txtEdit_performer_tattoo.toPlainText().strip(),
             "Haarfarbe": self.Main.lnEdit_performer_hair.text().strip(),
             "Augenfarbe": self.Main.lnEdit_performer_eye.text().strip(),
-            "Aktiv": self.Main.lnEdit_performer_activ.text().strip(),     }
+            "Aktiv": self.Main.lnEdit_performer_activ.text().strip(),
+            "ThePornDB": self.Main.Btn_performer_in_theporndb.toolTip(),          }
         names_link_satz = []
         if database:            
             names_link_satz=self.nameslink_datensatz_in_dict(names_link_satz)
@@ -281,8 +292,9 @@ class PerformerInfosMaske():
         return 0, 0        
 
     def update_datensatz(self):
-        self.Main.Btn_DBArtist_Update.setEnabled(False)         
-        datenbank_darsteller=DB_Darsteller(MainWindow=self.Main)        
+        datenbank_darsteller=DB_Darsteller(MainWindow=self.Main)
+
+        self.Main.Btn_DBArtist_Update.setEnabled(False) 
         nameslink_msg: str=""
         #### --------------- IAFD Image und andere Images werden gespeichert ----------------------------- ####
         iafd_message = self.save_iafd_image_in_datenbank()                
@@ -293,7 +305,7 @@ class PerformerInfosMaske():
         ### -------------- Nation für update vorbereiten ----------------------- ###         
         nations = self.get_nations_from_labels()
         nation_message = self.update_nations(nations, artist_id, datenbank_darsteller)
-        daten_satz_ui, names_link_satz_ui=self.get_artistdata_from_ui(database=True)                 
+        daten_satz_ui, names_link_satz_ui = self.get_artistdata_from_ui(database=True)                 
         artist_id = daten_satz_ui["ArtistID"]
         self.update_names_linksatz_in_ui(artist_id)
         ### ------------ Update was in der Tabelle von Performer_Links drin ist --------------- ###
@@ -400,7 +412,7 @@ class PerformerInfosMaske():
 
             iafd_infos = IAFDInfos(MainWindow=self.Main)
             iafd_url=self.Main.lnEdit_DBIAFD_artistLink.text()
-            artist_id = self.Main.grpBox_performer.title().replace("Performer-Info ID: ","")
+            artist_id = self.Main.grpBox_performer_name.title().replace("Performer-Info ID: ","")
             name = self.Main.lnEdit_performer_info.text()
 
             iafd_infos.load_IAFD_performer_link(iafd_url, artist_id, name) # scrape IAFD infos
@@ -422,7 +434,7 @@ class PerformerInfosMaske():
         
         datenbank_darsteller=DB_Darsteller(MainWindow=self.Main)
         if artist_id == -1:
-            artist_id = self.get_artist_id_from_groupbox(self.Main.grpBox_performer.title())                    
+            artist_id = self.get_artist_id_from_groupbox(self.Main.grpBox_performer_name.title())                    
             _,image_pfad = datenbank_darsteller.get_iafd_image(artist_id)
 
         if image_pfad and Path(PROJECT_PATH / image_pfad).exists():
@@ -452,6 +464,7 @@ class PerformerInfosMaske():
         return iafd_message
     
     def names_link_from_iafd(self, ordner, perfid, iafd_link, artist_id, datenbank_darsteller):
+        infos: dict={}
         if not Path(WEBINFOS_JSON_PATH).exists(): # get iafd_infos from ui
             iafd_infos = {"alias": self.Main.lnEdit_IAFD_artistAlias.text(),
                           "image_pfad": f"__artists_Images/{ordner}/[IAFD]-{perfid}.jpg"}
@@ -550,7 +563,7 @@ class PerformerInfosMaske():
         # --------- gender ----------- #
         sex=iafd_infos.get("Geschlecht")
         if sex:                
-            GenderAuswahl(self.Main, False).set_icon_in_gender_button(sex) 
+            GenderAuswahl(self.Main, False).set_icon_in_gender_button(str(sex)) 
         # --------- Rasse ----------- #
         rassen=iafd_infos.get("Rassen")
         if rassen:             
@@ -571,8 +584,8 @@ class PerformerInfosMaske():
             while getattr(self.Main,f"lbl_performer_nation_{i}").property("nation"):
                 ClearingWidget(self.Main).clear_nations(i)
                 i+=1
-            infos_webside=Infos_WebSides(MainWindow=self.Main)
-            self.set_nations_in_labels(nations_ger, infos_webside, "IAFD")
+            tool_text=SetTooltipText(MainWindow=self.Main)
+            self.set_nations_in_labels(nations_ger, tool_text, "IAFD")
         # --------- Haarfarbe ------------------- #
         hair_color=iafd_infos.get("Haarfarbe")
         if hair_color:            
@@ -610,7 +623,7 @@ class PerformerInfosMaske():
         if boobs:            
             self.check_selections_count("boobs","1", boobs)
         # --------- IAFD Image ---------------- #
-        id = self.Main.grpBox_performer.title().replace("Performer-Info ID: ","") # ArtistID
+        id = self.Main.grpBox_performer_name.title().replace("Performer-Info ID: ","") # ArtistID
         name = self.Main.lnEdit_performer_info.text() # Performer 'Name'        
         image_pfad=iafd_infos.get("image_pfad")        
         if image_pfad:
@@ -624,7 +637,12 @@ class PerformerInfosMaske():
         if current_text != value:
             label.setText(value)
             button.setVisible(True)
-            button.setText("1")            
+            button.setText("1") 
+            try:
+                button.clicked.disconnect()
+            except TypeError:
+                pass 
+            button.clicked.connect(lambda state, btn=label.objectName():PerformMaskSelection(self.Main, btn).exec())          
 
     def load_and_scale_pixmap(self, image_path, label):
         pixmap = QPixmap()        

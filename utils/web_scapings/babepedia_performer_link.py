@@ -9,10 +9,12 @@ import json
 import re
 from datetime import datetime
 
-from utils.web_scapings.websides import Infos_WebSides
+from utils.web_scapings.datenbank_scene_maske import Infos_WebSides
+from utils.helpers.check_biowebsite_status import CheckBioWebsiteStatus
+from gui.helpers.set_tootip_text import SetTooltipText
 from utils.database_settings.database_for_darsteller import DB_Darsteller
 
-from config import HEADERS, PROJECT_PATH, RASSE_JSON
+from config import HEADERS, PROJECT_PATH
 
 class BabePediaInfos():
 
@@ -31,29 +33,27 @@ class BabePediaInfos():
             pyperclip.copy(babepedia_link)
    
     def check_babepedia_performer_link(self):
-        webdatabase: str="BabePedia_artist"
-        
-        infos_webside=Infos_WebSides(self.Main)
-
-        infos_webside.just_checking_labelshow(webdatabase) 
+        check_status = CheckBioWebsiteStatus(self.Main)
+        webdatabase: str="BabePedia_artist"  
+        check_status.just_checking_labelshow(webdatabase) 
         if self.Main.lnEdit_DBBioWebsite_artistLink.text().startswith("https://www.babepedia.com/babe/"):
             try:                    
                 r = requests.get(self.Main.lnEdit_DBBioWebsite_artistLink.text(), headers=HEADERS, timeout=10)
             except (requests.exceptions.Timeout, requests.exceptions.RequestException) as e:
-                infos_webside.fehler_ausgabe_checkweb(e,"BabePedia_artistURL")
+                check_status.fehler_ausgabe_checkweb(e,"BabePedia_artistURL")
                 return
             else:
                 content = html.fromstring(r.content)
                 elements=content.xpath("//h1[@id='babename']")    
                 if elements:                
-                    infos_webside.check_OK_labelshow(webdatabase)
+                    check_status.check_OK_labelshow(webdatabase)
                 else:
-                    infos_webside.check_negativ_labelshow(webdatabase)  
+                    check_status.check_negativ_labelshow(webdatabase)  
         else:
             self.Main.customlnEdit_babepedia_performer.setText(self.Main.lnEdit_performer_info.text())  
             self.Main.customlnEdit_babepedia_performer.setFocus()          
             self.Main.stackedWidget.setCurrentIndex(5)
-            infos_webside.check_error_labelshow(webdatabase)
+            check_status.check_error_labelshow(webdatabase)
     
     def dict_sex(self,cbox_sex,cbox=None):
         sex_dict={"weiblich": "f", "männlich": "m"}
@@ -65,53 +65,53 @@ class BabePediaInfos():
         return sex
     
     def load_babepedia_performer_link(self):
-        webdatabase: str="BabePedia_artist"
-        infos_webside=Infos_WebSides(self.Main)
-        infos_webside.check_loading_labelshow(webdatabase)
+        check_status = CheckBioWebsiteStatus(self.Main)
+        tooltip_text = SetTooltipText(self.Main)
+        webdatabase: str="BabePedia_artist"        
+        check_status.check_loading_labelshow(webdatabase)
         url = self.Main.lnEdit_DBBioWebsite_artistLink.text()        
         try:
             response = requests.get(url, headers=HEADERS, timeout=10)
         except (requests.exceptions.Timeout, requests.exceptions.RequestException) as e:
-            infos_webside.fehler_ausgabe_checkweb(e,f"{webdatabase}URL")
+            check_status.fehler_ausgabe_checkweb(e,f"{webdatabase}URL")
             status = e           
         else:
             content = html.fromstring(response.content)               
             if not content.xpath("//h1[@id='babename']"): 
-                infos_webside.check_negativ_labelshow(webdatabase) 
+                check_status.check_negativ_labelshow(webdatabase) 
                 return 
 
-            self.sex_abfrage_babepedia(infos_webside)
-            self.rasse_abfrage_babepedia(content, infos_webside)
-            self.augen_abfrage_babepedia(content, infos_webside)
-            self.haar_abfrage_babepedia(content, infos_webside)
-            self.gewicht_abfrage_babepedia(content, infos_webside)
-            self.groesse_abfrage_babepedia(content, infos_webside)
-            self.geburtsort_abfrage_babepedia(content, infos_webside)
-            self.geburtstag_abfrage_babepedia(content, infos_webside)
-            self.piercing_abfrage_babepedia(content, infos_webside)
-            self.tattoo_abfrage_babepedia(content, infos_webside)
-            self.aktiv_abfrage_babepedia(content, infos_webside)
-            self.boobs_abfrage_babepedia(content, infos_webside)
-            self.onlyfans_abfrage_babepedia(content, infos_webside)
+            self.sex_abfrage_babepedia(tooltip_text)
+            self.rasse_abfrage_babepedia(content, tooltip_text)
+            self.augen_abfrage_babepedia(content, tooltip_text)
+            self.haar_abfrage_babepedia(content, tooltip_text)
+            self.gewicht_abfrage_babepedia(content, tooltip_text)
+            self.groesse_abfrage_babepedia(content, tooltip_text)
+            self.geburtsort_abfrage_babepedia(content, tooltip_text)
+            self.geburtstag_abfrage_babepedia(content, tooltip_text)
+            self.piercing_abfrage_babepedia(content, tooltip_text)
+            self.tattoo_abfrage_babepedia(content, tooltip_text)
+            self.aktiv_abfrage_babepedia(content, tooltip_text)
+            self.boobs_abfrage_babepedia(content, tooltip_text)
+            self.onlyfans_abfrage_babepedia(content, tooltip_text)
             self.load_image_in_label(content)
-            infos_webside.check_loaded_labelshow("BabePedia_artist")
+            check_status.check_loaded_labelshow("BabePedia_artist")
     
-    def sex_abfrage_babepedia(self, url, infos_webside):                
+    def sex_abfrage_babepedia(self, url, tooltip_text):                
         self.Main.cBox_performer_sex.setCurrentIndex(1)        
-        infos_webside.set_tooltip_text("cBox_performer_", "sex", f"babepedia: weiblich", "BabePedia")
+        tooltip_text.set_tooltip_text("cBox_performer_", "sex", f"babepedia: weiblich", "BabePedia")
     
-    def rasse_abfrage_babepedia(self, content, infos_webside):        
+    def rasse_abfrage_babepedia(self, content, tooltip_text):        
         rasse_text=None 
         
         rasse_element=content.xpath("//li/span[@class='label' and text()='Ethnicity:']/following-sibling::text()[1]")
         rasse_text=rasse_element[0] if rasse_element else None        
-        rasse_dict= json.loads(RASSE_JSON.read_bytes())
+        
         if rasse_text not in (None, "", "No data"):        
-            index=self.Main.cBox_performer_rasse.findText(rasse_dict["eng_ger"].get(rasse_text,""))            
-            self.Main.cBox_performer_rasse.setCurrentIndex(index)            
-        infos_webside.set_tooltip_text("cBox_performer_", "rasse", f"babepedia: {rasse_text}", "BabePedia")
+            pass           
+        tooltip_text.set_tooltip_text("cBox_performer_", "rasse", f"babepedia: {rasse_text}", "BabePedia")
 
-    def nation_abfrage_babepedia(self, content, infos_webside):        
+    def nation_abfrage_babepedia(self, content, tooltip_text):        
         nation_text=None 
         ### ---------------- von englisch(babepedia) in deutsche(Maske) ----------------- ####
         nation_element=content.xpath("//p[contains(string(),'Nationality')]/following::p[1]")
@@ -123,18 +123,18 @@ class BabePediaInfos():
                 index=self.Main.cBox_performer_nation.findText(nation_ger)
                 if index == -1 and nation_ger:
                     self.Main.cBox_performer_nation.addItem(nation_ger)
-        infos_webside.set_tooltip_text("cBox_performer_", "nation", f"babepedia: {nation_text}", "BabePedia")
+        tooltip_text.set_tooltip_text("cBox_performer_", "nation", f"babepedia: {nation_text}", "BabePedia")
 
-    def haar_abfrage_babepedia(self, content, infos_webside):        
+    def haar_abfrage_babepedia(self, content, tooltip_text):        
         haar_text=None 
         
         haar_element=content.xpath("//li/span[@class='label' and text()='Hair color:']/following-sibling::a[1]/text()")
         haar_text=haar_element[0] if haar_element else None        
         if haar_text not in (None, "", "No data"):        
             self.Main.lnEdit_performer_haar.setText(haar_text) 
-        infos_webside.set_tooltip_text("lnEdit_performer_", "haar", f"babepedia: {haar_text}", "BabePedia")
+        tooltip_text.set_tooltip_text("lnEdit_performer_", "haar", f"babepedia: {haar_text}", "BabePedia")
 
-    def gewicht_abfrage_babepedia(self, content, infos_webside):        
+    def gewicht_abfrage_babepedia(self, content, tooltip_text):        
         gewicht_text=None 
         
         gewicht_element=content.xpath("//p[contains(string(),'Weight')]/following::p[1]")
@@ -142,9 +142,9 @@ class BabePediaInfos():
         if gewicht_text not in (None, "", "No data"):
             gewicht_text = re.search(r'lbs \((\d+)', gewicht_text).group(1) if re.search(r'lbs \((\d+)', gewicht_text) else ""
             self.Main.lnEdit_performer_gewicht.setText(f"{gewicht_text} kg") 
-        infos_webside.set_tooltip_text("lnEdit_performer_", "gewicht", f"babepedia: {gewicht_text} kg", "BabePedia")
+        tooltip_text.set_tooltip_text("lnEdit_performer_", "gewicht", f"babepedia: {gewicht_text} kg", "BabePedia")
 
-    def groesse_abfrage_babepedia(self, content, infos_webside):        
+    def groesse_abfrage_babepedia(self, content, tooltip_text):        
         groesse_text=None 
         
         groesse_element=content.xpath("//p[contains(string(),'Height')]/following::p[1]")
@@ -152,18 +152,18 @@ class BabePediaInfos():
         if groesse_text not in (None, "", "No data"):
             groesse_text = re.search(r'inches \((\d+)', groesse_text).group(1) if re.search(r'inches \((\d+)', groesse_text) else "N/A"
             self.Main.lnEdit_performer_groesse.setText(f"{groesse_text} cm") 
-        infos_webside.set_tooltip_text("lnEdit_performer_", "groesse", f"babepedia: {groesse_text} cm", "BabePedia")
+        tooltip_text.set_tooltip_text("lnEdit_performer_", "groesse", f"babepedia: {groesse_text} cm", "BabePedia")
 
-    def geburtsort_abfrage_babepedia(self, content, infos_webside):        
+    def geburtsort_abfrage_babepedia(self, content, tooltip_text):        
         geburtsort_text=None 
         
         geburtsort_element=content.xpath("//p[contains(string(),'Birthplace')]/following::p[1]")
         geburtsort_text=geburtsort_element[0].text_content() if geburtsort_element else None        
         if geburtsort_text not in (None, "", "No data"):
             self.Main.lnEdit_performer_geburtsort.setText(f"{geburtsort_text}") 
-        infos_webside.set_tooltip_text("lnEdit_performer_", "geburtsort", f"babepedia: {geburtsort_text}", "BabePedia")
+        tooltip_text.set_tooltip_text("lnEdit_performer_", "geburtsort", f"babepedia: {geburtsort_text}", "BabePedia")
 
-    def geburtstag_abfrage_babepedia(self, content, infos_webside):        
+    def geburtstag_abfrage_babepedia(self, content, tooltip_text):        
         geburtstag_text=None 
         
         geburtstag_element=content.xpath("//li/span[@class='label' and text()='Birthplace']/following-sibling::text()[1]")
@@ -173,27 +173,27 @@ class BabePediaInfos():
                 geburtstag_text, _ = geburtstag_text.split(" (",1)
                 geburtstag_text = datetime.strptime(geburtstag_text, "%B %d, %Y").strftime("%d.%m.%Y")
             self.Main.lnEdit_performer_geburtstag.setText(f"{geburtstag_text}") 
-        infos_webside.set_tooltip_text("lnEdit_performer_", "geburtstag", f"babepedia: {geburtstag_text}", "BabePedia")
+        tooltip_text.set_tooltip_text("lnEdit_performer_", "geburtstag", f"babepedia: {geburtstag_text}", "BabePedia")
 
-    def piercing_abfrage_babepedia(self, content, infos_webside):        
+    def piercing_abfrage_babepedia(self, content, tooltip_text):        
         piercing_text="" 
         
         piercing_element=content.xpath("//p[contains(string(),'Piercings')]/following::p[1]")
         piercing_text=piercing_element[0].text_content() if piercing_element else ""      
         if piercing_text:            
             self.Main.txtEdit_performer_piercing.setPlainText(piercing_text) 
-        infos_webside.set_tooltip_text("txtEdit_performer_", "piercing", f"babepedia: {piercing_text[:40]}", "BabePedia")
+        tooltip_text.set_tooltip_text("txtEdit_performer_", "piercing", f"babepedia: {piercing_text[:40]}", "BabePedia")
 
-    def tattoo_abfrage_babepedia(self, content, infos_webside):        
+    def tattoo_abfrage_babepedia(self, content, tooltip_text):        
         tattoo_text=""
         
         tattoo_element=content.xpath("//p[contains(string(),'Tattoos')]/following::p[1]")
         tattoo_text=tattoo_element[0].text_content() if tattoo_element else ""        
         if tattoo_text:            
             self.Main.txtEdit_performer_tattoo.setPlainText(tattoo_text) 
-        infos_webside.set_tooltip_text("txtEdit_performer_", "tattoo", f"babepedia: {tattoo_text[:40]}", "BabePedia")
+        tooltip_text.set_tooltip_text("txtEdit_performer_", "tattoo", f"babepedia: {tattoo_text[:40]}", "BabePedia")
 
-    def aktiv_abfrage_babepedia(self, content, infos_webside):        
+    def aktiv_abfrage_babepedia(self, content, tooltip_text):        
         aktiv_text=None 
         
         aktiv_element=content.xpath("//p[contains(string(),'Years Active')]/following::p[1]")
@@ -203,9 +203,9 @@ class BabePediaInfos():
                 aktiv_text,_=aktiv_text.split(" (",1)
             aktiv = "Ja" if aktiv_text.split("-",1)[1]=="2023" else "Nein"           
             self.Main.lnEdit_performer_aktiv.setText(f"{aktiv} von: {aktiv_text}") 
-        infos_webside.set_tooltip_text("lnEdit_performer_", "aktiv", f"babepedia: {aktiv_text}", "BabePedia")
+        tooltip_text.set_tooltip_text("lnEdit_performer_", "aktiv", f"babepedia: {aktiv_text}", "BabePedia")
 
-    def boobs_abfrage_babepedia(self, content, infos_webside):        
+    def boobs_abfrage_babepedia(self, content, tooltip_text):        
         boobs_text=None 
         
         boobs_element=content.xpath("//p[contains(string(),'Measurements')]/following::p[1]")
@@ -213,9 +213,9 @@ class BabePediaInfos():
         if boobs_text not in (None, "", "No data"): 
             boobs_text, _ = boobs_text.split("-",1)           
             self.Main.lnEdit_performer_boobs.setText(boobs_text) 
-        infos_webside.set_tooltip_text("lnEdit_performer_", "boobs", f"babepedia: {boobs_text}", "BabePedia")
+        tooltip_text.set_tooltip_text("lnEdit_performer_", "boobs", f"babepedia: {boobs_text}", "BabePedia")
 
-    def onlyfans_abfrage_babepedia(self, content, infos_webside):        
+    def onlyfans_abfrage_babepedia(self, content, tooltip_text):        
         onlyfans=[]
         
         onlyfans_elements=content.xpath("//p[contains(string(),'Website')]/following::p/a[@target='starlet']")              
@@ -228,7 +228,7 @@ class BabePediaInfos():
                 else:
                     break
             onlyfans=", ".join(onlyfans)
-        infos_webside.set_tooltip_text("cBox_performer_", "fanside", f"babepedia: {onlyfans}", "BabePedia")
+        tooltip_text.set_tooltip_text("cBox_performer_", "fanside", f"babepedia: {onlyfans}", "BabePedia")
     
     def load_and_scale_pixmap(self,image_path, label):
         pixmap = QPixmap()
@@ -246,7 +246,7 @@ class BabePediaInfos():
 
     def load_image_in_label(self, content):        
         datenbank_darsteller = DB_Darsteller(MainWindow=self.Main)
-        id = self.Main.grpBox_performer.title().replace("Performer-Info ID: ","") # ArtistID
+        id = self.Main.grpBox_performer_name.title().replace("Performer-Info ID: ","") # ArtistID
         name = self.Main.lnEdit_performer_info.text() # Performer 'Name'
         artist_id=0 
 

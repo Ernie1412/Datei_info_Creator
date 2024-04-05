@@ -18,7 +18,7 @@ from multiprocessing import Process, Manager
 # sys.path.append(str(project_root))
 
 
-from utils.umwandeln import from_classname_to_import
+from utils.helpers.umwandeln import from_classname_to_import
 from config import SPIDER_MONITOR_UI
 
 class SpiderMonitor(QDialog):

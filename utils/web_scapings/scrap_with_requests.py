@@ -6,7 +6,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.remote.webelement import WebElement
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
 
 import requests
 from lxml import html
@@ -17,7 +17,8 @@ from typing import Tuple, Union
 
  
 from utils.database_settings.database_for_settings import Webside_Settings
-from utils.umwandeln import time_format_00_00_00, datum_umwandeln
+from utils.helpers.umwandeln import time_format_00_00_00, datum_umwandeln
+from gui.helpers.message_show import MsgBox
 
 from config import HEADERS, selenium_browser_check
 
@@ -35,7 +36,7 @@ class VideoUpdater:
         db_website_settings = Webside_Settings(MainWindow=self.Main)
         errorview, video_data = db_website_settings.get_videodatas_from_baselink(self.baselink)
         if errorview:
-            self.Main.MsgBox(f"Fehler beim Holen der {self.baselink} mit dem Fehler: {errorview}","w")
+            MsgBox(self.Main, f"Fehler beim Holen der {self.baselink} mit dem Fehler: {errorview}","w")
             return
         self.baselink = video_data.get_data()["Homepage"]
         first_page_url = video_data.get_data()["Homepage"] + video_data.get_data()["Video_page"]
@@ -107,34 +108,26 @@ class VideoUpdater:
         #     yield elements  # Daten als Generator zurückgeben
 
     # mit Selenium scrapen, weil javascript aktiv
-    def open_url_javascript(self, url: str, start_click: str = None) -> Union [str, WebElement, WebDriver]:        
+    
+    def open_url_javascript(self, url: str, xpath_tags, start_clicks: str = None) -> Union [str, WebElement, WebDriver]:        
         errorview: str = None          
         driver, status = selenium_browser_check()
         driver.maximize_window()  
-        driver.get(url)
-        content = html.fromstring(driver.page_source)        
+        driver.get(url) 
 
-        if self.start_clicks:
-            for start_click in self.start_clicks.split("\r\n"):
+        if start_clicks:
+            for start_click in start_clicks.split("\r\n"):
                 try:
                     elem = WebDriverWait(driver, 3).until(EC.visibility_of_element_located((By.XPATH, start_click)))
                 except (TimeoutError, NoSuchElementException) as e:
-                    self.Main.MsgBox(f"Fehler beim Öffen der {url} mit dem Fehler: {e}","w")
+                    MsgBox(self.Main, f"Fehler beim Öffen der {url} mit dem Fehler: {e}","w")
                     errorview = e
                 else:                    
-                    driver.execute_script("arguments[0].click();",elem)
-                    sleep(1)
-        # scroll_steps = 10  # Anzahl der Schritte
-        # scroll_duration = 1  # Dauer pro Schritt in Sekunden
-
-        # # Langsames Scrollen durchführen
-        # for _ in range(scroll_steps):
-        #     # JavaScript ausführen, um um eine Seite nach unten zu scrollen
-        #     driver.execute_script("window.scrollBy(0, window.innerHeight);")
-            
-        #     # Kurze Wartezeit zwischen den Schritten, um das Scrollen sichtbar zu machen
-        #     sleep(scroll_duration)
-                             
+                    driver.execute_script("arguments[0].click();",elem)                                     
+        for i in range(3):  # Anpassen, wie oft du scrollen möchtest
+            driver.execute_script("window.scrollBy(0, 500);")
+            sleep(1) 
+        content = html.fromstring(driver.page_source)                             
         return errorview, content, driver 
 
     # mit requests/lxml scrapen, kein javascript und schnell
@@ -145,24 +138,11 @@ class VideoUpdater:
             response = requests.get(url, headers=HEADERS)
             response.raise_for_status()
         except requests.exceptions.HTTPError as e:
-            self.Main.MsgBox(f"Fehler beim Öffen der {url} mit dem Fehler: {e}","w")
+            MsgBox(self.Main, f"Fehler beim Öffen der {url} mit dem Fehler: {e}","w")
             errorview = e
         else:
             content = html.fromstring(response.content)
-        return errorview, content  
-    
-
-    def add_in_database(self, item_data: list) -> Tuple [str, str, int]:
-        replay: QMessageBox = None                 
-        # Verarbeiten und in die Datenbank einfügen
-        db_webside = DB_WebSide()
-        errorview, farbe, isneu = db_webside.add_neue_videodaten_in_db(item_data)
-        if errorview:
-            replay = self.Main.MsgBox(f"Fehler beim Datenbank adden mit dem Fehler: {errorview}\nAbbruch ?","q")
-            if replay == QMessageBox.Yes:
-                return replay, farbe, isneu
-        return replay, farbe, isneu
-
+        return errorview, content 
     
     def ausgabe_der_daten_in_ui(self, item_data: list, farbe: str) -> None:
         self.Main.tblWdg_Daten.setRowCount(self.zeile)
@@ -220,28 +200,38 @@ class VideoUpdater:
 
         return beschreibung[0].text if beschreibung else ""
     
-    def hole_tags_xpath_settings(self, content, driver, link) -> str:
+    def hole_tags_xpath_settings(self, content, link, driver, main=None) -> str:
         tags: str = None
+        errview: str=None
         tags_elements: list = []
-        db_settings = Webside_Settings(MainWindow=self.Main)              
-
+        if main == None:
+            main = self.Main
+        db_settings = Webside_Settings(MainWindow=main)  
         errview, xpath_tags, xpath_tags_attri, xpath_tags_click = db_settings.get_movie_settings_for_tags(self.baselink)
-        if not errview and xpath_tags:
+        if not errview and xpath_tags:            
+            if driver is None:
+                errorview, content, driver = self.open_url_javascript(link, xpath_tags)
+            
             if xpath_tags_click:
-                if not driver:
-                    errorview, content, driver = self.open_url_javascript(link)
-
-                tags_elements = content.xpath(xpath_tags) or tags_elements
-
-                if not tags_elements:
-                    try:
-                        elem = WebDriverWait(driver, 1).until(EC.element_to_be_clickable((By.XPATH, xpath_tags_click)))
-                        driver.execute_script("arguments[0].click();", elem)
-                        tags_elements = content.xpath(xpath_tags)
-                    except NoSuchElementException:
-                        return tags                
-                tags = ";".join(tag.text.title().strip() for tag in tags_elements)
-        return tags
+                try:
+                    elem = WebDriverWait(driver, 3).until(EC.element_to_be_clickable((By.XPATH, xpath_tags_click)))
+                except (NoSuchElementException, TimeoutException) as e:
+                    driver.close() 
+                    errview = e
+                    return errview, tags
+                else:
+                    driver.execute_script("arguments[0].click();", elem) 
+                    sleep(1)
+                    content = html.fromstring(driver.page_source)
+            tags_elements = content.xpath(xpath_tags) 
+            driver.close()
+            if xpath_tags_attri=='title': 
+                tags = ";".join(tag.get(xpath_tags_attri).replace(",","").title().strip() for tag in tags_elements)
+            elif xpath_tags_attri =='innerText':
+                tags = ";".join(tag.text.replace(",","").title().strip() for tag in tags_elements)
+            else:                
+                tags = ";".join(tag.strip(" \t\n\r\x0B\x0C,") for tag in tags_elements if tag.strip() and tag.strip() != ',')
+        return errview, tags
     
     # wenn noch kein datum da ist dann datum aus javascript-element holen und in richtigen Format umwandeln
     def hole_datum_xpath_settings(self, content, datum: str) -> str:        

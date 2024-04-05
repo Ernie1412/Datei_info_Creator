@@ -110,7 +110,7 @@ def update():
     database_darsteller = DB_Darsteller()
     database_darsteller.update_performer(studio, performer_data())
 
-studio="BangBros"
+studio="Mofos"
 data_base=DATABASE()
 
 errview, add_url, add_name, update_sex, artist_id = data_base.check_update_performer(studio, performer_data())

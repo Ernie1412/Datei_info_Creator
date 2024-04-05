@@ -1,7 +1,7 @@
 from PyQt6 import uic
-from PyQt6.QtWidgets import QMenu, QTableWidgetItem 
+from PyQt6.QtWidgets import QMenu, QTableWidgetItem, QWidget 
 from PyQt6.QtGui import QAction, QCursor, QIcon, QPixmap
-from PyQt6.QtCore import Qt, QTimer,  QCoreApplication, pyqtSignal
+from PyQt6.QtCore import Qt, QTimer, QCoreApplication, pyqtSignal
 
 import functools
 import json
@@ -14,14 +14,18 @@ import errno
 
 from gui.performer_add_del_dialog import PerformerAddDel
 from utils.database_settings.database_for_settings import Webside_Settings, SettingsData
-from utils.web_scapings.websides import Infos_WebSides
+from utils.web_scapings.datenbank_scene_maske import DatenbankSceneMaske
+from utils.web_scapings.scape_iafd import ScrapeIAFDScene
+from utils.web_scapings.scrape_data18 import ScrapeData18
+from gui.helpers.set_tootip_text import SetTooltipText
+from utils.helpers.check_biowebsite_status import CheckBioWebsiteStatus
 from utils.web_scapings.scrap_with_requests import VideoUpdater
 from utils.database_settings.database_for_darsteller import DB_Darsteller
 from utils.web_scapings.load_performer_images_from_websites import LoadPerformerImages
 from utils.web_scapings.performer_infos_maske import PerformerInfosMaske
 from utils.web_scapings.iafd_performer_link import IAFDInfos
 
-from gui.dialoge_ui.message_show import MsgBox, StatusBar, blink_label
+from gui.helpers.message_show import MsgBox, StatusBar, blink_label
 
 from config import MEDIA_JSON_PATH
 from config import LOESCH_DIALOG_UI, RENAME_DIALOG_UI, DATEI_AUSWAHL_UI, PROJECT_PATH, ADD_PERFORMER_UI, ICON_PATH
@@ -51,12 +55,29 @@ class ContextMenu(QMenu):
                 self.Main.tblWdg_files: self.showContextMenu_in_Files,
                 self.Main.txtEdit_DBSynopsis: self.showContextMenu_in_Synopsis,
                 self.Main.txtEdit_DBTags: self.showContextMenu_in_DBTags,
-                self.Main.tblWdg_performer_links: self.showContextMenu_in_performer_links                
+                self.Main.tblWdg_performer_links: self.showContextMenu_in_performer_links,
+                self.Main.tblWdg_DB_performers: self.showContextMenu_in_scene_performers               
             }
             action = widget_actions.get(current_widget)
             if action:
                 action(current_widget.mapToGlobal(pos))
 
+#### ------------- Aufruf für die 'Scene Performer Tabelle' ------------------------------ #####
+    def showContextMenu_in_scene_performers(self, pos: int) -> None: # tblWdg_DB_performers
+        if self.Main.tblWdg_performer_links.horizontalHeaderItem(0):            
+            action_header: QAction = self.set_header_on_contextmenu("Tabelle Scene Performer")
+            menu_dict: dict = {
+                "lade Performer Infos": ("ContexMenu/actor_info.png", self.load_actor_infos),                 }
+            self.show_context_menu(pos, action_header, menu_dict)
+    
+    def load_actor_infos(self):
+        actorname = self.Main.tblWdg_DB_performers.item(self.Main.tblWdg_DB_performers.currentRow(), 0).text()
+        self.Main.customlnEdit_IAFD_performer.setText(actorname)
+        tab = self.Main.tabs.findChild(QWidget, 'tab_performer')
+        self.Main.tabs.setCurrentIndex(self.Main.tabs.indexOf(tab))
+        page = self.Main.stacked_tables.findChild(QWidget, 'page_table_performer')
+        self.Main.stacked_tables.setCurrentIndex(self.Main.stacked_tables.indexOf(page))
+        self.Main.datenbank_performer_suche()
 #### ----------- Aufruf für die 'Performer Links Tabelle' ------------------------------ #####
     def showContextMenu_in_performer_links(self, pos: int) -> None: # tblWdg_performer_links
         action_header: QAction = self.set_header_on_contextmenu("Tabelle Performer Links")
@@ -321,20 +342,20 @@ class ContextMenu(QMenu):
         menu_dict = {} 
         icon="www.png"       
         for index in range(self.Main.model_database_weblinks.rowCount()):
-            links = self.Main.model_database_weblinks.data(self.Main.model_database_weblinks.index(index, 0))
-            web_link = links.split("/")[2] 
-            menu_dict[web_link] = (icon, functools.partial(scraper_function, links))           
+            link = self.Main.model_database_weblinks.data(self.Main.model_database_weblinks.index(index, 0))
+            web_link = urlparse(link).netloc
+            menu_dict[web_link] = (icon, functools.partial(scraper_function, link))           
         return menu_dict
 
-
 #### ----------- Aufruf für die 'Performer Namen Datenbank Such Tabelle' ----------- #####
-    def showContextMenu_in_performer_search(self, pos: int) -> None: # tblWdg_performer
+    def showContextMenu_in_performer_search(self, pos: int) -> None: # tblWdg_performer        
         action_header: QAction = self.set_header_on_contextmenu("Tabelle Performer Suche") 
         menu_dict: dict = {
             "Zeile/Namen hinzufügen": ("name_hinzufuegen.png", lambda: PerformerAddDel(self, Main=self.Main) if not self.dialog_shown else None),
             "Zeile/Namen löschen": ("name_loeschen.png", self.delete_performer),
             "Zeile/Namen zusammenfügen/mergen mit ID": ("merge_person.png", lambda: PerformerAddDel(self, menu="merge", Main=self.Main) if not self.dialog_shown else None) }
         self.show_context_menu(pos, action_header, menu_dict)
+
 #### ----------- Aktionen in dem 'Menu: Performer Tabelle' ------------------------------------- #####
 #### ------------------------------------------------------------------------------------------- #####
     ### ------------------------ Zeile/Name hinzufügen ----------------------------- ###
@@ -348,14 +369,21 @@ class ContextMenu(QMenu):
                         "ImagePfad": None}
         errview, artist_neu, sex_neu, link_neu, new_artist_id = datenbank_darsteller.addDarsteller_in_db(performer_data)
         if new_artist_id != 0:            
-            aktuelle_zeile = self.Main.tblWdg_performer.currentRow()
-            neue_zeile = aktuelle_zeile + 1
-            self.Main.tblWdg_performer.insertRow(neue_zeile)
-            self.Main.tblWdg_performer.setItem(neue_zeile, 0, QTableWidgetItem(f'{new_artist_id}'))
-            self.Main.tblWdg_performer.setItem(neue_zeile, 1, QTableWidgetItem(name))
-            self.Main.tblWdg_performer.setItem(neue_zeile, 2, QTableWidgetItem(ordner))
-            self.Main.tblWdg_performer.setItem(neue_zeile, 5, QTableWidgetItem((f'{sex}')))            
-            self.Main.tblWdg_performer.update()            
+            current_row = self.Main.tblWdg_performer.currentRow()
+            new_row = current_row + 1
+            self.Main.tblWdg_performer.insertRow(new_row)
+            for column, header in enumerate(self.Main.get_header_for_performers_table()):
+                if header == "ArtistID":
+                    self.Main.tblWdg_performer.setItem(new_row, column, QTableWidgetItem(f'{new_artist_id}'))
+                elif header == "Name":
+                    self.Main.tblWdg_performer.setItem(new_row, column, QTableWidgetItem(name))
+                elif header == "Ordner":
+                    self.Main.tblWdg_performer.setItem(new_row, column, QTableWidgetItem(ordner))
+                elif header == "Geschlecht":
+                    self.Main.tblWdg_performer.setItem(new_row, column, QTableWidgetItem(f'{sex}'))
+                else:
+                    # Setzen Sie einen leeren String für alle anderen Spalten
+                    self.Main.tblWdg_performer.setItem(new_row, column, QTableWidgetItem(""))            
             StatusBar(self.Main,f"{artist_neu} Datensatz wurde neu hinzugefügt","#3ADF00")
         else:
             if errview:
@@ -531,7 +559,7 @@ class ContextMenu(QMenu):
         menu_dict: dict = {
             "Datei löschen": ("datei_loeschen.png", self.file_delete),
             "Datei umbenennen": ("datei_rename.png", self.file_rename_from_table),
-            "Tabelle aktualisieren": ("load_table.png", self.Main.refresh_table),
+            "Tabelle aktualisieren": ("load_table.png", self.refresh_video_table),
             "abspielen mit VLC": ("vlc.png", self.play_vlc),
             "Datei in dem richtigen Ordner verschieben": ("ordner_verschieben.png", self.file_move_in_db_folder)   }
         self.show_context_menu(pos, action_header, menu_dict)
@@ -550,11 +578,11 @@ class ContextMenu(QMenu):
         old_file=self.Main.tblWdg_files.selectedItems()[0].text()
         dir=self.Main.lbl_Ordner.text()
         Path(dir,old_file+".mp4").unlink()
-        StatusBar(self, f"gelöschte Dateiname: {old_file}","#efffb7")
+        StatusBar(self.Main, f"gelöschte Dateiname: {old_file}","#efffb7")
         zeile=self.Main.tblWdg_files.currentRow()-1
         if zeile>=0:
             self.Main.tblWdg_files.setCurrentCell(zeile, 0)
-            self.refresh_table()
+            self.Main.refresh_table()
         else:
             self.Main.tblWdg_files.clearContents()
             self.Main.tblWdg_files.setRowCount(0)
@@ -580,6 +608,10 @@ class ContextMenu(QMenu):
             self.Info_Datei_Laden(True)            
             self.Main.tblWdg_files.update()
         self.qdialog_rename.close()
+    ### ----------------------------------- refresh video Tabelle ------------------------------------ ###
+    def refresh_video_table(self):
+        select_file = self.Main.lbl_Dateiname.text()[:-4]
+        self.Main.refresh_table(select_file)
     
     ### ----------------------------------- VLC starten im ContextMenu ------------------------------- ### 
     def play_vlc(self):
@@ -639,20 +671,24 @@ class ContextMenu(QMenu):
     ### --------------------------------------------------- ###          
     ### scrape einzeln die daten aus Data18, IAFD und URL's ###
     ### --------------------------------------------------- ### 
-    def scrap_synopsis(self, link: str) -> None: 
-        websides = Infos_WebSides(MainWindow=self.Main)       
+    def scrap_synopsis(self, link: str) -> None:
+        check_status = CheckBioWebsiteStatus(self.Main) 
+        
+        tool_text = SetTooltipText(self.Main)       
         if link.startswith("https://www.iafd.com/title.rme/"):
-            websides.check_loading_labelshow("IAFD") 
-            content = websides.open_url(link, "IAFD") 
-            websides.synopsis_abfrage_iafd(content, link) 
-            self.check_loaded_labelshow("IAFD")
+            iafd_scene = ScrapeIAFDScene(self.Main)
+            check_status.check_loading_labelshow("IAFD") 
+            content = iafd_scene.open_url(link, "IAFD") 
+            iafd_scene.synopsis_abfrage_iafd(content, link) 
+            check_status.check_loaded_labelshow("IAFD")
         elif link.startswith("https://www.data18.com/scenes/"):
-            websides.check_loading_labelshow("Data18")
-            content = websides.open_url(link, "Data18") 
-            websides.synopsis_abfrage_data18(content, link)
-            self.check_loaded_labelshow("Data18")
+            data18_scene = ScrapeData18(self.Main)
+            check_status.check_loading_labelshow("Data18")
+            content = data18_scene.open_url(link, "Data18") 
+            data18_scene.synopsis_abfrage_data18(content, link)
+            check_status.check_loaded_labelshow("Data18")
         else:
-            websides.check_loading_labelshow("")
+            check_status.check_loading_labelshow("")
             synopsis: str = None            
             video_updater = VideoUpdater(self.Main)        
             db_website_settings = Webside_Settings(MainWindow=self.Main)
@@ -668,82 +704,88 @@ class ContextMenu(QMenu):
                 else: 
                     message=f"beim Scrapen von Videobeschreibung ist dieser Fehler: {errview}"
                 if synopsis:
-                    websides.set_daten_with_tooltip("txtEdit_DB", "Synopsis", baselink, synopsis)
+                    DatenbankSceneMaske(self.Main).set_daten_with_tooltip("txtEdit_DB", "Synopsis", baselink, synopsis)
             else:
                 message=f"beim Scrapen von Videobeschreibung ist dieser Fehler: {errview}"
                 MsgBox(self.Main, message,"w")
-            websides.check_loaded_labelshow("")
+            check_status.check_loaded_labelshow("")
 
-    def scrap_movies(self, link: str) -> None:        
-        if link.startswith("https://www.iafd.com/title.rme/"):        
-            websides = Infos_WebSides(MainWindow=self.Main) 
-            websides.check_loading_labelshow("IAFD")       
-            content = websides.open_url(link, "IAFD") 
-            websides.akas_abfrage_iafd(content, link) 
-            websides.check_loaded_labelshow("IAFD")
+    def scrap_movies(self, link: str) -> None: 
+        check_status = CheckBioWebsiteStatus(self.Main) 
+        
+        tool_text = SetTooltipText(self.Main)        
+        if link.startswith("https://www.iafd.com/title.rme/"): 
+            iafd_scene = ScrapeIAFDScene(MainWindow=self.Main) 
+            check_status.check_loading_labelshow("IAFD")       
+            content = iafd_scene.open_url(link, "IAFD") 
+            iafd_scene.akas_abfrage_iafd(content, link) 
+            check_status.check_loaded_labelshow("IAFD")
         if link.startswith("https://www.data18.com/scenes/"):
-            websides = Infos_WebSides(MainWindow=self.Main)    
-            websides.check_loading_labelshow("Data18")    
-            content = websides.open_url(link, "Data18") 
-            websides.movies_abfrage_data18(content, link)
-            websides.check_loaded_labelshow("Data18")
+            data18_scene = ScrapeData18(self.Main)                
+            check_status.check_loading_labelshow("Data18")    
+            content = iafd_scene.open_url(link, "Data18") 
+            iafd_scene.movies_abfrage_data18(content, link)
+            check_status.check_loaded_labelshow("Data18")
 
-    def scrap_release(self, link: str) -> None:        
-        if link.startswith("https://www.iafd.com/title.rme/"):        
-            websides = Infos_WebSides(MainWindow=self.Main) 
-            websides.check_loading_labelshow("IAFD")       
-            content = websides.open_url(link, "IAFD") 
-            websides.release_abfrage_iafd(content, link)
-            websides.check_loaded_labelshow("IAFD") 
+    def scrap_release(self, link: str) -> None:
+        check_status = CheckBioWebsiteStatus(self.Main)                         
+        if link.startswith("https://www.iafd.com/title.rme/"):
+            iafd_scene = ScrapeIAFDScene(MainWindow=self.Main)
+            check_status.check_loading_labelshow("IAFD")       
+            content = iafd_scene.open_url(link, "IAFD") 
+            iafd_scene.release_abfrage_iafd(content, link)
+            check_status.check_loaded_labelshow("IAFD") 
         if link.startswith("https://www.data18.com/scenes/"):
-            websides = Infos_WebSides(MainWindow=self.Main)  
-            websides.check_loading_labelshow("Data18")     
-            content = websides.open_url(link, "Data18") 
-            websides.release_abfrage_data18(content, link)
-            websides.check_loaded_labelshow("Data18")
+            data18_scene = ScrapeData18(self.Main)  
+            check_status.check_loading_labelshow("Data18")     
+            content = data18_scene.open_url(link, "Data18") 
+            data18_scene.release_abfrage_data18(content, link)
+            check_status.check_loaded_labelshow("Data18")
 
-    def scrap_serie(self, link: str) -> None:        
+    def scrap_serie(self, link: str) -> None: 
+        check_status = CheckBioWebsiteStatus(self.Main)       
         if link.startswith("https://www.iafd.com/title.rme/"):        
-            websides = Infos_WebSides(MainWindow=self.Main) 
-            websides.check_loading_labelshow("IAFD")       
-            content = websides.open_url(link, "IAFD") 
-            websides.serie_abfrage_iafd(content, link) 
-            websides.check_loaded_labelshow("IAFD")
+            iafd_scene = ScrapeIAFDScene(MainWindow=self.Main) 
+            check_status.check_loading_labelshow("IAFD")       
+            content = iafd_scene.open_url(link, "IAFD") 
+            iafd_scene.serie_abfrage_iafd(content, link) 
+            check_status.check_loaded_labelshow("IAFD")
         if link.startswith("https://www.data18.com/scenes/"):
-            websides = Infos_WebSides(MainWindow=self.Main)   
-            websides.check_loading_labelshow("Data18")     
-            content = websides.open_url(link, "Data18") 
-            websides.serie_abfrage_data18(content, link)
-            websides.check_loaded_labelshow("Data18")
+            data18_scene = ScrapeData18(MainWindow=self.Main)   
+            check_status.check_loading_labelshow("Data18")     
+            content = data18_scene.open_url(link, "Data18") 
+            data18_scene.serie_abfrage_data18(content, link)
+            check_status.check_loaded_labelshow("Data18")
 
-    def scrap_regie(self, link: str) -> None:        
+    def scrap_regie(self, link: str) -> None:  
+        check_status = CheckBioWebsiteStatus(self.Main)      
         if link.startswith("https://www.iafd.com/title.rme/"):        
-            websides = Infos_WebSides(MainWindow=self.Main) 
-            websides.check_loading_labelshow("IAFD")       
-            content = websides.open_url(link, "IAFD") 
-            websides.regie_abfrage_iafd(content, link) 
-            websides.check_loaded_labelshow("IAFD")
-
+            iafd_scene = ScrapeIAFDScene(MainWindow=self.Main)  
+            check_status.check_loading_labelshow("IAFD")       
+            content = iafd_scene.open_url(link, "IAFD") 
+            iafd_scene.regie_abfrage_iafd(content, link) 
+            check_status.check_loaded_labelshow("IAFD")
         
     def scrap_tags(self, link: str) -> None: 
-        websides = Infos_WebSides(MainWindow=self.Main) 
-        websides.check_loading_labelshow("")      
+        check_status = CheckBioWebsiteStatus(self.Main)
+        check_status.check_loading_labelshow("")      
         tags: str = None
         baselink = "/".join(link.split("/")[:3])+"/"        
         video_updater = VideoUpdater(baselink, self)        
         db_website_settings = Webside_Settings(MainWindow=self.Main)
-        settings_data = SettingsData()
-        
+        settings_data = SettingsData()        
         errorview, settings_data = db_website_settings.get_videodatas_from_baselink(baselink)
         if not errorview:            
-            studio=settings_data.get_data()["Name"]
-            errorview, content, driver = video_updater.open_url_javascript(link, settings_data.get_data()["Click"])
-            tags = video_updater.hole_tags_xpath_settings(content, driver, link)
+            studio = settings_data.get_data()["Name"]
+            errorview, content, driver = video_updater.open_url_javascript(link, "", settings_data.get_data()["Click"])
+            errorview, tags = video_updater.hole_tags_xpath_settings(content, link, driver, self.Main)
             if tags:
-                websides.set_daten_with_tooltip("txtEdit_DB", "Tags", baselink, tags)
+                DatenbankSceneMaske(self.Main).set_daten_with_tooltip("txtEdit_DB", "Tags", baselink, tags)
+            else: 
+                self.Main.txtEdit_Clipboard.setText(f"Fehler bei Tags: {errorview}")    
         else:
             MsgBox(self.Main, f"beim scrape von Tags ist dieser Fehler: {errorview}","w")
-        websides.check_loaded_labelshow("")
+        check_status.check_loaded_labelshow("")
 
     def scrap_scenecode(self, link: str) -> None:
         pass

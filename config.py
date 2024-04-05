@@ -47,6 +47,8 @@ GENDER_AUSWAHL_UI = Path(__file__).absolute().parent / "gui/uic_imports/dlg_gend
 NATIONS_AUSWAHL_UI = Path(__file__).absolute().parent / "gui/uic_imports/dlg_nations_auswahl.ui"
 SOCIAL_MEDIA_AUSWAHL_UI = Path(__file__).absolute().parent / "gui/uic_imports/dlg_social_media_auswahl.ui"
 SOCIAL_MEDIA_LINK_UI = Path(__file__).absolute().parent / "gui/uic_imports/dialog_set_socialmedia_link.ui"
+PERFORM_MASK_SELECTION_UI = Path(__file__).absolute().parent / "gui/uic_imports/dialog_auswahl_buttons.ui"
+SRACPE_ACTOR_INFOS_UI = Path(__file__).absolute().parent / "gui/uic_imports/dialog_gui/dialog_scrape_actor_infos.ui"
 
 ### ------------------- Pfade zu den Datenbanken --------------------- ###
 SETTINGS_DB_PATH = str(Path(__file__).absolute().parent / '__DB/Webside_Settings.db')

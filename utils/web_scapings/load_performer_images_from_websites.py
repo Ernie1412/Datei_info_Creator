@@ -14,7 +14,7 @@ import ast
 from pathlib import Path
 from utils.database_settings.database_for_settings import Webside_Settings
 from utils.web_scapings.performer_infos_maske import PerformerInfosMaske
-from gui.dialoge_ui.message_show import StatusBar
+from gui.helpers.message_show import StatusBar
 
 from config import HEADERS, PROJECT_PATH
 
@@ -55,8 +55,7 @@ class LoadPerformerImages():
                 # with open(str(PROJECT_PATH / 'index.html'), 'wb') as f:
                 #     f.write(response.content)                 
             finally:            
-                return content            
-              
+                return content    
 
     def load_website_image_in_label(self): 
         image_url: str=""

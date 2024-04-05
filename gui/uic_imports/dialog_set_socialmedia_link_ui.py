@@ -15,6 +15,7 @@ class Ui_dialog_set_socialmedia_link(object):
         dialog_set_socialmedia_link.resize(400, 73)
         dialog_set_socialmedia_link.setMinimumSize(QtCore.QSize(400, 25))
         dialog_set_socialmedia_link.setMaximumSize(QtCore.QSize(400, 73))
+        dialog_set_socialmedia_link.setModal(True)
         self.gridLayout = QtWidgets.QGridLayout(dialog_set_socialmedia_link)
         self.gridLayout.setObjectName("gridLayout")
         self.verticalLayout = QtWidgets.QVBoxLayout()

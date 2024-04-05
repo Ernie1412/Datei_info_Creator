@@ -1,10 +1,12 @@
-from PyQt6.QtGui import QPixmap
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import QSize, Qt
+from PyQt6.QtGui import QIcon, QPixmap
 
-from config import WEBINFOS_JSON_PATH, PROJECT_PATH
 from pathlib import Path
 
-from utils.database_settings.database_for_darsteller import DB_Darsteller
+from gui.context_menus.context_menu_for_buttons import CustomMenuButtons
+
+from config import WEBINFOS_JSON_PATH, PROJECT_PATH
+
 
 class ClearingWidget():
     def __init__(self, MainWindow):
@@ -13,6 +15,9 @@ class ClearingWidget():
 
         #### ----- einiges Labels erstmal unsichtbar setzen ----- ####
     ##############################################################
+    def invisible_database_link(self):
+        self.Main.Btn_pornbox_links.setVisible(False)
+
     def invisible_movie_btn_anzahl(self):
         lbl_anzahl_db: list = ["SceneCode", "ProDate", "Release", "Regie", "Serie", "Dauer", "Movies", "Synopsis", "Tags"]        
         for anzahl in lbl_anzahl_db:
@@ -40,7 +45,7 @@ class ClearingWidget():
             
     ### ---------------- reset ui elements auf dem Datenbank Tab -------------------------- ###       
     def loesche_DB_maske(self):
-        line_edit_dbs=["SceneCode", "ProDate", "Release", "Regie", "Serie", "Dauer", "Data18Link", "IAFDLink"]        
+        line_edit_dbs=["SceneCode", "ProDate", "Release", "Regie", "Serie", "Dauer", "Data18Link", "ThePornDBLink", "IAFDLink"]        
         text_edit_dbs=["Movies", "Tags", "Synopsis"] 
 
         for line_edit_db in line_edit_dbs:
@@ -104,13 +109,14 @@ class ClearingWidget():
         return widget_list
 
     def clear_maske(self):
+        self.set_website_bio_enabled(self.Main.get_bio_websites().keys(), False)
         a= self.performers_tab_widgets("performer_text_iafd_")                 
         elements_to_reset = [
             (self.tooltip_claering, self.performers_tab_widgets("tooltip")),            
             (self.clear_label_and_tooltip, ["iafd_image", "babepedia_image", "link_image_from_db"]),
             (self.clear_line_edit_and_tooltip, self.performers_tab_widgets("performer_line_iafd_")),
             (self.clear_combobox_and_list, ["performer_rasse"]),
-            (self.clear_text_edit, self.performers_tab_widgets("text")),
+            (self.clear_text_edit, self.performers_tab_widgets("textprefix_perf")),
             (self.set_default_table, ["performer_links"]),
             (self.clear_nations, [0,1,2,3,4,5,6]),
             (self.clear_social_media, [0,1,2,3,4,5,6,7,8,9])    ]
@@ -120,7 +126,7 @@ class ClearingWidget():
                     method(widget, True)           
                 else:
                     method(widget)
-        self.Main.grpBox_performer.setTitle("Performer-Info für:")  
+        self.Main.grpBox_performer_name.setTitle("Performer-Info für:")  
         Path(WEBINFOS_JSON_PATH).unlink(missing_ok=True) 
         Path(PROJECT_PATH / "iafd_performer.jpg").unlink(missing_ok=True) 
         self.Main.Btn_IAFD_perfomer_suche.setEnabled(False)
@@ -132,7 +138,7 @@ class ClearingWidget():
             widget.uncheck_all_items()     
 
     def clear_text_edit(self,widget_name: str ) -> None:
-        widget = getattr(self.Main, f"txtEdit_{widget_name}", None)
+        widget = getattr(self.Main, f"{widget_name}", None)
         if widget:
             widget.setPlainText("")
 
@@ -164,7 +170,7 @@ class ClearingWidget():
     ### Elemente ausschalten, sichtbar, unsichtbar machen, um unnötige Abfragen zu verhindern ###
     def tabs_clearing(self, tab_dateiinfo: bool=True, tab_fileinfo: bool=True, analyse_button: bool=True, table_files: bool=True) -> None:        
         if not tab_dateiinfo:
-            line_edits=["Studio", "URL", "IAFDURL", "Titel", "Data18URL", "NebenSide", "ErstellDatum", "ProJahr", "ProDate", "Regie", "SceneCode"]
+            line_edits=["Studio", "URL", "IAFDURL", "Titel", "ThePornDBURL","NebenSide", "ErstellDatum", "ProJahr", "ProDate", "Regie", "SceneCode"]
             list_widgets=["Darstellerin","Darsteller"]
             text_edits=["Tags","Beschreibung","Movies"]
 
@@ -207,9 +213,10 @@ class ClearingWidget():
         webside_model = self.Main.lstView_database_weblinks.model()
         data18 = self.Main.lnEdit_DBData18Link
         iafd = self.Main.lnEdit_DBIAFDLink
+        theporndb = self.Main.lnEdit_DBThePornDBLink
         button="Btn_Linksuche_in_"
-
-        getattr(self.Main,f"{button}URL").setEnabled(webside_model and bolean)
+        
+        getattr(self.Main,f"{button}TPDB").setEnabled(theporndb and bolean)
         getattr(self.Main,f"{button}Data18").setEnabled(bool(data18.text()) and bolean)
         getattr(self.Main,f"{button}IAFD").setEnabled(bool(iafd.text()) and bolean)       
 
@@ -220,13 +227,18 @@ class ClearingWidget():
         for info in buttons:
             getattr(self.Main,f"Btn_{info}").setEnabled(bolean)
 
-    def set_website_bio_enabled(self, widgets: str, bolean: bool) -> None:
+    def set_website_bio_enabled(self, widgets: str, bolean: bool) -> None:  
+        icon = QIcon()
         for widget in widgets:
-            bio_widgets=getattr(self.Main, f"Btn_performer_in_{widget}")
-            bio_widgets.setEnabled(bolean)
+            bio_button = getattr(self.Main, f"Btn_performer_in_{widget}")  
+            if bolean:          
+                icon.addPixmap(QPixmap(f":/Buttons/_buttons/performer_biosites/{widget}.png"), QIcon.Mode.Normal, QIcon.State.Off)
+            else:
+                icon.addPixmap(QPixmap(f":/Buttons/_buttons/performer_biosites/{widget}_disabled.png"), QIcon.Mode.Disabled, QIcon.State.Off)
+            bio_button.setIcon(icon)
+            bio_button.setIconSize(QSize(50, 25)) 
             if not bolean:
-                bio_widgets.setToolTip("")
-
+                bio_button.setToolTip("")
             
 # Abschluss
 if __name__ == '__main__':

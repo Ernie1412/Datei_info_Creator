@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1884</width>
-    <height>1064</height>
+    <height>1013</height>
    </rect>
   </property>
   <property name="focusPolicy">
@@ -76,20 +76,20 @@ border-radius: 5px;}</string>
      <widget class="QLabel" name="lblWebside">
       <property name="geometry">
        <rect>
-        <x>50</x>
+        <x>57</x>
         <y>340</y>
-        <width>61</width>
-        <height>16</height>
+        <width>52</width>
+        <height>17</height>
        </rect>
       </property>
       <property name="text">
-       <string>Data18-URL:</string>
+       <string>TPDB-URL:</string>
       </property>
      </widget>
      <widget class="QLabel" name="lblBeschreibung">
       <property name="geometry">
        <rect>
-        <x>50</x>
+        <x>46</x>
         <y>460</y>
         <width>71</width>
         <height>16</height>
@@ -102,8 +102,8 @@ border-radius: 5px;}</string>
      <widget class="QLabel" name="lblDownloadURL">
       <property name="geometry">
        <rect>
-        <x>60</x>
-        <y>310</y>
+        <x>63</x>
+        <y>313</y>
         <width>51</width>
         <height>16</height>
        </rect>
@@ -167,7 +167,7 @@ border-radius: 5px;}</string>
      <widget class="QLabel" name="lblProJahr">
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>26</x>
         <y>430</y>
         <width>91</width>
         <height>16</height>
@@ -261,7 +261,7 @@ QPushButton:hover{
        <string/>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lnEdit_Data18URL">
+     <widget class="QLineEdit" name="lnEdit_ThePornDBURL">
       <property name="geometry">
        <rect>
         <x>120</x>
@@ -788,6 +788,33 @@ border: 1px solid grey;border-radius: 5px;}</string>
         <string>Technische Informationen:</string>
        </property>
       </widget>
+      <widget class="QPushButton" name="Btn_copy_runtime">
+       <property name="geometry">
+        <rect>
+         <x>240</x>
+         <y>38</y>
+         <width>20</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>kopiert den Link in die Ziwschenablage</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normalon>:/labels/_labels/copy_clip.png</normalon>
+        </iconset>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
+      </widget>
      </widget>
      <widget class="QPushButton" name="Btn_Linksuche_in_DB">
       <property name="enabled">
@@ -1084,7 +1111,7 @@ border: 1px solid grey;border-radius: 5px;}</string>
      <zorder>Btn_logo_am_infos_tab</zorder>
      <zorder>txtBrw_Beschreibung</zorder>
      <zorder>lnEdit_ProJahr</zorder>
-     <zorder>lnEdit_Data18URL</zorder>
+     <zorder>lnEdit_ThePornDBURL</zorder>
      <zorder>lnEdit_IAFDURL</zorder>
      <zorder>lnEdit_ErstellDatum</zorder>
      <zorder>lnEdit_URL</zorder>
@@ -1565,8 +1592,8 @@ QPushButton:hover{
      <widget class="QLabel" name="lblDBSceneCode">
       <property name="geometry">
        <rect>
-        <x>60</x>
-        <y>390</y>
+        <x>70</x>
+        <y>425</y>
         <width>61</width>
         <height>16</height>
        </rect>
@@ -1579,7 +1606,7 @@ QPushButton:hover{
       <property name="geometry">
        <rect>
         <x>50</x>
-        <y>280</y>
+        <y>330</y>
         <width>75</width>
         <height>41</height>
        </rect>
@@ -1620,7 +1647,7 @@ Performer</string>
       <property name="geometry">
        <rect>
         <x>260</x>
-        <y>670</y>
+        <y>675</y>
         <width>101</width>
         <height>31</height>
        </rect>
@@ -1658,7 +1685,7 @@ Datenbank</string>
       <property name="geometry">
        <rect>
         <x>90</x>
-        <y>420</y>
+        <y>450</y>
         <width>31</width>
         <height>16</height>
        </rect>
@@ -1671,7 +1698,7 @@ Datenbank</string>
       <property name="geometry">
        <rect>
         <x>570</x>
-        <y>390</y>
+        <y>425</y>
         <width>80</width>
         <height>20</height>
        </rect>
@@ -1679,46 +1706,6 @@ Datenbank</string>
       <property name="text">
        <string>Release Datum:</string>
       </property>
-     </widget>
-     <widget class="QTableWidget" name="tblWdg_DB_performers">
-      <property name="geometry">
-       <rect>
-        <x>130</x>
-        <y>250</y>
-        <width>681</width>
-        <height>131</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(255, 250, 211);</string>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Plain</enum>
-      </property>
-      <property name="lineWidth">
-       <number>0</number>
-      </property>
-      <property name="midLineWidth">
-       <number>2</number>
-      </property>
-      <attribute name="horizontalHeaderDefaultSectionSize">
-       <number>226</number>
-      </attribute>
-      <column>
-       <property name="text">
-        <string>Name</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Alias</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Action</string>
-       </property>
-      </column>
      </widget>
      <widget class="QLabel" name="lblDBTitel">
       <property name="geometry">
@@ -1736,8 +1723,8 @@ Datenbank</string>
      <widget class="QLabel" name="lblDBMovies">
       <property name="geometry">
        <rect>
-        <x>80</x>
-        <y>450</y>
+        <x>90</x>
+        <y>480</y>
         <width>41</width>
         <height>16</height>
        </rect>
@@ -1750,7 +1737,7 @@ Datenbank</string>
       <property name="geometry">
        <rect>
         <x>60</x>
-        <y>250</y>
+        <y>300</y>
         <width>61</width>
         <height>20</height>
        </rect>
@@ -1759,24 +1746,11 @@ Datenbank</string>
        <string>Performers:</string>
       </property>
      </widget>
-     <widget class="QLabel" name="lblDBSynopsis">
-      <property name="geometry">
-       <rect>
-        <x>70</x>
-        <y>570</y>
-        <width>51</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Synopsis:</string>
-      </property>
-     </widget>
      <widget class="QLabel" name="lblDBProDate">
       <property name="geometry">
        <rect>
         <x>310</x>
-        <y>390</y>
+        <y>425</y>
         <width>80</width>
         <height>20</height>
        </rect>
@@ -1788,8 +1762,8 @@ Datenbank</string>
      <widget class="QLabel" name="lblDBTags">
       <property name="geometry">
        <rect>
-        <x>90</x>
-        <y>510</y>
+        <x>100</x>
+        <y>530</y>
         <width>31</width>
         <height>16</height>
        </rect>
@@ -1805,7 +1779,7 @@ Datenbank</string>
       <property name="geometry">
        <rect>
         <x>120</x>
-        <y>670</y>
+        <y>675</y>
         <width>101</width>
         <height>31</height>
        </rect>
@@ -1880,7 +1854,7 @@ QPushButton:hover{
       <property name="geometry">
        <rect>
         <x>435</x>
-        <y>420</y>
+        <y>450</y>
         <width>31</width>
         <height>16</height>
        </rect>
@@ -1893,7 +1867,7 @@ QPushButton:hover{
       <property name="geometry">
        <rect>
         <x>695</x>
-        <y>420</y>
+        <y>450</y>
         <width>31</width>
         <height>16</height>
        </rect>
@@ -1909,7 +1883,7 @@ QPushButton:hover{
       <property name="geometry">
        <rect>
         <x>390</x>
-        <y>670</y>
+        <y>675</y>
         <width>101</width>
         <height>31</height>
        </rect>
@@ -1947,7 +1921,7 @@ einfügen</string>
       <property name="geometry">
        <rect>
         <x>50</x>
-        <y>330</y>
+        <y>380</y>
         <width>75</width>
         <height>41</height>
        </rect>
@@ -2100,9 +2074,9 @@ Löschen</string>
       </property>
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>220</y>
-        <width>101</width>
+        <x>23</x>
+        <y>249</y>
+        <width>100</width>
         <height>23</height>
        </rect>
       </property>
@@ -2140,8 +2114,8 @@ QPushButton:hover{
       </property>
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>190</y>
+        <x>23</x>
+        <y>194</y>
         <width>101</width>
         <height>23</height>
        </rect>
@@ -2174,46 +2148,6 @@ QPushButton:hover{
        <string>Suche in Data18</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="Btn_Linksuche_in_URL">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>50</y>
-        <width>101</width>
-        <height>23</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton { 
-	color: rgb(0, 0, 127);
-	selection-background-color: rgb(255, 85, 0);
-	background-color: rgb(198, 178, 255);
-	border-style: outset;
-	border-width: 2px;
-	font:9pt &quot;MS Shell Dlg 2&quot;;
-	border-radius: 5px;
-	border-color: beige;
-}                   
-QPushButton:enabled{
-	background-color: rgb(198, 178, 255);
-}                           
-QPushButton:pressed{ 
-	background: red;
-}                            
-QPushButton:disabled{                             
-	background-color: gray;                
-}
-QPushButton:hover{
-	background-color: rgb(255, 85, 255);
-}   </string>
-      </property>
-      <property name="text">
-       <string>Suche in URL</string>
-      </property>
-     </widget>
      <widget class="QLabel" name="lbl_checkWeb_URL">
       <property name="geometry">
        <rect>
@@ -2241,7 +2175,7 @@ QPushButton:hover{
       <property name="geometry">
        <rect>
         <x>813</x>
-        <y>190</y>
+        <y>194</y>
         <width>21</width>
         <height>20</height>
        </rect>
@@ -2263,7 +2197,7 @@ QPushButton:hover{
       <property name="geometry">
        <rect>
         <x>813</x>
-        <y>220</y>
+        <y>249</y>
         <width>20</width>
         <height>20</height>
        </rect>
@@ -2285,7 +2219,7 @@ QPushButton:hover{
       <property name="geometry">
        <rect>
         <x>550</x>
-        <y>390</y>
+        <y>425</y>
         <width>16</width>
         <height>16</height>
        </rect>
@@ -2324,7 +2258,7 @@ QPushButton:hover{
       <property name="geometry">
        <rect>
         <x>800</x>
-        <y>390</y>
+        <y>427</y>
         <width>16</width>
         <height>16</height>
        </rect>
@@ -2363,7 +2297,7 @@ QPushButton:hover{
       <property name="geometry">
        <rect>
         <x>410</x>
-        <y>420</y>
+        <y>450</y>
         <width>16</width>
         <height>16</height>
        </rect>
@@ -2402,7 +2336,7 @@ QPushButton:hover{
       <property name="geometry">
        <rect>
         <x>680</x>
-        <y>420</y>
+        <y>450</y>
         <width>16</width>
         <height>16</height>
        </rect>
@@ -2441,7 +2375,7 @@ QPushButton:hover{
       <property name="geometry">
        <rect>
         <x>800</x>
-        <y>420</y>
+        <y>449</y>
         <width>16</width>
         <height>16</height>
        </rect>
@@ -2480,7 +2414,7 @@ QPushButton:hover{
       <property name="geometry">
        <rect>
         <x>800</x>
-        <y>450</y>
+        <y>479</y>
         <width>16</width>
         <height>16</height>
        </rect>
@@ -2518,91 +2452,13 @@ QPushButton:hover{
        <string>1</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="Btn_Anzahl_DBTags">
-      <property name="geometry">
-       <rect>
-        <x>800</x>
-        <y>510</y>
-        <width>16</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial Black</family>
-        <pointsize>10</pointsize>
-        <weight>50</weight>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="toolTip">
-       <string>mehrere Eintrage bei Schlagwörter zur Auswahl</string>
-      </property>
-      <property name="whatsThis">
-       <string>Tags</string>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton { 
-	border-radius: 5px;
-	border: 1px solid rgb(49, 50, 62);
-	background-color: rgb(170, 255, 127);
-	color: rgb(255, 0, 0);
-}
-QPushButton:hover{
-	background-color: rgb(255, 0, 0);
-	color: rgb(170, 255, 127)
-}  </string>
-      </property>
-      <property name="text">
-       <string>1</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="Btn_Anzahl_DBSynopsis">
-      <property name="geometry">
-       <rect>
-        <x>800</x>
-        <y>570</y>
-        <width>16</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial Black</family>
-        <pointsize>10</pointsize>
-        <weight>50</weight>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="toolTip">
-       <string>mehrere Eintrage bei Beschreibung zur Auswahl</string>
-      </property>
-      <property name="whatsThis">
-       <string>Synopsis</string>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton { 
-	border-radius: 5px;
-	border: 1px solid rgb(49, 50, 62);
-	background-color: rgb(170, 255, 127);
-	color: rgb(255, 0, 0);
-}
-QPushButton:hover{
-	background-color: rgb(255, 0, 0);
-	color: rgb(170, 255, 127)
-}  </string>
-      </property>
-      <property name="text">
-       <string>1</string>
-      </property>
-     </widget>
      <widget class="QGroupBox" name="grpBox_Daten">
       <property name="geometry">
        <rect>
         <x>129</x>
         <y>19</y>
         <width>681</width>
-        <height>631</height>
+        <height>661</height>
        </rect>
       </property>
       <property name="title">
@@ -2611,8 +2467,8 @@ QPushButton:hover{
       <widget class="QLineEdit" name="lnEdit_DBDauer">
        <property name="geometry">
         <rect>
-         <x>599</x>
-         <y>400</y>
+         <x>600</x>
+         <y>430</y>
          <width>81</width>
          <height>20</height>
         </rect>
@@ -2636,8 +2492,8 @@ border: 2px inset rgb(85, 170, 255);}</string>
        <property name="geometry">
         <rect>
          <x>530</x>
-         <y>370</y>
-         <width>151</width>
+         <y>405</y>
+         <width>150</width>
          <height>20</height>
         </rect>
        </property>
@@ -2661,7 +2517,7 @@ QToolTip {min-width: 200px;}</string>
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>170</y>
+         <y>175</y>
          <width>681</width>
          <height>20</height>
         </rect>
@@ -2685,8 +2541,8 @@ border: 2px inset rgb(85, 170, 255);}</string>
        <property name="geometry">
         <rect>
          <x>270</x>
-         <y>370</y>
-         <width>161</width>
+         <y>405</y>
+         <width>160</width>
          <height>20</height>
         </rect>
        </property>
@@ -2709,7 +2565,7 @@ border: 2px inset rgb(85, 170, 255);}</string>
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>550</y>
+         <y>570</y>
          <width>680</width>
          <height>81</height>
         </rect>
@@ -2736,8 +2592,8 @@ QToolTip {min-width: 350px;}</string>
       <widget class="QLineEdit" name="lnEdit_DBSerie">
        <property name="geometry">
         <rect>
-         <x>337</x>
-         <y>400</y>
+         <x>338</x>
+         <y>430</y>
          <width>221</width>
          <height>20</height>
         </rect>
@@ -2760,8 +2616,8 @@ border: 2px inset rgb(85, 170, 255);}</string>
       <widget class="QLineEdit" name="lnEdit_DBRegie">
        <property name="geometry">
         <rect>
-         <x>0</x>
-         <y>400</y>
+         <x>1</x>
+         <y>430</y>
          <width>291</width>
          <height>20</height>
         </rect>
@@ -2792,8 +2648,8 @@ color: rgb(213, 213, 213);}
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>370</y>
-         <width>171</width>
+         <y>405</y>
+         <width>170</width>
          <height>20</height>
         </rect>
        </property>
@@ -2826,7 +2682,7 @@ color: rgb(213, 213, 213);}
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>490</y>
+         <y>515</y>
          <width>680</width>
          <height>50</height>
         </rect>
@@ -2854,7 +2710,7 @@ QToolTip {min-width: 350px;}</string>
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>200</y>
+         <y>230</y>
          <width>681</width>
          <height>20</height>
         </rect>
@@ -2900,7 +2756,7 @@ border: 2px inset rgb(85, 170, 255);}</string>
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>430</y>
+         <y>460</y>
          <width>680</width>
          <height>50</height>
         </rect>
@@ -2924,45 +2780,151 @@ QToolTip {min-width: 350px;}</string>
         <string>kein Eintrag</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="Btn_Anzahl_DBSceneCode">
+      <widget class="QTableWidget" name="tblWdg_DB_performers">
        <property name="geometry">
         <rect>
-         <x>160</x>
-         <y>370</y>
-         <width>16</width>
-         <height>16</height>
+         <x>0</x>
+         <y>270</y>
+         <width>681</width>
+         <height>131</height>
         </rect>
        </property>
-       <property name="font">
-        <font>
-         <family>Arial Black</family>
-         <pointsize>10</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="toolTip">
-        <string>mehrere Eintrage bei SceneCode zur Auswahl</string>
-       </property>
-       <property name="whatsThis">
-        <string>SceneCode</string>
+       <property name="contextMenuPolicy">
+        <enum>Qt::CustomContextMenu</enum>
        </property>
        <property name="styleSheet">
-        <string notr="true">QPushButton { 
-	border-radius: 5px;
-	border: 1px solid rgb(49, 50, 62);
-	background-color: rgb(170, 255, 127);
-	color: rgb(255, 0, 0);
-}
-QPushButton:hover{
-	background-color: rgb(255, 0, 0);
-	color: rgb(170, 255, 127)
-}  </string>
+        <string notr="true">background-color: rgb(255, 250, 211);</string>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Plain</enum>
+       </property>
+       <property name="lineWidth">
+        <number>0</number>
+       </property>
+       <property name="midLineWidth">
+        <number>2</number>
+       </property>
+       <attribute name="horizontalHeaderDefaultSectionSize">
+        <number>226</number>
+       </attribute>
+       <column>
+        <property name="text">
+         <string>Name</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Alias</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Action</string>
+        </property>
+       </column>
+      </widget>
+      <widget class="QLineEdit" name="lnEdit_DBThePornDBLink">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>202</y>
+         <width>681</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLineEdit,QTextEdit { 
+background-color: #FFFDD5;}
+QLineEdit:hover,QTextEdit:hover {
+border: 2px solid rgb(49, 50, 62);}
+QLineEdit:focus,QTextEdit:focus {
+border: 2px inset rgb(85, 170, 255);}</string>
+       </property>
+       <property name="readOnly">
+        <bool>false</bool>
+       </property>
+       <property name="placeholderText">
+        <string>kein Eintrag</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="Btn_copy_dbdata18">
+       <property name="geometry">
+        <rect>
+         <x>660</x>
+         <y>175</y>
+         <width>20</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>kopiert den Link in die Ziwschenablage</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
        </property>
        <property name="text">
-        <string>1</string>
+        <string/>
        </property>
-       <property name="Visible" stdset="0">
+       <property name="icon">
+        <iconset>
+         <normalon>:/labels/_labels/copy_clip.png</normalon>
+        </iconset>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="Btn_copy_dbtheporndb">
+       <property name="geometry">
+        <rect>
+         <x>660</x>
+         <y>203</y>
+         <width>20</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>kopiert den Link in die Ziwschenablage</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normalon>:/labels/_labels/copy_clip.png</normalon>
+        </iconset>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="Btn_copy_dbiafd">
+       <property name="geometry">
+        <rect>
+         <x>660</x>
+         <y>230</y>
+         <width>20</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>kopiert den Link in die Ziwschenablage</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normalon>:/labels/_labels/copy_clip.png</normalon>
+        </iconset>
+       </property>
+       <property name="flat">
         <bool>true</bool>
        </property>
       </widget>
@@ -2971,14 +2933,18 @@ QPushButton:hover{
       <zorder>lnEdit_DBRelease</zorder>
       <zorder>lnEdit_DBData18Link</zorder>
       <zorder>lnEdit_DBProDate</zorder>
-      <zorder>txtEdit_DBSynopsis</zorder>
       <zorder>lnEdit_DBSerie</zorder>
       <zorder>lnEdit_DBRegie</zorder>
       <zorder>txtEdit_DBTags</zorder>
       <zorder>lnEdit_DBIAFDLink</zorder>
       <zorder>lnEdit_DBTitel</zorder>
       <zorder>txtEdit_DBMovies</zorder>
-      <zorder>Btn_Anzahl_DBSceneCode</zorder>
+      <zorder>txtEdit_DBSynopsis</zorder>
+      <zorder>tblWdg_DB_performers</zorder>
+      <zorder>lnEdit_DBThePornDBLink</zorder>
+      <zorder>Btn_copy_dbdata18</zorder>
+      <zorder>Btn_copy_dbtheporndb</zorder>
+      <zorder>Btn_copy_dbiafd</zorder>
      </widget>
      <widget class="QTextEdit" name="txtEdit_Clipboard">
       <property name="geometry">
@@ -2996,18 +2962,279 @@ QPushButton:hover{
        <bool>true</bool>
       </property>
      </widget>
-     <zorder>txtEdit_Clipboard</zorder>
+     <widget class="QLabel" name="lblMovie_id">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>ID:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lbl_movie_id">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>20</y>
+        <width>51</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {background-color: #FFFDD5;}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Btn_pornbox_links">
+      <property name="geometry">
+       <rect>
+        <x>820</x>
+        <y>70</y>
+        <width>90</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>PornBox Group Links erstellen</string>
+      </property>
+      <property name="whatsThis">
+       <string>PornBox Links</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton { 	
+	background-image: url(:/Buttons/studios/PornBox/pornbox_link.jpg);
+}                   
+QPushButton:enabled{
+	background-color: rgb(198, 178, 255);
+}                           
+QPushButton:pressed{ 
+	background: red;
+}                            
+QPushButton:disabled{                             
+	background-color: gray;                
+}
+QPushButton:hover{
+	background-color: rgb(255, 85, 255);
+}   </string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lblDBSynopsis">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>590</y>
+        <width>51</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Synopsis:</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Btn_Anzahl_DBSynopsis">
+      <property name="geometry">
+       <rect>
+        <x>800</x>
+        <y>590</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string>mehrere Eintrage bei Beschreibung zur Auswahl</string>
+      </property>
+      <property name="whatsThis">
+       <string>Synopsis</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton { 
+	border-radius: 5px;
+	border: 1px solid rgb(49, 50, 62);
+	background-color: rgb(170, 255, 127);
+	color: rgb(255, 0, 0);
+}
+QPushButton:hover{
+	background-color: rgb(255, 0, 0);
+	color: rgb(170, 255, 127)
+}  </string>
+      </property>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Btn_Anzahl_DBTags">
+      <property name="geometry">
+       <rect>
+        <x>800</x>
+        <y>535</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string>mehrere Eintrage bei Schlagwörter zur Auswahl</string>
+      </property>
+      <property name="whatsThis">
+       <string>Tags</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton { 
+	border-radius: 5px;
+	border: 1px solid rgb(49, 50, 62);
+	background-color: rgb(170, 255, 127);
+	color: rgb(255, 0, 0);
+}
+QPushButton:hover{
+	background-color: rgb(255, 0, 0);
+	color: rgb(170, 255, 127)
+}  </string>
+      </property>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Btn_Anzahl_DBSceneCode">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>425</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+        <pointsize>10</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string>mehrere Eintrage bei SceneCode zur Auswahl</string>
+      </property>
+      <property name="whatsThis">
+       <string>SceneCode</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton { 
+	border-radius: 5px;
+	border: 1px solid rgb(49, 50, 62);
+	background-color: rgb(170, 255, 127);
+	color: rgb(255, 0, 0);
+}
+QPushButton:hover{
+	background-color: rgb(255, 0, 0);
+	color: rgb(170, 255, 127)
+}  </string>
+      </property>
+      <property name="text">
+       <string>1</string>
+      </property>
+      <property name="Visible" stdset="0">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lbl_checkWeb_TPDBURL">
+      <property name="geometry">
+       <rect>
+        <x>813</x>
+        <y>220</y>
+        <width>21</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: #FFFDD5;</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Btn_Linksuche_in_TPDB">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>23</x>
+        <y>221</y>
+        <width>101</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton { 
+	color: rgb(0, 0, 127);
+	selection-background-color: rgb(255, 85, 0);
+	background-color: rgb(198, 178, 255);
+	border-style: outset;
+	border-width: 2px;
+	font:9pt &quot;MS Shell Dlg 2&quot;;
+	border-radius: 5px;
+	border-color: beige;
+}                   
+QPushButton:enabled{
+	background-color: rgb(198, 178, 255);
+}                           
+QPushButton:pressed{ 
+	background: red;
+}                            
+QPushButton:disabled{                             
+	background-color: gray;                
+}
+QPushButton:hover{
+	background-color: rgb(255, 85, 255);
+}   </string>
+      </property>
+      <property name="text">
+       <string>Suche in TPDB</string>
+      </property>
+     </widget>
      <zorder>grpBox_Daten</zorder>
+     <zorder>txtEdit_Clipboard</zorder>
      <zorder>lblDBSceneCode</zorder>
      <zorder>Btn_AddPerformer</zorder>
      <zorder>Btn_DBUpdate</zorder>
      <zorder>lblDBRegie</zorder>
      <zorder>lblDBRelease</zorder>
-     <zorder>tblWdg_DB_performers</zorder>
      <zorder>lblDBTitel</zorder>
      <zorder>lblDBMovies</zorder>
      <zorder>lblDBPerformers</zorder>
-     <zorder>lblDBSynopsis</zorder>
      <zorder>lblDBProDate</zorder>
      <zorder>lblDBTags</zorder>
      <zorder>Btn_Clipboard</zorder>
@@ -3022,7 +3249,6 @@ QPushButton:hover{
      <zorder>Btn_delLink</zorder>
      <zorder>Btn_Linksuche_in_IAFD</zorder>
      <zorder>Btn_Linksuche_in_Data18</zorder>
-     <zorder>Btn_Linksuche_in_URL</zorder>
      <zorder>lbl_checkWeb_URL</zorder>
      <zorder>lbl_checkWeb_Data18URL</zorder>
      <zorder>lbl_checkWeb_IAFDURL</zorder>
@@ -3032,14 +3258,21 @@ QPushButton:hover{
      <zorder>Btn_Anzahl_DBSerie</zorder>
      <zorder>Btn_Anzahl_DBDauer</zorder>
      <zorder>Btn_Anzahl_DBMovies</zorder>
-     <zorder>Btn_Anzahl_DBTags</zorder>
+     <zorder>lblMovie_id</zorder>
+     <zorder>lbl_movie_id</zorder>
+     <zorder>Btn_pornbox_links</zorder>
+     <zorder>lblDBSynopsis</zorder>
      <zorder>Btn_Anzahl_DBSynopsis</zorder>
+     <zorder>Btn_Anzahl_DBTags</zorder>
+     <zorder>Btn_Anzahl_DBSceneCode</zorder>
+     <zorder>lbl_checkWeb_TPDBURL</zorder>
+     <zorder>Btn_Linksuche_in_TPDB</zorder>
     </widget>
     <widget class="QWidget" name="tab_performer">
      <attribute name="title">
       <string>Performers</string>
      </attribute>
-     <widget class="QGroupBox" name="grpBox_performer">
+     <widget class="QGroupBox" name="grpBox_performer_name">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -3088,7 +3321,7 @@ border: 1px solid grey;border-radius: 5px;}</string>
         <height>22</height>
        </rect>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_9">
+      <layout class="QHBoxLayout" name="HLayout_ethnicity">
        <item>
         <widget class="QLabel" name="lblperformer_rasse">
          <property name="sizePolicy">
@@ -3126,7 +3359,7 @@ border: 1px solid grey;border-radius: 5px;}</string>
         <height>22</height>
        </rect>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_10">
+      <layout class="QHBoxLayout" name="HLayout_eye_colour">
        <item>
         <widget class="QLabel" name="lblperformer_augen">
          <property name="text">
@@ -3225,7 +3458,7 @@ QPushButton:hover{
         </rect>
        </property>
        <property name="contextMenuPolicy">
-        <enum>Qt::CustomContextMenu</enum>
+        <enum>Qt::ActionsContextMenu</enum>
        </property>
        <property name="styleSheet">
         <string notr="true">QLineEdit,QTextEdit { 
@@ -3426,7 +3659,7 @@ color: rgb(213, 213, 213);}
      </widget>
      <widget class="CustomButton" name="Btn_performer_in_BabePedia">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>
@@ -3445,15 +3678,14 @@ color: rgb(213, 213, 213);}
         <bold>false</bold>
        </font>
       </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::CustomContextMenu</enum>
+      </property>
       <property name="styleSheet">
        <string notr="true"/>
       </property>
       <property name="text">
        <string/>
-      </property>
-      <property name="icon">
-       <iconset resource="../resource_collection_files/buttons.qrc">
-        <normaloff>:/Buttons/_buttons/performer_biosites/babepedia.png</normaloff>:/Buttons/_buttons/performer_biosites/babepedia.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -3477,7 +3709,7 @@ color: rgb(213, 213, 213);}
         <height>22</height>
        </rect>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_14">
+      <layout class="QHBoxLayout" name="HLayout_bithplace">
        <item>
         <widget class="QLabel" name="lblgeburtsort">
          <property name="text">
@@ -3524,7 +3756,7 @@ color: rgb(213, 213, 213);}
         <height>22</height>
        </rect>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_15">
+      <layout class="QHBoxLayout" name="HLayout_birthday">
        <item>
         <widget class="QLabel" name="lblgeburtstag">
          <property name="text">
@@ -3656,9 +3888,9 @@ color: rgb(213, 213, 213);}
         <height>22</height>
        </rect>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_8">
+      <layout class="QHBoxLayout" name="HLayout_hair_colour">
        <item>
-        <widget class="QLabel" name="lblperformer_haar">
+        <widget class="QLabel" name="lblactor_hair_colour">
          <property name="text">
           <string>Haarfarbe</string>
          </property>
@@ -3703,7 +3935,7 @@ color: rgb(213, 213, 213);}
         <height>22</height>
        </rect>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_17">
+      <layout class="QHBoxLayout" name="HLayout_boobs">
        <item>
         <widget class="QLabel" name="lblboobs">
          <property name="text">
@@ -3753,7 +3985,7 @@ color: rgb(213, 213, 213);}
         <height>22</height>
        </rect>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_18">
+      <layout class="QHBoxLayout" name="HLayout_bodytyp">
        <item>
         <widget class="QLabel" name="lblbodytyp">
          <property name="text">
@@ -3800,7 +4032,7 @@ color: rgb(213, 213, 213);}
         <height>22</height>
        </rect>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_19">
+      <layout class="QHBoxLayout" name="HLayout_activ">
        <item>
         <widget class="QLabel" name="lblaktiv">
          <property name="text">
@@ -3938,7 +4170,7 @@ QPushButton:hover{
        <bool>false</bool>
       </property>
      </widget>
-     <widget class="QGroupBox" name="grpBox_performer_2">
+     <widget class="QGroupBox" name="grpBox_actor_folder">
       <property name="geometry">
        <rect>
         <x>390</x>
@@ -4526,7 +4758,7 @@ QPushButton:hover{
         <height>22</height>
        </rect>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_12">
+      <layout class="QHBoxLayout" name="HLayout_height">
        <item>
         <widget class="QLabel" name="lblperformer_groesse">
          <property name="minimumSize">
@@ -4610,7 +4842,7 @@ color: rgb(213, 213, 213);}
         <height>22</height>
        </rect>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_13">
+      <layout class="QHBoxLayout" name="HLayout_weight">
        <item>
         <widget class="QLabel" name="lblperformer_gewicht">
          <property name="minimumSize">
@@ -4714,7 +4946,7 @@ color: rgb(213, 213, 213);}
      </widget>
      <widget class="CustomButton" name="Btn_performer_in_theporndb">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>
@@ -4733,15 +4965,14 @@ color: rgb(213, 213, 213);}
         <bold>false</bold>
        </font>
       </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::CustomContextMenu</enum>
+      </property>
       <property name="styleSheet">
        <string notr="true"/>
       </property>
       <property name="text">
        <string/>
-      </property>
-      <property name="icon">
-       <iconset resource="../resource_collection_files/buttons.qrc">
-        <normaloff>:/Buttons/_buttons/performer_biosites/theporn_db.png</normaloff>:/Buttons/_buttons/performer_biosites/theporn_db.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -4758,7 +4989,7 @@ color: rgb(213, 213, 213);}
      </widget>
      <widget class="CustomButton" name="Btn_performer_in_indexxx">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>
@@ -4777,15 +5008,14 @@ color: rgb(213, 213, 213);}
         <bold>false</bold>
        </font>
       </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::CustomContextMenu</enum>
+      </property>
       <property name="styleSheet">
        <string notr="true"/>
       </property>
       <property name="text">
        <string/>
-      </property>
-      <property name="icon">
-       <iconset resource="../resource_collection_files/buttons.qrc">
-        <normaloff>:/Buttons/_buttons/performer_biosites/indexxx.png</normaloff>:/Buttons/_buttons/performer_biosites/indexxx.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -4828,7 +5058,7 @@ color: rgb(213, 213, 213);}
      </widget>
      <widget class="CustomButton" name="Btn_performer_in_TheNude">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>
@@ -4847,15 +5077,14 @@ color: rgb(213, 213, 213);}
         <bold>false</bold>
        </font>
       </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::CustomContextMenu</enum>
+      </property>
       <property name="styleSheet">
        <string notr="true"/>
       </property>
       <property name="text">
        <string/>
-      </property>
-      <property name="icon">
-       <iconset resource="../resource_collection_files/buttons.qrc">
-        <normaloff>:/Buttons/_buttons/performer_biosites/thenude.png</normaloff>:/Buttons/_buttons/performer_biosites/thenude.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -4870,9 +5099,9 @@ color: rgb(213, 213, 213);}
        <bool>false</bool>
       </property>
      </widget>
-     <widget class="CustomButton" name="Btn_performer_in_TheOnes">
+     <widget class="CustomButton" name="Btn_performer_in_Freeones">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>
@@ -4891,15 +5120,14 @@ color: rgb(213, 213, 213);}
         <bold>false</bold>
        </font>
       </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::CustomContextMenu</enum>
+      </property>
       <property name="styleSheet">
        <string notr="true"/>
       </property>
       <property name="text">
        <string/>
-      </property>
-      <property name="icon">
-       <iconset resource="../resource_collection_files/buttons.qrc">
-        <normaloff>:/Buttons/_buttons/performer_biosites/FreeOnes.png</normaloff>:/Buttons/_buttons/performer_biosites/FreeOnes.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -4923,7 +5151,7 @@ color: rgb(213, 213, 213);}
         <height>31</height>
        </rect>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="0,0,0,0,0,0,0,0,0">
+      <layout class="QHBoxLayout" name="HLayout_nationality" stretch="0,0,0,0,0,0,0,0,0">
        <property name="sizeConstraint">
         <enum>QLayout::SetMinimumSize</enum>
        </property>
@@ -5323,7 +5551,7 @@ color: rgb(213, 213, 213);}
       </property>
       <property name="icon">
        <iconset resource="../resource_collection_files/buttons.qrc">
-        <normaloff>:/Buttons/_buttons/socialmedia/linktree-25.png</normaloff>:/Buttons/_buttons/socialmedia/linktree-25.png</iconset>
+        <normaloff>:/Buttons/_buttons/socialmedia/linktr.ee-25.png</normaloff>:/Buttons/_buttons/socialmedia/linktr.ee-25.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -6127,7 +6355,7 @@ QPushButton:hover{
      <zorder>stacked_webdb_images</zorder>
      <zorder>layoutWidget</zorder>
      <zorder>layoutWidget</zorder>
-     <zorder>grpBox_performer</zorder>
+     <zorder>grpBox_performer_name</zorder>
      <zorder>layoutWidget_3</zorder>
      <zorder>layoutWidget_4</zorder>
      <zorder>Btn_Linksuche_in_IAFD_artist</zorder>
@@ -6143,7 +6371,7 @@ QPushButton:hover{
      <zorder>Btn_DBArtist_Update</zorder>
      <zorder>Btn_table_links_expanding</zorder>
      <zorder>chkBox_get_autom_iafd</zorder>
-     <zorder>grpBox_performer_2</zorder>
+     <zorder>grpBox_actor_folder</zorder>
      <zorder>lnEdit_IAFD_artistAlias</zorder>
      <zorder>chkBox_iafd_enabled</zorder>
      <zorder>Btn_iafd_link_copy</zorder>
@@ -6151,7 +6379,7 @@ QPushButton:hover{
      <zorder>Btn_performer_in_indexxx</zorder>
      <zorder>Btn_performers_gender</zorder>
      <zorder>Btn_performer_in_TheNude</zorder>
-     <zorder>Btn_performer_in_TheOnes</zorder>
+     <zorder>Btn_performer_in_Freeones</zorder>
      <zorder>Btn_performers_socialmedia_7</zorder>
      <zorder>Btn_social_media_edititem</zorder>
      <zorder>Btn_performers_socialmedia_8</zorder>
@@ -6567,7 +6795,7 @@ Speichern</string>
      <string>Webscraping von Studios und Add in DB</string>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="stacked_active_file">
      <widget class="QGroupBox" name="grp_active_file">
@@ -7871,9 +8099,9 @@ QPushButton:hover{
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
-    <widget class="QWidget" name="page_table_files">
+    <widget class="QWidget" name="stacked_page_table_files">
      <widget class="QTableWidget" name="tblWdg_files">
       <property name="geometry">
        <rect>
@@ -7932,7 +8160,7 @@ border: 1px solid grey;border-radius: 5px;
       </attribute>
      </widget>
     </widget>
-    <widget class="QWidget" name="page_table_daten">
+    <widget class="QWidget" name="stacked_page_table_daten">
      <widget class="QTableWidget" name="tblWdg_daten">
       <property name="geometry">
        <rect>
@@ -8014,7 +8242,7 @@ border: 1px solid grey;border-radius: 5px;
       </attribute>
      </widget>
     </widget>
-    <widget class="QWidget" name="page_table_performer">
+    <widget class="QWidget" name="stacked_page_table_performer">
      <widget class="QTableWidget" name="tblWdg_performer">
       <property name="geometry">
        <rect>
@@ -8051,7 +8279,7 @@ border: 1px solid grey;border-radius: 5px;
        <number>0</number>
       </property>
       <attribute name="horizontalHeaderVisible">
-       <bool>true</bool>
+       <bool>false</bool>
       </attribute>
       <attribute name="horizontalHeaderCascadingSectionResizes">
        <bool>false</bool>

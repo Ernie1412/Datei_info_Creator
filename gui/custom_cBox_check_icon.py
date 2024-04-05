@@ -1,41 +1,71 @@
 from PyQt6.QtWidgets import QComboBox
-from PyQt6.QtGui import QIcon
-from PyQt6.QtCore import Qt, QSize
+from PyQt6.QtGui import QIcon, QStandardItemModel, QStandardItem
+from PyQt6.QtCore import Qt, QSize, QEvent, QTimer
+
+from gui.get_avaible_labels import GetLabels
 
 class CustomComboBoxCheckIcon(QComboBox):
     def __init__(self, parent):        
         super().__init__(parent) 
-        self.widgets = parent                
-        self.view().pressed.connect(self.handleItemPressed)        
-        self.addItems() 
+        self.widgets = parent 
+        self.setEditable(True)        
+        self.setModel(QStandardItemModel(self))        
+        self.lineEdit().setReadOnly(True)
         self.closeOnLineEditClick = False
-        self.setEditable(True) 
+        self.lineEdit().installEventFilter(self)
+        self.view().viewport().installEventFilter(self)        
 
-    def addItems(self):
-        for index, (item_text, icon_path) in enumerate(self.widgets.items_dict.items()):             
-            icon_path = f":/Buttons/_buttons/{self.widgets.type}/{icon_path}-25.png"
-            self.addItem(QIcon(icon_path), item_text)
-            self.model().item(index, self.modelColumn()).setCheckState(Qt.CheckState.Unchecked)
+    def eventFilter(self, widget, event):        
+        if widget == self.lineEdit:                        
+            if event.type() == QEvent.Type.MouseButtonRelease:                
+                if self.closeOnLineEditClick:                    
+                    self.closeOnLineEditClick = False
+                    self.hidePopup()
+                    return True
+                else:                    
+                    self.closeOnLineEditClick = True
+            return True 
+        elif widget == self.view().viewport():                        
+            if event.type() == QEvent.Type.MouseButtonPress:                
+                indx = self.view().indexAt(event.pos())
+                item = self.model().item(indx.row())                                 
+                if len(self.get_checked_items()) > self.widgets.maxlabels-1:
+                    self.show_max_labels_warning()
+                    return
+                newState = Qt.CheckState.Checked if item.checkState() == Qt.CheckState.Unchecked else Qt.CheckState.Unchecked
+                item.setCheckState(newState)
+                self.set_text_icon_in_labels()  
+                return True
+        return super().eventFilter(widget, event)
+
+    def addItems(self, main, dict_items):
+        for index, (item_text, icon_path) in enumerate(dict_items.items()):             
+            icon_path = f":/Buttons/_buttons/socialmedia/{icon_path}-25.png"
+            self.addItem(item_text, QIcon(icon_path), checked=False)
+        self.setCurrentIndex(-1)
+        self.lineEdit().setPlaceholderText("Auswahl an Sozial Media Links")
     
-    def handleItemPressed(self, index):        
-        item = self.model().itemFromIndex(index)        
-        if item.checkState() == Qt.CheckState.Checked:
-            item.setCheckState(Qt.CheckState.Unchecked)
-            self.clear_labels()            
-        else:
-            item_count = len(self.get_checked_items())
-            if item_count <= self.widgets.max_labels:
-                item.setCheckState(Qt.CheckState.Checked)
-            else:
-                self.setCurrentText(f"maximale Anzahl an Labels erreicht ({item_count}>{self.widgets.max_labels})")
-        self.set_text_icon_in_labels()
-    
+    def addItem(self, text, icon=None, checked=False):
+        checkState = Qt.CheckState.Checked if checked else Qt.CheckState.Unchecked
+        item = QStandardItem()
+        if icon is not None:
+            item.setIcon(QIcon(icon))        
+        item.setText(text)
+        item.setCheckable(True)  # Damit das Element ein Kontrollkästchen hat
+        item.setCheckState(checkState)
+        self.model().appendRow(item)
+
     def get_next_visible_label(self):
         index = 0
-        while not hasattr(self.widgets,f"lbl_{self.widgets.type}_{index}").isVisible():             
+        while not hasattr(self.widgets,f"lbl_socialmedia_{index}").isVisible():             
             index += 1
-        return getattr(self.widgets,f"lbl_{self.widgets.type}_{index}")
+        return getattr(self.widgets,f"lbl_socialmedia_{index}")
     
+    def show_max_labels_warning(self):
+        self.widgets.lbl_maxlabels.setVisible(True)
+        self.setVisible(False)
+        QTimer.singleShot(1500, lambda: (self.widgets.lbl_maxlabels.setVisible(False), self.setVisible(True)))
+        
     def get_checked_items(self):
         checked_items = []
         for index in range(self.count()):
@@ -48,13 +78,14 @@ class CustomComboBoxCheckIcon(QComboBox):
     def set_text_icon_in_labels(self):        
         checked_items = self.get_checked_items()        
         for label_number, (text, icon) in enumerate(checked_items):                       
-            label = getattr(self.widgets, f"lbl_{self.widgets.type}_{label_number}")            
+            label = getattr(self.widgets, f"lbl_socialmedia_{label_number}")            
             label.setPixmap((icon.pixmap(QSize(25, 25))))
-            label.setToolTip(text)             
+            label.setToolTip(text)
+            label.setProperty("socialmedia",text)             
 
     def clear_labels(self):
-        for label_number in range(self.widgets.max_labels):
-            label = getattr(self.widgets, f"lbl_{self.widgets.type}_{label_number}")
+        for label_number in range(self.widgets.maxlabels):
+            label = getattr(self.widgets, f"lbl_socialmedia_{label_number}")
             label.clear()                        
     
 if __name__ == '__main__':

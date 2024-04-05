@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QPushButton, QMenu, QDialog
 from PyQt6 import uic
-from PyQt6.QtCore import Qt, pyqtSignal, QVariantAnimation
+from PyQt6.QtCore import Qt, pyqtSignal, QVariantAnimation, QSize
 from PyQt6.QtGui import QPixmap, QColor
 
 import requests
@@ -9,11 +9,19 @@ import pyperclip
 from config import URL_INPUT_DIALOG_UI
 
 class CustomButton(QPushButton):
-    TooltipChanged = pyqtSignal() 
+    tooltipChanged = pyqtSignal() 
 
     def __init__(self, parent=None):
-        super(CustomButton, self).__init__(parent)        
+        super(CustomButton, self).__init__(parent)
+        self.Main = parent
         self.clicked.connect(self.openDialog)
+
+    def set_websitebio_logo(self, parent):
+        sender = parent.sender()
+        if sender: 
+            websitebio_logo = sender.icon()
+            icon_pixmap = websitebio_logo.pixmap(websitebio_logo.actualSize(QSize(50, 25)))
+            getattr(self.dialog,"lbl_bio_logo").setPixmap(icon_pixmap)
 
     def contextMenuEvent(self, event):
         self.menu = QMenu(self)
@@ -27,15 +35,16 @@ class CustomButton(QPushButton):
         self.dialog.setStyleSheet("QDialog { border: 2px solid black; }")                
         self.dialog.setWindowFlags(Qt.WindowType.FramelessWindowHint) 
         self.dialog.lnEdit_website_url.setText(self.toolTip()) 
-        self.dialog.rejected.connect(self.dialog.close)
-        self.dialog.accepted.connect(self.accepted_input_url) 
+        self.dialog.Btn_close.clicked.connect(self.dialog.close)
+        self.dialog.Btn_OK.clicked.connect(self.accepted_input_url) 
         self.dialog.Btn_link_copy.clicked.connect(self.copy_clipboard_iafdlink)
         self.dialog.lnEdit_website_url.textChanged.connect(self.check_url_existence)
+        self.set_websitebio_logo(self.Main)
         self.dialog.exec() 
     
     def accepted_input_url(self):
         self.setToolTip(self.dialog.lnEdit_website_url.text().strip())        
-        self.TooltipChanged.emit()
+        self.tooltipChanged.emit()
         self.dialog.close()
 
     def check_url_existence(self):

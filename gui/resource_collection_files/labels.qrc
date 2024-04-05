@@ -1,5 +1,16 @@
 <RCC>
   <qresource prefix="labels">
+    <file>_labels/loading_progress.gif</file>
+    <file>_labels/ContexMenu/actor_info.png</file>
+    <file>_dialog_label/error_.jpg</file>
+    <file>_dialog_label/exiftool_processing.gif</file>
+    <file>_dialog_label/icons8-database.gif</file>
+    <file>_dialog_label/Info.jpg</file>
+    <file>_dialog_label/loeschen.jpg</file>
+    <file>_dialog_label/sign-error-icon.png</file>
+    <file>_dialog_label/speichern.jpg</file>
+    <file>_dialog_label/transfer.gif</file>
+    <file>_labels/dialog_windows/rename.png</file>
     <file>_labels/nations/bei.png</file>
     <file>_labels/copy_clip.png</file>
     <file>_labels/www.png</file>
@@ -9,6 +20,7 @@
     <file>_labels/nations/ag.png</file>
     <file>_labels/nations/ai.png</file>
     <file>_labels/nations/al.png</file>
+    <file>_labels/nations/in-pb.png</file>
     <file>_labels/nations/am.png</file>
     <file>_labels/nations/ao.png</file>
     <file>_labels/nations/aq.png</file>
@@ -238,6 +250,7 @@
     <file>_labels/nations/tz.png</file>
     <file>_labels/nations/ua.png</file>
     <file>_labels/nations/ug.png</file>
+    <file>_labels/nations/creole.png</file>
     <file>_labels/nations/um.png</file>
     <file>_labels/nations/us.png</file>
     <file>_labels/nations/uy.png</file>

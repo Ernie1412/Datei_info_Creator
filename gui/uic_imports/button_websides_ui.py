@@ -31,7 +31,7 @@ class Ui_Dialog(object):
         self.Btn_Zurueck.setObjectName("Btn_Zurueck")
         self.Btn_NoLogo = QtWidgets.QPushButton(parent=Dialog)
         self.Btn_NoLogo.setGeometry(QtCore.QRect(40, 730, 160, 60))
-        self.Btn_NoLogo.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/no-logo_160x60.jpg);")
+        self.Btn_NoLogo.setStyleSheet("background-image: url(:/Buttons/_buttons/no-logo_160x60.jpg);")
         self.Btn_NoLogo.setText("")
         self.Btn_NoLogo.setObjectName("Btn_NoLogo")
         self.tabWidget = QtWidgets.QTabWidget(parent=Dialog)
@@ -40,13 +40,13 @@ class Ui_Dialog(object):
         self.tab_A_bis_F = QtWidgets.QWidget()
         self.tab_A_bis_F.setObjectName("tab_A_bis_F")
         self.Btn_BangBros = QtWidgets.QPushButton(parent=self.tab_A_bis_F)
-        self.Btn_BangBros.setGeometry(QtCore.QRect(10, 290, 160, 60))
-        self.Btn_BangBros.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/BangBros/bangbros_160x60.png);")
+        self.Btn_BangBros.setGeometry(QtCore.QRect(10, 360, 160, 60))
+        self.Btn_BangBros.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/BangBros/bangbros_160x60.png);")
         self.Btn_BangBros.setText("")
         self.Btn_BangBros.setObjectName("Btn_BangBros")
         self.Btn_Brazzers = QtWidgets.QPushButton(parent=self.tab_A_bis_F)
-        self.Btn_Brazzers.setGeometry(QtCore.QRect(10, 360, 160, 60))
-        self.Btn_Brazzers.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/Brazzers/brazzers_160x60.png);")
+        self.Btn_Brazzers.setGeometry(QtCore.QRect(10, 430, 160, 60))
+        self.Btn_Brazzers.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/Brazzers/brazzers_160x60.png);")
         self.Btn_Brazzers.setText("")
         self.Btn_Brazzers.setObjectName("Btn_Brazzers")
         self.Btn_21Naturals = QtWidgets.QPushButton(parent=self.tab_A_bis_F)
@@ -54,7 +54,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_21Naturals.setFont(font)
-        self.Btn_21Naturals.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/21Naturals/21Naturals_160x60.jpg);\n"
+        self.Btn_21Naturals.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/21Naturals/21Naturals_160x60.jpg);\n"
 "\n"
 "")
         self.Btn_21Naturals.setText("")
@@ -64,7 +64,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_21Sextury.setFont(font)
-        self.Btn_21Sextury.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/21Sextury/21Sextury_160x60.png);\n"
+        self.Btn_21Sextury.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/21Sextury/21Sextury_160x60.png);\n"
 "\n"
 "")
         self.Btn_21Sextury.setText("")
@@ -74,7 +74,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_3rdDegree.setFont(font)
-        self.Btn_3rdDegree.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/3rdDegree/3rdDegree_160x60.jpg);\n"
+        self.Btn_3rdDegree.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/3rdDegree/3rdDegree_160x60.jpg);\n"
 "\n"
 "")
         self.Btn_3rdDegree.setText("")
@@ -84,7 +84,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_AllAnalAllTheTime.setFont(font)
-        self.Btn_AllAnalAllTheTime.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/AllAnalAllTheTime/AllAnalAllTheTime_160x60.jpg);\n"
+        self.Btn_AllAnalAllTheTime.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/AllAnalAllTheTime/AllAnalAllTheTime_160x60.jpg);\n"
 "\n"
 "")
         self.Btn_AllAnalAllTheTime.setText("")
@@ -94,7 +94,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_RealityJunkies.setFont(font)
-        self.Btn_RealityJunkies.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/RealityJunkies/RealityJunkies_160x60.png);")
+        self.Btn_RealityJunkies.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/RealityJunkies/RealityJunkies_160x60.png);")
         self.Btn_RealityJunkies.setText("")
         self.Btn_RealityJunkies.setObjectName("Btn_RealityJunkies")
         self.Btn_RealityKings = QtWidgets.QPushButton(parent=self.tab_A_bis_F)
@@ -102,17 +102,17 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_RealityKings.setFont(font)
-        self.Btn_RealityKings.setStyleSheet("background-image:url(:/gui/resource_collection_files/Logos/grafics/RealityKings/RealityKings_160x60.jpg)\n"
+        self.Btn_RealityKings.setStyleSheet("background-image:url(:/gui/resource_collection_files/Logos/studios/RealityKings/RealityKings_160x60.jpg)\n"
 "\n"
 "")
         self.Btn_RealityKings.setText("")
         self.Btn_RealityKings.setObjectName("Btn_RealityKings")
         self.Btn_Babes = QtWidgets.QPushButton(parent=self.tab_A_bis_F)
-        self.Btn_Babes.setGeometry(QtCore.QRect(10, 220, 160, 60))
+        self.Btn_Babes.setGeometry(QtCore.QRect(10, 290, 160, 60))
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_Babes.setFont(font)
-        self.Btn_Babes.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/Babes/Babes_160x60.png);\n"
+        self.Btn_Babes.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/Babes/Babes_160x60.png);\n"
 "")
         self.Btn_Babes.setText("")
         self.Btn_Babes.setObjectName("Btn_Babes")
@@ -126,7 +126,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_EvilAngel.setFont(font)
-        self.Btn_EvilAngel.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/EvilAngel/EvilAngel_160x60.jpg)\n"
+        self.Btn_EvilAngel.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/EvilAngel/EvilAngel_160x60.jpg)\n"
 "\n"
 "\n"
 "\n"
@@ -139,17 +139,17 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_EroticaX.setFont(font)
-        self.Btn_EroticaX.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/EroticaX/EroticaX_160x60.png);\n"
+        self.Btn_EroticaX.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/EroticaX/EroticaX_160x60.png);\n"
 "\n"
 "")
         self.Btn_EroticaX.setText("")
         self.Btn_EroticaX.setObjectName("Btn_EroticaX")
         self.Btn_AnalJust = QtWidgets.QPushButton(parent=self.tab_A_bis_F)
-        self.Btn_AnalJust.setGeometry(QtCore.QRect(10, 80, 160, 60))
+        self.Btn_AnalJust.setGeometry(QtCore.QRect(10, 150, 160, 60))
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_AnalJust.setFont(font)
-        self.Btn_AnalJust.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/AnalJust/AnalJust_160x60.png);\n"
+        self.Btn_AnalJust.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/AnalJust/AnalJust_160x60.png);\n"
 "\n"
 "")
         self.Btn_AnalJust.setText("")
@@ -159,7 +159,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_5KPornTeens.setFont(font)
-        self.Btn_5KPornTeens.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/5KPornTeens/5KPornTeens_160x60.jpg);\n"
+        self.Btn_5KPornTeens.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/5KPornTeens/5KPornTeens_160x60.jpg);\n"
 "\n"
 "")
         self.Btn_5KPornTeens.setText("")
@@ -169,36 +169,35 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_FirstAnalQuest.setFont(font)
-        self.Btn_FirstAnalQuest.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/FirstAnalQuest/FirstAnalQuest_160x60.png);\n"
+        self.Btn_FirstAnalQuest.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/FirstAnalQuest/FirstAnalQuest_160x60.png);\n"
 "")
         self.Btn_FirstAnalQuest.setText("")
         self.Btn_FirstAnalQuest.setObjectName("Btn_FirstAnalQuest")
         self.Btn_CherryPimps = QtWidgets.QPushButton(parent=self.tab_A_bis_F)
-        self.Btn_CherryPimps.setGeometry(QtCore.QRect(10, 500, 160, 60))
+        self.Btn_CherryPimps.setGeometry(QtCore.QRect(10, 570, 160, 60))
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_CherryPimps.setFont(font)
-        self.Btn_CherryPimps.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/CherryPimps/CherryPimps_160x60.png);\n"
+        self.Btn_CherryPimps.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/CherryPimps/CherryPimps_160x60.png);\n"
 "\n"
 "")
         self.Btn_CherryPimps.setText("")
         self.Btn_CherryPimps.setObjectName("Btn_CherryPimps")
-        self.Btn_BANG = QtWidgets.QPushButton(parent=self.tab_A_bis_F)
-        self.Btn_BANG.setGeometry(QtCore.QRect(10, 430, 160, 60))
+        self.Btn_Bang = QtWidgets.QPushButton(parent=self.tab_A_bis_F)
+        self.Btn_Bang.setGeometry(QtCore.QRect(10, 500, 160, 60))
         font = QtGui.QFont()
         font.setPointSize(18)
-        self.Btn_BANG.setFont(font)
-        self.Btn_BANG.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/BANG!/BANG_160x60.png);\n"
-"\n"
+        self.Btn_Bang.setFont(font)
+        self.Btn_Bang.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/Bang/Bang_160x60.png);\n"
 "")
-        self.Btn_BANG.setText("")
-        self.Btn_BANG.setObjectName("Btn_BANG")
+        self.Btn_Bang.setText("")
+        self.Btn_Bang.setObjectName("Btn_Bang")
         self.Btn_FootsieBabes = QtWidgets.QPushButton(parent=self.tab_A_bis_F)
         self.Btn_FootsieBabes.setGeometry(QtCore.QRect(350, 150, 160, 60))
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_FootsieBabes.setFont(font)
-        self.Btn_FootsieBabes.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/FootsieBabes/FootsieBabes_160x60.png);\n"
+        self.Btn_FootsieBabes.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/FootsieBabes/FootsieBabes_160x60.png);\n"
 "\n"
 "")
         self.Btn_FootsieBabes.setText("")
@@ -208,7 +207,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_DaneJones.setFont(font)
-        self.Btn_DaneJones.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/DaneJones/DaneJones_160x60.jpg);\n"
+        self.Btn_DaneJones.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/DaneJones/DaneJones_160x60.jpg);\n"
 "\n"
 "")
         self.Btn_DaneJones.setText("")
@@ -218,7 +217,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_RoccoSiffredi.setFont(font)
-        self.Btn_RoccoSiffredi.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/RoccoSiffredi/RoccoSiffredi_160x60.jpg);\n"
+        self.Btn_RoccoSiffredi.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/RoccoSiffredi/RoccoSiffredi_160x60.jpg);\n"
 "\n"
 "")
         self.Btn_RoccoSiffredi.setText("")
@@ -228,7 +227,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_21Sextreme.setFont(font)
-        self.Btn_21Sextreme.setStyleSheet("background-image:url(:/gui/resource_collection_files/Logos/grafics/21Sextreme/21Sextreme_160x60.png)")
+        self.Btn_21Sextreme.setStyleSheet("background-image:url(:/gui/resource_collection_files/Logos/studios/21Sextreme/21Sextreme_160x60.png)")
         self.Btn_21Sextreme.setText("")
         self.Btn_21Sextreme.setObjectName("Btn_21Sextreme")
         self.Btn_LezCuties = QtWidgets.QPushButton(parent=self.tab_A_bis_F)
@@ -236,7 +235,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_LezCuties.setFont(font)
-        self.Btn_LezCuties.setStyleSheet("background-image:url(:/gui/resource_collection_files/Logos/grafics/LezCuties/LezCuties_160x60.png)")
+        self.Btn_LezCuties.setStyleSheet("background-image:url(:/gui/resource_collection_files/Logos/studios/LezCuties/LezCuties_160x60.png)")
         self.Btn_LezCuties.setText("")
         self.Btn_LezCuties.setObjectName("Btn_LezCuties")
         self.Btn_EdgeQueens = QtWidgets.QPushButton(parent=self.tab_A_bis_F)
@@ -249,7 +248,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_EdgeQueens.setFont(font)
-        self.Btn_EdgeQueens.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/EdgeQueens/EdgeQueens_160x60.jpg);\n"
+        self.Btn_EdgeQueens.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/EdgeQueens/EdgeQueens_160x60.jpg);\n"
 "\n"
 "\n"
 "\n"
@@ -262,7 +261,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_FamilyXXX.setFont(font)
-        self.Btn_FamilyXXX.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/FamilyXXX/FamilyXXX_160x60.jpg);\n"
+        self.Btn_FamilyXXX.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/FamilyXXX/FamilyXXX_160x60.jpg);\n"
 "\n"
 "")
         self.Btn_FamilyXXX.setText("")
@@ -273,11 +272,30 @@ class Ui_Dialog(object):
         font.setPointSize(18)
         self.Btn_NewSensations.setFont(font)
         self.Btn_NewSensations.setToolTipDuration(-3)
-        self.Btn_NewSensations.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/NewSensations/NewSensations_160x60.jpg);\n"
+        self.Btn_NewSensations.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/NewSensations/NewSensations_160x60.jpg);\n"
 "\n"
 "")
         self.Btn_NewSensations.setText("")
         self.Btn_NewSensations.setObjectName("Btn_NewSensations")
+        self.Btn_AsianStreetMeat = QtWidgets.QPushButton(parent=self.tab_A_bis_F)
+        self.Btn_AsianStreetMeat.setGeometry(QtCore.QRect(10, 220, 160, 60))
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        self.Btn_AsianStreetMeat.setFont(font)
+        self.Btn_AsianStreetMeat.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/AsianStreetMeat/asianstreetmeat_160x60.jpg);\n"
+"")
+        self.Btn_AsianStreetMeat.setText("")
+        self.Btn_AsianStreetMeat.setObjectName("Btn_AsianStreetMeat")
+        self.Btn_AllFineGirls = QtWidgets.QPushButton(parent=self.tab_A_bis_F)
+        self.Btn_AllFineGirls.setGeometry(QtCore.QRect(10, 80, 160, 60))
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        self.Btn_AllFineGirls.setFont(font)
+        self.Btn_AllFineGirls.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/AllFineGirls/AllFineGirls_160x60.jpg);\n"
+"\n"
+"")
+        self.Btn_AllFineGirls.setText("")
+        self.Btn_AllFineGirls.setObjectName("Btn_AllFineGirls")
         self.tabWidget.addTab(self.tab_A_bis_F, "")
         self.tab_G_bis_R = QtWidgets.QWidget()
         self.tab_G_bis_R.setObjectName("tab_G_bis_R")
@@ -286,7 +304,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_Private.setFont(font)
-        self.Btn_Private.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/Private/Private_160x60.png);\n"
+        self.Btn_Private.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/Private/Private_160x60.png);\n"
 "\n"
 "")
         self.Btn_Private.setText("")
@@ -296,7 +314,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_HardX.setFont(font)
-        self.Btn_HardX.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/HardX/HardX_160x60.png);\n"
+        self.Btn_HardX.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/HardX/HardX_160x60.png);\n"
 "")
         self.Btn_HardX.setText("")
         self.Btn_HardX.setObjectName("Btn_HardX")
@@ -306,7 +324,7 @@ class Ui_Dialog(object):
         font.setPointSize(18)
         self.Btn_DarkX.setFont(font)
         self.Btn_DarkX.setToolTipDuration(-3)
-        self.Btn_DarkX.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/DarkX/DarkX_160x60.png);\n"
+        self.Btn_DarkX.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/DarkX/DarkX_160x60.png);\n"
 "")
         self.Btn_DarkX.setText("")
         self.Btn_DarkX.setObjectName("Btn_DarkX")
@@ -315,7 +333,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_PornBox.setFont(font)
-        self.Btn_PornBox.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/PornBox/PornBox_160x60.png);\n"
+        self.Btn_PornBox.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/PornBox/PornBox_160x60.png);\n"
 "\n"
 "")
         self.Btn_PornBox.setText("")
@@ -325,7 +343,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_NaughtyAmerica.setFont(font)
-        self.Btn_NaughtyAmerica.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/NaughtyAmerica/NaughtyAmerica_160x60.png)\n"
+        self.Btn_NaughtyAmerica.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/NaughtyAmerica/NaughtyAmerica_160x60.png)\n"
 "")
         self.Btn_NaughtyAmerica.setText("")
         self.Btn_NaughtyAmerica.setObjectName("Btn_NaughtyAmerica")
@@ -334,7 +352,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_MomXXX.setFont(font)
-        self.Btn_MomXXX.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/MomXXX/MomXXX_160x60.jpg);\n"
+        self.Btn_MomXXX.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/MomXXX/MomXXX_160x60.jpg);\n"
 "\n"
 "")
         self.Btn_MomXXX.setText("")
@@ -344,7 +362,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_AnalVids.setFont(font)
-        self.Btn_AnalVids.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/AnalVids/AnalVids_160x90.jpg);\n"
+        self.Btn_AnalVids.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/AnalVids/AnalVids_160x90.jpg);\n"
 "")
         self.Btn_AnalVids.setText("")
         self.Btn_AnalVids.setObjectName("Btn_AnalVids")
@@ -353,7 +371,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_PerfectGonzo.setFont(font)
-        self.Btn_PerfectGonzo.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/PerfectGonzo/PerfectGonzo_160x60.jpg);\n"
+        self.Btn_PerfectGonzo.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/PerfectGonzo/PerfectGonzo_160x60.jpg);\n"
 "\n"
 "")
         self.Btn_PerfectGonzo.setText("")
@@ -363,17 +381,17 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_Joymii.setFont(font)
-        self.Btn_Joymii.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/joymii/joymii_160x60.jpg);\n"
+        self.Btn_Joymii.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/joymii/joymii_160x60.jpg);\n"
 "\n"
 "")
         self.Btn_Joymii.setText("")
         self.Btn_Joymii.setObjectName("Btn_Joymii")
         self.Btn_Mofos = QtWidgets.QPushButton(parent=self.tab_G_bis_R)
-        self.Btn_Mofos.setGeometry(QtCore.QRect(530, 160, 160, 60))
+        self.Btn_Mofos.setGeometry(QtCore.QRect(530, 230, 160, 60))
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_Mofos.setFont(font)
-        self.Btn_Mofos.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/Mofos/Mofos_160x60.jpg);\n"
+        self.Btn_Mofos.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/Mofos/Mofos_160x60.jpg);\n"
 "\n"
 "")
         self.Btn_Mofos.setText("")
@@ -383,17 +401,17 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_HookupHotshot.setFont(font)
-        self.Btn_HookupHotshot.setStyleSheet("background-image:url(:/gui/resource_collection_files/Logos/grafics/HookupHotshot/HookupHotshot_160x60.png)\n"
+        self.Btn_HookupHotshot.setStyleSheet("background-image:url(:/gui/resource_collection_files/Logos/studios/HookupHotshot/HookupHotshot_160x60.png)\n"
 "\n"
 "")
         self.Btn_HookupHotshot.setText("")
         self.Btn_HookupHotshot.setObjectName("Btn_HookupHotshot")
         self.Btn_LetsDoeit = QtWidgets.QPushButton(parent=self.tab_G_bis_R)
-        self.Btn_LetsDoeit.setGeometry(QtCore.QRect(530, 230, 160, 60))
+        self.Btn_LetsDoeit.setGeometry(QtCore.QRect(530, 300, 160, 60))
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_LetsDoeit.setFont(font)
-        self.Btn_LetsDoeit.setStyleSheet("background-image:url(:/gui/resource_collection_files/Logos/grafics/LetsDoeit/LetsDoeit_160x60.png)\n"
+        self.Btn_LetsDoeit.setStyleSheet("background-image:url(:/gui/resource_collection_files/Logos/studios/LetsDoeit/LetsDoeit_160x60.png)\n"
 "")
         self.Btn_LetsDoeit.setText("")
         self.Btn_LetsDoeit.setObjectName("Btn_LetsDoeit")
@@ -402,7 +420,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_PornWorld.setFont(font)
-        self.Btn_PornWorld.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/PornWorld/PornWorld_160x60.png);\n"
+        self.Btn_PornWorld.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/PornWorld/PornWorld_160x60.png);\n"
 "\n"
 "")
         self.Btn_PornWorld.setText("")
@@ -412,7 +430,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_DDFNetwork.setFont(font)
-        self.Btn_DDFNetwork.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/DDFNetwork/DDFNetwork_160x60.jpg);\n"
+        self.Btn_DDFNetwork.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/DDFNetwork/DDFNetwork_160x60.jpg);\n"
 "")
         self.Btn_DDFNetwork.setText("")
         self.Btn_DDFNetwork.setObjectName("Btn_DDFNetwork")
@@ -421,7 +439,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_LegalPorno.setFont(font)
-        self.Btn_LegalPorno.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/LegalPorno/LegalPorno_160x60.jpg);\n"
+        self.Btn_LegalPorno.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/LegalPorno/LegalPorno_160x60.jpg);\n"
 "\n"
 "")
         self.Btn_LegalPorno.setText("")
@@ -431,7 +449,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_BlackInWhite.setFont(font)
-        self.Btn_BlackInWhite.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/BlackInWhite/BlackInWhite_160x60.jpg);\n"
+        self.Btn_BlackInWhite.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/BlackInWhite/BlackInWhite_160x60.jpg);\n"
 "\n"
 "")
         self.Btn_BlackInWhite.setText("")
@@ -442,10 +460,56 @@ class Ui_Dialog(object):
         font.setPointSize(18)
         self.Btn_DigitalPlayground.setFont(font)
         self.Btn_DigitalPlayground.setToolTipDuration(-3)
-        self.Btn_DigitalPlayground.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/DigitalPlayground/DigitalPlayground_160x60.png);\n"
+        self.Btn_DigitalPlayground.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/DigitalPlayground/DigitalPlayground_160x60.png);\n"
 "")
         self.Btn_DigitalPlayground.setText("")
         self.Btn_DigitalPlayground.setObjectName("Btn_DigitalPlayground")
+        self.Btn_HussiePass = QtWidgets.QPushButton(parent=self.tab_G_bis_R)
+        self.Btn_HussiePass.setGeometry(QtCore.QRect(700, 90, 160, 60))
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        self.Btn_HussiePass.setFont(font)
+        self.Btn_HussiePass.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/HussiePass/HussiePass_160x60.jpg);\n"
+"")
+        self.Btn_HussiePass.setText("")
+        self.Btn_HussiePass.setObjectName("Btn_HussiePass")
+        self.Btn_Hitzefrei = QtWidgets.QPushButton(parent=self.tab_G_bis_R)
+        self.Btn_Hitzefrei.setGeometry(QtCore.QRect(700, 160, 160, 60))
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        self.Btn_Hitzefrei.setFont(font)
+        self.Btn_Hitzefrei.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/Hitzefrei/Hitzefrei_160x60.jpg);")
+        self.Btn_Hitzefrei.setText("")
+        self.Btn_Hitzefrei.setObjectName("Btn_Hitzefrei")
+        self.Btn_TheWhiteBoxxx = QtWidgets.QPushButton(parent=self.tab_G_bis_R)
+        self.Btn_TheWhiteBoxxx.setGeometry(QtCore.QRect(530, 370, 160, 60))
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        self.Btn_TheWhiteBoxxx.setFont(font)
+        self.Btn_TheWhiteBoxxx.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/LetsDoeit/TheWhiteBoxxx/TheWhiteBoxxx_160x90.jpg);\n"
+"")
+        self.Btn_TheWhiteBoxxx.setText("")
+        self.Btn_TheWhiteBoxxx.setObjectName("Btn_TheWhiteBoxxx")
+        self.Btn_nuruMassage = QtWidgets.QPushButton(parent=self.tab_G_bis_R)
+        self.Btn_nuruMassage.setGeometry(QtCore.QRect(530, 160, 160, 60))
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        self.Btn_nuruMassage.setFont(font)
+        self.Btn_nuruMassage.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/nuruMassage/nuruMassage_160x60.jpg);\n"
+"\n"
+"")
+        self.Btn_nuruMassage.setText("")
+        self.Btn_nuruMassage.setObjectName("Btn_nuruMassage")
+        self.Btn_Kink = QtWidgets.QPushButton(parent=self.tab_G_bis_R)
+        self.Btn_Kink.setGeometry(QtCore.QRect(10, 160, 160, 60))
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        self.Btn_Kink.setFont(font)
+        self.Btn_Kink.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/Kink/Kink_160x60.jpg);\n"
+"\n"
+"")
+        self.Btn_Kink.setText("")
+        self.Btn_Kink.setObjectName("Btn_Kink")
         self.tabWidget.addTab(self.tab_G_bis_R, "")
         self.tab_S_bis_Z = QtWidgets.QWidget()
         self.tab_S_bis_Z.setObjectName("tab_S_bis_Z")
@@ -459,7 +523,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_WTFPass.setFont(font)
-        self.Btn_WTFPass.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/WTFPass/WTFPass_160x60.png)\n"
+        self.Btn_WTFPass.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/WTFPass/WTFPass_160x60.png)\n"
 "\n"
 "\n"
 "\n"
@@ -468,7 +532,7 @@ class Ui_Dialog(object):
         self.Btn_WTFPass.setObjectName("Btn_WTFPass")
         self.Btn_Straplezz = QtWidgets.QPushButton(parent=self.tab_S_bis_Z)
         self.Btn_Straplezz.setGeometry(QtCore.QRect(10, 80, 160, 60))
-        self.Btn_Straplezz.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/Straplezz/straplezz_160x60.png);")
+        self.Btn_Straplezz.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/Straplezz/straplezz_160x60.png);")
         self.Btn_Straplezz.setText("")
         self.Btn_Straplezz.setObjectName("Btn_Straplezz")
         self.Btn_TeamSkeet = QtWidgets.QPushButton(parent=self.tab_S_bis_Z)
@@ -476,7 +540,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_TeamSkeet.setFont(font)
-        self.Btn_TeamSkeet.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/TeamSkeet/TeamSkeet_160x60.jpg);\n"
+        self.Btn_TeamSkeet.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/TeamSkeet/TeamSkeet_160x60.jpg);\n"
 "\n"
 "")
         self.Btn_TeamSkeet.setText("")
@@ -486,7 +550,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_TMW.setFont(font)
-        self.Btn_TMW.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/TMW/TMW_160x60.jpg);\n"
+        self.Btn_TMW.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/TMW/TMW_160x60.jpg);\n"
 "\n"
 "")
         self.Btn_TMW.setText("")
@@ -496,7 +560,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_ThatSitcomShow.setFont(font)
-        self.Btn_ThatSitcomShow.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/ThatSitcomShow/ThatSitcomShow_160x60.png);\n"
+        self.Btn_ThatSitcomShow.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/ThatSitcomShow/ThatSitcomShow_160x60.png);\n"
 "\n"
 "")
         self.Btn_ThatSitcomShow.setText("")
@@ -506,7 +570,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_SweetSinners.setFont(font)
-        self.Btn_SweetSinners.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/SweetSinners/SweetSinners_160x60.png);\n"
+        self.Btn_SweetSinners.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/SweetSinners/SweetSinners_160x60.png);\n"
 "")
         self.Btn_SweetSinners.setText("")
         self.Btn_SweetSinners.setObjectName("Btn_SweetSinners")
@@ -515,7 +579,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_PureTaboo.setFont(font)
-        self.Btn_PureTaboo.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/PureTaboo/PureTaboo_160x60.png);\n"
+        self.Btn_PureTaboo.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/PureTaboo/PureTaboo_160x60.png);\n"
 "")
         self.Btn_PureTaboo.setText("")
         self.Btn_PureTaboo.setObjectName("Btn_PureTaboo")
@@ -524,10 +588,18 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_StepSiblings.setFont(font)
-        self.Btn_StepSiblings.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/StepSibling/StepSibling_160x60.png);\n"
+        self.Btn_StepSiblings.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/StepSibling/StepSibling_160x60.png);\n"
 "")
         self.Btn_StepSiblings.setText("")
         self.Btn_StepSiblings.setObjectName("Btn_StepSiblings")
+        self.Btn_SeeHIMfuck = QtWidgets.QPushButton(parent=self.tab_S_bis_Z)
+        self.Btn_SeeHIMfuck.setGeometry(QtCore.QRect(10, 360, 160, 60))
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        self.Btn_SeeHIMfuck.setFont(font)
+        self.Btn_SeeHIMfuck.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/HussiePass/SeeHIMFuck/SeeHIMFuck_160x60.jpg);")
+        self.Btn_SeeHIMfuck.setText("")
+        self.Btn_SeeHIMfuck.setObjectName("Btn_SeeHIMfuck")
         self.tabWidget.addTab(self.tab_S_bis_Z, "")
         self.tab_VixenGroup = QtWidgets.QWidget()
         self.tab_VixenGroup.setObjectName("tab_VixenGroup")
@@ -536,7 +608,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_Tushy.setFont(font)
-        self.Btn_Tushy.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/VixenGroup/Tushy/Tushy_160x60.png);\n"
+        self.Btn_Tushy.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/VixenGroup/Tushy/Tushy_160x60.png);\n"
 "\n"
 "")
         self.Btn_Tushy.setText("")
@@ -546,7 +618,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_Blacked.setFont(font)
-        self.Btn_Blacked.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/VixenGroup/Blacked/Blacked_160x60.png);\n"
+        self.Btn_Blacked.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/VixenGroup/Blacked/Blacked_160x60.png);\n"
 "\n"
 "")
         self.Btn_Blacked.setText("")
@@ -556,7 +628,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_BlackedRAW.setFont(font)
-        self.Btn_BlackedRAW.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/VixenGroup/BlackedRAW/BlackedRAW_160x60.png);\n"
+        self.Btn_BlackedRAW.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/VixenGroup/BlackedRAW/BlackedRAW_160x60.png);\n"
 "\n"
 "")
         self.Btn_BlackedRAW.setText("")
@@ -566,7 +638,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_TushyRAW.setFont(font)
-        self.Btn_TushyRAW.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/VixenGroup/TushyRAW/TushyRAW_160x60.png);\n"
+        self.Btn_TushyRAW.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/VixenGroup/TushyRAW/TushyRAW_160x60.png);\n"
 "\n"
 "")
         self.Btn_TushyRAW.setText("")
@@ -576,7 +648,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_Vixen.setFont(font)
-        self.Btn_Vixen.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/VixenGroup/Vixen/Vixen_160x60.png);\n"
+        self.Btn_Vixen.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/VixenGroup/Vixen/Vixen_160x60.png);\n"
 "\n"
 "")
         self.Btn_Vixen.setText("")
@@ -594,7 +666,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_Lubed.setFont(font)
-        self.Btn_Lubed.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/Lubed/Lubed_160x60.png);\n"
+        self.Btn_Lubed.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/Lubed/Lubed_160x60.png);\n"
 "\n"
 "\n"
 "\n"
@@ -607,7 +679,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_BBCPie.setFont(font)
-        self.Btn_BBCPie.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/BBCPie/BBCPie_160x60.png);\n"
+        self.Btn_BBCPie.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/BBCPie/BBCPie_160x60.png);\n"
 "\n"
 "")
         self.Btn_BBCPie.setText("")
@@ -617,7 +689,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_Cum4K.setFont(font)
-        self.Btn_Cum4K.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/Cum4K/Cum4K_160x60.png);\n"
+        self.Btn_Cum4K.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/Cum4K/Cum4K_160x60.png);\n"
 "\n"
 "")
         self.Btn_Cum4K.setText("")
@@ -627,7 +699,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_PassionHD.setFont(font)
-        self.Btn_PassionHD.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/Passion-HD/PassionHD_160x60.png);\n"
+        self.Btn_PassionHD.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/Passion-HD/PassionHD_160x60.png);\n"
 "")
         self.Btn_PassionHD.setText("")
         self.Btn_PassionHD.setObjectName("Btn_PassionHD")
@@ -636,7 +708,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_Tiny4K.setFont(font)
-        self.Btn_Tiny4K.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/Tiny4K/Tiny4K_160x60.png);\n"
+        self.Btn_Tiny4K.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/Tiny4K/Tiny4K_160x60.png);\n"
 "")
         self.Btn_Tiny4K.setText("")
         self.Btn_Tiny4K.setObjectName("Btn_Tiny4K")
@@ -645,7 +717,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_GirlCum.setFont(font)
-        self.Btn_GirlCum.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/GirlCum/GirlCum_160x60.png);\n"
+        self.Btn_GirlCum.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/GirlCum/GirlCum_160x60.png);\n"
 "")
         self.Btn_GirlCum.setText("")
         self.Btn_GirlCum.setObjectName("Btn_GirlCum")
@@ -654,7 +726,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_Facials4K.setFont(font)
-        self.Btn_Facials4K.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/Facials4K/Facials4K_160x60.png);\n"
+        self.Btn_Facials4K.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/Facials4K/Facials4K_160x60.png);\n"
 "")
         self.Btn_Facials4K.setText("")
         self.Btn_Facials4K.setObjectName("Btn_Facials4K")
@@ -663,7 +735,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_PureMature.setFont(font)
-        self.Btn_PureMature.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/PureMature/PureMature_160x60.png);\n"
+        self.Btn_PureMature.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/PureMature/PureMature_160x60.png);\n"
 "")
         self.Btn_PureMature.setText("")
         self.Btn_PureMature.setObjectName("Btn_PureMature")
@@ -672,7 +744,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_Anal4K.setFont(font)
-        self.Btn_Anal4K.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/Anal4K/Anal4K_160x60.jpg);\n"
+        self.Btn_Anal4K.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/Anal4K/Anal4K_160x60.jpg);\n"
 "\n"
 "")
         self.Btn_Anal4K.setText("")
@@ -687,7 +759,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_Holed.setFont(font)
-        self.Btn_Holed.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/Holed/Holed_160x60.png);\n"
+        self.Btn_Holed.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/Holed/Holed_160x60.png);\n"
 "\n"
 "\n"
 "\n"
@@ -700,7 +772,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_Exotic4K.setFont(font)
-        self.Btn_Exotic4K.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/Exotic4K/Exotic4K_160x60.jpg);\n"
+        self.Btn_Exotic4K.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/Exotic4K/Exotic4K_160x60.jpg);\n"
 "")
         self.Btn_Exotic4K.setText("")
         self.Btn_Exotic4K.setObjectName("Btn_Exotic4K")
@@ -709,7 +781,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_PornPros.setFont(font)
-        self.Btn_PornPros.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/PornPros/PornPros_160x60.png);\n"
+        self.Btn_PornPros.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/PornPros/PornPros_160x60.png);\n"
 "")
         self.Btn_PornPros.setText("")
         self.Btn_PornPros.setObjectName("Btn_PornPros")
@@ -718,7 +790,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_CastingCouchX.setFont(font)
-        self.Btn_CastingCouchX.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/CastingCouchX/CastingCouchX_160x60.png);\n"
+        self.Btn_CastingCouchX.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/CastingCouchX/CastingCouchX_160x60.png);\n"
 "")
         self.Btn_CastingCouchX.setText("")
         self.Btn_CastingCouchX.setObjectName("Btn_CastingCouchX")
@@ -727,7 +799,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_SpyFam.setFont(font)
-        self.Btn_SpyFam.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/SpyFam/SpyFam_160x60.png);\n"
+        self.Btn_SpyFam.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/SpyFam/SpyFam_160x60.png);\n"
 "")
         self.Btn_SpyFam.setText("")
         self.Btn_SpyFam.setObjectName("Btn_SpyFam")
@@ -736,7 +808,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_POVD.setFont(font)
-        self.Btn_POVD.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/POVD/POVD_160x60.png);\n"
+        self.Btn_POVD.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/POVD/POVD_160x60.png);\n"
 "")
         self.Btn_POVD.setText("")
         self.Btn_POVD.setObjectName("Btn_POVD")
@@ -745,7 +817,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_Mom4K.setFont(font)
-        self.Btn_Mom4K.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/Mom4K/Mom4K_160x60.png);\n"
+        self.Btn_Mom4K.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/Mom4K/Mom4K_160x60.png);\n"
 "")
         self.Btn_Mom4K.setText("")
         self.Btn_Mom4K.setObjectName("Btn_Mom4K")
@@ -754,7 +826,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_FantasyHD.setFont(font)
-        self.Btn_FantasyHD.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/FantasyHD/FantasyHD_160x60.png);\n"
+        self.Btn_FantasyHD.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/FantasyHD/FantasyHD_160x60.png);\n"
 "")
         self.Btn_FantasyHD.setText("")
         self.Btn_FantasyHD.setObjectName("Btn_FantasyHD")
@@ -763,7 +835,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_MyVeryFirstTime.setFont(font)
-        self.Btn_MyVeryFirstTime.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/MyVeryFirstTime/MyVeryFirstTime_160x60.png);")
+        self.Btn_MyVeryFirstTime.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/MyVeryFirstTime/MyVeryFirstTime_160x60.png);")
         self.Btn_MyVeryFirstTime.setText("")
         self.Btn_MyVeryFirstTime.setObjectName("Btn_MyVeryFirstTime")
         self.Btn_NannySpy = QtWidgets.QPushButton(parent=self.tab)
@@ -771,7 +843,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_NannySpy.setFont(font)
-        self.Btn_NannySpy.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/NannySpy/NannySpy_160x60.png);")
+        self.Btn_NannySpy.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/NannySpy/NannySpy_160x60.png);")
         self.Btn_NannySpy.setText("")
         self.Btn_NannySpy.setObjectName("Btn_NannySpy")
         self.tabWidget.addTab(self.tab, "")
@@ -782,7 +854,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_NubilesFilms.setFont(font)
-        self.Btn_NubilesFilms.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/NubilesFilms/NubilesFilms_160x60.png)")
+        self.Btn_NubilesFilms.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/NubilesFilms/NubilesFilms_160x60.png)")
         self.Btn_NubilesFilms.setText("")
         self.Btn_NubilesFilms.setObjectName("Btn_NubilesFilms")
         self.Btn_NubilesPorn = QtWidgets.QPushButton(parent=self.tab_nubiles)
@@ -790,7 +862,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_NubilesPorn.setFont(font)
-        self.Btn_NubilesPorn.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/NubilesPorn/NubilesPorn_160x60.png)\n"
+        self.Btn_NubilesPorn.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/NubilesPorn/NubilesPorn_160x60.png)\n"
 "")
         self.Btn_NubilesPorn.setText("")
         self.Btn_NubilesPorn.setObjectName("Btn_NubilesPorn")
@@ -799,7 +871,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_BadTeensPunished.setFont(font)
-        self.Btn_BadTeensPunished.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/BadPunishedTeens/BadPunishedTeens_160x60.png);\n"
+        self.Btn_BadTeensPunished.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/BadPunishedTeens/BadPunishedTeens_160x60.png);\n"
 "\n"
 "")
         self.Btn_BadTeensPunished.setText("")
@@ -809,7 +881,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_PetiteHDPorn.setFont(font)
-        self.Btn_PetiteHDPorn.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/PetiteHDPorn/PetiteHDPorn_160x60.png);\n"
+        self.Btn_PetiteHDPorn.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/PetiteHDPorn/PetiteHDPorn_160x60.png);\n"
 "\n"
 "")
         self.Btn_PetiteHDPorn.setText("")
@@ -819,7 +891,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_MomsTeachSex.setFont(font)
-        self.Btn_MomsTeachSex.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/MomsTeachSex/MomsTeachSex_160x60.png);")
+        self.Btn_MomsTeachSex.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/MomsTeachSex/MomsTeachSex_160x60.png);")
         self.Btn_MomsTeachSex.setText("")
         self.Btn_MomsTeachSex.setObjectName("Btn_MomsTeachSex")
         self.Btn_myFamilyPies = QtWidgets.QPushButton(parent=self.tab_nubiles)
@@ -827,7 +899,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_myFamilyPies.setFont(font)
-        self.Btn_myFamilyPies.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/MyFamilyPies/MyFamilyPies_160x60.png);\n"
+        self.Btn_myFamilyPies.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/MyFamilyPies/MyFamilyPies_160x60.png);\n"
 "")
         self.Btn_myFamilyPies.setText("")
         self.Btn_myFamilyPies.setObjectName("Btn_myFamilyPies")
@@ -836,7 +908,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_PrincessCUM.setFont(font)
-        self.Btn_PrincessCUM.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/PrincessCUM/PrincessCUM_160x60.png);\n"
+        self.Btn_PrincessCUM.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/PrincessCUM/PrincessCUM_160x60.png);\n"
 "\n"
 "")
         self.Btn_PrincessCUM.setText("")
@@ -846,7 +918,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_StepSiblingsCaught.setFont(font)
-        self.Btn_StepSiblingsCaught.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/StepSiblingCaught/StepSiblingCaught_160x60.png);\n"
+        self.Btn_StepSiblingsCaught.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/StepSiblingCaught/StepSiblingCaught_160x60.png);\n"
 "\n"
 "")
         self.Btn_StepSiblingsCaught.setText("")
@@ -856,7 +928,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_TeacherFucksTeens.setFont(font)
-        self.Btn_TeacherFucksTeens.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/TeacherFucksTeens/TeacherFucksTeens_160x60.png);\n"
+        self.Btn_TeacherFucksTeens.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/TeacherFucksTeens/TeacherFucksTeens_160x60.png);\n"
 "")
         self.Btn_TeacherFucksTeens.setText("")
         self.Btn_TeacherFucksTeens.setObjectName("Btn_TeacherFucksTeens")
@@ -868,7 +940,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_LaraJuicy.setFont(font)
-        self.Btn_LaraJuicy.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/Amateur/LaraJuicy/LaraJuicy_160x60.jpg);\n"
+        self.Btn_LaraJuicy.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/Amateur/LaraJuicy/LaraJuicy_160x60.jpg);\n"
 "color: rgb(85, 255, 255);")
         self.Btn_LaraJuicy.setObjectName("Btn_LaraJuicy")
         self.tabWidget.addTab(self.tab_Amateur, "")
@@ -879,7 +951,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_AnalMom.setFont(font)
-        self.Btn_AnalMom.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/AnalMom/AnalMom_160x60.png)\n"
+        self.Btn_AnalMom.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/AnalMom/AnalMom_160x60.png)\n"
 "\n"
 "")
         self.Btn_AnalMom.setText("")
@@ -892,7 +964,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_Analized.setFont(font)
-        self.Btn_Analized.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/Analized/Analized_160x60.jpg);\n"
+        self.Btn_Analized.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/Analized/Analized_160x60.jpg);\n"
 "\n"
 "")
         self.Btn_Analized.setText("")
@@ -902,7 +974,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_FullpornNetwork.setFont(font)
-        self.Btn_FullpornNetwork.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/FullpornNetwork/FullpornNetwork_160x60.png);\n"
+        self.Btn_FullpornNetwork.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/FullpornNetwork/FullpornNetwork_160x60.png);\n"
 "\n"
 "")
         self.Btn_FullpornNetwork.setText("")
@@ -912,7 +984,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_AbbieMarley.setFont(font)
-        self.Btn_AbbieMarley.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/AbbieMarley/AbbieMarley_160x60.jpg);\n"
+        self.Btn_AbbieMarley.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/AbbieMarley/AbbieMarley_160x60.jpg);\n"
 "\n"
 "")
         self.Btn_AbbieMarley.setText("")
@@ -922,7 +994,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_AnalAmateur.setFont(font)
-        self.Btn_AnalAmateur.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/AnalAmateur/AnalAmateur_160x60.jpg);\n"
+        self.Btn_AnalAmateur.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/AnalAmateur/AnalAmateur_160x60.jpg);\n"
 "\n"
 "")
         self.Btn_AnalAmateur.setText("")
@@ -932,7 +1004,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_AnalBBC.setFont(font)
-        self.Btn_AnalBBC.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/AnalBBC/AnalBBC_160x90.jpg);\n"
+        self.Btn_AnalBBC.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/AnalBBC/AnalBBC_160x90.jpg);\n"
 "      \n"
 "")
         self.Btn_AnalBBC.setText("")
@@ -942,7 +1014,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_AnalViolation.setFont(font)
-        self.Btn_AnalViolation.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/AnalViolation/AnalViolation_160x60.jpg);\n"
+        self.Btn_AnalViolation.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/AnalViolation/AnalViolation_160x60.jpg);\n"
 "      \n"
 "")
         self.Btn_AnalViolation.setText("")
@@ -952,7 +1024,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_BadDaddyPOV.setFont(font)
-        self.Btn_BadDaddyPOV.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/BadDaddyPOV/BadDaddyPOV_160x60.jpg);\n"
+        self.Btn_BadDaddyPOV.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/BadDaddyPOV/BadDaddyPOV_160x60.jpg);\n"
 "      \n"
 "")
         self.Btn_BadDaddyPOV.setText("")
@@ -962,7 +1034,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_BadFamilyPOV.setFont(font)
-        self.Btn_BadFamilyPOV.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/BadFamilyPOV/BadFamilyPOV_160x60.jpg);\n"
+        self.Btn_BadFamilyPOV.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/BadFamilyPOV/BadFamilyPOV_160x60.jpg);\n"
 "      \n"
 "")
         self.Btn_BadFamilyPOV.setText("")
@@ -972,7 +1044,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_HerGape.setFont(font)
-        self.Btn_HerGape.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/HerGape/HerGape_160x60.jpg);\n"
+        self.Btn_HerGape.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/HerGape/HerGape_160x60.jpg);\n"
 "      \n"
 "")
         self.Btn_HerGape.setText("")
@@ -982,7 +1054,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_DaughterJOI.setFont(font)
-        self.Btn_DaughterJOI.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/DaughterJOI/DaughterJOI_160x60.jpg);\n"
+        self.Btn_DaughterJOI.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/DaughterJOI/DaughterJOI_160x60.jpg);\n"
 "\n"
 "")
         self.Btn_DaughterJOI.setText("")
@@ -992,7 +1064,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_JamesDeen.setFont(font)
-        self.Btn_JamesDeen.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/JamesDeen/JamesDeen_160x60.jpg);\n"
+        self.Btn_JamesDeen.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/JamesDeen/JamesDeen_160x60.jpg);\n"
 "      \n"
 "")
         self.Btn_JamesDeen.setText("")
@@ -1002,7 +1074,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_GirlFaction.setFont(font)
-        self.Btn_GirlFaction.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/GirlFaction/GirlFaction_160x60.jpg);\n"
+        self.Btn_GirlFaction.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/GirlFaction/GirlFaction_160x60.jpg);\n"
 "      \n"
 "")
         self.Btn_GirlFaction.setText("")
@@ -1012,7 +1084,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_HomemadeAnalWhores.setFont(font)
-        self.Btn_HomemadeAnalWhores.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/HomemadeAnalWhores/HomemadeAnalWhores_160x60.jpg);\n"
+        self.Btn_HomemadeAnalWhores.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/HomemadeAnalWhores/HomemadeAnalWhores_160x60.jpg);\n"
 "      \n"
 "")
         self.Btn_HomemadeAnalWhores.setText("")
@@ -1022,7 +1094,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_BadMommyPOV.setFont(font)
-        self.Btn_BadMommyPOV.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/BadMommyPOV/BadMommyPOV_160x60.jpg);\n"
+        self.Btn_BadMommyPOV.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/BadMommyPOV/BadMommyPOV_160x60.jpg);\n"
 "\n"
 "")
         self.Btn_BadMommyPOV.setText("")
@@ -1032,7 +1104,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_DTFsluts.setFont(font)
-        self.Btn_DTFsluts.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/DTFsluts/DTFsluts_160x60.jpg);\n"
+        self.Btn_DTFsluts.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/DTFsluts/DTFsluts_160x60.jpg);\n"
 "\n"
 "")
         self.Btn_DTFsluts.setText("")
@@ -1042,7 +1114,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_DownToFuckDating.setFont(font)
-        self.Btn_DownToFuckDating.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/DownToFuckDating/DownToFuckDating_160x60.jpg);\n"
+        self.Btn_DownToFuckDating.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/DownToFuckDating/DownToFuckDating_160x60.jpg);\n"
 "\n"
 "")
         self.Btn_DownToFuckDating.setText("")
@@ -1052,7 +1124,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_PorkVendors.setFont(font)
-        self.Btn_PorkVendors.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/PorkVendors/PorkVendors_160x60.jpg);\n"
+        self.Btn_PorkVendors.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/PorkVendors/PorkVendors_160x60.jpg);\n"
 "      \n"
 "")
         self.Btn_PorkVendors.setText("")
@@ -1062,7 +1134,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_MommyJOI.setFont(font)
-        self.Btn_MommyJOI.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/MommyJOI/MommyJOI_160x60.jpg);\n"
+        self.Btn_MommyJOI.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/MommyJOI/MommyJOI_160x60.jpg);\n"
 "\n"
 "")
         self.Btn_MommyJOI.setText("")
@@ -1072,7 +1144,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_PublicSexDate.setFont(font)
-        self.Btn_PublicSexDate.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/PublicSexDate/PublicSexDate_160x60.jpg);\n"
+        self.Btn_PublicSexDate.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/PublicSexDate/PublicSexDate_160x60.jpg);\n"
 "      \n"
 "")
         self.Btn_PublicSexDate.setText("")
@@ -1082,7 +1154,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_PervertGallery.setFont(font)
-        self.Btn_PervertGallery.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/PervertGallery/PervertGallery_160x60.jpg);\n"
+        self.Btn_PervertGallery.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/PervertGallery/PervertGallery_160x60.jpg);\n"
 "      \n"
 "")
         self.Btn_PervertGallery.setText("")
@@ -1092,7 +1164,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_POVperverts.setFont(font)
-        self.Btn_POVperverts.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/POVperverts/POVperverts_160x60.jpg);\n"
+        self.Btn_POVperverts.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/POVperverts/POVperverts_160x60.jpg);\n"
 "      \n"
 "")
         self.Btn_POVperverts.setText("")
@@ -1102,7 +1174,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_LesbianAnalSluts.setFont(font)
-        self.Btn_LesbianAnalSluts.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/LesbianAnalSluts/LesbianAnalSluts_160x60.jpg);\n"
+        self.Btn_LesbianAnalSluts.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/LesbianAnalSluts/LesbianAnalSluts_160x60.jpg);\n"
 "\n"
 "")
         self.Btn_LesbianAnalSluts.setText("")
@@ -1112,7 +1184,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_OnlyPrince.setFont(font)
-        self.Btn_OnlyPrince.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/OnlyPrince/OnlyPrince_160x60.jpg);\n"
+        self.Btn_OnlyPrince.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/OnlyPrince/OnlyPrince_160x60.jpg);\n"
 "\n"
 "")
         self.Btn_OnlyPrince.setText("")
@@ -1122,7 +1194,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_MugFucked.setFont(font)
-        self.Btn_MugFucked.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/MugFucked/MugFucked_160x60.jpg);\n"
+        self.Btn_MugFucked.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/MugFucked/MugFucked_160x60.jpg);\n"
 "\n"
 "")
         self.Btn_MugFucked.setText("")
@@ -1132,7 +1204,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_SlutInspection.setFont(font)
-        self.Btn_SlutInspection.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/SlutInspection/SlutInspection_160x60.jpg);\n"
+        self.Btn_SlutInspection.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/SlutInspection/SlutInspection_160x60.jpg);\n"
 "\n"
 "")
         self.Btn_SlutInspection.setText("")
@@ -1142,7 +1214,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_YourMomDoesANAL.setFont(font)
-        self.Btn_YourMomDoesANAL.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/YourMomDoesANAL/YourMomDoesANAL_160x60.jpg);\n"
+        self.Btn_YourMomDoesANAL.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/YourMomDoesANAL/YourMomDoesANAL_160x60.jpg);\n"
 "      \n"
 "")
         self.Btn_YourMomDoesANAL.setText("")
@@ -1152,7 +1224,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_SheFucksOnTheFirstDate.setFont(font)
-        self.Btn_SheFucksOnTheFirstDate.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/SheFucksOnTheFirstDate/SheFucksOnTheFirstDate_160x60.jpg);\n"
+        self.Btn_SheFucksOnTheFirstDate.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/SheFucksOnTheFirstDate/SheFucksOnTheFirstDate_160x60.jpg);\n"
 "      \n"
 "")
         self.Btn_SheFucksOnTheFirstDate.setText("")
@@ -1162,7 +1234,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_RealFuckingDating.setFont(font)
-        self.Btn_RealFuckingDating.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/RealFuckingDating/RealFuckingDating_160x60.jpg);\n"
+        self.Btn_RealFuckingDating.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/RealFuckingDating/RealFuckingDating_160x60.jpg);\n"
 "      \n"
 "")
         self.Btn_RealFuckingDating.setText("")
@@ -1172,7 +1244,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_SluttyBBWs.setFont(font)
-        self.Btn_SluttyBBWs.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/SluttyBBWs/SluttyBBWs_160x60.jpg);\n"
+        self.Btn_SluttyBBWs.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/SluttyBBWs/SluttyBBWs_160x60.jpg);\n"
 "      \n"
 "")
         self.Btn_SluttyBBWs.setText("")
@@ -1182,7 +1254,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_YourMomDoesPorn.setFont(font)
-        self.Btn_YourMomDoesPorn.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/YourMomDoesPorn/YourMomDoesPorn_160x60.jpg);\n"
+        self.Btn_YourMomDoesPorn.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/YourMomDoesPorn/YourMomDoesPorn_160x60.jpg);\n"
 "      \n"
 "")
         self.Btn_YourMomDoesPorn.setText("")
@@ -1192,7 +1264,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_TeenageAnalSluts.setFont(font)
-        self.Btn_TeenageAnalSluts.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/TeenageAnalSluts/TeenageAnalSluts_160x60.jpg);\n"
+        self.Btn_TeenageAnalSluts.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/TeenageAnalSluts/TeenageAnalSluts_160x60.jpg);\n"
 "      \n"
 "")
         self.Btn_TeenageAnalSluts.setText("")
@@ -1202,7 +1274,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_TeenageTryouts.setFont(font)
-        self.Btn_TeenageTryouts.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/TeenageTryouts/TeenageTryouts_160x60.jpg);\n"
+        self.Btn_TeenageTryouts.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/TeenageTryouts/TeenageTryouts_160x60.jpg);\n"
 "\n"
 "")
         self.Btn_TeenageTryouts.setText("")
@@ -1212,7 +1284,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_WifesPOV.setFont(font)
-        self.Btn_WifesPOV.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/WifesPOV/WifesPOV_160x60.jpg);\n"
+        self.Btn_WifesPOV.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/WifesPOV/WifesPOV_160x60.jpg);\n"
 "\n"
 "")
         self.Btn_WifesPOV.setText("")
@@ -1222,7 +1294,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_TeasingandPleasing.setFont(font)
-        self.Btn_TeasingandPleasing.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/TeasingandPleasing/TeasingandPleasing_160x60.jpg);\n"
+        self.Btn_TeasingandPleasing.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/TeasingandPleasing/TeasingandPleasing_160x60.jpg);\n"
 "      \n"
 "")
         self.Btn_TeasingandPleasing.setText("")
@@ -1232,7 +1304,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_TeenageCorruption.setFont(font)
-        self.Btn_TeenageCorruption.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/TeenageCorruption/TeenageCorruption_160x60.jpg);\n"
+        self.Btn_TeenageCorruption.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/TeenageCorruption/TeenageCorruption_160x60.jpg);\n"
 "\n"
 "")
         self.Btn_TeenageCorruption.setText("")
@@ -1242,7 +1314,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_SlutsBTS.setFont(font)
-        self.Btn_SlutsBTS.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/SlutsBTS/SlutsBTS_160x60.jpg);\n"
+        self.Btn_SlutsBTS.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/SlutsBTS/SlutsBTS_160x60.jpg);\n"
 "\n"
 "")
         self.Btn_SlutsBTS.setText("")
@@ -1252,7 +1324,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_SlutsPOV.setFont(font)
-        self.Btn_SlutsPOV.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/SlutsPOV/SlutsPOV_160x60.jpg);\n"
+        self.Btn_SlutsPOV.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/SlutsPOV/SlutsPOV_160x60.jpg);\n"
 "      \n"
 "")
         self.Btn_SlutsPOV.setText("")
@@ -1262,18 +1334,31 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Btn_TwistedVisual.setFont(font)
-        self.Btn_TwistedVisual.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/grafics/TwistedVisual/TwistedVisual_160x60.jpg);\n"
+        self.Btn_TwistedVisual.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/TwistedVisual/TwistedVisual_160x60.jpg);\n"
 "\n"
 "")
         self.Btn_TwistedVisual.setText("")
         self.Btn_TwistedVisual.setObjectName("Btn_TwistedVisual")
         self.tabWidget.addTab(self.tab_2, "")
+        self.dogfart = QtWidgets.QWidget()
+        self.dogfart.setObjectName("dogfart")
+        self.Btn_WeFuckBlackGirls = QtWidgets.QPushButton(parent=self.dogfart)
+        self.Btn_WeFuckBlackGirls.setGeometry(QtCore.QRect(10, 10, 160, 60))
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        self.Btn_WeFuckBlackGirls.setFont(font)
+        self.Btn_WeFuckBlackGirls.setStyleSheet("background-image: url(:/gui/resource_collection_files/Logos/studios/DogFart/WeFuckBlackGirls/WeFuckBlackGirls_160x90.jpg);\n"
+"\n"
+"")
+        self.Btn_WeFuckBlackGirls.setText("")
+        self.Btn_WeFuckBlackGirls.setObjectName("Btn_WeFuckBlackGirls")
+        self.tabWidget.addTab(self.dogfart, "")
         self.tabWidget.raise_()
         self.Btn_Zurueck.raise_()
         self.Btn_NoLogo.raise_()
 
         self.retranslateUi(Dialog)
-        self.tabWidget.setCurrentIndex(2)
+        self.tabWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def retranslateUi(self, Dialog):
@@ -1298,7 +1383,7 @@ class Ui_Dialog(object):
         self.Btn_5KPornTeens.setWhatsThis(_translate("Dialog", "5KPornTeens"))
         self.Btn_FirstAnalQuest.setWhatsThis(_translate("Dialog", "FirstAnalQuest"))
         self.Btn_CherryPimps.setWhatsThis(_translate("Dialog", "CherryPimps"))
-        self.Btn_BANG.setWhatsThis(_translate("Dialog", "Bang!"))
+        self.Btn_Bang.setWhatsThis(_translate("Dialog", "Bang"))
         self.Btn_FootsieBabes.setWhatsThis(_translate("Dialog", "FootsieBabes"))
         self.Btn_DaneJones.setWhatsThis(_translate("Dialog", "DaneJones"))
         self.Btn_RoccoSiffredi.setWhatsThis(_translate("Dialog", "rRccoSiffredi"))
@@ -1307,6 +1392,8 @@ class Ui_Dialog(object):
         self.Btn_EdgeQueens.setWhatsThis(_translate("Dialog", "EdgeQueens"))
         self.Btn_FamilyXXX.setWhatsThis(_translate("Dialog", "FamilyXXX"))
         self.Btn_NewSensations.setWhatsThis(_translate("Dialog", "NewSensations"))
+        self.Btn_AsianStreetMeat.setWhatsThis(_translate("Dialog", "AsianStreetMeat"))
+        self.Btn_AllFineGirls.setWhatsThis(_translate("Dialog", "AllFineGirls"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_A_bis_F), _translate("Dialog", "Websides von A bis F"))
         self.Btn_Private.setWhatsThis(_translate("Dialog", "Private"))
         self.Btn_HardX.setWhatsThis(_translate("Dialog", "HardX"))
@@ -1330,6 +1417,12 @@ class Ui_Dialog(object):
         self.Btn_BlackInWhite.setStatusTip(_translate("Dialog", "BlackInWhite"))
         self.Btn_BlackInWhite.setWhatsThis(_translate("Dialog", "BlackInWhite"))
         self.Btn_DigitalPlayground.setWhatsThis(_translate("Dialog", "DigitalPlayground"))
+        self.Btn_HussiePass.setWhatsThis(_translate("Dialog", "HussiePass"))
+        self.Btn_Hitzefrei.setWhatsThis(_translate("Dialog", "Hitzefrei"))
+        self.Btn_TheWhiteBoxxx.setWhatsThis(_translate("Dialog", "TheWhiteBoxxx"))
+        self.Btn_nuruMassage.setWhatsThis(_translate("Dialog", "nuruMassage"))
+        self.Btn_Kink.setToolTip(_translate("Dialog", "Network \'Kink\'"))
+        self.Btn_Kink.setWhatsThis(_translate("Dialog", "Kink"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_G_bis_R), _translate("Dialog", "Websides von G bis R"))
         self.Btn_WTFPass.setWhatsThis(_translate("Dialog", "WTFPass"))
         self.Btn_Straplezz.setWhatsThis(_translate("Dialog", "Straplezz"))
@@ -1339,6 +1432,8 @@ class Ui_Dialog(object):
         self.Btn_SweetSinners.setWhatsThis(_translate("Dialog", "SweetSinners"))
         self.Btn_PureTaboo.setWhatsThis(_translate("Dialog", "PureTaboo"))
         self.Btn_StepSiblings.setWhatsThis(_translate("Dialog", "StepSiblings"))
+        self.Btn_SeeHIMfuck.setToolTip(_translate("Dialog", "SeeHIMfuck"))
+        self.Btn_SeeHIMfuck.setWhatsThis(_translate("Dialog", "SeeHIMFuck"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_S_bis_Z), _translate("Dialog", "Websides von S bis Z"))
         self.Btn_Tushy.setWhatsThis(_translate("Dialog", "Tushy"))
         self.Btn_Blacked.setWhatsThis(_translate("Dialog", "Blacked"))
@@ -1420,3 +1515,6 @@ class Ui_Dialog(object):
         self.Btn_SlutsPOV.setWhatsThis(_translate("Dialog", "SlutsPOV"))
         self.Btn_TwistedVisual.setWhatsThis(_translate("Dialog", "TwistedVisual"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("Dialog", "FullpornNetwork"))
+        self.Btn_WeFuckBlackGirls.setToolTip(_translate("Dialog", "WeFuckBlackGirls"))
+        self.Btn_WeFuckBlackGirls.setWhatsThis(_translate("Dialog", "WeFuckBlackGirls"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.dogfart), _translate("Dialog", "DogFart"))

@@ -18,8 +18,7 @@ class GenderAuswahl(QDialog):
             self.setWindowFlags(Qt.WindowType.FramelessWindowHint)  
             self.Btn_female.clicked.connect(self.female_auswahl)
             self.Btn_male.clicked.connect(self.male_auswahl)
-            self.Btn_trans.clicked.connect(self.trans_auswahl) 
-            self.exec()
+            self.Btn_trans.clicked.connect(self.trans_auswahl)
     
     def female_auswahl(self):
         self.Main.Btn_performers_gender.setIcon(QIcon(":Buttons\_buttons\gender\person-weiblich.png")) 

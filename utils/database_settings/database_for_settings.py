@@ -49,7 +49,7 @@ class Webside_Settings:
 
     ##### ------------ Fehler-Behandlung ---------------- ##########
     ################################################################
-    def db_fehler(self,fehler: str) -> None:
+    def db_fehler(self, fehler: str) -> None:
         current_time = QDateTime.currentDateTime().toString('hh:mm:ss')
         if fehler.startswith("kein"):
             self.Main.lbl_db_status.setStyleSheet("background-color : #FFCB8F")
@@ -72,7 +72,7 @@ class Webside_Settings:
                 query.bindValue(":Page_onSide",Page_onSide)                
                 query.exec() 
                 errview = f"{query.lastError().text()} (query)" if query.lastError().text() else errview               
-            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.add_neue_videodaten_in_db.__name__}'" if self.db.lastError().text() else errview
+            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.add_lastVisite.__name__}'" if self.db.lastError().text() else errview
             del query
         if errview:
             self.db_fehler(errview)
@@ -175,6 +175,7 @@ class Webside_Settings:
     def get_videodatas_from_baselink(self, link: str) -> str:              
         errview: str = None
         settings_data = SettingsData()        
+        data = False
 
         self.open_database()
         if self.db.isOpen(): # öffnet die datenbank mit einem contex Manager        
@@ -183,9 +184,9 @@ class Webside_Settings:
                 query.bindValue(":Homepage",link)
                 query.exec()        
                 while query.next():                    
-                    settings_data.initialize(query.record())                    
-                    errview = f"{query.lastError().text()} (query1)" if query.lastError().text() else errview
-                errview = (errview or f"kein {link} gefunden (query)") if not query.lastError().text() and not settings_data else query.lastError().text()
+                    settings_data.initialize(query.record()) 
+                    data = True
+                errview = f"kein {link} gefunden (query)" if not query.lastError().text() and not data else query.lastError().text()
                 errview = f"'{self.get_videodatas_from_baselink.__name__}': {errview} (query)" if errview and "kein " not in str(errview) else errview
             errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.get_videodatas_from_baselink.__name__}'" if self.db.lastError().text() else errview
             del query

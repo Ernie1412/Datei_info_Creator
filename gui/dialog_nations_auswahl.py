@@ -1,7 +1,6 @@
 from PyQt6 import uic
 from PyQt6.QtWidgets import QDialog
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QPixmap
 
 from utils.database_settings.database_for_darsteller import DB_Darsteller
 
@@ -10,8 +9,7 @@ from config import NATIONS_AUSWAHL_UI
 class NationsAuswahl(QDialog):
     def __init__(self, parent): # von wo es kommt
         super(NationsAuswahl,self).__init__(parent) 
-        self.Main = parent  
-       
+        self.Main = parent        
         uic.loadUi(NATIONS_AUSWAHL_UI, self)                
         self.setupUi() 
 
@@ -23,8 +21,7 @@ class NationsAuswahl(QDialog):
         self.setStyleSheet(f""" QDialog {{border: 2px solid black; background-color: {standard_grey};}}""")                
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
         self.accepted.connect(self.accepted_nations)
-        self.rejected.connect(self.close)         
-        self.exec()
+        self.rejected.connect(self.close) 
 
     def get_all_nations_from_db(self):
         datenbank_darsteller = DB_Darsteller(self.Main)
