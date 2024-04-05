@@ -1,0 +1,3555 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1094</width>
+    <height>801</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Auswahl der Websides</string>
+  </property>
+  <property name="toolTip">
+   <string>banbros</string>
+  </property>
+  <widget class="QPushButton" name="Btn_Zurueck">
+   <property name="geometry">
+    <rect>
+     <x>770</x>
+     <y>740</y>
+     <width>121</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>MS Shell Dlg 2</family>
+     <pointsize>20</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-style: outset;
+background-color: rgb(205, 205, 205);
+border-width: 2px;
+border-radius: 10px;
+border-color: beige;
+font: 20pt &quot;MS Shell Dlg 2&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Zurück</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Btn_NoLogo">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>730</y>
+     <width>160</width>
+     <height>60</height>
+    </rect>
+   </property>
+   <property name="whatsThis">
+    <string>keinlogo</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-image: url(:/Buttons/_buttons/no-logo_160x60.jpg);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QTabWidget" name="tabWidget">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>20</y>
+     <width>871</width>
+     <height>591</height>
+    </rect>
+   </property>
+   <property name="currentIndex">
+    <number>1</number>
+   </property>
+   <widget class="QWidget" name="tab_A_bis_F">
+    <attribute name="title">
+     <string>Websides von A bis F</string>
+    </attribute>
+    <widget class="QPushButton" name="Btn_BangBros">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>360</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>bangros</string>
+     </property>
+     <property name="whatsThis">
+      <string>BangBros</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/BangBros/bangbros_160x60.png);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Brazzers">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>430</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="whatsThis">
+      <string>Brazzers</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/Brazzers/brazzers_160x60.png);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_21Naturals">
+     <property name="geometry">
+      <rect>
+       <x>520</x>
+       <y>10</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>21Naturals</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/21Naturals/21Naturals_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_21Sextury">
+     <property name="geometry">
+      <rect>
+       <x>520</x>
+       <y>80</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>21Sextury</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/21Sextury/21Sextury_160x60.png);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_3rdDegree">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>150</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>3rdDegree</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/3rdDegree/3rdDegree_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_AllAnalAllTheTime">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>AllAnalAllTheTime</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/AllAnalAllTheTime/AllAnalAllTheTime_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_RealityJunkies">
+     <property name="geometry">
+      <rect>
+       <x>520</x>
+       <y>290</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>RealityJunkies</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/RealityJunkies/RealityJunkies_160x60.png);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_RealityKings">
+     <property name="geometry">
+      <rect>
+       <x>520</x>
+       <y>430</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>RealityKings</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image:url(:/gui/resource_collection_files/Logos/studios/RealityKings/RealityKings_160x60.jpg)
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Babes">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>290</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>Babes</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/Babes/Babes_160x60.png);
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_EvilAngel">
+     <property name="geometry">
+      <rect>
+       <x>690</x>
+       <y>80</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>EvilAngel</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/EvilAngel/EvilAngel_160x60.jpg)
+
+
+
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_EroticaX">
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>10</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>EroticaX</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/EroticaX/EroticaX_160x60.png);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_AnalJust">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>150</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>AnalJust</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/AnalJust/AnalJust_160x60.png);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_5KPornTeens">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>10</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>5KPornTeens</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/5KPornTeens/5KPornTeens_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_FirstAnalQuest">
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>80</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>FirstAnalQuest</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/FirstAnalQuest/FirstAnalQuest_160x60.png);
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_CherryPimps">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>570</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>CherryPimps</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/CherryPimps/CherryPimps_160x60.png);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Bang">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>500</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>Bang</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/Bang/Bang_160x60.png);
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_FootsieBabes">
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>150</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>FootsieBabes</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/FootsieBabes/FootsieBabes_160x60.png);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_DaneJones">
+     <property name="geometry">
+      <rect>
+       <x>520</x>
+       <y>360</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>DaneJones</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/DaneJones/DaneJones_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_RoccoSiffredi">
+     <property name="geometry">
+      <rect>
+       <x>690</x>
+       <y>10</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>rRccoSiffredi</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/RoccoSiffredi/RoccoSiffredi_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_21Sextreme">
+     <property name="geometry">
+      <rect>
+       <x>520</x>
+       <y>150</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>21Sextreme</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image:url(:/gui/resource_collection_files/Logos/studios/21Sextreme/21Sextreme_160x60.png)</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_LezCuties">
+     <property name="geometry">
+      <rect>
+       <x>520</x>
+       <y>220</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>LezCuties</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image:url(:/gui/resource_collection_files/Logos/studios/LezCuties/LezCuties_160x60.png)</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_EdgeQueens">
+     <property name="geometry">
+      <rect>
+       <x>690</x>
+       <y>150</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>EdgeQueens</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/EdgeQueens/EdgeQueens_160x60.jpg);
+
+
+
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_FamilyXXX">
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>220</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>FamilyXXX</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/FamilyXXX/FamilyXXX_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_NewSensations">
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>290</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTipDuration">
+      <number>-3</number>
+     </property>
+     <property name="whatsThis">
+      <string>NewSensations</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/NewSensations/NewSensations_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_AsianStreetMeat">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>220</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>AsianStreetMeat</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/AsianStreetMeat/asianstreetmeat_160x60.jpg);
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_AllFineGirls">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>80</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>AllFineGirls</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/AllFineGirls/AllFineGirls_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_G_bis_R">
+    <attribute name="title">
+     <string>Websides von G bis R</string>
+    </attribute>
+    <widget class="QPushButton" name="Btn_Private">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>Private</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/Private/Private_160x60.png);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_HardX">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>20</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>HardX</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/HardX/HardX_160x60.png);
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_DarkX">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>90</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTipDuration">
+      <number>-3</number>
+     </property>
+     <property name="whatsThis">
+      <string>DarkX</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/DarkX/DarkX_160x60.png);
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_PornBox">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>20</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>PornBox</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/PornBox/PornBox_160x60.png);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_NaughtyAmerica">
+     <property name="geometry">
+      <rect>
+       <x>530</x>
+       <y>90</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>NaughtyAmerica</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/NaughtyAmerica/NaughtyAmerica_160x60.png)
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_MomXXX">
+     <property name="geometry">
+      <rect>
+       <x>530</x>
+       <y>20</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>MomXXX</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/MomXXX/MomXXX_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_AnalVids">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>90</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>AnalVids</string>
+     </property>
+     <property name="whatsThis">
+      <string>AnalVids</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/AnalVids/AnalVids_160x90.jpg);
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_PerfectGonzo">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>300</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>PerfectGonzo</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/PerfectGonzo/PerfectGonzo_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Joymii">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>90</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>joymii</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/joymii/joymii_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Mofos">
+     <property name="geometry">
+      <rect>
+       <x>530</x>
+       <y>230</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>Mofos</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/Mofos/Mofos_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_HookupHotshot">
+     <property name="geometry">
+      <rect>
+       <x>700</x>
+       <y>20</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>HookupHotshot</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image:url(:/gui/resource_collection_files/Logos/studios/HookupHotshot/HookupHotshot_160x60.png)
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_LetsDoeit">
+     <property name="geometry">
+      <rect>
+       <x>530</x>
+       <y>300</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>LetsDoeit</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image:url(:/gui/resource_collection_files/Logos/studios/LetsDoeit/LetsDoeit_160x60.png)
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_PornWorld">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>230</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>PornWorld</string>
+     </property>
+     <property name="whatsThis">
+      <string>PornWorld</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/PornWorld/PornWorld_160x60.png);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_DDFNetwork">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>160</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>DDFNetwork</string>
+     </property>
+     <property name="whatsThis">
+      <string>DDFNetwork</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/DDFNetwork/DDFNetwork_160x60.jpg);
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_LegalPorno">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>370</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>LegalPorno</string>
+     </property>
+     <property name="whatsThis">
+      <string>LegalPorno</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/LegalPorno/LegalPorno_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_BlackInWhite">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>440</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>BlackInWhite</string>
+     </property>
+     <property name="whatsThis">
+      <string>BlackInWhite</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/BlackInWhite/BlackInWhite_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_DigitalPlayground">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>160</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTipDuration">
+      <number>-3</number>
+     </property>
+     <property name="whatsThis">
+      <string>DigitalPlayground</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/DigitalPlayground/DigitalPlayground_160x60.png);
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_HussiePass">
+     <property name="geometry">
+      <rect>
+       <x>700</x>
+       <y>90</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>HussiePass</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/HussiePass/HussiePass_160x60.jpg);
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Hitzefrei">
+     <property name="geometry">
+      <rect>
+       <x>700</x>
+       <y>160</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>Hitzefrei</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/Hitzefrei/Hitzefrei_160x60.jpg);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_TheWhiteBoxxx">
+     <property name="geometry">
+      <rect>
+       <x>530</x>
+       <y>370</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>TheWhiteBoxxx</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/LetsDoeit/TheWhiteBoxxx/TheWhiteBoxxx_160x90.jpg);
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_nuruMassage">
+     <property name="geometry">
+      <rect>
+       <x>530</x>
+       <y>160</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>nuruMassage</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/nuruMassage/nuruMassage_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Kink">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>160</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>Network 'Kink'</string>
+     </property>
+     <property name="whatsThis">
+      <string>Kink</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/Kink/Kink_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_S_bis_Z">
+    <attribute name="title">
+     <string>Websides von S bis Z</string>
+    </attribute>
+    <widget class="QPushButton" name="Btn_WTFPass">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>WTFPass</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/WTFPass/WTFPass_160x60.png)
+
+
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Straplezz">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>80</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="whatsThis">
+      <string>Straplezz</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/Straplezz/straplezz_160x60.png);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_TeamSkeet">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>10</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>TeamSkeet</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/TeamSkeet/TeamSkeet_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_TMW">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>150</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>TMW</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/TMW/TMW_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_ThatSitcomShow">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>80</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>ThatSitcomShow</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/ThatSitcomShow/ThatSitcomShow_160x60.png);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_SweetSinners">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>220</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>SweetSinners</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/SweetSinners/SweetSinners_160x60.png);
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_PureTaboo">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>290</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>PureTaboo</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/PureTaboo/PureTaboo_160x60.png);
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_StepSiblings">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>150</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>StepSiblings</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/StepSibling/StepSibling_160x60.png);
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_SeeHIMfuck">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>360</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>SeeHIMfuck</string>
+     </property>
+     <property name="whatsThis">
+      <string>SeeHIMFuck</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/HussiePass/SeeHIMFuck/SeeHIMFuck_160x60.jpg);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_VixenGroup">
+    <attribute name="title">
+     <string>VixenGroup</string>
+    </attribute>
+    <widget class="QPushButton" name="Btn_Tushy">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>Tushy</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/VixenGroup/Tushy/Tushy_160x60.png);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Blacked">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>80</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>Blacked</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/VixenGroup/Blacked/Blacked_160x60.png);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_BlackedRAW">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>150</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>Blackedraw</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/VixenGroup/BlackedRAW/BlackedRAW_160x60.png);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_TushyRAW">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>220</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>Tushyraw</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/VixenGroup/TushyRAW/TushyRAW_160x60.png);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Vixen">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>290</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>Vixen</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/VixenGroup/Vixen/Vixen_160x60.png);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab">
+    <attribute name="title">
+     <string>von Anal4k bis Tiny4K</string>
+    </attribute>
+    <widget class="QPushButton" name="Btn_Lubed">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>90</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>Lubed</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/Lubed/Lubed_160x60.png);
+
+
+
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_BBCPie">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>80</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>BBCPie</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/BBCPie/BBCPie_160x60.png);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Cum4K">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>150</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>Cum4K</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/Cum4K/Cum4K_160x60.png);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_PassionHD">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>220</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>PassionHD</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/Passion-HD/PassionHD_160x60.png);
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Tiny4K">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>290</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>Tiny4K</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/Tiny4K/Tiny4K_160x60.png);
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_GirlCum">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>290</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>GirlCum</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/GirlCum/GirlCum_160x60.png);
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Facials4K">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>220</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>Facials4K</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/Facials4K/Facials4K_160x60.png);
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_PureMature">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>150</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>PureMature</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/PureMature/PureMature_160x60.png);
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Anal4K">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>Anal4K</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/Anal4K/Anal4K_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Holed">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>20</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>Holed</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/Holed/Holed_160x60.png);
+
+
+
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Exotic4K">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>350</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>Exotic4K</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/Exotic4K/Exotic4K_160x60.jpg);
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_PornPros">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>350</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>PornPros</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/PornPros/PornPros_160x60.png);
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_CastingCouchX">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>420</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>CastingCouchX</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/CastingCouchX/CastingCouchX_160x60.png);
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_SpyFam">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>420</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>SpyFam</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/SpyFam/SpyFam_160x60.png);
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_POVD">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>490</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>POVD</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/POVD/POVD_160x60.png);
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Mom4K">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>490</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>Mom4K</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/Mom4K/Mom4K_160x60.png);
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_FantasyHD">
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>20</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>FantasyHD</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/FantasyHD/FantasyHD_160x60.png);
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_MyVeryFirstTime">
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>90</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>MyVeryFirstTime</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/MyVeryFirstTime/MyVeryFirstTime_160x60.png);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_NannySpy">
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>150</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>NannySpy</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/NannySpy/NannySpy_160x60.png);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_nubiles">
+    <attribute name="title">
+     <string>Nubiles + Co</string>
+    </attribute>
+    <widget class="QPushButton" name="Btn_NubilesFilms">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>NubilesFilms</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/NubilesFilms/NubilesFilms_160x60.png)</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_NubilesPorn">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>80</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>NubilesPorn</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/NubilesPorn/NubilesPorn_160x60.png)
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_BadTeensPunished">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>150</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>BadTeensPunished</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/BadPunishedTeens/BadPunishedTeens_160x60.png);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_PetiteHDPorn">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>220</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>PetiteHDPorn</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/PetiteHDPorn/PetiteHDPorn_160x60.png);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_MomsTeachSex">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>290</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>MomsTeachSex</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/MomsTeachSex/MomsTeachSex_160x60.png);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_myFamilyPies">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>360</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>myFamilyPies</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/MyFamilyPies/MyFamilyPies_160x60.png);
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_PrincessCUM">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>430</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>PrincessCUM</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/PrincessCUM/PrincessCUM_160x60.png);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_StepSiblingsCaught">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>10</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>StepSiblingsCaught</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/StepSiblingCaught/StepSiblingCaught_160x60.png);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_TeacherFucksTeens">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>80</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>TeacherFucksTeens</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/TeacherFucksTeens/TeacherFucksTeens_160x60.png);
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_Amateur">
+    <attribute name="title">
+     <string>Amateure</string>
+    </attribute>
+    <widget class="QPushButton" name="Btn_LaraJuicy">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>LaraJuicy</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/Amateur/LaraJuicy/LaraJuicy_160x60.jpg);
+color: rgb(85, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string>Lara Juicy</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_MYLF">
+    <attribute name="title">
+     <string>MYLF</string>
+    </attribute>
+    <widget class="QPushButton" name="Btn_AnalMom">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>AnalMom</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/AnalMom/AnalMom_160x60.png)
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_2">
+    <attribute name="title">
+     <string>FullpornNetwork</string>
+    </attribute>
+    <widget class="QPushButton" name="Btn_Analized">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>80</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>Analized</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/Analized/Analized_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_FullpornNetwork">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>10</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>FullpornNetwork</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/FullpornNetwork/FullpornNetwork_160x60.png);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_AbbieMarley">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>150</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>AbbieMarley</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/AbbieMarley/AbbieMarley_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_AnalAmateur">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>220</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>AnalAmateur</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/AnalAmateur/AnalAmateur_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_AnalBBC">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>290</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>AnalBBC</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/AnalBBC/AnalBBC_160x90.jpg);
+      
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_AnalViolation">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>360</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>AnalViolation</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/AnalViolation/AnalViolation_160x60.jpg);
+      
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_BadDaddyPOV">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>430</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>BadDaddyPOV</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/BadDaddyPOV/BadDaddyPOV_160x60.jpg);
+      
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_BadFamilyPOV">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>500</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>BadFamilyPOV</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/BadFamilyPOV/BadFamilyPOV_160x60.jpg);
+      
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_HerGape">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>360</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>HerGape</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/HerGape/HerGape_160x60.jpg);
+      
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_DaughterJOI">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>80</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>DaughterJOI</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/DaughterJOI/DaughterJOI_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_JamesDeen">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>500</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>JamesDeen</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/JamesDeen/JamesDeen_160x60.jpg);
+      
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_GirlFaction">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>290</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>GirlFaction</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/GirlFaction/GirlFaction_160x60.jpg);
+      
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_HomemadeAnalWhores">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>430</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>HomemadeAnalWhores</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/HomemadeAnalWhores/HomemadeAnalWhores_160x60.jpg);
+      
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_BadMommyPOV">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>10</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>BadMommyPOV</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/BadMommyPOV/BadMommyPOV_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_DTFsluts">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>220</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>DTFsluts</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/DTFsluts/DTFsluts_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_DownToFuckDating">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>150</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>DownToFuckDating</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/DownToFuckDating/DownToFuckDating_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_PorkVendors">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>360</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>PorkVendors</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/PorkVendors/PorkVendors_160x60.jpg);
+      
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_MommyJOI">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>80</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>MommyJOI</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/MommyJOI/MommyJOI_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_PublicSexDate">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>500</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>PublicSexDate</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/PublicSexDate/PublicSexDate_160x60.jpg);
+      
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_PervertGallery">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>290</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>PervertGallery</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/PervertGallery/PervertGallery_160x60.jpg);
+      
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_POVperverts">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>430</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>POVperverts</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/POVperverts/POVperverts_160x60.jpg);
+      
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_LesbianAnalSluts">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>10</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>LesbianAnalSluts</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/LesbianAnalSluts/LesbianAnalSluts_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_OnlyPrince">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>220</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>OnlyPrince</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/OnlyPrince/OnlyPrince_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_MugFucked">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>150</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>MugFucked</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/MugFucked/MugFucked_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_SlutInspection">
+     <property name="geometry">
+      <rect>
+       <x>530</x>
+       <y>150</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>SlutInspection</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/SlutInspection/SlutInspection_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_YourMomDoesANAL">
+     <property name="geometry">
+      <rect>
+       <x>700</x>
+       <y>290</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>YourMomDoesANAL</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/YourMomDoesANAL/YourMomDoesANAL_160x60.jpg);
+      
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_SheFucksOnTheFirstDate">
+     <property name="geometry">
+      <rect>
+       <x>530</x>
+       <y>80</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>SheFucksOnTheFirstDate</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/SheFucksOnTheFirstDate/SheFucksOnTheFirstDate_160x60.jpg);
+      
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_RealFuckingDating">
+     <property name="geometry">
+      <rect>
+       <x>530</x>
+       <y>10</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>RealFuckingDating</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/RealFuckingDating/RealFuckingDating_160x60.jpg);
+      
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_SluttyBBWs">
+     <property name="geometry">
+      <rect>
+       <x>530</x>
+       <y>360</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>SluttyBBWs</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/SluttyBBWs/SluttyBBWs_160x60.jpg);
+      
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_YourMomDoesPorn">
+     <property name="geometry">
+      <rect>
+       <x>700</x>
+       <y>360</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>YourMomDoesPorn</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/YourMomDoesPorn/YourMomDoesPorn_160x60.jpg);
+      
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_TeenageAnalSluts">
+     <property name="geometry">
+      <rect>
+       <x>530</x>
+       <y>500</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>TeenageAnalSluts</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/TeenageAnalSluts/TeenageAnalSluts_160x60.jpg);
+      
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_TeenageTryouts">
+     <property name="geometry">
+      <rect>
+       <x>700</x>
+       <y>80</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>TeenageTryouts</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/TeenageTryouts/TeenageTryouts_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_WifesPOV">
+     <property name="geometry">
+      <rect>
+       <x>700</x>
+       <y>220</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>WifesPOV</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/WifesPOV/WifesPOV_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_TeasingandPleasing">
+     <property name="geometry">
+      <rect>
+       <x>530</x>
+       <y>430</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>TeasingandPleasing</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/TeasingandPleasing/TeasingandPleasing_160x60.jpg);
+      
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_TeenageCorruption">
+     <property name="geometry">
+      <rect>
+       <x>700</x>
+       <y>10</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>TeenageCorruption</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/TeenageCorruption/TeenageCorruption_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_SlutsBTS">
+     <property name="geometry">
+      <rect>
+       <x>530</x>
+       <y>220</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>SlutsBTS</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/SlutsBTS/SlutsBTS_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_SlutsPOV">
+     <property name="geometry">
+      <rect>
+       <x>530</x>
+       <y>290</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>SlutsPOV</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/SlutsPOV/SlutsPOV_160x60.jpg);
+      
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_TwistedVisual">
+     <property name="geometry">
+      <rect>
+       <x>700</x>
+       <y>150</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>TwistedVisual</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/TwistedVisual/TwistedVisual_160x60.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="dogfart">
+    <attribute name="title">
+     <string>DogFart</string>
+    </attribute>
+    <widget class="QPushButton" name="Btn_WeFuckBlackGirls">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>160</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>WeFuckBlackGirls</string>
+     </property>
+     <property name="whatsThis">
+      <string>WeFuckBlackGirls</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/gui/resource_collection_files/Logos/studios/DogFart/WeFuckBlackGirls/WeFuckBlackGirls_160x90.jpg);
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <zorder>tabWidget</zorder>
+  <zorder>Btn_Zurueck</zorder>
+  <zorder>Btn_NoLogo</zorder>
+ </widget>
+ <resources>
+  <include location="../resource_collection_files/logo.qrc"/>
+  <include location="../resource_collection_files/buttons.qrc"/>
+ </resources>
+ <connections/>
+</ui>
