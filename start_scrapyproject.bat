@@ -1,3 +1,0 @@
-scrapy startproject hussiepass_video
-cd hussiepass_video
-scrapy genspider hussiepass

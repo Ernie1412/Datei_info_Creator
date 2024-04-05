@@ -1,1 +1,0 @@
-from .file_transfer_thread import ExifSaveThread, FileTransferThread
