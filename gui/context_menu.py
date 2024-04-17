@@ -14,16 +14,19 @@ import errno
 
 from gui.performer_add_del_dialog import PerformerAddDel
 from utils.database_settings.database_for_settings import Webside_Settings, SettingsData
+from utils.web_scapings.iafd.update_iafd_performer import UpdateIAFDPerformer
 from utils.web_scapings.datenbank_scene_maske import DatenbankSceneMaske
-from utils.web_scapings.scape_iafd import ScrapeIAFDScene
-from utils.web_scapings.scrape_data18 import ScrapeData18
+from utils.web_scapings.iafd.scrape_iafd_scene import ScrapeIAFDScene
+from utils.web_scapings.iafd.scrape_iafd_performer import ScrapeIAFDPerformer
+from utils.web_scapings.data18.scrape_data18_scene import ScrapeData18Scene
 from gui.helpers.set_tootip_text import SetTooltipText
 from utils.helpers.check_biowebsite_status import CheckBioWebsiteStatus
 from utils.web_scapings.scrap_with_requests import VideoUpdater
 from utils.database_settings.database_for_darsteller import DB_Darsteller
 from utils.web_scapings.load_performer_images_from_websites import LoadPerformerImages
-from utils.web_scapings.performer_infos_maske import PerformerInfosMaske
-from utils.web_scapings.iafd_performer_link import IAFDInfos
+from utils.web_scapings.datenbank_performer_maske import DatenbankPerformerMaske
+from gui.context_menus.helpers.refresh_nameslink_table import RefreshNameslinkTable
+
 
 from gui.helpers.message_show import MsgBox, StatusBar, blink_label
 
@@ -38,7 +41,7 @@ class ContextMenu(QMenu):
     add_namesid=pyqtSignal(int, dict, int) # artist_id, names_link_satz, studio_id
     def __init__(self, parent = None):
         super().__init__()
-        self.Main = parent
+        self.Main = parent        
         self.dialog_shown = False        
         self.add_name_and_ordner.connect(self.perfomer_add_resultsignal) 
         self.merge_ids.connect(self.merge_performer_resultsignal) 
@@ -101,16 +104,21 @@ class ContextMenu(QMenu):
                 is_vorhanden=True
                 break
         if is_vorhanden == False:
-            performer_infos_maske = PerformerInfosMaske(self.Main)
+            datenbank_performer_maske = DatenbankPerformerMaske(self.Main)
             row_count = self.Main.tblWdg_performer_links.rowCount()
             self.Main.tblWdg_performer_links.setRowCount(row_count+1)
             self.Main.tblWdg_performer_links.setItem(row_count, 0, QTableWidgetItem(f'{names_link_satz["NamesID"]}'))
             self.Main.tblWdg_performer_links.setItem(row_count, 1, QTableWidgetItem(f'{names_link_satz["Link"]}'))
             self.Main.tblWdg_performer_links.setItem(row_count, 2, QTableWidgetItem(f'{names_link_satz["Image"]}'))
             self.Main.tblWdg_performer_links.setItem(row_count, 3, QTableWidgetItem(f'{names_link_satz["Alias"]}'))
-            performer_infos_maske.setColortoRow(self.Main.tblWdg_performer_links,row_count,'#FFFD00')
-            performer_infos_maske.set_icon_in_tablewidget(row_count, names_link_satz["Image"]) 
-        self.Main.tblWdg_performer_links.resizeColumnsToContents()     
+            datenbank_performer_maske.setColortoRow(self.Main.tblWdg_performer_links,row_count,'#FFFD00')
+            datenbank_performer_maske.set_icon_in_tablewidget(row_count, names_link_satz["Image"]) 
+        self.Main.tblWdg_performer_links.resizeColumnsToContents()
+
+    def refresh_performer_links_tabelle(self):
+        datenbank_performer_maske = DatenbankPerformerMaske(self.Main)
+        refresh_nameslink_table = RefreshNameslinkTable(self.Main, datenbank_performer_maske)
+        refresh_nameslink_table.refresh_performer_links_tabelle()    
     ### -------------------------- Zeile löschen --------------------------------- ### 
     def delete_item(self):
         name=self.Main.lnEdit_performer_info.text()
@@ -183,45 +191,17 @@ class ContextMenu(QMenu):
         if iafd_artist_id != -1: # kein iafd link gefunden, neu anlegen
             return "IAFD Link schon da", 0
         else:
-            iafd_infos = IAFDInfos(MainWindow=self.Main)
+            iafd_infos = ScrapeIAFDPerformer(MainWindow=self.Main)
             iafd_infos.load_IAFD_performer_link(iafd_link, str(iafd_artist_id), name) # IAFD daten von der website scrapen 
-            performer_infos_maske = PerformerInfosMaske(self.Main)
-            message = performer_infos_maske.update_iafd_datensatz_from_json(artist_id, ordner) # performer update with iafd datas
-            perfid = performer_infos_maske.get_perfid_from_iafd_link(iafd_link)
-            performer_infos_maske.names_link_from_iafd(ordner, perfid, iafd_link, artist_id, datenbank_darsteller) # iafd names datensatz neu anlegen
+            datenbank_performer_maske = DatenbankPerformerMaske(self.Main)
+            update_iafd_performer = UpdateIAFDPerformer(self.Main)
+            message = datenbank_performer_maske.update_iafd_datensatz_from_json(artist_id, ordner) # performer update with iafd datas
+            perfid = update_iafd_performer.get_perfid_from_iafd_link(iafd_link)
+            update_iafd_performer.names_link_from_iafd(ordner, perfid, iafd_link, artist_id, datenbank_darsteller) # iafd names datensatz neu anlegen
             return message, 1  
     ### ------------------------------------------------------------------------------------------- ###
     
-    ### ------------------- Refresh Performer Links Tabelle --------------------------------------- ###
-    def refresh_performer_links_tabelle(self): 
-        name=self.Main.lnEdit_performer_info.text()
-        images: list=[]
-        if self.Main.tblWdg_performer_links.rowCount()>-1 and name:
-            performer_infos_maske = PerformerInfosMaske(self.Main)
-            datenbank_darsteller=DB_Darsteller(MainWindow=self.Main)
-            nameslink_datenbank = datenbank_darsteller.get_quell_links(self.Main.tblWdg_performer.selectedItems()[0].text()) #ArtistID -> DB_NamesLink.NamesID
-            for zeile,(id, link, image, alias) in enumerate(zip(*nameslink_datenbank)):
-                self.Main.tblWdg_performer_links.setRowCount(zeile+1)
-                self.Main.tblWdg_performer_links.setItem(zeile,0,QTableWidgetItem(f"{id}"))            
-                self.Main.tblWdg_performer_links.setItem(zeile,1,QTableWidgetItem(link))
-                self.Main.tblWdg_performer_links.setItem(zeile,2,QTableWidgetItem(image))
-                images.append(PROJECT_PATH / image)
-                self.Main.tblWdg_performer_links.setItem(zeile,3,QTableWidgetItem(alias))
-                performer_infos_maske.set_icon_in_tablewidget(zeile, image)            
-            self.Main.tblWdg_performer_links.resizeColumnsToContents()
-            self.delete_new_images(images)            
-        else:
-            self.Main.lbl_db_status.setText("Kein Name oder nichts in der Tabelle drin !") 
-    
-    def delete_new_images(self, images: list) -> None:
-        folder = Path(PROJECT_PATH / "__artists_Images" / self.Main.lnEdit_performer_ordner.text())
-        if Path(folder).exists() and self.Main.lnEdit_performer_ordner.text() != "":# alle Dateien, die nicht in 'images' enthalten löschen
-            [file.unlink() for file in folder.glob('*') if str(file.name) not in [str(image.name) for image in images]]
-        if Path(folder).exists() and len(list(folder.iterdir())) == 0:
-            try:
-                Path(folder).unlink()
-            except FileNotFoundError as e:
-                print(f"delete_new_images {e} -> {folder} bei: {images}")
+
     ### ------------------------------------------------------------------------------------------- ###
             
     ### --------------------- Lade Bild von Website ----------------------------------------------- ###
@@ -416,18 +396,18 @@ class ContextMenu(QMenu):
         self.context_menu.close()
         del self.context_menu
         datenbank_darsteller = DB_Darsteller(self.Main) 
-        performer_infos_maske = PerformerInfosMaske(self.Main) 
+        datenbank_performer_maske = DatenbankPerformerMaske(self.Main) 
         message: str="" 
         names_link_satz = []        
         if self.Main.lnEdit_performer_info.text()=="":
-            performer_infos_maske = PerformerInfosMaske(MainWindow=self.Main)
-            performer_infos_maske.artist_infos_in_maske()        
+            datenbank_performer_maske = DatenbankPerformerMaske(MainWindow=self.Main)
+            datenbank_performer_maske.artist_infos_in_maske()        
         list_source_2 = datenbank_darsteller.get_quell_links(artist_id)
         if list_source_2 == [[], [], [], []]:
             message += self.delete_old_artist_id(artist_id, datenbank_darsteller)
             MsgBox(self, f"<table border='1'><tr><th>  Performer Link Tabelle  </th></tr>{message}</table>","i")
             return
-        dict_source = performer_infos_maske.nameslink_datensatz_in_dict(names_link_satz)
+        dict_source = datenbank_performer_maske.nameslink_datensatz_in_dict(names_link_satz)
         list_source_1 = self.from_dict_to_list(dict_source)        
         data_source_1 = self.database_to_dict(*list_source_1)
         data_source_2 = self.database_to_dict(*list_source_2)
@@ -682,7 +662,7 @@ class ContextMenu(QMenu):
             iafd_scene.synopsis_abfrage_iafd(content, link) 
             check_status.check_loaded_labelshow("IAFD")
         elif link.startswith("https://www.data18.com/scenes/"):
-            data18_scene = ScrapeData18(self.Main)
+            data18_scene = ScrapeData18Scene(self.Main)
             check_status.check_loading_labelshow("Data18")
             content = data18_scene.open_url(link, "Data18") 
             data18_scene.synopsis_abfrage_data18(content, link)
@@ -721,7 +701,7 @@ class ContextMenu(QMenu):
             iafd_scene.akas_abfrage_iafd(content, link) 
             check_status.check_loaded_labelshow("IAFD")
         if link.startswith("https://www.data18.com/scenes/"):
-            data18_scene = ScrapeData18(self.Main)                
+            data18_scene = ScrapeData18Scene(self.Main)                
             check_status.check_loading_labelshow("Data18")    
             content = iafd_scene.open_url(link, "Data18") 
             iafd_scene.movies_abfrage_data18(content, link)
@@ -736,7 +716,7 @@ class ContextMenu(QMenu):
             iafd_scene.release_abfrage_iafd(content, link)
             check_status.check_loaded_labelshow("IAFD") 
         if link.startswith("https://www.data18.com/scenes/"):
-            data18_scene = ScrapeData18(self.Main)  
+            data18_scene = ScrapeData18Scene(self.Main)  
             check_status.check_loading_labelshow("Data18")     
             content = data18_scene.open_url(link, "Data18") 
             data18_scene.release_abfrage_data18(content, link)
@@ -751,7 +731,7 @@ class ContextMenu(QMenu):
             iafd_scene.serie_abfrage_iafd(content, link) 
             check_status.check_loaded_labelshow("IAFD")
         if link.startswith("https://www.data18.com/scenes/"):
-            data18_scene = ScrapeData18(MainWindow=self.Main)   
+            data18_scene = ScrapeData18Scene(MainWindow=self.Main)   
             check_status.check_loading_labelshow("Data18")     
             content = data18_scene.open_url(link, "Data18") 
             data18_scene.serie_abfrage_data18(content, link)

@@ -22,7 +22,7 @@ class Einstellungen(QDialog):
         self.lade_einstellung()
 
 
-    def einstellung_save(self, last_directory: str="",exiftool: str=None, webscraping: str=None,save: str=None, theporndb_apikey: str=None, tpdb_image_counter: int=1):       
+    def einstellung_save(self, last_directory: str="",exiftool: str=None, webscraping: str=None,save: str=None, theporndb_apikey: str="", tpdb_image_counter: int=0):       
         if Path(EINSTELLUNGEN_JSON_PATH).exists():
             set: dict=json.loads(EINSTELLUNGEN_JSON_PATH.read_bytes())
             exiftool = set["InfosExifTool"] if exiftool is None else exiftool
@@ -30,7 +30,7 @@ class Einstellungen(QDialog):
             save = set["Speichern"] if save is None else save
             last_directory = set["LastDir"] if last_directory =="" else last_directory
             theporndb_apikey = set["theporndb_apikey"] if theporndb_apikey =="" else theporndb_apikey
-            tpdb_image_counter = set["tpdb_image_counter"] if tpdb_image_counter ==0 else tpdb_image_counter
+            tpdb_image_counter = set["tpdb_image_counter"] if tpdb_image_counter == 0 else tpdb_image_counter
         else:
             MsgBox(self.main, "Einstellungs Datei wurde neu angelegt !","i") 
         
@@ -68,9 +68,9 @@ class Einstellungen(QDialog):
         dialog = QFileDialog.getExistingDirectory(self,"Ordner öffnen",set["LastDir"])  
         if dialog:
             directory = Path(dialog)   
-            if str(directory)!=set["LastDir"]:
-                self.einstellung_save(str(directory))
-                self.lbl_LastDIR.setText(str(directory))            
+            if str(directory)!=set["LastDir"]:                
+                self.lbl_LastDIR.setText(str(directory))
+                self.einstellung_save(str(directory))  
         else: 
             directory = None
         return directory 
@@ -78,17 +78,21 @@ class Einstellungen(QDialog):
 
     def accept_settings(self):
         if self.chkBox_Speichern.isChecked():
-            self.einstellung_save("",
-                self.chkBox_InfosExifTool.isChecked(),
-                self.chkBox_WebScraping.isChecked(),
-                self.chkBox_Speichern.isChecked(),
-                self.lnEdit_theporndb_apikey.text(),
-                self.spinBox_tpdb_image_counter.value()
-                )
+            settings = self.get_settings_from_ui()
+            self.einstellung_save(*settings)
             StatusBar(self.main, "Einstellungen gespeichert","#efffa7")#hellgelb)
         else:
             StatusBar(self.main, "KEINE Einstellungen gespeichert !","#ffea9e")#orangegelb)
         self.hide() 
+
+    def get_settings_from_ui(self):
+        return [self.lbl_LastDIR.text(),
+            self.chkBox_InfosExifTool.isChecked(),
+            self.chkBox_WebScraping.isChecked(),
+            self.chkBox_Speichern.isChecked(),
+            self.lnEdit_theporndb_apikey.text(),
+            self.spinBox_tpdb_image_counter.value()
+                ]
 
 if __name__ == '__main__':
     app, DialogWindow =(QApplication(sys.argv), Einstellungen())

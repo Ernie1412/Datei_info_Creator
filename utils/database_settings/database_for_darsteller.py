@@ -874,6 +874,7 @@ class DB_Darsteller:
         errview: str=None        
         is_update: bool=False
         updates = []
+        del performer_data['Rassen']
         for key, value in performer_data.items():
             if value is None:
                 updates.append(f"{key} = NULL")
@@ -952,7 +953,7 @@ class DB_Darsteller:
     def update_or_add_rassen_datensatz(self, rassen_ids: list, artist_id: int) -> Tuple[str, bool]:
         errview: str = None
         update_or_add: int = 0 
-        is_update: bool=False       
+        is_changed: bool=False       
         # ------ Datenbankverbindung öffnen ------- #
         self.open_database()
         if self.db.isOpen(): 
@@ -969,19 +970,15 @@ class DB_Darsteller:
                 if existing_person_id is None:
                     # PersonID nicht gefunden, also hinzufügen
                     errview, added = self.add_rassen_datensatz(rassen_id, artist_id, errview)
-                    update_or_add += added
-                else:
-                    # PersonID gefunden, also aktualisieren
-                    errview, update = self.update_rasseid_datensatz(existing_person_id, rassen_id, artist_id, errview)
-                    update_or_add += update
+                    update_or_add += added                
             # Überprüfen, ob Änderungen vorgenommen wurden
-            is_update = update_or_add == (len(rassen_ids) or len(existing_personids_rassenids))                
+            is_changed = update_or_add == (len(rassen_ids) or len(existing_personids_rassenids))                
         else:
             errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.update_or_add_rassen_datensatz.__name__}'" if self.db.lastError().text() else errview          
         if errview:
             self.db_fehler(errview)
         self.close_database()
-        return errview, is_update
+        return errview, is_changed
     
     def get_existing_rassen_ids(self, artist_id: int, errview: str) -> list:
         existing_person_rassen_ids: list = []
@@ -1039,7 +1036,7 @@ class DB_Darsteller:
     def update_or_add_nation_datensatz(self, nation_ids: list, artist_id: int) -> Tuple[str, bool]:
         errview: str = None
         update_or_add: int = 0 
-        is_update: bool=False       
+        is_changed: bool=False       
         # ------ Datenbankverbindung öffnen ------- #
         self.open_database()
         if self.db.isOpen(): 
@@ -1056,19 +1053,15 @@ class DB_Darsteller:
                 if existing_person_id is None:
                     # PersonID nicht gefunden, also hinzufügen
                     errview, added = self.add_nation_datensatz(nation_id, artist_id, errview)
-                    update_or_add += added
-                else:
-                    # PersonID gefunden, also aktualisieren
-                    errview, update = self.update_nationid_datensatz(existing_person_id, nation_id, artist_id, errview)
-                    update_or_add += update
+                    update_or_add += added                
             # Überprüfen, ob Änderungen vorgenommen wurden
-            is_update = update_or_add == (len(nation_ids) or len(existing_personids_nationids))                
+            is_changed = update_or_add == (len(nation_ids) or len(existing_personids_nationids))                
         else:
             errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.update_or_add_nation_datensatz.__name__}'" if self.db.lastError().text() else errview          
         if errview:
             self.db_fehler(errview)
         self.close_database()
-        return errview, is_update
+        return errview, is_changed
     
     def get_existing_nation_ids(self, artist_id: int, errview: str) -> list:
         existing_person_nation_ids: list = []
@@ -1296,7 +1289,7 @@ class DB_Darsteller:
         return artist_data.get_data() 
 
     
-    def get_iafd_image(self, artist_id: int=0, name=None) -> Tuple[str, str]:            
+    def get_biowebsite_image(self, site, artist_id) -> Tuple[str, str]:            
         errview = None
         image_pfad: str=None  
         images: str=None      
@@ -1304,53 +1297,23 @@ class DB_Darsteller:
         self.open_database()
         if self.db.isOpen():
             with self.managed_query() as query:
-                query.prepare(f"SELECT DB_NamesLink.ArtistID, DB_NamesLink.Image FROM DB_Artist LEFT JOIN DB_NamesLink ON DB_NamesLink.ArtistID = DB_Artist.ArtistID WHERE DB_NamesLink.ArtistID = :ArtistID AND (DB_Artist.Name = :Name OR :Name IS NULL);")
-                query.bindValue(":ArtistID", artist_id) 
-                query.bindValue(":Name", name)               
+                query.prepare(f"SELECT DB_NamesLink.ArtistID, DB_NamesLink.Image FROM DB_Artist LEFT JOIN DB_NamesLink ON DB_NamesLink.ArtistID = DB_Artist.ArtistID WHERE DB_NamesLink.ArtistID = :ArtistID;")
+                query.bindValue(":ArtistID", artist_id)                               
                 query.exec()                
                 while query.next(): 
                     images=query.value("DB_NamesLink.Image")                     
-                    if "[IAFD]" in images:
+                    if f"[{site}]" in images:
                         image_pfad=images 
-                        break  
-                    errview = f"'{self.get_iafd_image.__name__}': {errview} (query1)" if query.lastError().text() else errview
-                errview = (errview or f"keine ID:{artist_id} für IAFD Image gefunden in 'Links'") if not query.lastError().text() and not image_pfad else query.lastError().text()
-                errview = f"'{self.get_iafd_image.__name__}': {errview} (query)" if errview and "keine " not in str(errview) else errview
+                        break 
+                errview = (errview or f"keine ID:{artist_id} für {site} Image gefunden in 'Links'") if not query.lastError().text() and not image_pfad else query.lastError().text()
+                errview = f"'{self.get_biowebsite_image.__name__}': {errview} (query)" if errview and "keine " not in str(errview) else errview
             del query
         else:
-            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.get_iafd_image.__name__}'" if self.db.lastError().text() else errview          
+            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.get_biowebsite_image.__name__}'" if self.db.lastError().text() else errview          
         if errview:
             self.db_fehler(errview)
         self.close_database()               
-        return errview, image_pfad
-    
-    def get_babepedia_image(self, artist_id: int=0, name=None) -> Tuple[str, str]:            
-        errview = None
-        image_pfad: str=None  
-        images: str=None      
-        
-        self.open_database()
-        if self.db.isOpen():
-            with self.managed_query() as query:
-                query.prepare(f"SELECT DB_NamesLink.ArtistID, DB_NamesLink.Image FROM DB_Artist LEFT JOIN DB_NamesLink ON DB_NamesLink.ArtistID = DB_Artist.ArtistID WHERE DB_NamesLink.ArtistID = :ArtistID OR DB_Artist.Name = :Name;")
-                query.bindValue(":ArtistID", artist_id) 
-                query.bindValue(":Name", name)               
-                query.exec()                
-                while query.next(): 
-                    images=query.value("DB_NamesLink.Image")                     
-                    if "[BabePedia]" in images:
-                        image_pfad=images 
-                        break  
-                    errview = f"'{self.get_babepedia_image.__name__}': {errview} (query1)" if query.lastError().text() else None
-                #errview = (errview or f"keine ID:{artist_id} für BabePedia Image gefunden in 'Links'") if not query.lastError().text() and not image_pfad else query.lastError().text()
-                errview = f"'{self.get_babepedia_image.__name__}': {errview} (query)" if errview else errview #and "keine " not in str(errview)
-            del query
-        else:
-            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.get_babepedia_image.__name__}'" if self.db.lastError().text() else errview          
-        if errview:
-            self.db_fehler(errview)
-        self.close_database()               
-        return errview, image_pfad
+        return errview, image_pfad   
 
 if __name__ == "__main__":
     DB_Darsteller()

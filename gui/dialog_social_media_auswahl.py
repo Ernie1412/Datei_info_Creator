@@ -30,25 +30,7 @@ class SocialMediaAuswahl(QDialog):
         self.accepted.connect(self.accepted_socialmedias)
         self.rejected.connect(self.close)                 
 
-    def accepted_socialmedias(self):        
-        checked_items = self.cBox_socialmedia.get_checked_items()
-        button_number = 0
-        while button_number <= self.maxlabels and checked_items:
-            button = getattr(self.Main, f"Btn_performers_socialmedia_{button_number}")
-            if not button.isVisible():
-                text, icon = checked_items.pop(0)  # Entferne das erste Element aus der Liste
-                try:
-                    button.clicked.disconnect()            
-                except TypeError:
-                    pass
-                button.clicked.connect(lambda state, num=button_number: SocialMediaLink(button=str(num), parent=self.Main).exec())
-                button.setToolTip(text)
-                button.setIcon(icon)
-                button.setVisible(True)
-                self.Main.Btn_DBArtist_Update.setEnabled(True)
-            button_number += 1
-        if button_number > self.maxlabels:
-            StatusBar(self.Main, "Maximale Anzahl von Buttons erreicht", "#F78181")
+
            
 
 if __name__ == '__main__':

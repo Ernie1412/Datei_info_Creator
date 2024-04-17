@@ -48,5 +48,4 @@ def blink_label(self, label_widget, farbe):
     getattr(self, label_widget).setStyleSheet(f'background-color: {farbe}')
     QTimer.singleShot(1000, lambda :getattr(self, label_widget).setStyleSheet('background-color: '))
     QTimer.singleShot(2000, lambda :getattr(self, label_widget).setStyleSheet(f'background-color: {farbe}'))
-    QTimer.singleShot(3000, lambda :getattr(self, label_widget).setStyleSheet('background-color: '))
-
+    QTimer.singleShot(3000, lambda :getattr(self, label_widget).setStyleSheet('background-color: #FFFDD5'))

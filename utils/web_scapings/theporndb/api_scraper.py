@@ -26,6 +26,13 @@ class TPDB_Scraper:
         else:
             return None
         
+    def check_tpdb_data(url: str):
+        header, key = TPDB_Scraper.get_header()
+        if not key:
+            return header
+        request = Http.head(url, headers=header)
+        return request.status_code
+        
     
         
     def get_header():

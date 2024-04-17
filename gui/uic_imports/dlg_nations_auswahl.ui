@@ -218,7 +218,7 @@
   <customwidget>
    <class>CustomComboBoxCheck</class>
    <extends>QComboBox</extends>
-   <header location="global">gui.custom_cBox_check</header>
+   <header location="global">gui.custom_widgets.custom_cBox_check</header>
   </customwidget>
  </customwidgets>
  <resources>

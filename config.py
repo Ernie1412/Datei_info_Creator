@@ -25,6 +25,8 @@ DATENBANK_JSON_PATH = Path(__file__).absolute().parent / "jsons/datenbank.json"
 DB_RECORD_JSON = Path(__file__).absolute().parent / 'jsons/db_record.json'
 WEBINFOS_JSON_PATH = Path(__file__).absolute().parent / 'jsons/webinfos.json'
 
+LOG_THEPORNDB_JSON_FOLDER = Path(__file__).absolute().parent / 'log_files/tpdb'
+
 DB_PATH = Path(__file__).absolute().parent / '__DB/'
 PROJECT_PATH = Path(__file__).absolute().parent
 ICON_PATH = PROJECT_PATH / 'grafics/_buttons/'
@@ -49,6 +51,7 @@ SOCIAL_MEDIA_AUSWAHL_UI = Path(__file__).absolute().parent / "gui/uic_imports/dl
 SOCIAL_MEDIA_LINK_UI = Path(__file__).absolute().parent / "gui/uic_imports/dialog_set_socialmedia_link.ui"
 PERFORM_MASK_SELECTION_UI = Path(__file__).absolute().parent / "gui/uic_imports/dialog_auswahl_buttons.ui"
 SRACPE_ACTOR_INFOS_UI = Path(__file__).absolute().parent / "gui/uic_imports/dialog_gui/dialog_scrape_actor_infos.ui"
+SHOW_LOG_DIALOG_THEPORNDB_UI = Path(__file__).absolute().parent / "gui/uic_imports/dialog_gui/dialog_show_last_log_theporndb.ui"
 
 ### ------------------- Pfade zu den Datenbanken --------------------- ###
 SETTINGS_DB_PATH = str(Path(__file__).absolute().parent / '__DB/Webside_Settings.db')

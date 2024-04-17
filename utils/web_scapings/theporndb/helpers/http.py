@@ -17,6 +17,7 @@ class Http:
             req = requests.request(method, url, verify=False, **kwargs)
         except Exception as e:
             logging.error(e)
+            print(e)
             pass
         return req
 

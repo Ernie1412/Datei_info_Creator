@@ -1,9 +1,10 @@
 from PyQt6.QtCore import QTimer
 from PyQt6.QtWidgets import QApplication
 
+
 from gui.helpers.message_show import MsgBox
 
-class CheckBioWesiteStatus:
+class CheckBioWebsiteStatus:
     def __init__(self, MainWindow):
             
             super().__init__() 
@@ -54,3 +55,4 @@ class CheckBioWesiteStatus:
         code = error.code if hasattr(error, 'code') else "N/A"            
         getattr(self.Main, f"lbl_checkWeb_{widget}URL").setStyleSheet("background-image: url(':/labels/_labels/error.png')")            
         getattr(self.Main, f"lbl_checkWeb_{widget}URL").setToolTip(str(error)) 
+    

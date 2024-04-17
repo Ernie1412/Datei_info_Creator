@@ -70,7 +70,7 @@ class DatenbankSceneMaske():
             self.Main.lnEdit_DBThePornDBLink.textChanged.disconnect()  # deaktiven 
             set_daten_maske.set_daten_in_maske("lnEdit_DB", "ThePornDBLink", "Datenbank", tpdb_link) 
             self.Main.lnEdit_DBThePornDBLink.textChanged.connect(self.Main.Web_ThePornDB_change) # aktiven
-            self.Main.lbl_checkWeb_TPDBURL.setStyleSheet("background-image: url(':/labels/_labels/check.png')")
+            self.Main.lbl_checkWeb_ThePornDBURL.setStyleSheet("background-image: url(':/labels/_labels/check.png')")
         ### ----------- IAFD Link in Maske packen ------------ ###
         if self.Main.tblWdg_daten.selectedItems()[3]:
             self.Main.lnEdit_DBIAFDLink.textChanged.disconnect() # deaktiven      

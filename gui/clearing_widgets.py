@@ -82,9 +82,10 @@ class ClearingWidget():
     def performers_tab_widgets(self, type_of_widget: str) -> list:
         widget_list=[]
         iafd_artist = ["IAFD_artistAlias", "DBIAFD_artistLink"]
-        lineedits = ["hair", "eye", "birthplace", "birthday", "boobs", "body", "activ", "height", "weight"]
+        lineedits = ["hair", "birthplace", "birthday", "boobs", "body", "activ", "height", "weight"]
         tooltips = ["sex", "rasse", "nation", "fanside"]
         textedits = ["piercing", "tattoo"]
+        combos = ["eye", "rasse"]
         if "tooltip" in type_of_widget:
             widget_list.append(tooltips + lineedits + textedits)
         if "line_" in type_of_widget:
@@ -106,6 +107,9 @@ class ClearingWidget():
         if "iafd_" in type_of_widget:
             for artist in iafd_artist:
                 widget_list.append(artist)
+        if "combo_perf" in type_of_widget:
+            for combo in combos:
+                widget_list.append(f"cBox_performer_{combo}")  
         return widget_list
 
     def clear_maske(self):
@@ -113,9 +117,9 @@ class ClearingWidget():
         a= self.performers_tab_widgets("performer_text_iafd_")                 
         elements_to_reset = [
             (self.tooltip_claering, self.performers_tab_widgets("tooltip")),            
-            (self.clear_label_and_tooltip, ["iafd_image", "babepedia_image", "link_image_from_db"]),
+            (self.clear_label_and_tooltip, ["iafd_image", "theporndb_image", "freeones_image", "thenude_image", "indexxx_image", "babepedia_image", "link_image_from_db"]),
             (self.clear_line_edit_and_tooltip, self.performers_tab_widgets("performer_line_iafd_")),
-            (self.clear_combobox_and_list, ["performer_rasse"]),
+            (self.clear_combobox_and_list, ["performer_rasse", "performer_eye"]),
             (self.clear_text_edit, self.performers_tab_widgets("textprefix_perf")),
             (self.set_default_table, ["performer_links"]),
             (self.clear_nations, [0,1,2,3,4,5,6]),
@@ -134,8 +138,11 @@ class ClearingWidget():
 
     def clear_combobox_and_list(self,widget_name: str ) -> None:        
         widget = getattr(self.Main, f"cBox_{widget_name}", None)
-        if widget and widget_name in ["performer_rasse"]:
-            widget.uncheck_all_items()     
+        if widget and widget_name in ["performer_rasse"]: 
+            widget.uncheck_all_items() # CustomQComboBox Einstellung
+        else:
+            widget.setCurrentIndex(0)    
+        widget.setToolTip("")    
 
     def clear_text_edit(self,widget_name: str ) -> None:
         widget = getattr(self.Main, f"{widget_name}", None)
@@ -195,15 +202,17 @@ class ClearingWidget():
 
         if not analyse_button:    
             self.Main.lbl_SuchStudio.clear()
-            self.Main.Btn_logo_am_analyse_tab.setStyleSheet("background-image: url(':/Buttons/_buttons/no-logo_90x40.jpg')")
-            self.Main.Btn_logo_am_analyse_tab.setToolTip("kein Studio ausgewählt !")
+            icon_logo, studio = self.Main.set_nologo_button()
+            self.Main.Btn_logo_am_analyse_tab.setIcon(icon_logo) 
+            self.Main.Btn_logo_am_analyse_tab.setToolTip(studio)
                     
         if not (tab_dateiinfo and table_files and analyse_button and table_files): 
-            self.Main.cBox_studio_links.clear() 
-            self.Main.Btn_logo_am_infos_tab.setStyleSheet("background-image: url(':/Buttons/_buttons/no-logo_90x40.jpg')") 
-            self.Main.Btn_logo_am_infos_tab.setToolTip("kein Studio ausgewählt !")
-            self.Main.Btn_logo_am_db_tab.setStyleSheet("background-image: url(':/Buttons/_buttons/no-logo_90x40.jpg')")
-            self.Main.Btn_logo_am_db_tab.setToolTip("kein Studio ausgewählt !") 
+            self.Main.cBox_studio_links.clear()
+            icon_logo, studio = self.Main.set_nologo_button() 
+            self.Main.Btn_logo_am_infos_tab.setIcon(icon_logo) 
+            self.Main.Btn_logo_am_infos_tab.setToolTip(studio)
+            self.Main.Btn_logo_am_db_tab.setIcon(icon_logo) 
+            self.Main.Btn_logo_am_db_tab.setToolTip(studio)
             self.buttons_enabled(False, ["Laden", "Speichern", "Refresh"])
 
         if self.Main.lbl_Dateiname.text()!="":self.Main.Btn_Speichern.setEnabled(True)
@@ -216,7 +225,7 @@ class ClearingWidget():
         theporndb = self.Main.lnEdit_DBThePornDBLink
         button="Btn_Linksuche_in_"
         
-        getattr(self.Main,f"{button}TPDB").setEnabled(theporndb and bolean)
+        getattr(self.Main,f"{button}ThePornDB").setEnabled(theporndb and bolean)
         getattr(self.Main,f"{button}Data18").setEnabled(bool(data18.text()) and bolean)
         getattr(self.Main,f"{button}IAFD").setEnabled(bool(iafd.text()) and bolean)       
 

@@ -66,7 +66,7 @@ class Webside_Settings:
         self.open_database()
         if self.db.isOpen():
             with self.managed_query() as query:
-                query.prepare("UPDATE WebScrapping_Settings SET lastVisite = :lastVisite, Page_onSide = COALESCE(:Page_onSide,Page_onSide) WHERE Name = :Name;")
+                query.prepare("UPDATE WebScrapping_Settings SET lastVisite = :lastVisite, Page_onSide = COALESCE(:Page_onSide,Page_onSide) WHERE Studio = :Name;")
                 query.bindValue(":lastVisite",lastVisite)
                 query.bindValue(":Name",studio)
                 query.bindValue(":Page_onSide",Page_onSide)                
@@ -78,59 +78,6 @@ class Webside_Settings:
             self.db_fehler(errview)
         self.close_database()
 
-
-    # def addArtistInfos(self,studio_low,Studio,logo,DateiOrdner,Film,Film_Attri,WebSide,Regie,Artist,Artist_Attri,Artist_Single,Artist_Sleep,Artist_Gross,Artist_Sex,ErstellDatum,ErstellDatum_Art,NebenSide,NebenSide_Attri,Beschreibung,Beschreibung_Attri,Beschreibung_Clicks,Tags,Tags_Attri,Tags_Clicks,Tags_Sleep,Tags_Gross,Titel,Titel_Attri):
-    #     errview: str=None
-
-    #     self.open_database()
-    #    if self.db.isOpen(): 
-    #         with self.managed_query() as query:
-    #             query.prepare("SELECT SettingID FROM WebScrapping_Settings WHERE Name = :Name;")
-    #             query.bindValue(":Name",Studio)
-    #             query.exec()        
-    #             if query.next():
-    #                 errview = f"{query.lastError().text()} (query)" if query.lastError().text() else errview
-    #                 setting_id=query.value("SettingID")  
-    #             with self.managed_query() as query:      
-    #                 query.prepare("INSERT INTO Scrap_MovieInfos (ArtistID, pornside_low,  SettingID,  logo, DateiOrdner, WebSide,Film,Film_Attri,\
-    #                     Regie, Artist, Artist_Attri, Artist_Single, Artist_Sleep, Artist_Gross, Artist_Sex, ReleaseDate, ReleaseDate_Art, NebenSide, \
-    #                     NebenSide_Attri, Beschreibung, Beschreibung_Attri, Beschreibung_Clicks, Tags, Tags_Attri, Tags_Clicks, Tags_Sleep, Tags_Gross,\
-    #                     Titel, Titel_Attri) VALUES (NULL, :pornside_low, :SettingID, :logo, :DateiOrdner, :WebSide, :Film,:Film_Attri, :Regie, :Artist, \
-    #                     :Artist_Attri, :Artist_Single, :Artist_Sleep, :Artist_Gross, :Artist_Sex, :ReleaseDate, :ReleaseDate_Art, :NebenSide, \
-    #                     :NebenSide_Attri, :Beschreibung, :Beschreibung_Attri, :Beschreibung_Clicks, :Tags, :Tags_Attri, :Tags_Clicks, :Tags_Sleep, \
-    #                     :Tags_Gross, :Titel, :Titel_Attri)")
-    #                 query.bindValue(":pornside_low", studio_low)
-    #                 query.bindValue(":logo", logo)
-    #                 query.bindValue(":DateiOrdner", DateiOrdner)
-    #                 query.bindValue(":Film", Film)
-    #                 query.bindValue(":Film_Attri", Film_Attri)
-    #                 query.bindValue(":WebSide", WebSide)
-    #                 query.bindValue(":Regie", Regie)
-    #                 query.bindValue(":Artist", Artist)
-    #                 query.bindValue(":Artist_Attri", Artist_Attri)
-    #                 query.bindValue(":ReleaseDate", ErstellDatum)
-    #                 query.bindValue(":NebenSide", NebenSide)
-    #                 query.bindValue(":NebenSide_Attri", NebenSide_Attri)
-    #                 query.bindValue(":Beschreibung", Beschreibung)
-    #                 query.bindValue(":Beschreibung_Attri", Beschreibung_Attri)
-    #                 query.bindValue(":Beschreibung_Clicks", Beschreibung_Clicks)
-    #                 query.bindValue(":Tags", Tags)
-    #                 query.bindValue(":Tags_Attri", Tags_Attri)
-    #                 query.bindValue(":Tags_Clicks", Tags_Clicks)
-    #                 query.bindValue(":Titel", Titel)
-    #                 query.bindValue(":Titel_Attri", Titel_Attri)
-    #                 query.bindValue(":SettingID", int(setting_id))
-    #                 query.bindValue(":Artist_Single", int(Artist_Single))
-    #                 query.bindValue(":Artist_Sleep", int(Artist_Sleep))
-    #                 query.bindValue(":Artist_Gross", int(Artist_Gross))
-    #                 query.bindValue(":Artist_Sex", int(Artist_Sex))
-    #                 query.bindValue(":ReleaseDate_Art", int(ErstellDatum_Art))
-    #                 query.bindValue(":Tags_Sleep", int(Tags_Sleep))
-    #                 query.bindValue(":Tags_Gross", int(Tags_Gross))         
-    #                 query.exec()        
-    #     else:
-    #         self.db_fehler()
-    #     self.db.close()
     ##################################################################
     ##### ------------ updates von Datenpakete ---------------- ######
     ##################################################################
@@ -150,27 +97,7 @@ class Webside_Settings:
         if errview:
             self.db_fehler(errview)
         self.close_database()
-        return errview  
-    
-    ##### ------------ hole ganze Datenpakete ---------------- ######
-    #################################################################
-    # def hole_suchinfos(self,studio):   ### muss überarbeitet werden !!!
-    #     errview: str = None
-    #     settings_data = SettingsData()
-
-    #     self.open_database()
-    #    if self.db.isOpen():        
-    #         with self.managed_query() as query:
-    #             query.prepare(f"SELECT ViewAll,WebScrapping_Settings.last_side,WebScrapping_Settings.ein_weiter,WebScrapping_Settings.Artist_page,\
-    #                           Maske,Artist,Artist_Attri,Artist_Gross,Titel,Titel_Attri,Link,Link_Attri,Link_Single,Image,Such_Infos.Image_Attri,\
-    #                           Such_Infos.Image_Wordcut,Such_Infos.Image_Single,Dauer,Dauer_Attri,Dauer_Single,ReleaseDate,ReleaseDate_Attri,NebenSide,\
-    #                           NebenSide_Attri FROM Such_Infos INNER JOIN WebScrapping_Settings ON WebScrapping_Settings.SettingID = \
-    #                           Such_Infos.SettingID WHERE Name='{studio}';")
-    #             query.exec()        
-    #             if query.next():
-    #                 video_data = settings_data.initialize(query.record())
-                  
-    #     return video_data     
+        return errview   
     
     def get_videodatas_from_baselink(self, link: str) -> str:              
         errview: str = None
@@ -195,57 +122,6 @@ class Webside_Settings:
         self.close_database()        
         return errview, settings_data
     
-    
-    # def query_hole_settings_artist(self, studio): ### muss überarbeit werden ! ###
-    #     query = self.managed_query()
-    #     query.prepare("SELECT * FROM WebScrapping_Settings WHERE Name=:Name;")
-    #     query.bindValue(":Name", studio)
-    #     query.exec()
-    #     return query ### muss überarbeit werden ! ###
-    
-    # def hole_settings_artist(self, studio: str) -> Tuple [str, dict]:
-    #     errorview: str = None         
-    #     settings_data = SettingsData()
-
-    #     self.open_database()        
-    #     if self.db.isOpen():
-    #         with self.managed_query() as query:
-    #             query.prepare("SELECT * From WebScrapping_Settings WHERE Name = :Studio;")
-    #             query.bindValue(":Studio", studio) 
-    #             if query.next():
-    #                 video_data = settings_data.initialize(query.record())
-    #                 errorview = query.lastError().text()
-    #             else:
-    #                 errorview = "keine Daten für Artist"
-    #     else:
-    #         self.db_fehler("Fehler beim Performer Settings holen (db)",self.db) 
-    #     self.db.close()
-    #     return errorview, video_data
-
-    ##### ------------ hole einzelne Daten ---------------- ######
-    ##############################################################
-    # def get_movie_settings_for_titel(self, baselink: str) -> Tuple [str, str, str]:  ### funktion noch nicht in Benutzung ###
-    #     errview: str = None
-    #     titel: str = None 
-    #     titel_attri: str = None
-
-    #     self.open_database()
-    #     if self.db.isOpen():        
-    #         with self.managed_query() as query:
-    #             query.prepare("SELECT Titel, Titel_Attri From Scrap_MovieInfos WHERE WebSide=:link;")
-    #             query.bindValue(":link", baselink)
-    #             query.exec()        
-    #             if query.next(): 
-    #                 titel=query.value("Titel")
-    #                 titel_attri=query.value("Titel_Attri") 
-    #                 errview = query.lastError().text()              
-    #             else:
-    #                 errview = "kein Titel Daten gefunden"
-    #     else:
-    #         self.db_fehler("Fehler beim holen von Titel-Settings (db)",self.db)
-    #     self.db.close()
-    #     return errview, titel, titel_attri    
-
     def get_movie_settings_for_tags(self, baselink: str) -> Tuple [str, str, str]:
         errview: str= None
         tags: str = None
@@ -336,7 +212,7 @@ class Webside_Settings:
                 "Scrap_ArtistInfos.Name_title," \
                 "Scrap_ArtistInfos.Image," \
                 "Scrap_ArtistInfos.Image_Attri,"\
-                "WebScrapping_Settings.Name," \
+                "WebScrapping_Settings.Studio," \
                 "WebScrapping_Settings.java" \
                 " FROM WebScrapping_Settings" \
                 " INNER JOIN Scrap_ArtistInfos ON " \
@@ -351,7 +227,7 @@ class Webside_Settings:
                     image_url_title=query.value("Scrap_ArtistInfos.Name_title")  
                     name_element_xpath=query.value("Scrap_ArtistInfos.Image") 
                     name_element_attri=query.value("Scrap_ArtistInfos.Image_Attri")
-                    studio=query.value("WebScrapping_Settings.Name")
+                    studio=query.value("WebScrapping_Settings.Studio")
                     java=query.value("WebScrapping_Settings.java")
                     errview = f"'{self.hole_artist_image.__name__}': {query.lastError().text()} (query1)" if query.lastError().text() else None
                 else:  
@@ -511,29 +387,6 @@ class Webside_Settings:
         return errview, last_page, last_page_attri, homepage, start_click, video_page
     
     ### ---- einzelen Daten holen für Programmstruktur ----------- ####
-    def get_buttonlogo_from_studio(self, studio: str) -> Tuple[str, str, str]: 
-        errview: str = None         
-        logo: str  = None 
-
-        self.open_database()
-        if self.db.isOpen(): # öffnet die datenbank mit einem contex Manager               
-            with self.managed_query() as query: 
-                query.prepare(f"SELECT WebScrapping_Settings.Name, logo From Scrap_MovieInfos INNER JOIN WebScrapping_Settings ON WebScrapping_Settings.SettingID = Scrap_MovieInfos.SettingID WHERE Name = :Studio;")
-                query.bindValue(":Studio", studio)
-                query.exec()        
-                if query.next():                    
-                    studio = query.value("WebScrapping_Settings.Name") 
-                    logo = query.value("logo") 
-                    errview = f"'{self.get_buttonlogo_from_studio.__name__}': {errview} (query1)" if query.lastError().text() else errview                   
-                else:
-                    errview = f"'{self.get_buttonlogo_from_studio.__name__}': {errview} (query)" if query.lastError().text() else (errview or "kein Studio-Logo/Name gefunden")
-            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.get_buttonlogo_from_studio.__name__}'" if self.db.lastError().text() else errview
-            del query
-        if errview:
-            self.db_fehler(errview)
-        self.close_database()
-        return errview, studio, logo
-
     def hole_verschiebe_ordner(self, studio: str) -> Tuple[str, str]:
         errview: str = None
         datei_ordner: str = None 
@@ -541,7 +394,7 @@ class Webside_Settings:
         self.open_database()
         if self.db.isOpen(): # öffnet die datenbank mit einem contex Manager           
             with self.managed_query() as query:
-                query.prepare("SELECT DateiOrdner FROM Scrap_MovieInfos INNER JOIN WebScrapping_Settings ON WebScrapping_Settings.SettingID = Scrap_MovieInfos.SettingID WHERE Name=:Studio;")
+                query.prepare("SELECT DateiOrdner FROM Scrap_MovieInfos INNER JOIN WebScrapping_Settings ON WebScrapping_Settings.SettingID = Scrap_MovieInfos.SettingID WHERE Studio=:Studio;")
                 query.bindValue(":Studio", studio)
                 query.exec()
                 if query.next():                    
@@ -555,6 +408,44 @@ class Webside_Settings:
             self.db_fehler(errview)
         self.close_database()
         return errview, datei_ordner
+    
+    def get_all_studios_from_settingdb(self) -> list:
+        errview: str=None
+        studios: list=[]
+        
+        self.open_database()
+        if self.db.isOpen():            
+            with self.managed_query() as query:                 
+                query.prepare("SELECT Studio FROM WebScrapping_Settings;")                               
+                query.exec()                                                          
+                while query.next():                    
+                    studios.append(query.value("Studio"))               
+            errview = f"Fehler: {query.lastError().text()} (db) beim der Funktion:'{self.get_all_studios.__name__}'" if query.lastError().text() else errview
+            del query
+        if errview:
+            self.db_fehler(errview)
+        self.close_database()         
+        return studios 
+
+    def get_network_for_studio(self, studio: str) -> str:
+        errview: str = None
+        network: str = None
+
+        self.open_database()
+        if self.db.isOpen():            
+            with self.managed_query() as query:                 
+                query.prepare("SELECT Network_tpdb FROM Studio_Alias LEFT JOIN WebScrapping_Settings ON WebScrapping_Settings.SettingID = Studio_Alias.SettingID WHERE  WebScrapping_Settings.Studio=:Studio;")  
+                query.bindValue(":Studio", studio)                             
+                query.exec()                                                          
+                if query.next():                    
+                    network = query.value("Network_tpdb")               
+            errview = f"Fehler: {self.db.lastError().text()} (db) beim der Funktion:'{self.get_network_for_studio.__name__}'" if self.db.lastError().text() else errview
+            del query
+        if errview:
+            self.db_fehler(errview)
+        self.close_database()         
+        return network 
+        
 
     ##### ------------ Überprüfungen ---------------- ######
     ########################################################   
@@ -565,7 +456,7 @@ class Webside_Settings:
         self.open_database()
         if self.db.isOpen(): # öffnet die datenbank mit einem contex Manager   
             with self.managed_query() as query:
-                query.prepare("SELECT Name FROM WebScrapping_Settings WHERE Name = :Studio;") 
+                query.prepare("SELECT Studio FROM WebScrapping_Settings WHERE Studio = :Studio;") 
                 query.bindValue(":Studio", studio)
                 query.exec()
                 if query.next():
@@ -609,11 +500,11 @@ class Webside_Settings:
         self.open_database()
         if self.db.isOpen(): # öffnet die datenbank mit einem contex Manager               
             with self.managed_query() as query:                 
-                query.prepare('SELECT Name FROM Webscrapping_Settings WHERE Homepage = :BaseLink;')
+                query.prepare('SELECT Studio FROM Webscrapping_Settings WHERE Homepage = :BaseLink;')
                 query.bindValue(":BaseLink",link)                
                 query.exec()                           
                 if query.next():                
-                    studio = query.value("Name")
+                    studio = query.value("Studio")
                     errview = f"kein Studio gefunden für {link}" if not query.lastError().text() and not studio else query.lastError().text()
                 else:                                         
                     errview = f"'{self.from_link_to_studio.__name__}': {errview} (query)" if query.lastError().text() else (errview or "keinen Studio gefunden")                
@@ -632,7 +523,7 @@ class Webside_Settings:
         self.open_database()
         if self.db.isOpen(): # öffnet die datenbank mit einem contex Manager               
             with self.managed_query() as query:                 
-                query.prepare(f'SELECT Homepage FROM Webscrapping_Settings WHERE Name = :Studio;')
+                query.prepare(f'SELECT Homepage FROM Webscrapping_Settings WHERE Studio = :Studio;')
                 query.bindValue(":Studio",studio)                
                 query.exec()                                                                          
                 while query.next():
@@ -655,15 +546,16 @@ class Webside_Settings:
         self.open_database()
         if self.db.isOpen(): # öffnet die datenbank mit einem contex Manager   
             with self.managed_query() as query:
-                query.prepare("SELECT Name, Studio_Alias.Serie FROM WebScrapping_Settings JOIN Studio_Alias ON SettingID = Studio_Alias.SettingsID WHERE Studio_Alias.Serie_Alias = :Serie_Alias;") 
-                query.bindValue(":Serie_Alias",studio_raw)
+                query.prepare("SELECT WebScrapping_Settings.Studio, Studio_Alias.Studio FROM WebScrapping_Settings LEFT JOIN Studio_Alias ON Studio_Alias.SettingID = WebScrapping_Settings.SettingID WHERE Studio_Alias.Studio_link = :Studio_link;") 
+                query.bindValue(":Studio_link",studio_raw)
                 query.exec()
                 if query.next():
-                    studio=query.value("Name")
-                    serie=query.value("Studio_Alias.Serie")
-                    errview = f"kein Studio für {studio_raw}" if not query.lastError().text() and not studio else query.lastError().text()
+                    studio = query.value("WebScrapping_Settings.Studio")
+                    serie = query.value("Studio_Alias.Studio") 
+                    if studio==serie:
+                        serie = None
                 else:
-                    errview = f"'{self.from_studio_to_subside_for_iafd.__name__}': {errview} (query)" if query.lastError().text() else (errview or f"kein Studio für {studio_raw}")
+                    errview = f"'{self.from_studio_to_subside_for_iafd.__name__}': {query.lastError().text()} (query)" if query.lastError().text() else None
             errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.from_studio_to_subside_for_iafd.__name__}'" if self.db.lastError().text() else errview
             del query
         if errview:

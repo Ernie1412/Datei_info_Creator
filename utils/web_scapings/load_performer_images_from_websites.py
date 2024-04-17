@@ -13,7 +13,7 @@ import re
 import ast
 from pathlib import Path
 from utils.database_settings.database_for_settings import Webside_Settings
-from utils.web_scapings.performer_infos_maske import PerformerInfosMaske
+from utils.web_scapings.datenbank_performer_maske import DatenbankPerformerMaske
 from gui.helpers.message_show import StatusBar
 
 from config import HEADERS, PROJECT_PATH
@@ -55,12 +55,16 @@ class LoadPerformerImages():
                 # with open(str(PROJECT_PATH / 'index.html'), 'wb') as f:
                 #     f.write(response.content)                 
             finally:            
-                return content    
+                return content  
+
+    def get_table_data(self, row, column):
+        index = self.Main.tblWdg_performer_links.model().index(row, column) 
+        return self.Main.tblWdg_performer_links.model().data(index)  
 
     def load_website_image_in_label(self): 
         image_url: str=""
-        url = self.Main.tblWdg_performer_links.selectedItems()[1].text()
-        current_row = self.Main.tblWdg_performer_links.currentRow() 
+        current_row = self.Main.tblWdg_performer_links.currentRow()
+        url = self.get_table_data(current_row, 1) 
         base_url = self.get_base_url(url)
         webside_settings = Webside_Settings(MainWindow=self.Main)
         name_element_xpath, name_element_attri, name_element_title, image_url_xpath, image_url_attri, studio, java = webside_settings.hole_artist_image(base_url)
@@ -78,7 +82,7 @@ class LoadPerformerImages():
         except (etree.XPathEvalError, TypeError, ValueError) as e:
             StatusBar(self.Main,f"Fehler beim laden vom Image-Name. Fehler: {e} bei Studio: {studio}","#FF0000")
             self.Main.tblWdg_performer_links.setItem(current_row,2,QTableWidgetItem(""))
-            PerformerInfosMaske(self.Main).setColortoRow(self.Main.tblWdg_performer_links,current_row, '#FFFD00') 
+            DatenbankPerformerMaske(self.Main).setColortoRow(self.Main.tblWdg_performer_links,current_row, '#FFFD00') 
             return
         try:
             image_element = content.xpath(image_url_xpath)
@@ -126,7 +130,7 @@ class LoadPerformerImages():
         self.Main.tblWdg_performer_links.setItem(current_row,3,QTableWidgetItem(alias))        
         self.Main.tblWdg_performer_links.setItem(current_row,2,QTableWidgetItem(image_pfad))
         if (alias or image_pfad):
-            PerformerInfosMaske(self.Main).setColortoRow(self.Main.tblWdg_performer_links,current_row, '#FFFD00')
+            DatenbankPerformerMaske(self.Main).setColortoRow(self.Main.tblWdg_performer_links,current_row, '#FFFD00')
         if image_pfad:
             self.Main.Btn_performer_next.setGeometry(label_width+20,140,20,50)                                                
             self.Main.lbl_link_image_from_db.setGeometry(20, 20, label_width, label_height)         

@@ -12,14 +12,156 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(943, 426)
-        Dialog.setModal(True)
+        Dialog.setWindowModality(QtCore.Qt.WindowModality.WindowModal)
+        Dialog.resize(924, 428)
+        Dialog.setModal(False)
+        self.gridLayout = QtWidgets.QGridLayout(Dialog)
+        self.gridLayout.setObjectName("gridLayout")
+        self.Btn_get_DB_data_in_dialog = QtWidgets.QPushButton(parent=Dialog)
+        self.Btn_get_DB_data_in_dialog.setMinimumSize(QtCore.QSize(0, 20))
+        self.Btn_get_DB_data_in_dialog.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.Btn_get_DB_data_in_dialog.setStyleSheet("QPushButton { \n"
+"    color: rgb(0, 0, 127);\n"
+"    selection-background-color: rgb(255, 85, 0);\n"
+"    background-color: rgb(198, 178, 255);\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    font: 8pt \"MS Shell Dlg 2\";\n"
+"    border-radius: 5px;\n"
+"    border-color: beige;\n"
+"}                   \n"
+"QPushButton:enabled{\n"
+"    background-color: rgb(198, 178, 255);\n"
+"}                           \n"
+"QPushButton:pressed{ \n"
+"    background: red;\n"
+"}                            \n"
+"QPushButton:disabled{                             \n"
+"    background-color: gray;                \n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 85, 255);\n"
+"}   ")
+        self.Btn_get_DB_data_in_dialog.setObjectName("Btn_get_DB_data_in_dialog")
+        self.gridLayout.addWidget(self.Btn_get_DB_data_in_dialog, 1, 2, 1, 1)
+        self.Btn_set_DB_data_in_dialog = QtWidgets.QPushButton(parent=Dialog)
+        self.Btn_set_DB_data_in_dialog.setEnabled(False)
+        self.Btn_set_DB_data_in_dialog.setMinimumSize(QtCore.QSize(0, 20))
+        self.Btn_set_DB_data_in_dialog.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.Btn_set_DB_data_in_dialog.setStyleSheet("QPushButton { \n"
+"    color: rgb(0, 0, 127);\n"
+"    selection-background-color: rgb(255, 85, 0);\n"
+"    background-color: rgb(198, 178, 255);\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    font: 8pt \"MS Shell Dlg 2\";\n"
+"    border-radius: 5px;\n"
+"    border-color: beige;\n"
+"}                   \n"
+"QPushButton:enabled{\n"
+"    background-color: rgb(198, 178, 255);\n"
+"}                           \n"
+"QPushButton:pressed{ \n"
+"    background: red;\n"
+"}                            \n"
+"QPushButton:disabled{                             \n"
+"    background-color: gray;                \n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 85, 255);\n"
+"}   ")
+        self.Btn_set_DB_data_in_dialog.setObjectName("Btn_set_DB_data_in_dialog")
+        self.gridLayout.addWidget(self.Btn_set_DB_data_in_dialog, 1, 1, 1, 1)
+        self.Btn_upload_datas = QtWidgets.QPushButton(parent=Dialog)
+        self.Btn_upload_datas.setMinimumSize(QtCore.QSize(0, 20))
+        self.Btn_upload_datas.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.Btn_upload_datas.setStyleSheet("QPushButton { \n"
+"    color: rgb(0, 0, 127);\n"
+"    selection-background-color: rgb(255, 85, 0);\n"
+"    background-color: rgb(198, 178, 255);\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    font: 8pt \"MS Shell Dlg 2\";\n"
+"    border-radius: 5px;\n"
+"    border-color: beige;\n"
+"}                   \n"
+"QPushButton:enabled{\n"
+"    background-color: rgb(198, 178, 255);\n"
+"}                           \n"
+"QPushButton:pressed{ \n"
+"    background: red;\n"
+"}                            \n"
+"QPushButton:disabled{                             \n"
+"    background-color: gray;                \n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 85, 255);\n"
+"}   ")
+        self.Btn_upload_datas.setObjectName("Btn_upload_datas")
+        self.gridLayout.addWidget(self.Btn_upload_datas, 1, 0, 1, 1)
+        self.Btn_accept = QtWidgets.QPushButton(parent=Dialog)
+        self.Btn_accept.setMinimumSize(QtCore.QSize(0, 20))
+        self.Btn_accept.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.Btn_accept.setStyleSheet("QPushButton { \n"
+"    color: rgb(0, 0, 127);\n"
+"    selection-background-color: rgb(255, 85, 0);\n"
+"    background-color: rgb(198, 178, 255);\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    font: 8pt \"MS Shell Dlg 2\";\n"
+"    border-radius: 5px;\n"
+"    border-color: beige;\n"
+"}                   \n"
+"QPushButton:enabled{\n"
+"    background-color: rgb(198, 178, 255);\n"
+"}                           \n"
+"QPushButton:pressed{ \n"
+"    background: red;\n"
+"}                            \n"
+"QPushButton:disabled{                             \n"
+"    background-color: gray;                \n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 85, 255);\n"
+"}   ")
+        self.Btn_accept.setObjectName("Btn_accept")
+        self.gridLayout.addWidget(self.Btn_accept, 1, 7, 1, 1)
+        self.lbl_loading_progress = QtWidgets.QLabel(parent=Dialog)
+        self.lbl_loading_progress.setText("")
+        self.lbl_loading_progress.setObjectName("lbl_loading_progress")
+        self.gridLayout.addWidget(self.lbl_loading_progress, 1, 3, 1, 3)
+        self.Btn_show_last_log = QtWidgets.QPushButton(parent=Dialog)
+        self.Btn_show_last_log.setMinimumSize(QtCore.QSize(0, 20))
+        self.Btn_show_last_log.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.Btn_show_last_log.setStyleSheet("QPushButton { \n"
+"    color: rgb(0, 0, 127);\n"
+"    selection-background-color: rgb(255, 85, 0);\n"
+"    background-color: rgb(198, 178, 255);\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    font: 8pt \"MS Shell Dlg 2\";\n"
+"    border-radius: 5px;\n"
+"    border-color: beige;\n"
+"}                   \n"
+"QPushButton:enabled{\n"
+"    background-color: rgb(198, 178, 255);\n"
+"}                           \n"
+"QPushButton:pressed{ \n"
+"    background: red;\n"
+"}                            \n"
+"QPushButton:disabled{                             \n"
+"    background-color: gray;                \n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 85, 255);\n"
+"}   ")
+        self.Btn_show_last_log.setObjectName("Btn_show_last_log")
+        self.gridLayout.addWidget(self.Btn_show_last_log, 1, 6, 1, 1)
         self.tabWidget = QtWidgets.QTabWidget(parent=Dialog)
-        self.tabWidget.setGeometry(QtCore.QRect(20, 10, 911, 371))
         self.tabWidget.setObjectName("tabWidget")
-        self.actor_info = QtWidgets.QWidget()
-        self.actor_info.setObjectName("actor_info")
-        self.layoutWidget_9 = QtWidgets.QWidget(parent=self.actor_info)
+        self.tab_actor_info = QtWidgets.QWidget()
+        self.tab_actor_info.setObjectName("tab_actor_info")
+        self.layoutWidget_9 = QtWidgets.QWidget(parent=self.tab_actor_info)
         self.layoutWidget_9.setGeometry(QtCore.QRect(490, 110, 190, 22))
         self.layoutWidget_9.setObjectName("layoutWidget_9")
         self.HLayout_birthday = QtWidgets.QHBoxLayout(self.layoutWidget_9)
@@ -47,8 +189,8 @@ class Ui_Dialog(object):
         self.lnEdit_performer_birthday.setPlaceholderText("kein Eintrag")
         self.lnEdit_performer_birthday.setObjectName("lnEdit_performer_birthday")
         self.HLayout_birthday.addWidget(self.lnEdit_performer_birthday)
-        self.layoutWidget = QtWidgets.QWidget(parent=self.actor_info)
-        self.layoutWidget.setGeometry(QtCore.QRect(50, 80, 190, 22))
+        self.layoutWidget = QtWidgets.QWidget(parent=self.tab_actor_info)
+        self.layoutWidget.setGeometry(QtCore.QRect(10, 80, 215, 22))
         self.layoutWidget.setObjectName("layoutWidget")
         self.HLayout_hair_colour = QtWidgets.QHBoxLayout(self.layoutWidget)
         self.HLayout_hair_colour.setContentsMargins(0, 0, 0, 0)
@@ -56,27 +198,41 @@ class Ui_Dialog(object):
         self.lblactor_hair_colour = QtWidgets.QLabel(parent=self.layoutWidget)
         self.lblactor_hair_colour.setObjectName("lblactor_hair_colour")
         self.HLayout_hair_colour.addWidget(self.lblactor_hair_colour)
-        self.lnEdit_performer_hair = ClickableQLineEdit(parent=self.layoutWidget)
-        self.lnEdit_performer_hair.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
-        self.lnEdit_performer_hair.setStyleSheet("QLineEdit,QTextEdit { \n"
-"background-color: #FFFDD5;}\n"
-"QLineEdit:hover,QTextEdit:hover {\n"
-"border: 2px solid rgb(49, 50, 62);}\n"
-"QLineEdit:focus,QTextEdit:focus {\n"
-"border: 2px inset rgb(85, 170, 255);}\n"
-"QLineEdit::placeholderText { \n"
-"color: rgb(213, 213, 213);}\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"")
-        self.lnEdit_performer_hair.setText("")
-        self.lnEdit_performer_hair.setPlaceholderText("kein Eintrag")
-        self.lnEdit_performer_hair.setObjectName("lnEdit_performer_hair")
-        self.HLayout_hair_colour.addWidget(self.lnEdit_performer_hair)
-        self.layoutWidget_8 = QtWidgets.QWidget(parent=self.actor_info)
-        self.layoutWidget_8.setGeometry(QtCore.QRect(490, 80, 291, 22))
+        self.cBox_performer_hair = QtWidgets.QComboBox(parent=self.layoutWidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.cBox_performer_hair.sizePolicy().hasHeightForWidth())
+        self.cBox_performer_hair.setSizePolicy(sizePolicy)
+        self.cBox_performer_hair.setMinimumSize(QtCore.QSize(133, 0))
+        self.cBox_performer_hair.setMaximumSize(QtCore.QSize(133, 16777215))
+        self.cBox_performer_hair.setStyleSheet("background-color: #FFFDD5")
+        self.cBox_performer_hair.setObjectName("cBox_performer_hair")
+        self.cBox_performer_hair.addItem("")
+        self.cBox_performer_hair.setItemText(0, "")
+        self.cBox_performer_hair.addItem("")
+        self.cBox_performer_hair.addItem("")
+        self.cBox_performer_hair.addItem("")
+        self.cBox_performer_hair.addItem("")
+        self.cBox_performer_hair.addItem("")
+        self.cBox_performer_hair.addItem("")
+        self.cBox_performer_hair.addItem("")
+        self.cBox_performer_hair.addItem("")
+        self.cBox_performer_hair.addItem("")
+        self.HLayout_hair_colour.addWidget(self.cBox_performer_hair)
+        self.chkBox_actor_hair = QtWidgets.QCheckBox(parent=self.layoutWidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.chkBox_actor_hair.sizePolicy().hasHeightForWidth())
+        self.chkBox_actor_hair.setSizePolicy(sizePolicy)
+        self.chkBox_actor_hair.setMinimumSize(QtCore.QSize(19, 20))
+        self.chkBox_actor_hair.setMaximumSize(QtCore.QSize(20, 20))
+        self.chkBox_actor_hair.setText("")
+        self.chkBox_actor_hair.setObjectName("chkBox_actor_hair")
+        self.HLayout_hair_colour.addWidget(self.chkBox_actor_hair)
+        self.layoutWidget_8 = QtWidgets.QWidget(parent=self.tab_actor_info)
+        self.layoutWidget_8.setGeometry(QtCore.QRect(490, 80, 311, 22))
         self.layoutWidget_8.setObjectName("layoutWidget_8")
         self.HLayout_bithplace = QtWidgets.QHBoxLayout(self.layoutWidget_8)
         self.HLayout_bithplace.setContentsMargins(0, 0, 0, 0)
@@ -103,8 +259,8 @@ class Ui_Dialog(object):
         self.lnEdit_performer_birthplace.setPlaceholderText("kein Eintrag")
         self.lnEdit_performer_birthplace.setObjectName("lnEdit_performer_birthplace")
         self.HLayout_bithplace.addWidget(self.lnEdit_performer_birthplace)
-        self.layoutWidget_11 = QtWidgets.QWidget(parent=self.actor_info)
-        self.layoutWidget_11.setGeometry(QtCore.QRect(490, 140, 190, 22))
+        self.layoutWidget_11 = QtWidgets.QWidget(parent=self.tab_actor_info)
+        self.layoutWidget_11.setGeometry(QtCore.QRect(490, 170, 171, 22))
         self.layoutWidget_11.setObjectName("layoutWidget_11")
         self.HLayout_boobs = QtWidgets.QHBoxLayout(self.layoutWidget_11)
         self.HLayout_boobs.setContentsMargins(0, 0, 0, 0)
@@ -132,14 +288,17 @@ class Ui_Dialog(object):
         self.lnEdit_performer_boobs.setPlaceholderText("kein Eintrag")
         self.lnEdit_performer_boobs.setObjectName("lnEdit_performer_boobs")
         self.HLayout_boobs.addWidget(self.lnEdit_performer_boobs)
-        self.layoutWidget_2 = QtWidgets.QWidget(parent=self.actor_info)
-        self.layoutWidget_2.setGeometry(QtCore.QRect(701, 141, 107, 22))
+        self.chkBox_fake_boobs = QtWidgets.QCheckBox(parent=self.layoutWidget_11)
+        self.chkBox_fake_boobs.setObjectName("chkBox_fake_boobs")
+        self.HLayout_boobs.addWidget(self.chkBox_fake_boobs)
+        self.layoutWidget_2 = QtWidgets.QWidget(parent=self.tab_actor_info)
+        self.layoutWidget_2.setGeometry(QtCore.QRect(790, 140, 97, 22))
         self.layoutWidget_2.setObjectName("layoutWidget_2")
         self.HLayout_height = QtWidgets.QHBoxLayout(self.layoutWidget_2)
         self.HLayout_height.setContentsMargins(0, 0, 0, 0)
         self.HLayout_height.setObjectName("HLayout_height")
         self.lblperformer_groesse = QtWidgets.QLabel(parent=self.layoutWidget_2)
-        self.lblperformer_groesse.setMinimumSize(QtCore.QSize(45, 0))
+        self.lblperformer_groesse.setMinimumSize(QtCore.QSize(35, 0))
         self.lblperformer_groesse.setMaximumSize(QtCore.QSize(45, 16777215))
         self.lblperformer_groesse.setAlignment(QtCore.Qt.AlignmentFlag.AlignRight|QtCore.Qt.AlignmentFlag.AlignTrailing|QtCore.Qt.AlignmentFlag.AlignVCenter)
         self.lblperformer_groesse.setObjectName("lblperformer_groesse")
@@ -168,8 +327,8 @@ class Ui_Dialog(object):
         self.lbl_kg_2 = QtWidgets.QLabel(parent=self.layoutWidget_2)
         self.lbl_kg_2.setObjectName("lbl_kg_2")
         self.HLayout_height.addWidget(self.lbl_kg_2)
-        self.layoutWidget_3 = QtWidgets.QWidget(parent=self.actor_info)
-        self.layoutWidget_3.setGeometry(QtCore.QRect(10, 110, 431, 22))
+        self.layoutWidget_3 = QtWidgets.QWidget(parent=self.tab_actor_info)
+        self.layoutWidget_3.setGeometry(QtCore.QRect(10, 110, 441, 27))
         self.layoutWidget_3.setObjectName("layoutWidget_3")
         self.HLayout_ethnicity = QtWidgets.QHBoxLayout(self.layoutWidget_3)
         self.HLayout_ethnicity.setContentsMargins(0, 0, 0, 0)
@@ -197,8 +356,19 @@ class Ui_Dialog(object):
         self.cBox_performer_rasse.addItem("")
         self.cBox_performer_rasse.addItem("")
         self.HLayout_ethnicity.addWidget(self.cBox_performer_rasse)
-        self.layoutWidget_4 = QtWidgets.QWidget(parent=self.actor_info)
-        self.layoutWidget_4.setGeometry(QtCore.QRect(701, 171, 105, 22))
+        self.chkBox_actor_rasse = QtWidgets.QCheckBox(parent=self.layoutWidget_3)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.chkBox_actor_rasse.sizePolicy().hasHeightForWidth())
+        self.chkBox_actor_rasse.setSizePolicy(sizePolicy)
+        self.chkBox_actor_rasse.setMinimumSize(QtCore.QSize(20, 25))
+        self.chkBox_actor_rasse.setMaximumSize(QtCore.QSize(20, 25))
+        self.chkBox_actor_rasse.setText("")
+        self.chkBox_actor_rasse.setObjectName("chkBox_actor_rasse")
+        self.HLayout_ethnicity.addWidget(self.chkBox_actor_rasse)
+        self.layoutWidget_4 = QtWidgets.QWidget(parent=self.tab_actor_info)
+        self.layoutWidget_4.setGeometry(QtCore.QRect(670, 140, 111, 22))
         self.layoutWidget_4.setObjectName("layoutWidget_4")
         self.HLayout_weight = QtWidgets.QHBoxLayout(self.layoutWidget_4)
         self.HLayout_weight.setContentsMargins(0, 0, 0, 0)
@@ -233,8 +403,8 @@ class Ui_Dialog(object):
         self.lbl_kg = QtWidgets.QLabel(parent=self.layoutWidget_4)
         self.lbl_kg.setObjectName("lbl_kg")
         self.HLayout_weight.addWidget(self.lbl_kg)
-        self.layoutWidget_12 = QtWidgets.QWidget(parent=self.actor_info)
-        self.layoutWidget_12.setGeometry(QtCore.QRect(490, 170, 190, 22))
+        self.layoutWidget_12 = QtWidgets.QWidget(parent=self.tab_actor_info)
+        self.layoutWidget_12.setGeometry(QtCore.QRect(490, 140, 171, 22))
         self.layoutWidget_12.setObjectName("layoutWidget_12")
         self.HLayout_bodytyp = QtWidgets.QHBoxLayout(self.layoutWidget_12)
         self.HLayout_bodytyp.setContentsMargins(0, 0, 0, 0)
@@ -242,9 +412,9 @@ class Ui_Dialog(object):
         self.lblbodytyp = QtWidgets.QLabel(parent=self.layoutWidget_12)
         self.lblbodytyp.setObjectName("lblbodytyp")
         self.HLayout_bodytyp.addWidget(self.lblbodytyp)
-        self.lnEdit_performer_meaturements = ClickableQLineEdit(parent=self.layoutWidget_12)
-        self.lnEdit_performer_meaturements.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
-        self.lnEdit_performer_meaturements.setStyleSheet("QLineEdit,QTextEdit { \n"
+        self.lnEdit_performer_measurements = ClickableQLineEdit(parent=self.layoutWidget_12)
+        self.lnEdit_performer_measurements.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
+        self.lnEdit_performer_measurements.setStyleSheet("QLineEdit,QTextEdit { \n"
 "background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
@@ -257,11 +427,11 @@ class Ui_Dialog(object):
 "\n"
 "\n"
 "")
-        self.lnEdit_performer_meaturements.setText("")
-        self.lnEdit_performer_meaturements.setPlaceholderText("kein Eintrag")
-        self.lnEdit_performer_meaturements.setObjectName("lnEdit_performer_meaturements")
-        self.HLayout_bodytyp.addWidget(self.lnEdit_performer_meaturements)
-        self.grpBox_actor_name = QtWidgets.QGroupBox(parent=self.actor_info)
+        self.lnEdit_performer_measurements.setText("")
+        self.lnEdit_performer_measurements.setPlaceholderText("kein Eintrag")
+        self.lnEdit_performer_measurements.setObjectName("lnEdit_performer_measurements")
+        self.HLayout_bodytyp.addWidget(self.lnEdit_performer_measurements)
+        self.grpBox_actor_name = QtWidgets.QGroupBox(parent=self.tab_actor_info)
         self.grpBox_actor_name.setGeometry(QtCore.QRect(10, 10, 881, 61))
         self.grpBox_actor_name.setStyleSheet("QGroupBox {\n"
 "background-color: rgb(218, 222, 226);\n"
@@ -293,11 +463,11 @@ class Ui_Dialog(object):
         self.lbl_actor_birthday_place.setStyleSheet("QLabel{background-color:#e3e3e3 }")
         self.lbl_actor_birthday_place.setText("")
         self.lbl_actor_birthday_place.setObjectName("lbl_actor_birthday_place")
-        self.chkBox_send_api = QtWidgets.QCheckBox(parent=self.actor_info)
+        self.chkBox_send_api = QtWidgets.QCheckBox(parent=self.tab_actor_info)
         self.chkBox_send_api.setGeometry(QtCore.QRect(10, 320, 91, 17))
         self.chkBox_send_api.setObjectName("chkBox_send_api")
-        self.layoutWidget_10 = QtWidgets.QWidget(parent=self.actor_info)
-        self.layoutWidget_10.setGeometry(QtCore.QRect(10, 140, 431, 22))
+        self.layoutWidget_10 = QtWidgets.QWidget(parent=self.tab_actor_info)
+        self.layoutWidget_10.setGeometry(QtCore.QRect(10, 140, 441, 22))
         self.layoutWidget_10.setObjectName("layoutWidget_10")
         self.HLayout_nationality = QtWidgets.QHBoxLayout(self.layoutWidget_10)
         self.HLayout_nationality.setContentsMargins(0, 0, 0, 0)
@@ -324,7 +494,7 @@ class Ui_Dialog(object):
         self.lnEdit_performer_nationality.setPlaceholderText("kein Eintrag")
         self.lnEdit_performer_nationality.setObjectName("lnEdit_performer_nationality")
         self.HLayout_nationality.addWidget(self.lnEdit_performer_nationality)
-        self.gBox_tattoo = QtWidgets.QGroupBox(parent=self.actor_info)
+        self.gBox_tattoo = QtWidgets.QGroupBox(parent=self.tab_actor_info)
         self.gBox_tattoo.setGeometry(QtCore.QRect(459, 200, 431, 81))
         self.gBox_tattoo.setObjectName("gBox_tattoo")
         self.txtEdit_performer_tattoo = ClickableQTextEdit(parent=self.gBox_tattoo)
@@ -339,7 +509,7 @@ class Ui_Dialog(object):
 "QToolTip {min-width: 350px;}")
         self.txtEdit_performer_tattoo.setAcceptRichText(False)
         self.txtEdit_performer_tattoo.setObjectName("txtEdit_performer_tattoo")
-        self.gBox_piercing = QtWidgets.QGroupBox(parent=self.actor_info)
+        self.gBox_piercing = QtWidgets.QGroupBox(parent=self.tab_actor_info)
         self.gBox_piercing.setGeometry(QtCore.QRect(20, 200, 431, 81))
         self.gBox_piercing.setObjectName("gBox_piercing")
         self.txtEdit_performer_piercing = ClickableQTextEdit(parent=self.gBox_piercing)
@@ -354,7 +524,7 @@ class Ui_Dialog(object):
 "QToolTip {min-width: 350px;}")
         self.txtEdit_performer_piercing.setAcceptRichText(False)
         self.txtEdit_performer_piercing.setObjectName("txtEdit_performer_piercing")
-        self.layoutWidget_14 = QtWidgets.QWidget(parent=self.actor_info)
+        self.layoutWidget_14 = QtWidgets.QWidget(parent=self.tab_actor_info)
         self.layoutWidget_14.setGeometry(QtCore.QRect(20, 290, 871, 22))
         self.layoutWidget_14.setObjectName("layoutWidget_14")
         self.HLayout_nationality_2 = QtWidgets.QHBoxLayout(self.layoutWidget_14)
@@ -363,7 +533,7 @@ class Ui_Dialog(object):
         self.lblnationality_2 = QtWidgets.QLabel(parent=self.layoutWidget_14)
         self.lblnationality_2.setObjectName("lblnationality_2")
         self.HLayout_nationality_2.addWidget(self.lblnationality_2)
-        self.lnEdit_performer_aliases = QtWidgets.QLineEdit(parent=self.layoutWidget_14)
+        self.lnEdit_performer_aliases = ClickableQLineEdit(parent=self.layoutWidget_14)
         self.lnEdit_performer_aliases.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
         self.lnEdit_performer_aliases.setStyleSheet("QLineEdit,QTextEdit { \n"
 "background-color: #FFFDD5;}\n"
@@ -382,8 +552,8 @@ class Ui_Dialog(object):
         self.lnEdit_performer_aliases.setPlaceholderText("kein Eintrag")
         self.lnEdit_performer_aliases.setObjectName("lnEdit_performer_aliases")
         self.HLayout_nationality_2.addWidget(self.lnEdit_performer_aliases)
-        self.layoutWidget_13 = QtWidgets.QWidget(parent=self.actor_info)
-        self.layoutWidget_13.setGeometry(QtCore.QRect(10, 170, 431, 22))
+        self.layoutWidget_13 = QtWidgets.QWidget(parent=self.tab_actor_info)
+        self.layoutWidget_13.setGeometry(QtCore.QRect(10, 170, 441, 22))
         self.layoutWidget_13.setObjectName("layoutWidget_13")
         self.HLayout_nationality_3 = QtWidgets.QHBoxLayout(self.layoutWidget_13)
         self.HLayout_nationality_3.setContentsMargins(0, 0, 0, 0)
@@ -411,18 +581,11 @@ class Ui_Dialog(object):
         self.lnEdit_performer_uuid.setPlaceholderText("kein Eintrag")
         self.lnEdit_performer_uuid.setObjectName("lnEdit_performer_uuid")
         self.HLayout_nationality_3.addWidget(self.lnEdit_performer_uuid)
-        self.layoutWidget_5 = QtWidgets.QWidget(parent=self.actor_info)
-        self.layoutWidget_5.setGeometry(QtCore.QRect(250, 80, 190, 22))
-        self.layoutWidget_5.setObjectName("layoutWidget_5")
-        self.HLayout_eye_colour = QtWidgets.QHBoxLayout(self.layoutWidget_5)
-        self.HLayout_eye_colour.setContentsMargins(0, 0, 0, 0)
-        self.HLayout_eye_colour.setObjectName("HLayout_eye_colour")
-        self.lblperformer_augen = QtWidgets.QLabel(parent=self.layoutWidget_5)
-        self.lblperformer_augen.setObjectName("lblperformer_augen")
-        self.HLayout_eye_colour.addWidget(self.lblperformer_augen)
-        self.lnEdit_performer_eye = ClickableQLineEdit(parent=self.layoutWidget_5)
-        self.lnEdit_performer_eye.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
-        self.lnEdit_performer_eye.setStyleSheet("QLineEdit,QTextEdit { \n"
+        self.lnEdit_performer_id = ClickableQLineEdit(parent=self.layoutWidget_13)
+        self.lnEdit_performer_id.setMinimumSize(QtCore.QSize(100, 0))
+        self.lnEdit_performer_id.setMaximumSize(QtCore.QSize(100, 16777215))
+        self.lnEdit_performer_id.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
+        self.lnEdit_performer_id.setStyleSheet("QLineEdit,QTextEdit { \n"
 "background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
@@ -435,19 +598,150 @@ class Ui_Dialog(object):
 "\n"
 "\n"
 "")
-        self.lnEdit_performer_eye.setText("")
-        self.lnEdit_performer_eye.setPlaceholderText("kein Eintrag")
-        self.lnEdit_performer_eye.setObjectName("lnEdit_performer_eye")
-        self.HLayout_eye_colour.addWidget(self.lnEdit_performer_eye)
-        self.lbl_status_message = QtWidgets.QLabel(parent=self.actor_info)
+        self.lnEdit_performer_id.setText("")
+        self.lnEdit_performer_id.setReadOnly(False)
+        self.lnEdit_performer_id.setPlaceholderText("kein Eintrag")
+        self.lnEdit_performer_id.setObjectName("lnEdit_performer_id")
+        self.HLayout_nationality_3.addWidget(self.lnEdit_performer_id)
+        self.layoutWidget_5 = QtWidgets.QWidget(parent=self.tab_actor_info)
+        self.layoutWidget_5.setGeometry(QtCore.QRect(230, 80, 224, 23))
+        self.layoutWidget_5.setObjectName("layoutWidget_5")
+        self.HLayout_eye_colour = QtWidgets.QHBoxLayout(self.layoutWidget_5)
+        self.HLayout_eye_colour.setContentsMargins(0, 0, 0, 0)
+        self.HLayout_eye_colour.setSpacing(6)
+        self.HLayout_eye_colour.setObjectName("HLayout_eye_colour")
+        self.lblperformer_augen = QtWidgets.QLabel(parent=self.layoutWidget_5)
+        self.lblperformer_augen.setMinimumSize(QtCore.QSize(58, 20))
+        self.lblperformer_augen.setMaximumSize(QtCore.QSize(55, 20))
+        self.lblperformer_augen.setObjectName("lblperformer_augen")
+        self.HLayout_eye_colour.addWidget(self.lblperformer_augen)
+        self.cBox_performer_eye = QtWidgets.QComboBox(parent=self.layoutWidget_5)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.cBox_performer_eye.sizePolicy().hasHeightForWidth())
+        self.cBox_performer_eye.setSizePolicy(sizePolicy)
+        self.cBox_performer_eye.setMinimumSize(QtCore.QSize(133, 20))
+        self.cBox_performer_eye.setMaximumSize(QtCore.QSize(133, 16777215))
+        self.cBox_performer_eye.setStyleSheet("background-color: #FFFDD5")
+        self.cBox_performer_eye.setObjectName("cBox_performer_eye")
+        self.cBox_performer_eye.addItem("")
+        self.cBox_performer_eye.setItemText(0, "")
+        self.cBox_performer_eye.addItem("")
+        self.cBox_performer_eye.addItem("")
+        self.cBox_performer_eye.addItem("")
+        self.cBox_performer_eye.addItem("")
+        self.cBox_performer_eye.addItem("")
+        self.cBox_performer_eye.addItem("")
+        self.HLayout_eye_colour.addWidget(self.cBox_performer_eye)
+        self.chkBox_actor_eye = QtWidgets.QCheckBox(parent=self.layoutWidget_5)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.chkBox_actor_eye.sizePolicy().hasHeightForWidth())
+        self.chkBox_actor_eye.setSizePolicy(sizePolicy)
+        self.chkBox_actor_eye.setMinimumSize(QtCore.QSize(19, 20))
+        self.chkBox_actor_eye.setMaximumSize(QtCore.QSize(20, 20))
+        self.chkBox_actor_eye.setText("")
+        self.chkBox_actor_eye.setObjectName("chkBox_actor_eye")
+        self.HLayout_eye_colour.addWidget(self.chkBox_actor_eye)
+        self.lbl_status_message = QtWidgets.QLabel(parent=self.tab_actor_info)
         self.lbl_status_message.setGeometry(QtCore.QRect(120, 324, 770, 16))
         self.lbl_status_message.setStyleSheet("QLabel{background-color:#e3e3e3 }")
         self.lbl_status_message.setText("")
         self.lbl_status_message.setObjectName("lbl_status_message")
-        self.tabWidget.addTab(self.actor_info, "")
-        self.actor_images = QtWidgets.QWidget()
-        self.actor_images.setObjectName("actor_images")
-        self.scrollArea_actor_images = QtWidgets.QScrollArea(parent=self.actor_images)
+        self.layoutWidget_15 = QtWidgets.QWidget(parent=self.tab_actor_info)
+        self.layoutWidget_15.setGeometry(QtCore.QRect(700, 110, 190, 22))
+        self.layoutWidget_15.setObjectName("layoutWidget_15")
+        self.HLayout_birthday_2 = QtWidgets.QHBoxLayout(self.layoutWidget_15)
+        self.HLayout_birthday_2.setContentsMargins(0, 0, 0, 0)
+        self.HLayout_birthday_2.setObjectName("HLayout_birthday_2")
+        self.lblgeburtstag_2 = QtWidgets.QLabel(parent=self.layoutWidget_15)
+        self.lblgeburtstag_2.setObjectName("lblgeburtstag_2")
+        self.HLayout_birthday_2.addWidget(self.lblgeburtstag_2)
+        self.lnEdit_performer_deathday = ClickableQLineEdit(parent=self.layoutWidget_15)
+        self.lnEdit_performer_deathday.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
+        self.lnEdit_performer_deathday.setStyleSheet("QLineEdit,QTextEdit { \n"
+"background-color: #FFFDD5;}\n"
+"QLineEdit:hover,QTextEdit:hover {\n"
+"border: 2px solid rgb(49, 50, 62);}\n"
+"QLineEdit:focus,QTextEdit:focus {\n"
+"border: 2px inset rgb(85, 170, 255);}\n"
+"QLineEdit::placeholderText { \n"
+"color: rgb(213, 213, 213);}\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"")
+        self.lnEdit_performer_deathday.setText("")
+        self.lnEdit_performer_deathday.setPlaceholderText("kein Eintrag")
+        self.lnEdit_performer_deathday.setObjectName("lnEdit_performer_deathday")
+        self.HLayout_birthday_2.addWidget(self.lnEdit_performer_deathday)
+        self.layoutWidget1 = QtWidgets.QWidget(parent=self.tab_actor_info)
+        self.layoutWidget1.setGeometry(QtCore.QRect(670, 170, 146, 27))
+        self.layoutWidget1.setObjectName("layoutWidget1")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.layoutWidget1)
+        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.lblkarriere = QtWidgets.QLabel(parent=self.layoutWidget1)
+        self.lblkarriere.setObjectName("lblkarriere")
+        self.horizontalLayout.addWidget(self.lblkarriere)
+        self.lnEdit_performer_career_start_year = ClickableQLineEdit(parent=self.layoutWidget1)
+        self.lnEdit_performer_career_start_year.setMinimumSize(QtCore.QSize(35, 0))
+        self.lnEdit_performer_career_start_year.setMaximumSize(QtCore.QSize(35, 16777215))
+        self.lnEdit_performer_career_start_year.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
+        self.lnEdit_performer_career_start_year.setStyleSheet("QLineEdit,QTextEdit { \n"
+"background-color: #FFFDD5;}\n"
+"QLineEdit:hover,QTextEdit:hover {\n"
+"border: 2px solid rgb(49, 50, 62);}\n"
+"QLineEdit:focus,QTextEdit:focus {\n"
+"border: 2px inset rgb(85, 170, 255);}\n"
+"QLineEdit::placeholderText { \n"
+"color: rgb(213, 213, 213);}\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"")
+        self.lnEdit_performer_career_start_year.setText("")
+        self.lnEdit_performer_career_start_year.setPlaceholderText("0")
+        self.lnEdit_performer_career_start_year.setObjectName("lnEdit_performer_career_start_year")
+        self.horizontalLayout.addWidget(self.lnEdit_performer_career_start_year)
+        self.label = QtWidgets.QLabel(parent=self.layoutWidget1)
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label.setFont(font)
+        self.label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.label.setObjectName("label")
+        self.horizontalLayout.addWidget(self.label)
+        self.lnEdit_performer_career_end_year = ClickableQLineEdit(parent=self.layoutWidget1)
+        self.lnEdit_performer_career_end_year.setMinimumSize(QtCore.QSize(35, 0))
+        self.lnEdit_performer_career_end_year.setMaximumSize(QtCore.QSize(35, 16777215))
+        self.lnEdit_performer_career_end_year.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
+        self.lnEdit_performer_career_end_year.setStyleSheet("QLineEdit,QTextEdit { \n"
+"background-color: #FFFDD5;}\n"
+"QLineEdit:hover,QTextEdit:hover {\n"
+"border: 2px solid rgb(49, 50, 62);}\n"
+"QLineEdit:focus,QTextEdit:focus {\n"
+"border: 2px inset rgb(85, 170, 255);}\n"
+"QLineEdit::placeholderText { \n"
+"color: rgb(213, 213, 213);}\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"")
+        self.lnEdit_performer_career_end_year.setText("")
+        self.lnEdit_performer_career_end_year.setPlaceholderText("0")
+        self.lnEdit_performer_career_end_year.setObjectName("lnEdit_performer_career_end_year")
+        self.horizontalLayout.addWidget(self.lnEdit_performer_career_end_year)
+        self.tabWidget.addTab(self.tab_actor_info, "")
+        self.tab_actor_images = QtWidgets.QWidget()
+        self.tab_actor_images.setObjectName("tab_actor_images")
+        self.scrollArea_actor_images = QtWidgets.QScrollArea(parent=self.tab_actor_images)
         self.scrollArea_actor_images.setGeometry(QtCore.QRect(13, 40, 880, 300))
         self.scrollArea_actor_images.setWidgetResizable(True)
         self.scrollArea_actor_images.setObjectName("scrollArea_actor_images")
@@ -455,7 +749,7 @@ class Ui_Dialog(object):
         self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 878, 298))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.scrollArea_actor_images.setWidget(self.scrollAreaWidgetContents)
-        self.lbl_image_counter = QtWidgets.QLabel(parent=self.actor_images)
+        self.lbl_image_counter = QtWidgets.QLabel(parent=self.tab_actor_images)
         self.lbl_image_counter.setGeometry(QtCore.QRect(0, 10, 240, 25))
         font = QtGui.QFont()
         font.setFamily("Arial")
@@ -466,60 +760,163 @@ class Ui_Dialog(object):
 "color: #fffffa;}")
         self.lbl_image_counter.setText("")
         self.lbl_image_counter.setObjectName("lbl_image_counter")
-        self.lbl_image_max = QtWidgets.QLabel(parent=self.actor_images)
+        self.lbl_image_max = QtWidgets.QLabel(parent=self.tab_actor_images)
         self.lbl_image_max.setGeometry(QtCore.QRect(260, 13, 231, 20))
         self.lbl_image_max.setStyleSheet("background-color: rgb(255, 250, 211)")
         self.lbl_image_max.setObjectName("lbl_image_max")
-        self.tabWidget.addTab(self.actor_images, "")
-        self.page_media_links = QtWidgets.QWidget()
-        self.page_media_links.setObjectName("page_media_links")
-        self.tblWdg_actor_medialinks = QtWidgets.QTableWidget(parent=self.page_media_links)
-        self.tblWdg_actor_medialinks.setGeometry(QtCore.QRect(20, 10, 870, 331))
+        self.tabWidget.addTab(self.tab_actor_images, "")
+        self.tab_page_media_links = QtWidgets.QWidget()
+        self.tab_page_media_links.setObjectName("tab_page_media_links")
+        self.tblWdg_actor_medialinks_from_api = QtWidgets.QTableWidget(parent=self.tab_page_media_links)
+        self.tblWdg_actor_medialinks_from_api.setGeometry(QtCore.QRect(20, 20, 431, 321))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(8)
         font.setStyleStrategy(QtGui.QFont.StyleStrategy.PreferAntialias)
-        self.tblWdg_actor_medialinks.setFont(font)
-        self.tblWdg_actor_medialinks.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
-        self.tblWdg_actor_medialinks.setStyleSheet("background-color: rgb(255, 250, 211)\n"
+        self.tblWdg_actor_medialinks_from_api.setFont(font)
+        self.tblWdg_actor_medialinks_from_api.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
+        self.tblWdg_actor_medialinks_from_api.setStyleSheet("background-color: rgb(255, 250, 211)\n"
 "")
-        self.tblWdg_actor_medialinks.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectionBehavior.SelectRows)
-        self.tblWdg_actor_medialinks.setColumnCount(5)
-        self.tblWdg_actor_medialinks.setObjectName("tblWdg_actor_medialinks")
-        self.tblWdg_actor_medialinks.setRowCount(0)
+        self.tblWdg_actor_medialinks_from_api.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectionBehavior.SelectRows)
+        self.tblWdg_actor_medialinks_from_api.setColumnCount(2)
+        self.tblWdg_actor_medialinks_from_api.setObjectName("tblWdg_actor_medialinks_from_api")
+        self.tblWdg_actor_medialinks_from_api.setRowCount(0)
         item = QtWidgets.QTableWidgetItem()
-        self.tblWdg_actor_medialinks.setHorizontalHeaderItem(0, item)
+        self.tblWdg_actor_medialinks_from_api.setHorizontalHeaderItem(0, item)
         item = QtWidgets.QTableWidgetItem()
-        self.tblWdg_actor_medialinks.setHorizontalHeaderItem(1, item)
+        self.tblWdg_actor_medialinks_from_api.setHorizontalHeaderItem(1, item)
+        self.tblWdg_actor_medialinks_from_api.horizontalHeader().setVisible(False)
+        self.tblWdg_actor_medialinks_from_api.horizontalHeader().setCascadingSectionResizes(False)
+        self.tblWdg_actor_medialinks_from_api.horizontalHeader().setHighlightSections(False)
+        self.tblWdg_actor_medialinks_from_api.horizontalHeader().setSortIndicatorShown(True)
+        self.tblWdg_actor_medialinks_from_api.verticalHeader().setVisible(False)
+        self.tblWdg_actor_medialinks_from_api.verticalHeader().setDefaultSectionSize(20)
+        self.tblWdg_actor_medialinks_from_api.verticalHeader().setHighlightSections(False)
+        self.tblWdg_actor_medialinks_from_api.verticalHeader().setMinimumSectionSize(16)
+        self.tblWdg_actor_medialinks_from_api.verticalHeader().setSortIndicatorShown(True)
+        self.tblWdg_actor_medialinks_from_api.verticalHeader().setStretchLastSection(False)
+        self.tblWdg_actor_medialinks_from_mydb = QtWidgets.QTableWidget(parent=self.tab_page_media_links)
+        self.tblWdg_actor_medialinks_from_mydb.setGeometry(QtCore.QRect(460, 20, 431, 321))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(8)
+        font.setStyleStrategy(QtGui.QFont.StyleStrategy.PreferAntialias)
+        self.tblWdg_actor_medialinks_from_mydb.setFont(font)
+        self.tblWdg_actor_medialinks_from_mydb.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
+        self.tblWdg_actor_medialinks_from_mydb.setStyleSheet("background-color: rgb(255, 250, 211)\n"
+"")
+        self.tblWdg_actor_medialinks_from_mydb.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectionBehavior.SelectRows)
+        self.tblWdg_actor_medialinks_from_mydb.setColumnCount(2)
+        self.tblWdg_actor_medialinks_from_mydb.setObjectName("tblWdg_actor_medialinks_from_mydb")
+        self.tblWdg_actor_medialinks_from_mydb.setRowCount(0)
         item = QtWidgets.QTableWidgetItem()
-        self.tblWdg_actor_medialinks.setHorizontalHeaderItem(2, item)
+        self.tblWdg_actor_medialinks_from_mydb.setHorizontalHeaderItem(0, item)
         item = QtWidgets.QTableWidgetItem()
-        self.tblWdg_actor_medialinks.setHorizontalHeaderItem(3, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tblWdg_actor_medialinks.setHorizontalHeaderItem(4, item)
-        self.tblWdg_actor_medialinks.horizontalHeader().setVisible(False)
-        self.tblWdg_actor_medialinks.horizontalHeader().setCascadingSectionResizes(False)
-        self.tblWdg_actor_medialinks.horizontalHeader().setHighlightSections(False)
-        self.tblWdg_actor_medialinks.horizontalHeader().setSortIndicatorShown(True)
-        self.tblWdg_actor_medialinks.verticalHeader().setVisible(False)
-        self.tblWdg_actor_medialinks.verticalHeader().setDefaultSectionSize(20)
-        self.tblWdg_actor_medialinks.verticalHeader().setHighlightSections(False)
-        self.tblWdg_actor_medialinks.verticalHeader().setMinimumSectionSize(16)
-        self.tblWdg_actor_medialinks.verticalHeader().setSortIndicatorShown(True)
-        self.tblWdg_actor_medialinks.verticalHeader().setStretchLastSection(False)
-        self.tabWidget.addTab(self.page_media_links, "")
-        self.tab = QtWidgets.QWidget()
-        self.tab.setObjectName("tab")
-        self.tblWgd_arctor_links = QtWidgets.QTableWidget(parent=self.tab)
+        self.tblWdg_actor_medialinks_from_mydb.setHorizontalHeaderItem(1, item)
+        self.tblWdg_actor_medialinks_from_mydb.horizontalHeader().setVisible(False)
+        self.tblWdg_actor_medialinks_from_mydb.horizontalHeader().setCascadingSectionResizes(False)
+        self.tblWdg_actor_medialinks_from_mydb.horizontalHeader().setHighlightSections(False)
+        self.tblWdg_actor_medialinks_from_mydb.horizontalHeader().setSortIndicatorShown(True)
+        self.tblWdg_actor_medialinks_from_mydb.verticalHeader().setVisible(False)
+        self.tblWdg_actor_medialinks_from_mydb.verticalHeader().setDefaultSectionSize(20)
+        self.tblWdg_actor_medialinks_from_mydb.verticalHeader().setHighlightSections(False)
+        self.tblWdg_actor_medialinks_from_mydb.verticalHeader().setMinimumSectionSize(16)
+        self.tblWdg_actor_medialinks_from_mydb.verticalHeader().setSortIndicatorShown(True)
+        self.tblWdg_actor_medialinks_from_mydb.verticalHeader().setStretchLastSection(False)
+        self.lblactor_medialinks_from_api = QtWidgets.QLabel(parent=self.tab_page_media_links)
+        self.lblactor_medialinks_from_api.setGeometry(QtCore.QRect(20, 0, 151, 20))
+        self.lblactor_medialinks_from_api.setObjectName("lblactor_medialinks_from_api")
+        self.lblactor_medialinks_from_mydb = QtWidgets.QLabel(parent=self.tab_page_media_links)
+        self.lblactor_medialinks_from_mydb.setGeometry(QtCore.QRect(460, 0, 171, 20))
+        self.lblactor_medialinks_from_mydb.setObjectName("lblactor_medialinks_from_mydb")
+        self.Btn_add_mydb_item = QtWidgets.QPushButton(parent=self.tab_page_media_links)
+        self.Btn_add_mydb_item.setGeometry(QtCore.QRect(643, 0, 75, 20))
+        self.Btn_add_mydb_item.setStyleSheet("QPushButton { \n"
+"    color: rgb(0, 0, 127);\n"
+"    selection-background-color: rgb(255, 85, 0);\n"
+"    background-color: rgb(198, 178, 255);\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    font: 8pt \"MS Shell Dlg 2\";\n"
+"    border-radius: 5px;\n"
+"    border-color: beige;\n"
+"}                   \n"
+"QPushButton:enabled{\n"
+"    background-color: rgb(198, 178, 255);\n"
+"}                           \n"
+"QPushButton:pressed{ \n"
+"    background: red;\n"
+"}                            \n"
+"QPushButton:disabled{                             \n"
+"    background-color: gray;                \n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 85, 255);\n"
+"}   ")
+        self.Btn_add_mydb_item.setObjectName("Btn_add_mydb_item")
+        self.Btn_del_mydb_item = QtWidgets.QPushButton(parent=self.tab_page_media_links)
+        self.Btn_del_mydb_item.setGeometry(QtCore.QRect(719, 0, 80, 20))
+        self.Btn_del_mydb_item.setStyleSheet("QPushButton { \n"
+"    color: rgb(0, 0, 127);\n"
+"    selection-background-color: rgb(255, 85, 0);\n"
+"    background-color: rgb(198, 178, 255);\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    font: 8pt \"MS Shell Dlg 2\";\n"
+"    border-radius: 5px;\n"
+"    border-color: beige;\n"
+"}                   \n"
+"QPushButton:enabled{\n"
+"    background-color: rgb(198, 178, 255);\n"
+"}                           \n"
+"QPushButton:pressed{ \n"
+"    background: red;\n"
+"}                            \n"
+"QPushButton:disabled{                             \n"
+"    background-color: gray;                \n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 85, 255);\n"
+"}   ")
+        self.Btn_del_mydb_item.setObjectName("Btn_del_mydb_item")
+        self.Btn_refresh_mydb_item = QtWidgets.QPushButton(parent=self.tab_page_media_links)
+        self.Btn_refresh_mydb_item.setGeometry(QtCore.QRect(800, 0, 80, 20))
+        self.Btn_refresh_mydb_item.setStyleSheet("QPushButton { \n"
+"    color: rgb(0, 0, 127);\n"
+"    selection-background-color: rgb(255, 85, 0);\n"
+"    background-color: rgb(198, 178, 255);\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    font: 8pt \"MS Shell Dlg 2\";\n"
+"    border-radius: 5px;\n"
+"    border-color: beige;\n"
+"}                   \n"
+"QPushButton:enabled{\n"
+"    background-color: rgb(198, 178, 255);\n"
+"}                           \n"
+"QPushButton:pressed{ \n"
+"    background: red;\n"
+"}                            \n"
+"QPushButton:disabled{                             \n"
+"    background-color: gray;                \n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 85, 255);\n"
+"}   ")
+        self.Btn_refresh_mydb_item.setObjectName("Btn_refresh_mydb_item")
+        self.tabWidget.addTab(self.tab_page_media_links, "")
+        self.tab_site_links = QtWidgets.QWidget()
+        self.tab_site_links.setObjectName("tab_site_links")
+        self.tblWgd_arctor_links = QtWidgets.QTableWidget(parent=self.tab_site_links)
         self.tblWgd_arctor_links.setGeometry(QtCore.QRect(8, 10, 890, 331))
         self.tblWgd_arctor_links.setStyleSheet("background-color: rgb(255, 250, 211)")
         self.tblWgd_arctor_links.setObjectName("tblWgd_arctor_links")
         self.tblWgd_arctor_links.setColumnCount(0)
         self.tblWgd_arctor_links.setRowCount(0)
-        self.tabWidget.addTab(self.tab, "")
-        self.search_actor = QtWidgets.QWidget()
-        self.search_actor.setObjectName("search_actor")
-        self.grpBox_actor_search_name = QtWidgets.QGroupBox(parent=self.search_actor)
+        self.tabWidget.addTab(self.tab_site_links, "")
+        self.tab_search_actor = QtWidgets.QWidget()
+        self.tab_search_actor.setObjectName("tab_search_actor")
+        self.grpBox_actor_search_name = QtWidgets.QGroupBox(parent=self.tab_search_actor)
         self.grpBox_actor_search_name.setGeometry(QtCore.QRect(10, 10, 881, 41))
         self.grpBox_actor_search_name.setStyleSheet("QGroupBox {\n"
 "background-color: rgb(218, 222, 226);\n"
@@ -543,7 +940,7 @@ class Ui_Dialog(object):
         self.lbl_search_counter.setStyleSheet("QLabel{background-color:#e3e3e3 }")
         self.lbl_search_counter.setText("")
         self.lbl_search_counter.setObjectName("lbl_search_counter")
-        self.tblWdg_search_result_actors = QtWidgets.QTableWidget(parent=self.search_actor)
+        self.tblWdg_search_result_actors = QtWidgets.QTableWidget(parent=self.tab_search_actor)
         self.tblWdg_search_result_actors.setGeometry(QtCore.QRect(10, 60, 420, 280))
         self.tblWdg_search_result_actors.setStyleSheet("background-color: rgb(255, 250, 211)")
         self.tblWdg_search_result_actors.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectionBehavior.SelectRows)
@@ -552,123 +949,35 @@ class Ui_Dialog(object):
         self.tblWdg_search_result_actors.setColumnCount(0)
         self.tblWdg_search_result_actors.setRowCount(0)
         self.tblWdg_search_result_actors.horizontalHeader().setDefaultSectionSize(205)
-        self.tabWidget.addTab(self.search_actor, "")
-        self.Btn_accept = QtWidgets.QPushButton(parent=Dialog)
-        self.Btn_accept.setGeometry(QtCore.QRect(850, 390, 75, 23))
-        self.Btn_accept.setStyleSheet("QPushButton { \n"
-"    color: rgb(0, 0, 127);\n"
-"    selection-background-color: rgb(255, 85, 0);\n"
-"    background-color: rgb(198, 178, 255);\n"
-"    border-style: outset;\n"
-"    border-width: 2px;\n"
-"    font: 8pt \"MS Shell Dlg 2\";\n"
-"    border-radius: 5px;\n"
-"    border-color: beige;\n"
-"}                   \n"
-"QPushButton:enabled{\n"
-"    background-color: rgb(198, 178, 255);\n"
-"}                           \n"
-"QPushButton:pressed{ \n"
-"    background: red;\n"
-"}                            \n"
-"QPushButton:disabled{                             \n"
-"    background-color: gray;                \n"
-"}\n"
-"QPushButton:hover{\n"
-"    background-color: rgb(255, 85, 255);\n"
-"}   ")
-        self.Btn_accept.setObjectName("Btn_accept")
-        self.Btn_upload_datas = QtWidgets.QPushButton(parent=Dialog)
-        self.Btn_upload_datas.setGeometry(QtCore.QRect(20, 390, 75, 23))
-        self.Btn_upload_datas.setStyleSheet("QPushButton { \n"
-"    color: rgb(0, 0, 127);\n"
-"    selection-background-color: rgb(255, 85, 0);\n"
-"    background-color: rgb(198, 178, 255);\n"
-"    border-style: outset;\n"
-"    border-width: 2px;\n"
-"    font: 8pt \"MS Shell Dlg 2\";\n"
-"    border-radius: 5px;\n"
-"    border-color: beige;\n"
-"}                   \n"
-"QPushButton:enabled{\n"
-"    background-color: rgb(198, 178, 255);\n"
-"}                           \n"
-"QPushButton:pressed{ \n"
-"    background: red;\n"
-"}                            \n"
-"QPushButton:disabled{                             \n"
-"    background-color: gray;                \n"
-"}\n"
-"QPushButton:hover{\n"
-"    background-color: rgb(255, 85, 255);\n"
-"}   ")
-        self.Btn_upload_datas.setObjectName("Btn_upload_datas")
-        self.Btn_set_DB_data_in_dialog = QtWidgets.QPushButton(parent=Dialog)
-        self.Btn_set_DB_data_in_dialog.setGeometry(QtCore.QRect(100, 390, 111, 23))
-        self.Btn_set_DB_data_in_dialog.setStyleSheet("QPushButton { \n"
-"    color: rgb(0, 0, 127);\n"
-"    selection-background-color: rgb(255, 85, 0);\n"
-"    background-color: rgb(198, 178, 255);\n"
-"    border-style: outset;\n"
-"    border-width: 2px;\n"
-"    font: 8pt \"MS Shell Dlg 2\";\n"
-"    border-radius: 5px;\n"
-"    border-color: beige;\n"
-"}                   \n"
-"QPushButton:enabled{\n"
-"    background-color: rgb(198, 178, 255);\n"
-"}                           \n"
-"QPushButton:pressed{ \n"
-"    background: red;\n"
-"}                            \n"
-"QPushButton:disabled{                             \n"
-"    background-color: gray;                \n"
-"}\n"
-"QPushButton:hover{\n"
-"    background-color: rgb(255, 85, 255);\n"
-"}   ")
-        self.Btn_set_DB_data_in_dialog.setObjectName("Btn_set_DB_data_in_dialog")
-        self.lbl_loading_progress = QtWidgets.QLabel(parent=Dialog)
-        self.lbl_loading_progress.setGeometry(QtCore.QRect(349, 390, 491, 30))
-        self.lbl_loading_progress.setText("")
-        self.lbl_loading_progress.setObjectName("lbl_loading_progress")
-        self.Btn_get_DB_data_in_dialog = QtWidgets.QPushButton(parent=Dialog)
-        self.Btn_get_DB_data_in_dialog.setGeometry(QtCore.QRect(216, 390, 110, 23))
-        self.Btn_get_DB_data_in_dialog.setStyleSheet("QPushButton { \n"
-"    color: rgb(0, 0, 127);\n"
-"    selection-background-color: rgb(255, 85, 0);\n"
-"    background-color: rgb(198, 178, 255);\n"
-"    border-style: outset;\n"
-"    border-width: 2px;\n"
-"    font: 8pt \"MS Shell Dlg 2\";\n"
-"    border-radius: 5px;\n"
-"    border-color: beige;\n"
-"}                   \n"
-"QPushButton:enabled{\n"
-"    background-color: rgb(198, 178, 255);\n"
-"}                           \n"
-"QPushButton:pressed{ \n"
-"    background: red;\n"
-"}                            \n"
-"QPushButton:disabled{                             \n"
-"    background-color: gray;                \n"
-"}\n"
-"QPushButton:hover{\n"
-"    background-color: rgb(255, 85, 255);\n"
-"}   ")
-        self.Btn_get_DB_data_in_dialog.setObjectName("Btn_get_DB_data_in_dialog")
+        self.tabWidget.addTab(self.tab_search_actor, "")
+        self.gridLayout.addWidget(self.tabWidget, 0, 0, 1, 8)
 
         self.retranslateUi(Dialog)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        self.Btn_get_DB_data_in_dialog.setText(_translate("Dialog", "hole DB Daten"))
+        self.Btn_set_DB_data_in_dialog.setText(_translate("Dialog", "Füge DB Daten ein"))
+        self.Btn_upload_datas.setText(_translate("Dialog", "Upload"))
+        self.Btn_accept.setText(_translate("Dialog", "OK"))
+        self.Btn_show_last_log.setText(_translate("Dialog", "Show last log"))
         self.lblgeburtstag.setText(_translate("Dialog", "Geburtstag:"))
         self.lblactor_hair_colour.setText(_translate("Dialog", "Haarfarbe"))
+        self.cBox_performer_hair.setItemText(1, _translate("Dialog", "Auburn"))
+        self.cBox_performer_hair.setItemText(2, _translate("Dialog", "Bald"))
+        self.cBox_performer_hair.setItemText(3, _translate("Dialog", "Black"))
+        self.cBox_performer_hair.setItemText(4, _translate("Dialog", "Blonde"))
+        self.cBox_performer_hair.setItemText(5, _translate("Dialog", "Brunette"))
+        self.cBox_performer_hair.setItemText(6, _translate("Dialog", "Grey"))
+        self.cBox_performer_hair.setItemText(7, _translate("Dialog", "Others"))
+        self.cBox_performer_hair.setItemText(8, _translate("Dialog", "Red"))
+        self.cBox_performer_hair.setItemText(9, _translate("Dialog", "Various"))
         self.lblgeburtsort.setText(_translate("Dialog", "Geburtsort:"))
         self.lblboobs.setText(_translate("Dialog", "Boobs:"))
+        self.chkBox_fake_boobs.setText(_translate("Dialog", "Fake"))
         self.lblperformer_groesse.setText(_translate("Dialog", "Größe:"))
         self.lnEdit_performer_height.setInputMask(_translate("Dialog", "999"))
         self.lbl_kg_2.setText(_translate("Dialog", "cm"))
@@ -695,26 +1004,36 @@ class Ui_Dialog(object):
         self.lblnationality_2.setText(_translate("Dialog", "Alias:"))
         self.lbluuid.setText(_translate("Dialog", "UUiD"))
         self.lblperformer_augen.setText(_translate("Dialog", "Augenfarbe"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.actor_info), _translate("Dialog", "Infos"))
+        self.cBox_performer_eye.setItemText(1, _translate("Dialog", "Blue"))
+        self.cBox_performer_eye.setItemText(2, _translate("Dialog", "Brown"))
+        self.cBox_performer_eye.setItemText(3, _translate("Dialog", "Green"))
+        self.cBox_performer_eye.setItemText(4, _translate("Dialog", "Grey"))
+        self.cBox_performer_eye.setItemText(5, _translate("Dialog", "Hazel"))
+        self.cBox_performer_eye.setItemText(6, _translate("Dialog", "Red"))
+        self.lblgeburtstag_2.setText(_translate("Dialog", "Sterbetag:"))
+        self.lblkarriere.setText(_translate("Dialog", "Karriere:"))
+        self.lnEdit_performer_career_start_year.setInputMask(_translate("Dialog", "9999"))
+        self.label.setText(_translate("Dialog", "-"))
+        self.lnEdit_performer_career_end_year.setInputMask(_translate("Dialog", "9999"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_actor_info), _translate("Dialog", "Infos"))
         self.lbl_image_max.setText(_translate("Dialog", "Maximale Anzahl Bilder: "))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.actor_images), _translate("Dialog", "Bilder"))
-        item = self.tblWdg_actor_medialinks.horizontalHeaderItem(0)
-        item.setText(_translate("Dialog", "ID"))
-        item = self.tblWdg_actor_medialinks.horizontalHeaderItem(1)
-        item.setText(_translate("Dialog", "Status"))
-        item = self.tblWdg_actor_medialinks.horizontalHeaderItem(2)
-        item.setText(_translate("Dialog", "Image"))
-        item = self.tblWdg_actor_medialinks.horizontalHeaderItem(3)
-        item.setText(_translate("Dialog", "Alias"))
-        item = self.tblWdg_actor_medialinks.horizontalHeaderItem(4)
-        item.setText(_translate("Dialog", "Status"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.page_media_links), _translate("Dialog", "Media/Bio  Links"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("Dialog", "Site Links"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_actor_images), _translate("Dialog", "Bilder"))
+        item = self.tblWdg_actor_medialinks_from_api.horizontalHeaderItem(0)
+        item.setText(_translate("Dialog", "Websde"))
+        item = self.tblWdg_actor_medialinks_from_api.horizontalHeaderItem(1)
+        item.setText(_translate("Dialog", "URL"))
+        item = self.tblWdg_actor_medialinks_from_mydb.horizontalHeaderItem(0)
+        item.setText(_translate("Dialog", "Websde"))
+        item = self.tblWdg_actor_medialinks_from_mydb.horizontalHeaderItem(1)
+        item.setText(_translate("Dialog", "URL"))
+        self.lblactor_medialinks_from_api.setText(_translate("Dialog", "Vom Server:"))
+        self.lblactor_medialinks_from_mydb.setText(_translate("Dialog", "Datenbank:"))
+        self.Btn_add_mydb_item.setText(_translate("Dialog", "Add Zeile"))
+        self.Btn_del_mydb_item.setText(_translate("Dialog", "Lösche Zeile"))
+        self.Btn_refresh_mydb_item.setText(_translate("Dialog", "Refresh"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_page_media_links), _translate("Dialog", "Media/Bio  Links"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_site_links), _translate("Dialog", "Site Links"))
         self.grpBox_actor_search_name.setTitle(_translate("Dialog", "Nach Name gesucht:"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.search_actor), _translate("Dialog", "Suche nach Performer"))
-        self.Btn_accept.setText(_translate("Dialog", "OK"))
-        self.Btn_upload_datas.setText(_translate("Dialog", "Upload"))
-        self.Btn_set_DB_data_in_dialog.setText(_translate("Dialog", "Füge DB Daten ein"))
-        self.Btn_get_DB_data_in_dialog.setText(_translate("Dialog", "hole DB Daten"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_search_actor), _translate("Dialog", "Suche nach Performer"))
 from gui.custom_widgets.customQLineEdit import ClickableQLineEdit
 from gui.custom_widgets.customQTextEdit import ClickableQTextEdit
