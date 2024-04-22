@@ -44,7 +44,8 @@ class ShowLogDialogThePornDB(QDialog):
         return text
     
     def get_properties(self):
-        return ['birthplace', 'eye_colour', 'birthday', 'nationality', 'fake_boobs', 'hair_colour', 'cupsize', 'weight', 'career_start_year', 'career_end_year', 'height', 'cupsize', 'ethnicity', 'tattoos', 'piercings']
+        return ['birthplace', 'gender', 'birthplace_code', 'eye_colour', 'fake_boobs',  'birthday', 'nationality', 'fake_boobs', 'hair_colour', 
+                'cupsize', 'weight', 'career_start_year', 'career_end_year', 'height', 'ethnicity', 'tattoos', 'piercings']
     
     def get_last_log_file(self):
         log_files = LOG_THEPORNDB_JSON_FOLDER.glob("*.log")

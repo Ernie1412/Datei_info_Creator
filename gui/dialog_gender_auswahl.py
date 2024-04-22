@@ -1,5 +1,5 @@
 from PyQt6 import uic
-from PyQt6.QtWidgets import QDialog
+from PyQt6.QtWidgets import QDialog, QMainWindow
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QIcon
 
@@ -7,9 +7,16 @@ from config import GENDER_AUSWAHL_UI
 
 class GenderAuswahl(QDialog):
     def __init__(self, parent, show=True): # von wo es kommt 
-        super(GenderAuswahl,self).__init__(parent) 
-        self.Main = parent
-        self.gender_property = self.Main.Btn_performers_gender.property("gender")
+        super().__init__(parent) 
+        if isinstance(parent, QMainWindow):
+            self.Main = parent
+            self.widget = 'main'
+            self.gender_property = self.Main.Btn_performers_gender.property("gender")
+        else:
+            self.Main = parent.Main
+            self.scrape_actor_infos = parent
+            self.widget = 'scrape_actor_infos'
+            self.gender_property = self.scrape_actor_infos.Btn_actor_gender_sign.property("gender")        
 
         if show:
             uic.loadUi(GENDER_AUSWAHL_UI, self)
@@ -19,35 +26,53 @@ class GenderAuswahl(QDialog):
             self.Btn_female.clicked.connect(self.female_auswahl)
             self.Btn_male.clicked.connect(self.male_auswahl)
             self.Btn_trans.clicked.connect(self.trans_auswahl)
+            self.show()
     
     def female_auswahl(self):
-        self.Main.Btn_performers_gender.setIcon(QIcon(":Buttons\_buttons\gender\person-weiblich.png")) 
-        self.Main.Btn_performers_gender.setProperty("gender", "female")              
-        self.Main.Btn_IAFD_perfomer_suche.setEnabled(True)
-        self.Main.Btn_IAFD_perfomer_suche.setToolTip("erstellt ein IAFD Link und setzt in die Maske")
-        self.check_gender_changes()
-        self.close()
+        icon = QIcon(":Buttons\_buttons\gender\person-weiblich.png")
+        if self.widget == 'main':
+            self.Main.Btn_performers_gender.setIcon(icon) 
+            self.Main.Btn_performers_gender.setProperty("gender", "female")              
+            self.Main.Btn_IAFD_perfomer_suche.setEnabled(True)
+            self.Main.Btn_IAFD_perfomer_suche.setToolTip("erstellt ein IAFD Link und setzt in die Maske")
+            self.Main.Btn_DBArtist_Update.setEnabled(self.check_gender_changes())            
+        elif self.widget == 'scrape_actor_infos':
+            self.scrape_actor_infos.Btn_actor_gender_sign.setIcon(icon) 
+            self.scrape_actor_infos.Btn_actor_gender_sign.setProperty("gender", "Female")
+            self.scrape_actor_infos.Btn_actor_gender_sign.setPorperty("upload", self.check_gender_changes()) #True oder False
+        self.close()    
+
     
     def male_auswahl(self):
-        self.Main.Btn_performers_gender.setIcon(QIcon(":Buttons\_buttons\gender\person-maennlich.png"))
-        self.Main.Btn_performers_gender.setProperty("gender", "male")
-        self.Main.Btn_IAFD_perfomer_suche.setEnabled(True)
-        self.Main.Btn_IAFD_perfomer_suche.setToolTip("erstellt ein IAFD Link und setzt in die Maske")
-        self.check_gender_changes()        
+        icon = QIcon(":Buttons\_buttons\gender\person-maennlich.png")
+        if self.widget == 'main':
+            self.Main.Btn_performers_gender.setIcon(icon)
+            self.Main.Btn_performers_gender.setProperty("gender", "male")
+            self.Main.Btn_IAFD_perfomer_suche.setEnabled(True)
+            self.Main.Btn_IAFD_perfomer_suche.setToolTip("erstellt ein IAFD Link und setzt in die Maske")
+            self.Main.Btn_DBArtist_Update.setEnabled(self.check_gender_changes())
+        elif self.widget == 'scrape_actor_infos':
+            self.scrape_actor_infos.Btn_actor_gender_sign.setIcon(icon) 
+            self.scrape_actor_infos.Btn_actor_gender_sign.setProperty("gender", "Female")
+            self.scrape_actor_infos.Btn_actor_gender_sign.setPorperty("upload", self.check_gender_changes())  #True oder False     
         self.close()
     
     def trans_auswahl(self):
-        self.Main.Btn_performers_gender.setIcon(QIcon(":Buttons\_buttons\gender\person-trans.png"))
-        self.Main.Btn_performers_gender.setProperty("gender", "trans")
-        self.Main.Btn_IAFD_perfomer_suche.setEnabled(True)
-        self.Main.Btn_IAFD_perfomer_suche.setToolTip("erstellt ein IAFD Link und setzt in die Maske")
-        self.check_gender_changes()
+        icon = QIcon(":Buttons\_buttons\gender\person-trans.png")
+        if self.widget == 'main':
+            self.Main.Btn_performers_gender.setIcon(icon)
+            self.Main.Btn_performers_gender.setProperty("gender", "trans")
+            self.Main.Btn_IAFD_perfomer_suche.setEnabled(True)
+            self.Main.Btn_IAFD_perfomer_suche.setToolTip("erstellt ein IAFD Link und setzt in die Maske")
+            self.Main.Btn_DBArtist_Update.setEnabled(self.check_gender_changes()) 
+        elif self.widget == 'scrape_actor_infos':
+            self.scrape_actor_infos.Btn_actor_gender_sign.setIcon(icon) 
+            self.scrape_actor_infos.Btn_actor_gender_sign.setProperty("gender", "Trans Female")
+            self.scrape_actor_infos.Btn_actor_gender_sign.setPorperty("upload", self.check_gender_changes())
         self.close()
 
     def check_gender_changes(self):
-        if self.Main.Btn_performers_gender.property("gender") != self.gender_property:
-            self.Main.Btn_DBArtist_Update.setEnabled(True)
-
+        return True if self.Main.Btn_performers_gender.property("gender") != self.gender_property else False            
 
     def get_gender_for_iafdlink(self): 
         print(self.Main.Btn_performers_gender.property("gender"))       
@@ -70,9 +95,10 @@ class GenderAuswahl(QDialog):
             self.female_auswahl()
         elif gender == 2:
             self.male_auswahl()
+        elif gender == 3:
+            self.trans_auswahl()
         else:
             self.trans_auswahl()
-
 
 if __name__ == '__main__':
     GenderAuswahl(QDialog)

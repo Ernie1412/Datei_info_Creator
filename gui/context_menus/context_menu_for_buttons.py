@@ -11,7 +11,8 @@ from utils.web_scapings.helpers.helpers import CheckBioWebsiteStatus
 class CustomMenuButtons(QMenu):
     def __init__(self, MainWindow):
         super(CustomMenuButtons).__init__() 
-        self.Main = MainWindow        
+        self.Main = MainWindow 
+           
         
     def show_context_menu(self, widget,  pos: int) -> None: 
         widget_name = widget.objectName().replace("Btn_performer_in_", "")
@@ -50,17 +51,18 @@ class CustomMenuButtons(QMenu):
         pyperclip.copy(text)
 
     def open_api_dialog(self, widget_name, pos):
-        if widget_name != self.Main.get_bio_websites(True)[1]: # 1 = ThePornDB
-            self.Main.lbl_db_status.setText(f"Fenster für {widget_name} nicht verfügbar !")
-            return
+        self.Main.lnEdit_DBWebSite_artistLink.setText(getattr(self.Main,f"Btn_performer_in_{widget_name}").toolTip())
+        if widget_name == self.Main.get_bio_websites(True)[0]: # 0 = IAFD
+            self.Main.load_IAFD_performer_link()
+        elif widget_name == self.Main.get_bio_websites(True)[1]: # 1 = BabePedia
+            self.scrape_babepedia(widget_name)
+        elif widget_name == self.Main.get_bio_websites(True)[2]: # 2 = ThePornDB
+            self.scrape_the_porn_db(widget_name, pos) 
         elif getattr(self.Main,f"Btn_performer_in_{widget_name}").toolTip() == "":
             self.Main.lbl_db_status.setText(f"Für {widget_name} ist kein Link vorhanden !")
             return
-        api_link = getattr(self.Main,f"Btn_performer_in_{widget_name}").toolTip()        
-        dialog = ScrapeActorInfos(api_link, self.Main, parent=self.Main) 
-        dialog.setParent(self.Main)  
-        dialog.move(pos.x()-150, pos.y() + 20)
-        dialog.exec()
+        self.Main.lbl_db_status.setText(f"Fenster für {widget_name} nicht verfügbar !")
+
 
     def search_actor_api_dialog(self, widget_name, pos):
         if widget_name != self.Main.get_bio_websites(True)[1]: # 1 = ThePornDB
@@ -80,5 +82,18 @@ class CustomMenuButtons(QMenu):
         self.show_log_dialog = ShowLogDialogThePornDB()          
         self.show_log_dialog.move(pos.x()-150, pos.y() + 20)
         self.show_log_dialog.exec()
+
+
+    def scrape_babepedia(self, widget_name):
+        link = getattr(self.Main,f"Btn_performer_in_{widget_name}").toolTip()
+        scrape_bapepedia_performer = ScapeBabePediaPerformer(self.Main)
+        scrape_bapepedia_performer.load_babepedia_performer_link(link)
+
+    def scrape_the_porn_db(self, widget_name, pos):
+        api_link = getattr(self.Main,f"Btn_performer_in_{widget_name}").toolTip()        
+        dialog = ScrapeActorInfos(api_link, self.Main, parent=self.Main) 
+        dialog.setParent(self.Main)  
+        dialog.move(pos.x()-150, pos.y() + 20)
+        dialog.exec()
 
         

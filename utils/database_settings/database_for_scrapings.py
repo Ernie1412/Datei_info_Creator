@@ -124,8 +124,7 @@ class ScrapingData:
         self.close_database()
         video_data.save_to_json()        
         return errview
-
-
+    
     def hole_link_aus_db(self, link: str, studio: str) -> str:
         errview = None  
         video_data = VideoData()      

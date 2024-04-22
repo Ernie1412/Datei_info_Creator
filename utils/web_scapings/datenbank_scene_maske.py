@@ -63,20 +63,20 @@ class DatenbankSceneMaske():
             self.Main.lnEdit_DBData18Link.textChanged.disconnect()  # deaktiven 
             set_daten_maske.set_daten_in_maske("lnEdit_DB", "Data18Link", "Datenbank", data18_link) 
             self.Main.lnEdit_DBData18Link.textChanged.connect(self.Main.Web_Data18_change) # aktiven
-            self.Main.lbl_checkWeb_Data18URL.setStyleSheet("background-image: url(':/labels/_labels/check.png')")
+            self.Main.lbl_checkWeb_data18URL.setStyleSheet("background-image: url(':/labels/_labels/check.png')")
         ### ----------- ThePornDB in Maske packen ------------ ###         
         tpdb_link = db_websides.hole_theporndblink_von_db(id, studio)         
         if tpdb_link:
             self.Main.lnEdit_DBThePornDBLink.textChanged.disconnect()  # deaktiven 
             set_daten_maske.set_daten_in_maske("lnEdit_DB", "ThePornDBLink", "Datenbank", tpdb_link) 
             self.Main.lnEdit_DBThePornDBLink.textChanged.connect(self.Main.Web_ThePornDB_change) # aktiven
-            self.Main.lbl_checkWeb_ThePornDBURL.setStyleSheet("background-image: url(':/labels/_labels/check.png')")
+            self.Main.lbl_checkWeb_theporndbURL.setStyleSheet("background-image: url(':/labels/_labels/check.png')")
         ### ----------- IAFD Link in Maske packen ------------ ###
         if self.Main.tblWdg_daten.selectedItems()[3]:
             self.Main.lnEdit_DBIAFDLink.textChanged.disconnect() # deaktiven      
             set_daten_maske.set_daten_in_maske("lnEdit_DB", "IAFDLink", "Datenbank", self.Main.tblWdg_daten.selectedItems()[3].text()) 
             self.Main.lnEdit_DBIAFDLink.textChanged.connect(self.Main.Web_IAFD_change) # aktiven 
-            self.Main.lbl_checkWeb_IAFDURL.setStyleSheet("background-image: url(':/labels/_labels/timeout.png')")
+            self.Main.lbl_checkWeb_iafdURL.setStyleSheet("background-image: url(':/labels/_labels/timeout.png')")
         ### ----------- Rest in Maske packen ------------ ###
         self.set_daten_with_tooltip("lnEdit_DB", "Dauer", "Datenbank", self.Main.tblWdg_daten.selectedItems()[7].text())
         self.set_daten_with_tooltip("lnEdit_DB", "Release", "Datenbank", self.Main.tblWdg_daten.selectedItems()[8].text())

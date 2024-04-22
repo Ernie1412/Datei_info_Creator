@@ -3,9 +3,11 @@ from PyQt6.QtCore import QTimer
 from datetime import datetime
 import json
 import logging
+import re
 
 from utils.web_scapings.theporndb.helpers.http import Http
 from utils.web_scapings.theporndb.api_scraper import TPDB_Scraper
+from gui.dialog_gender_auswahl import GenderAuswahl
 
 from config import PROJECT_PATH
 
@@ -23,12 +25,14 @@ class UploadPerformer():
             QTimer.singleShot(5000, lambda: self.scrape_actor_infos.lbl_status_message.setText(""))             
             return
         
-        payload = {}                
+        payload = {}                        
         id = self.scrape_actor_infos.lnEdit_performer_id.text()
         payload['id'] = id
         payload['name'] = self.scrape_actor_infos.lnEdit_performer_name.text()
-        ### ------------------ payload[extras] --------------------- ###        
-        #payload['gender'] = self.scrape_actor_infos.lbl_actor_gender_sign.property("gender")
+        ### ------------------ payload[extras] --------------------- ### 
+        print(self.scrape_actor_infos.Btn_actor_gender_sign.property("upload"))
+        if self.scrape_actor_infos.Btn_actor_gender_sign.property("upload"):       
+            payload['gender'] = self.get_gender_payload(payload)
         payload = self.get_data_payload(payload)        
         payload = self.get_textedits_payload(payload)        
         payload = self.get_combo_payload(payload)        
@@ -68,7 +72,12 @@ class UploadPerformer():
             if widget.activated and widget.text():                
                 payload[property] = self.convert(widget.text(), property)
                 widget.setActivated(False)
-        return payload  
+        return payload 
+
+    def get_gender_payload(self, payload):                    
+        payload['gender'] = self.scrape_actor_infos.Btn_actor_gender_sign.property("gender")
+        self.scrape_actor_infos.Btn_actor_gender_sign.setProperty("upload", False)
+        return payload
     
     def property_mapping_for_textedit(self):
         return {'tattoos': 'txtEdit_performer_tattoo',
@@ -85,13 +94,18 @@ class UploadPerformer():
     def property_mapping_for_combo(self):
         return {'eye_colour': 'eye',
                 'ethnicity':'rasse',
-                'hair_colour':'hair'}
+                'hair_colour':'hair',
+                "birthplace_code": 'nation_code'}
     def get_combo_payload(self, payload):
         for property, widget in self.property_mapping_for_combo().items():            
             combobox = getattr(self.scrape_actor_infos,f"cBox_performer_{widget}")
             checkbox = getattr(self.scrape_actor_infos,f"chkBox_actor_{widget}")  
             if checkbox.isChecked() and combobox.currentText():
-                payload[property] = combobox.currentText()
+                if property == 'birthplace_code':
+                    cleaned = re.sub(r'^.+?\(', '', combobox.currentText())[:-1] 
+                    payload[property] = cleaned
+                else:
+                    payload[property] = combobox.currentText()
                 checkbox.setChecked(False) 
                 combobox.setStyleSheet("background-color: #FFFDD5;")              
         return payload

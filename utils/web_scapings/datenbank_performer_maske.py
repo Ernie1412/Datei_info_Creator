@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QTableWidgetItem, QAbstractItemView, QLineEdit
+from PyQt6.QtWidgets import QTableWidgetItem, QAbstractItemView
 from PyQt6.QtCore import Qt,  QCoreApplication
 from PyQt6.QtGui import QPixmap, QIcon, QColor, QBrush
 
@@ -6,7 +6,6 @@ import json
 from pathlib import Path 
 from typing import Tuple
 from urllib.parse import urlparse
-import time
 import logging
 
 from utils.web_scapings.datenbank_scene_maske import DatenbankSceneMaske
@@ -14,12 +13,15 @@ from gui.helpers.set_tootip_text import SetDatenInMaske, SetTooltipText
 from utils.database_settings.database_for_darsteller import DB_Darsteller
 from utils.web_scapings.iafd.scrape_iafd_performer import ScrapeIAFDPerformer
 from utils.web_scapings.iafd.update_iafd_performer import UpdateIAFDPerformer
-from utils.web_scapings.theporndb.update_theporndb_performer import UpdateThePornDBPerformer 
-from gui.context_menus.helpers.refresh_nameslink_table import RefreshNameslinkTable  
+from utils.web_scapings.update_bio_website_performer import UpdateBioWebSitePerformer 
+from gui.context_menus.helpers.refresh_nameslink_table import RefreshNameslinkTable 
+from gui.dialoge_ui.settings_for_iafd_performer import SettingsForIAFDPerformer 
+from utils.web_scapings.performer_update_log import PerformerUpdateLogger
 from gui.clearing_widgets import ClearingWidget
 from gui.dialog_gender_auswahl import GenderAuswahl
-from gui.dialog_performer_mask_selection import PerformMaskSelection
-from gui.helpers.message_show import StatusBar, blink_label, MsgBox
+from gui.helpers.check_new_performer_infos import CheckNewPerformerInfos
+from gui.helpers.socialmedia_buttons import SocialMediaButtons
+from gui.helpers.message_show import MsgBox, StatusBar, blink_label
 
 from config import PROJECT_PATH, WEBINFOS_JSON_PATH
 
@@ -64,18 +66,17 @@ class DatenbankPerformerMaske():
         self.update_names_linksatz_in_ui(artist_id)  
         ### --------- IAFD Link setzen -------------------------------- ### 
         if self.get_table_data(selected_row, 3):            
-            if self.get_table_data(selected_row, 3)=="N/A":
-                self.Main.chkBox_iafd_enabled.setChecked(False) # IAFD feld deaktivieren                              
-                self.Main.Btn_Linksuche_in_IAFD_artist.setEnabled(False)
+            if self.get_table_data(selected_row, 3)=="N/A":                                              
+                self.Main.Btn_performer_in_IAFD.setProperty('iafd_enabled', False)
             else:
-                self.Main.chkBox_iafd_enabled.setChecked(True)
-                self.Main.Btn_Linksuche_in_IAFD_artist.setEnabled(True)
-                self.Main.lbl_checkWeb_IAFD_artistURL.setStyleSheet("background-image: url(':/labels/_labels/check.png')")
-            data_mask.set_daten_in_maske("lnEdit_DB", "IAFD_artistLink", "Datenbank", self.get_table_data(selected_row, 3), artist=True)
-        elif self.Main.chkBox_get_autom_iafd.isChecked():
+                self.Main.Btn_performer_in_IAFD.setProperty('iafd_enabled', True)
+                self.set_bio_websites_tooltip([self.get_table_data(selected_row, 3)])                
+                self.Main.lbl_checkWeb_website_artistURL.setStyleSheet("background-image: url(':/labels/_labels/check.png')")            
+            data_mask.set_daten_in_maske("lnEdit_DB", "WebSite_artistLink", "Datenbank", self.get_table_data(selected_row, 3), artist=True)
+        elif SettingsForIAFDPerformer(self.Main).chkBox_get_autom_iafd.isChecked():
              self.Main.lnEdit_create_iafd_link.setText(self.get_table_data(selected_row, 1))                      
              iafd_infos.get_IAFD_performer_link() 
-             self.Main.Btn_Linksuche_in_IAFD_artist.setEnabled(True)         
+             self.Main.Btn_performer_in_IAFD.setEnabled(True)         
         ### --------- Bio Website(u.a. BabePedia) Link setzen -------------------------------- ###
         if self.get_table_data(selected_row, 4):
             bio_sites = self.get_table_data(selected_row, 4).split("\n")                      
@@ -83,32 +84,32 @@ class DatenbankPerformerMaske():
         ### ----------- Rest in Maske packen ------------ ###        
         self.update_all_edits_tooltips(selected_row, db_scene_mask)        
         ### ----------- IAFD Image in Label setzen ------- ###
-        biowebsites = self.Main.get_bio_websites(True) + ["IAFD"]
+        biowebsites = self.Main.get_bio_websites(widget=True)
         for biowebsite in biowebsites:
             self.set_biowebsite_image_in_label(biowebsite, artist_id, class_tooltip_text, datenbank_darsteller) 
 
     def set_biowebsite_image_in_label(self, site, artist_id, class_tooltip_text, datenbank_darsteller):
-        image_pfad = datenbank_darsteller.get_biowebsite_image(site, artist_id)[1]
+        image_pfad = datenbank_darsteller.get_biowebsite_image(site, artist_id)
         if image_pfad and Path(PROJECT_PATH / image_pfad).exists():
-            class_tooltip_text.set_tooltip_text("lbl_", f"{site.lower()}_image", f"Datenbank: '{image_pfad}'", "Datenbank")
+            class_tooltip_text.set_tooltip_text("lbl_", f"{site}_image", f"Datenbank: '{image_pfad}'", "Datenbank")
             pixmap = QPixmap()
             pixmap.load(str(image_pfad))
             stacked = getattr(self.Main,f"stacked_{site.lower()}_label")
             self.Main.stacked_webdb_images.setCurrentWidget(stacked)
         else:
-            class_tooltip_text.set_tooltip_text("lbl_", f"{site.lower()}_image", f"Datenbank: 'Kein Bild gespeichert'", "Datenbank")                              
+            class_tooltip_text.set_tooltip_text("lbl_", f"{site}_image", f"Datenbank: 'Kein Bild gespeichert'", "Datenbank")                              
             pixmap = QPixmap(":/labels/_labels/kein-bild.jpg")                   
-        getattr(self.Main,f"lbl_{site.lower()}_image").setPixmap(pixmap.scaled(238, 280, Qt.AspectRatioMode.KeepAspectRatio))
+        getattr(self.Main,f"lbl_{site}_image").setPixmap(pixmap.scaled(238, 280, Qt.AspectRatioMode.KeepAspectRatio))
         self.Main.set_performer_maske_text_connect(disconnect=False)        
 
-    def set_bio_websites_tooltip(self, bio_sites: str):        
+    def set_bio_websites_tooltip(self, bio_sites_link: str):        
         clearing = ClearingWidget(self.Main) 
-        for biosite in bio_sites:               
+        for biosite_link in bio_sites_link:               
             for bio_name, bio_url in self.Main.get_bio_websites().items():                
                 btn_widget = getattr(self.Main,f"Btn_performer_in_{bio_name}") # widget : url
-                if biosite.startswith(bio_url):
+                if biosite_link.startswith(bio_url):
                     clearing.set_website_bio_enabled([bio_name], True)
-                    btn_widget.setToolTip(biosite)            
+                    btn_widget.setToolTip(biosite_link)            
 
     def set_rasse_in_combobox(self, artist_id, class_tooltip_text):        
         database_darsteller = DB_Darsteller(self.Main)
@@ -142,14 +143,6 @@ class DatenbankPerformerMaske():
                 getattr(self.Main,f"lbl_performer_nation_{zahl}").setProperty("nation", nation_ger)            
                 getattr(self.Main,f"lbl_performer_nation_{zahl}").setStyleSheet(f"background-image: url(:/labels/_labels/nations/{nation_shortsymbol.lower()}.png);")
                 class_tooltip_text.set_tooltip_text(f"lbl_performer_nation_{zahl}", "", f"{art}: {nation_ger}", art)
-
-    def get_social_media_from_buttons(self) -> str: 
-        social_medias: str=""
-        for index in range(10):
-            social_media=getattr(self.Main, f"Btn_performers_socialmedia_{index}").toolTip().replace("Datenbank: ", "")
-            if social_media:
-                social_medias += social_media +"\n"
-        return social_medias[:-1]
     
     def get_selected_row_from_table(self, widgetname):
         selected_indexes = getattr(self.Main, f"tblWdg_{widgetname}").selectedIndexes()
@@ -182,14 +175,14 @@ class DatenbankPerformerMaske():
             "ArtistID" : int(artist_id),
             "Name": self.Main.lnEdit_performer_info.text().strip(),
             "Ordner": self.Main.lnEdit_performer_ordner.text().strip(),
-            "IAFDLink": self.Main.lnEdit_DBIAFD_artistLink.text().strip(),            
+            "IAFDLink": self.Main.Btn_performer_in_IAFD.toolTip(),            
             "BabePedia": self.get_bio_websites_from_buttons(),
             "Geschlecht": gender,            
             "Rassen": rassen,
             "Nation": nations,            
             "Geburtstag": self.Main.lnEdit_performer_birthday.text().strip(),
             "Birth_Place": self.Main.lnEdit_performer_birthplace.text().strip(),
-            "OnlyFans": self.get_social_media_from_buttons(),
+            "OnlyFans": "\n".join(SocialMediaButtons.get_social_media_from_buttons(self.Main)),
             "Boobs": self.Main.lnEdit_performer_boobs.text().strip(),
             "Gewicht": int(self.Main.lnEdit_performer_weight.text() or 0),
             "Groesse": int(self.Main.lnEdit_performer_height.text() or 0),
@@ -290,7 +283,7 @@ class DatenbankPerformerMaske():
         if items:
             selected_row = items[0].row()
         else:
-            return 0, -1
+            return -1
         del daten_satz['ThePornDB'] # den letzten item löschen
         for spalte, (key, value) in enumerate(daten_satz.items()):
             self.Main.tblWdg_performer.setItem(selected_row, spalte, QTableWidgetItem(f"{value}"))            
@@ -316,17 +309,20 @@ class DatenbankPerformerMaske():
         logging.info(message)
         self.Main.lbl_db_status.setText(message)
         self.Main.Btn_DBArtist_Update.setEnabled(False)
+        self.artist_infos_in_maske()
 
     def update_dataset_in_database(self, artist_id, selected_row, datenbank_darsteller):
         update_iafd_performer = UpdateIAFDPerformer(self.Main, self)
-        update_theporndb_performer = UpdateThePornDBPerformer(self.Main, self)
+        update_biowebsite_performer = UpdateBioWebSitePerformer(self.Main, self)
         ordner = self.Main.lnEdit_performer_ordner.text()
         errview = {}
         message = {}   
         ### -------------- IAFD Image und andere Images werden gespeichert --------------------------- ###          
         message, errview  = update_iafd_performer.save_iafd_image_in_datenbank(message, errview, datenbank_darsteller, artist_id)
-        ### -------------- The Porn DB Image und andere Images werden gespeichert --------------------------- ###          
-        message, errview  = update_theporndb_performer.save_theporndb_image_in_datenbank(message, errview, datenbank_darsteller, artist_id)
+        ### -------------- The Porn DB Image und andere Images werden gespeichert --------------------------- ### 
+        for biosite in self.Main.get_bio_websites(widget=True)[1:]: 
+            if getattr(self.Main,f"Btn_performer_in_{biosite}").toolTip():        
+                message, errview = update_biowebsite_performer.save_biowebsite_image_in_datenbank(message, errview, datenbank_darsteller, artist_id, biosite)
         ### -------------- Rasse updaten ------------------------------------------------------------- ###
         rassen = "/".join(self.Main.cBox_performer_rasse.get_checked_items())
         message, errview = self.update_rassen(message, errview, rassen, artist_id, datenbank_darsteller)
@@ -343,6 +339,7 @@ class DatenbankPerformerMaske():
         self.refresh_nameslink_table = RefreshNameslinkTable(self.Main, self)
         self.refresh_nameslink_table.refresh_performer_links_tabelle()    
         return self.merge_messages(message, errview, selected_row) 
+        
 
     def update_nations(swlf, message, errview, nations_ger: str, artist_id: int, datenbank_darsteller) -> str:
         nations_ids: list = []
@@ -388,12 +385,13 @@ class DatenbankPerformerMaske():
             if set(datensatz_db[0].values()) != set(datensatz_ui.values()): # Datenbank mit UI vergleichen
                 errview['datensatz'], is_update = datenbank_darsteller.update_performer_datensatz(datensatz_ui)
                 if is_update:
-                    diff_dict = {}
+                    filename: str
+                    diff_dict: dict = {}
                     for key, value in diff:
                         diff_dict[key] = diff_dict.get(key, ()) + (value,)
                     for key, (val1, val2) in diff_dict.items():
-                        print(f"Schlüssel {key} sind die Werte unterschiedlich: {val1} != {val2}")
-                    message['datensatz'] = f", Datensatz in >{len(diff_dict)}< Werte geändert"
+                        filename = PerformerUpdateLogger.save_performer_update_log(artist_id, datensatz_ui['Name'], diff)
+                    message['datensatz'] = f", Datensatz in <a href='open#{filename}'>{len(diff_dict)}</a> Werte geändert"
                     errview['datensatz'] = None
                 else:
                     message['datensatz'] = None
@@ -441,6 +439,7 @@ class DatenbankPerformerMaske():
     def clear_button_color(self):
         clearing_widget = ClearingWidget(self.Main)
         clearing_widget.invisible_performer_btn_anzahl()
+        clearing_widget.reset_bio_website_image_on_stacked()
         widgets = clearing_widget.performers_tab_widgets("lineprefix_perf_textprefix_perf_lineiafd")
         widgets.extend(clearing_widget.performers_tab_widgets("combo_perf"))
         for widget in widgets: # masken farbe wieder bereinigen bei erfolgreichen update
@@ -468,7 +467,7 @@ class DatenbankPerformerMaske():
             if self.Main.tblWdg_performer.item(zeile,3).text() == "N/A":
                 bio_infos+=1             
         no_infos = table_performer_count-iafd-bio_infos        
-        self.Main.chkBox_get_autom_iafd.setChecked(True)
+        SettingsForIAFDPerformer(self.Main).chkBox_get_autom_iafd.setChecked(True)
 
         for zeile in range(table_performer_count):            
             self.setinfo_label(now_iafd, iafd,now_bio,bio_infos,current_iafd,no_infos, table_performer_count)
@@ -489,7 +488,7 @@ class DatenbankPerformerMaske():
             self.artist_infos_in_maske()
 
             iafd_infos = ScrapeIAFDPerformer(MainWindow=self.Main)
-            iafd_url=self.Main.lnEdit_DBIAFD_artistLink.text()
+            iafd_url=self.Main.lnEdit_DBWebsite_artistLink.text()
             artist_id = self.Main.grpBox_performer_name.title().replace("Performer-Info ID: ","")
             name = self.Main.lnEdit_performer_info.text()
 
@@ -552,6 +551,7 @@ class DatenbankPerformerMaske():
 
     ### ---------------------------------IAFD Infos ------------------------------------------ ### 
     def set_iafd_infos_in_ui(self):
+        check_performer_infos = CheckNewPerformerInfos(self.Main)
         if not Path(WEBINFOS_JSON_PATH).exists():
             MsgBox(self.Main, "Keine IAFD Daten vorhanden !","w")
             return
@@ -591,62 +591,50 @@ class DatenbankPerformerMaske():
         # --------- Haarfarbe ------------------- #
         hair_color=iafd_infos.get("Haarfarbe")
         if hair_color:            
-            self.check_selections_count("hair","1", hair_color)            
+            check_performer_infos.check_selections_count("hair", hair_color)            
         # --------- Gewicht ------------------- #
         gewicht=iafd_infos.get("Gewicht")
         if gewicht:            
-            self.check_selections_count("weight","1", f"{gewicht}")
+            check_performer_infos.check_selections_count("weight", gewicht)
         # --------- Körper-Größe ------------------- #
         groesse=iafd_infos.get("Groesse")
         if groesse:           
-            self.check_selections_count("height","1", f"{groesse}")
+            check_performer_infos.check_selections_count("height", groesse)
         # --------- Geburts-Ort ------------------- #
         geburtsort=iafd_infos.get("Birth_Place")
         if geburtsort:            
-            self.check_selections_count("birthplace","1", geburtsort)
+            check_performer_infos.check_selections_count("birthplace", geburtsort)
         # --------- Geburts-Tag ------------------- #
         geburtstag=iafd_infos.get("Geburtstag")
         if geburtstag:
-            self.check_selections_count("birthday","1", geburtstag)
+            check_performer_infos.check_selections_count("birthday", geburtstag)
         # --------- Geburts-Tag ------------------- #
         piercing=iafd_infos.get("Piercing")
         if piercing:
-            self.check_selections_count("piercing","1", piercing)
+            check_performer_infos.check_selections_count("piercing", piercing)
         # --------- Geburts-Tag ------------------- #
         tattoo=iafd_infos.get("Tattoo")
         if tattoo:
-            self.check_selections_count("tattoo","1", tattoo)
+            check_performer_infos.check_selections_count("tattoo", tattoo)
         # --------- Geburts-Tag ------------------- #
         aktiv=iafd_infos.get("Aktiv")
         if aktiv:
-            self.check_selections_count("activ","1", aktiv) 
+            check_performer_infos.check_selections_count("activ",aktiv) 
         # --------- boobs ------------------- #
         boobs=iafd_infos.get("Boobs")
         if boobs:            
-            self.check_selections_count("boobs","1", boobs)
+            check_performer_infos.check_selections_count("boobs", boobs)
         # --------- IAFD Image ---------------- #
         id = self.Main.grpBox_performer_name.title().replace("Performer-Info ID: ","") # ArtistID
         name = self.Main.lnEdit_performer_info.text() # Performer 'Name'        
-        image_pfad=iafd_infos.get("image_pfad")        
+        image_pfad=iafd_infos.get("image_pfad")               
         if image_pfad:
-            self.Main.stacked_webdb_images.setCurrentWidget(self.Main.stacked_iafd_label)                  
-            self.load_and_scale_pixmap(image_pfad, self.Main.lbl_iafd_image)  
+            self.Main.stacked_webdb_images.setCurrentWidget(self.Main.stacked_iafd_label)
+            image_label = self.Main.lbl_IAFD_image
+            image_label.setToolTip(f"IAFD: {infos.get('image_url')}")                  
+            self.load_and_scale_pixmap(image_pfad, image_label, "IAFD")  
 
-    def check_selections_count(self, type, count, value):                        
-        button = getattr(self.Main,f"Btn_{type}_selection")
-        label = getattr(self.Main, f"txtEdit_performer_{type}") if type in ["piercing", "tattoo"] else getattr(self.Main, f"lnEdit_performer_{type}")
-        current_text = label.text() if isinstance(label, QLineEdit) else label.toPlainText()
-        if current_text != value:
-            label.setText(value)
-            button.setVisible(True)
-            button.setText("1") 
-            try:
-                button.clicked.disconnect()
-            except TypeError:
-                pass 
-            button.clicked.connect(lambda state, btn=label.objectName():PerformMaskSelection(self.Main, btn).exec())          
-
-    def load_and_scale_pixmap(self, image_path, label):
+    def load_and_scale_pixmap(self, image_path, label, biosite):
         pixmap = QPixmap()        
         pixmap.load(str(image_path))                
         label_height = 280
@@ -656,6 +644,7 @@ class DatenbankPerformerMaske():
             print(f"load_and_scale_pixmap -> {self.Main.lnEdit_performer_info.text()} -> Fehler: {e}")
             return
         label.setPixmap(pixmap.scaled(label_width, label_height, Qt.AspectRatioMode.KeepAspectRatio))
+        label.setProperty("name", biosite)        
         QCoreApplication.processEvents() 
 
     ### ------------------------------------------------------------------------------------------------- ###    

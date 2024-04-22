@@ -1,21 +1,20 @@
 from PyQt6 import uic
-from PyQt6.QtWidgets import QDialog, QGroupBox, QPushButton, QSplitter, QLabel, QGridLayout, QHBoxLayout, QSpacerItem, QSizePolicy
-from PyQt6.QtCore import Qt, QRect, QSize
+from PyQt6.QtWidgets import QDialog, QGroupBox, QPushButton, QSplitter, QLabel, QGridLayout, QWidget, QSizePolicy
+from PyQt6.QtCore import Qt, QRect, QSize, pyqtSignal
 from PyQt6.QtGui import QFont, QFontMetrics, QKeyEvent
 
-import time
-
-from gui.custom_wordwrap_button import QWordWarpButton
-from config import PERFORM_MASK_SELECTION_UI
+from gui.custom_widgets.custom_wordwrap_button import QWordWarpButton
 
 class PerformMaskSelection(QDialog):
-    def __init__(self, parent, type): # von wo es kommt
-        super(PerformMaskSelection,self).__init__(parent) 
-        self.Main = parent 
-        self.type = type
-        self.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose)
-        self.instance_id = time.time()
+    send_widget_text = pyqtSignal(QWidget, str)
+    def __init__(self, MainWindow, widget_name, parent=None): # von wo es kommt
+        super().__init__(parent) 
+        self.Main = MainWindow 
+
+        self.widget_name = widget_name
+        self.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose)        
         self.setupUi() 
+        self.show() 
         
     def setupUi(self):        
         self.resize(240, 120)
@@ -41,7 +40,8 @@ class PerformMaskSelection(QDialog):
         standard_grey = self.Main.palette().color(self.Main.backgroundRole()).name()
         self.setStyleSheet(f""" QDialog {{border: 2px solid black; background-color: {standard_grey};}}""")                
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint)        
-        self.Btn_close.clicked.connect(self.close) 
+        self.Btn_close.clicked.connect(self.close)
+       
 
     def keyPressEvent(self, e: QKeyEvent):
         if e.key() == Qt.Key.Key_Escape:
@@ -51,7 +51,7 @@ class PerformMaskSelection(QDialog):
     def set_group_button(self):
         font = QFont("MS Shell Dlg", 8)
         metrics = QFontMetrics(font)        
-        self.sources = getattr(self.Main,self.type).toolTip().split("<br>", 1)
+        self.sources = getattr(self.Main, self.widget_name).toolTip().split("<br>", 1)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)        
@@ -85,12 +85,15 @@ class PerformMaskSelection(QDialog):
 
     def selected_button(self):            
         sender = self.sender()
+        
         for idx in range(len(self.sources)):
-            if sender == getattr(self,f"Btn_selection_{idx}"):
-                getattr(self.Main,self.type).setText(sender.text())
+            if sender.objectName().startswith("Btn_selection_"):                
+                widget = getattr(self.Main,self.widget_name)
+                widget.setText(sender.text())
+                #self.send_widget_text.emit(widget, sender.text())
                 break
-        print(f"{sender.objectName()} klickt bei: {self.instance_id}")
-        self.reject()        
+        
+        self.reject()         
        
     def button_stylesheet(self):
         return """QPushButton {background-color: #FFFDD5;}

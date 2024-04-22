@@ -4,7 +4,7 @@ from PyQt6.QtGui import QIcon
 
 from utils.database_settings.database_for_settings import Webside_Settings
 
-from config import BUTTONS_WEBSIDES_UI
+from config import STUDIO_CHOICE_UI
 
 import gui.resource_collection_files.studios_rc
 
@@ -13,7 +13,7 @@ class StudioChoiceButton(QDialog):
     def __init__(self, parent):
         super().__init__()
         self.Main = parent
-        uic.loadUi(BUTTONS_WEBSIDES_UI, self)   
+        uic.loadUi(STUDIO_CHOICE_UI, self)   
         self.clicked_button = self.Main.sender()
         
         website_settings = Webside_Settings(self.Main)

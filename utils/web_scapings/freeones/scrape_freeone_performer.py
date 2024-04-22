@@ -252,7 +252,7 @@ class FreeOnesInfos():
         onlyfans_elements=content.xpath("//p[contains(string(),'Website')]/following::p/a[@target='starlet']")              
         if onlyfans_elements: 
             for zeile, onlyfans_text in enumerate(onlyfans_elements):
-                if onlyfans_text is not None:
+                if len(onlyfans_text):
                     onlyfans_text=str(onlyfans_text.get('href'))
                     onlyfans.append(onlyfans_text)  
                 else:
@@ -267,7 +267,7 @@ class FreeOnesInfos():
         image_pfad=None         
         if id.isdigit():
             artist_id=int(id)
-            errview, image_pfad = datenbank_darsteller.get_biowebsite_image("IAFD", artist_id)
+            image_pfad = datenbank_darsteller.get_biowebsite_image("IAFD", artist_id)
         if not image_pfad:
             image_url = content.xpath("//div[@id='headshot']/img")
             if image_url:

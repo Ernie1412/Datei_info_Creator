@@ -7,8 +7,9 @@ import requests
 import pyperclip
 
 from utils.web_scapings.theporndb.api_scraper import TPDB_Scraper
+from gui.clearing_widgets import ClearingWidget
 
-from config import URL_INPUT_DIALOG_UI
+from config import URL_INPUT_FOR_BIOSITES_DIALOG_UI
 
 class CustomButton(QPushButton):
     tooltipChanged = pyqtSignal()     
@@ -34,7 +35,9 @@ class CustomButton(QPushButton):
 
     def openDialog(self):        
         self.dialog = QDialog()
-        uic.loadUi(URL_INPUT_DIALOG_UI, self.dialog)        
+        uic.loadUi(URL_INPUT_FOR_BIOSITES_DIALOG_UI, self.dialog)  
+        self.dialog.chkBox_get_autom_iafd.setVisible(False) 
+        self.dialog.chkBox_iafd_enabled.setVisible(False)      
         self.dialog.setStyleSheet("QDialog { border: 2px solid black; }")                
         self.dialog.setWindowFlags(Qt.WindowType.FramelessWindowHint) 
         self.dialog.lnEdit_website_url.setText(self.toolTip()) 
@@ -42,7 +45,11 @@ class CustomButton(QPushButton):
         self.dialog.Btn_OK.clicked.connect(self.accepted_input_url) 
         self.dialog.Btn_link_copy.clicked.connect(self.copy_clipboard_iafdlink)
         self.dialog.lnEdit_website_url.textChanged.connect(self.check_url_existence)
+        self.dialog.chkBox_iafd_enabled.stateChanged.connect(self.toggle_iafd_performer_state)
         self.set_websitebio_logo(self.Main)
+        if self.dialog.lnEdit_website_url.text().startswith("https://www.iafd.com/person.rme/perfid="):
+            self.dialog.chkBox_get_autom_iafd.setVisible(True)
+            self.dialog.chkBox_iafd_enabled.setVisible(True)
         self.dialog.exec() 
     
     def accepted_input_url(self):
@@ -88,6 +95,26 @@ class CustomButton(QPushButton):
     def animate(self, widget):
         color = self.animation.currentValue()
         getattr(self.dialog, widget).setStyleSheet(f"background-color: {color.name()};")
+
+    def toggle_iafd_performer_state(self, is_checked):
+        clearing = ClearingWidget(self.Main)        
+        is_change=False
+        # Überprüfen, ob der veränderungen ist und die Farbe entsprechend setzen
+        if self.Main.lnEdit_DBWebSite_artistLink_old != self.Main.lnEdit_DBWebSite_artistLink.text() and self.Main.lnEdit_DBWebSite_artistLink.text() != "N/A":
+            is_change=True
+            self.Main.lnEdit_DBWebSite_artistLink_old = self.Main.lnEdit_DBWebSite_artistLink.text()
+            self.Main.lnEdit_IAFD_artistAlias_old = self.Main.lnEdit_IAFD_artistAlias.text()
+        self.Main.set_default_color("lnEdit_DBWebSite_artistLink")
+        color_hex = '#FFFD00' if is_change or not is_checked else '#FFFDD5' 
+
+        self.Main.set_color_stylesheet("lnEdit_DBWebSite_artistLink", color_hex=color_hex)
+        self.Main.set_color_stylesheet("lnEdit_IAFD_artistAlias", color_hex=color_hex)  
+
+        self.Main.Btn_performer_in_IAFD.setToolTip(self.Main.lnEdit_DBWebSite_artistLink_old if is_checked else "N/A")
+        self.Main.lnEdit_IAFD_artistAlias.setText(self.Main.lnEdit_IAFD_artistAlias_old if is_checked else "")
+        
+        clearing.set_website_bio_enabled(['IAFD'], is_checked)
+        self.Main.lnEdit_IAFD_artistAlias.setEnabled(is_checked)
 
 
 

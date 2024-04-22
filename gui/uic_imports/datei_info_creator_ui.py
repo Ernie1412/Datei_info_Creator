@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1941, 1013)
+        MainWindow.resize(2074, 1037)
         MainWindow.setFocusPolicy(QtCore.Qt.FocusPolicy.ClickFocus)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("C:/Users/Nutzer/.designer/backup/erotisch.ico"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
@@ -20,24 +20,8 @@ class Ui_MainWindow(object):
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.tabs = QtWidgets.QTabWidget(parent=self.centralwidget)
-        self.tabs.setGeometry(QtCore.QRect(940, 90, 931, 851))
+        self.tabs.setGeometry(QtCore.QRect(940, 90, 931, 861))
         self.tabs.setFocusPolicy(QtCore.Qt.FocusPolicy.StrongFocus)
-        self.tabs.setStyleSheet("QWidget#tab_info {\n"
-"background-color: rgb(230, 230, 230);\n"
-"border: 1px solid grey;\n"
-"border-radius: 5px;}\n"
-"QWidget#tab_search_mask {\n"
-"background-color: rgb(230, 230, 230);\n"
-"border: 1px solid grey;\n"
-"border-radius: 5px;}\n"
-"QWidget#tab_datenbank {\n"
-"background-color: rgb(230, 230, 230);\n"
-"border: 1px solid grey;\n"
-"border-radius: 5px;}\n"
-"QWidget#tab_performer {\n"
-"background-color: rgb(230, 230, 230);\n"
-"border: 1px solid grey;\n"
-"border-radius: 5px;}")
         self.tabs.setTabPosition(QtWidgets.QTabWidget.TabPosition.North)
         self.tabs.setTabShape(QtWidgets.QTabWidget.TabShape.Triangular)
         self.tabs.setIconSize(QtCore.QSize(25, 25))
@@ -509,9 +493,26 @@ class Ui_MainWindow(object):
 "}   ")
         self.Btn_name_suche.setObjectName("Btn_name_suche")
         self.cBox_performers = QtWidgets.QComboBox(parent=self.grpBox_analyse_name)
-        self.cBox_performers.setGeometry(QtCore.QRect(10, 21, 490, 22))
+        self.cBox_performers.setGeometry(QtCore.QRect(29, 21, 471, 22))
         self.cBox_performers.setStyleSheet("background-color: #FFFDD5;")
         self.cBox_performers.setObjectName("cBox_performers")
+        self.rBtn_set_actorname_site = QtWidgets.QRadioButton(parent=self.grpBox_analyse_name)
+        self.rBtn_set_actorname_site.setGeometry(QtCore.QRect(10, 20, 16, 17))
+        self.rBtn_set_actorname_site.setObjectName("rBtn_set_actorname_site")
+        self.lnEdit_analyse_actor_site = QtWidgets.QLineEdit(parent=self.grpBox_analyse_name)
+        self.lnEdit_analyse_actor_site.setGeometry(QtCore.QRect(30, 20, 471, 21))
+        self.lnEdit_analyse_actor_site.setStyleSheet("QLineEdit,QTextEdit { \n"
+"background-color: #FFFDD5;}\n"
+"QLineEdit:hover,QTextEdit:hover {\n"
+"border: 2px solid rgb(49, 50, 62);}\n"
+"QLineEdit:focus,QTextEdit:focus {\n"
+"border: 2px inset rgb(85, 170, 255);}")
+        self.lnEdit_analyse_actor_site.setText("")
+        self.lnEdit_analyse_actor_site.setObjectName("lnEdit_analyse_actor_site")
+        self.cBox_performers.raise_()
+        self.lnEdit_analyse_actor_site.raise_()
+        self.Btn_name_suche.raise_()
+        self.rBtn_set_actorname_site.raise_()
         self.grpBox_analyse_studio = QtWidgets.QGroupBox(parent=self.tab_search_mask)
         self.grpBox_analyse_studio.setGeometry(QtCore.QRect(30, 100, 590, 50))
         self.grpBox_analyse_studio.setStyleSheet("background-color: rgb(216, 216, 216);")
@@ -565,7 +566,7 @@ class Ui_MainWindow(object):
 "}   ")
         self.Btn_titel_suche.setObjectName("Btn_titel_suche")
         self.lnEdit_analyse_titel = QtWidgets.QLineEdit(parent=self.grpBox_analyse_titel)
-        self.lnEdit_analyse_titel.setGeometry(QtCore.QRect(10, 20, 490, 20))
+        self.lnEdit_analyse_titel.setGeometry(QtCore.QRect(9, 20, 491, 20))
         self.lnEdit_analyse_titel.setStyleSheet("QLineEdit,QTextEdit { \n"
 "background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
@@ -963,28 +964,20 @@ class Ui_MainWindow(object):
 "    background-color: rgb(255, 85, 255);\n"
 "}   ")
         self.Btn_Linksuche_in_Data18.setObjectName("Btn_Linksuche_in_Data18")
-        self.lbl_checkWeb_URL = QtWidgets.QLabel(parent=self.tab_datenbank)
-        self.lbl_checkWeb_URL.setGeometry(QtCore.QRect(813, 131, 21, 20))
-        self.lbl_checkWeb_URL.setStyleSheet("background-color: #FFFDD5;\n"
-"")
-        self.lbl_checkWeb_URL.setFrameShape(QtWidgets.QFrame.Shape.Box)
-        self.lbl_checkWeb_URL.setText("")
-        self.lbl_checkWeb_URL.setScaledContents(True)
-        self.lbl_checkWeb_URL.setObjectName("lbl_checkWeb_URL")
-        self.lbl_checkWeb_Data18URL = QtWidgets.QLabel(parent=self.tab_datenbank)
-        self.lbl_checkWeb_Data18URL.setGeometry(QtCore.QRect(813, 194, 21, 20))
-        self.lbl_checkWeb_Data18URL.setStyleSheet("background-color: #FFFDD5;")
-        self.lbl_checkWeb_Data18URL.setFrameShape(QtWidgets.QFrame.Shape.Box)
-        self.lbl_checkWeb_Data18URL.setText("")
-        self.lbl_checkWeb_Data18URL.setScaledContents(True)
-        self.lbl_checkWeb_Data18URL.setObjectName("lbl_checkWeb_Data18URL")
-        self.lbl_checkWeb_IAFDURL = QtWidgets.QLabel(parent=self.tab_datenbank)
-        self.lbl_checkWeb_IAFDURL.setGeometry(QtCore.QRect(813, 249, 20, 20))
-        self.lbl_checkWeb_IAFDURL.setStyleSheet("background-color: #FFFDD5;")
-        self.lbl_checkWeb_IAFDURL.setFrameShape(QtWidgets.QFrame.Shape.Box)
-        self.lbl_checkWeb_IAFDURL.setText("")
-        self.lbl_checkWeb_IAFDURL.setScaledContents(True)
-        self.lbl_checkWeb_IAFDURL.setObjectName("lbl_checkWeb_IAFDURL")
+        self.lbl_checkWeb_data18URL = QtWidgets.QLabel(parent=self.tab_datenbank)
+        self.lbl_checkWeb_data18URL.setGeometry(QtCore.QRect(813, 194, 21, 20))
+        self.lbl_checkWeb_data18URL.setStyleSheet("background-color: #FFFDD5;")
+        self.lbl_checkWeb_data18URL.setFrameShape(QtWidgets.QFrame.Shape.Box)
+        self.lbl_checkWeb_data18URL.setText("")
+        self.lbl_checkWeb_data18URL.setScaledContents(True)
+        self.lbl_checkWeb_data18URL.setObjectName("lbl_checkWeb_data18URL")
+        self.lbl_checkWeb_iafdURL = QtWidgets.QLabel(parent=self.tab_datenbank)
+        self.lbl_checkWeb_iafdURL.setGeometry(QtCore.QRect(813, 249, 20, 20))
+        self.lbl_checkWeb_iafdURL.setStyleSheet("background-color: #FFFDD5;")
+        self.lbl_checkWeb_iafdURL.setFrameShape(QtWidgets.QFrame.Shape.Box)
+        self.lbl_checkWeb_iafdURL.setText("")
+        self.lbl_checkWeb_iafdURL.setScaledContents(True)
+        self.lbl_checkWeb_iafdURL.setObjectName("lbl_checkWeb_iafdURL")
         self.Btn_Anzahl_DBProDate = QtWidgets.QPushButton(parent=self.tab_datenbank)
         self.Btn_Anzahl_DBProDate.setGeometry(QtCore.QRect(550, 425, 16, 16))
         font = QtGui.QFont()
@@ -1402,13 +1395,13 @@ class Ui_MainWindow(object):
 "}  ")
         self.Btn_Anzahl_DBSceneCode.setProperty("Visible", True)
         self.Btn_Anzahl_DBSceneCode.setObjectName("Btn_Anzahl_DBSceneCode")
-        self.lbl_checkWeb_ThePornDBURL = QtWidgets.QLabel(parent=self.tab_datenbank)
-        self.lbl_checkWeb_ThePornDBURL.setGeometry(QtCore.QRect(813, 220, 21, 20))
-        self.lbl_checkWeb_ThePornDBURL.setStyleSheet("background-color: #FFFDD5;")
-        self.lbl_checkWeb_ThePornDBURL.setFrameShape(QtWidgets.QFrame.Shape.Box)
-        self.lbl_checkWeb_ThePornDBURL.setText("")
-        self.lbl_checkWeb_ThePornDBURL.setScaledContents(True)
-        self.lbl_checkWeb_ThePornDBURL.setObjectName("lbl_checkWeb_ThePornDBURL")
+        self.lbl_checkWeb_theporndbURL = QtWidgets.QLabel(parent=self.tab_datenbank)
+        self.lbl_checkWeb_theporndbURL.setGeometry(QtCore.QRect(813, 220, 21, 20))
+        self.lbl_checkWeb_theporndbURL.setStyleSheet("background-color: #FFFDD5;")
+        self.lbl_checkWeb_theporndbURL.setFrameShape(QtWidgets.QFrame.Shape.Box)
+        self.lbl_checkWeb_theporndbURL.setText("")
+        self.lbl_checkWeb_theporndbURL.setScaledContents(True)
+        self.lbl_checkWeb_theporndbURL.setObjectName("lbl_checkWeb_theporndbURL")
         self.Btn_Linksuche_in_ThePornDB = QtWidgets.QPushButton(parent=self.tab_datenbank)
         self.Btn_Linksuche_in_ThePornDB.setEnabled(False)
         self.Btn_Linksuche_in_ThePornDB.setGeometry(QtCore.QRect(23, 221, 101, 23))
@@ -1459,9 +1452,8 @@ class Ui_MainWindow(object):
         self.Btn_delLink.raise_()
         self.Btn_Linksuche_in_IAFD.raise_()
         self.Btn_Linksuche_in_Data18.raise_()
-        self.lbl_checkWeb_URL.raise_()
-        self.lbl_checkWeb_Data18URL.raise_()
-        self.lbl_checkWeb_IAFDURL.raise_()
+        self.lbl_checkWeb_data18URL.raise_()
+        self.lbl_checkWeb_iafdURL.raise_()
         self.Btn_Anzahl_DBProDate.raise_()
         self.Btn_Anzahl_DBRelease.raise_()
         self.Btn_Anzahl_DBRegie.raise_()
@@ -1475,7 +1467,7 @@ class Ui_MainWindow(object):
         self.Btn_Anzahl_DBSynopsis.raise_()
         self.Btn_Anzahl_DBTags.raise_()
         self.Btn_Anzahl_DBSceneCode.raise_()
-        self.lbl_checkWeb_ThePornDBURL.raise_()
+        self.lbl_checkWeb_theporndbURL.raise_()
         self.Btn_Linksuche_in_ThePornDB.raise_()
         self.tabs.addTab(self.tab_datenbank, "")
         self.tab_performer = QtWidgets.QWidget()
@@ -1615,37 +1607,9 @@ class Ui_MainWindow(object):
         self.txtEdit_performer_tattoo.setObjectName("txtEdit_performer_tattoo")
         self.txtEdit_performer_tattoo.raise_()
         self.Btn_tattoo_selection.raise_()
-        self.Btn_Linksuche_in_IAFD_artist = QtWidgets.QPushButton(parent=self.tab_performer)
-        self.Btn_Linksuche_in_IAFD_artist.setEnabled(False)
-        self.Btn_Linksuche_in_IAFD_artist.setGeometry(QtCore.QRect(60, 300, 91, 23))
-        self.Btn_Linksuche_in_IAFD_artist.setStyleSheet("QPushButton { \n"
-"    color: rgb(0, 0, 127);\n"
-"    selection-background-color: rgb(255, 85, 0);\n"
-"    background-color: rgb(198, 178, 255);\n"
-"    border-style: outset;\n"
-"    border-width: 2px;\n"
-"    font:9pt \"MS Shell Dlg 2\";\n"
-"    border-radius: 5px;\n"
-"    border-color: beige;\n"
-"}                   \n"
-"QPushButton:enabled{\n"
-"    background-color: rgb(198, 178, 255);\n"
-"}                           \n"
-"QPushButton:pressed{ \n"
-"    background: red;\n"
-"}                            \n"
-"QPushButton:disabled{                             \n"
-"    background-color: gray;                \n"
-"}\n"
-"QPushButton:hover{\n"
-"    background-color: rgb(255, 85, 255);\n"
-"}   ")
-        self.Btn_Linksuche_in_IAFD_artist.setCheckable(False)
-        self.Btn_Linksuche_in_IAFD_artist.setChecked(False)
-        self.Btn_Linksuche_in_IAFD_artist.setObjectName("Btn_Linksuche_in_IAFD_artist")
-        self.lnEdit_DBIAFD_artistLink = QtWidgets.QLineEdit(parent=self.tab_performer)
-        self.lnEdit_DBIAFD_artistLink.setGeometry(QtCore.QRect(157, 300, 561, 20))
-        self.lnEdit_DBIAFD_artistLink.setStyleSheet("QLineEdit,QTextEdit { \n"
+        self.lnEdit_DBWebSite_artistLink = QtWidgets.QLineEdit(parent=self.tab_performer)
+        self.lnEdit_DBWebSite_artistLink.setGeometry(QtCore.QRect(31, 300, 680, 20))
+        self.lnEdit_DBWebSite_artistLink.setStyleSheet("QLineEdit,QTextEdit { \n"
 "background-color: #FFFDD5;}\n"
 "QLineEdit:hover,QTextEdit:hover {\n"
 "border: 2px solid rgb(49, 50, 62);}\n"
@@ -1658,14 +1622,15 @@ class Ui_MainWindow(object):
 "\n"
 "\n"
 "")
-        self.lnEdit_DBIAFD_artistLink.setObjectName("lnEdit_DBIAFD_artistLink")
-        self.lbl_checkWeb_IAFD_artistURL = QtWidgets.QLabel(parent=self.tab_performer)
-        self.lbl_checkWeb_IAFD_artistURL.setGeometry(QtCore.QRect(879, 300, 21, 20))
-        self.lbl_checkWeb_IAFD_artistURL.setStyleSheet("background-color: #FFFDD5;")
-        self.lbl_checkWeb_IAFD_artistURL.setFrameShape(QtWidgets.QFrame.Shape.Box)
-        self.lbl_checkWeb_IAFD_artistURL.setText("")
-        self.lbl_checkWeb_IAFD_artistURL.setScaledContents(True)
-        self.lbl_checkWeb_IAFD_artistURL.setObjectName("lbl_checkWeb_IAFD_artistURL")
+        self.lnEdit_DBWebSite_artistLink.setReadOnly(True)
+        self.lnEdit_DBWebSite_artistLink.setObjectName("lnEdit_DBWebSite_artistLink")
+        self.lbl_checkWeb_website_artistURL = QtWidgets.QLabel(parent=self.tab_performer)
+        self.lbl_checkWeb_website_artistURL.setGeometry(QtCore.QRect(879, 300, 21, 20))
+        self.lbl_checkWeb_website_artistURL.setStyleSheet("background-color: #FFFDD5;")
+        self.lbl_checkWeb_website_artistURL.setFrameShape(QtWidgets.QFrame.Shape.Box)
+        self.lbl_checkWeb_website_artistURL.setText("")
+        self.lbl_checkWeb_website_artistURL.setScaledContents(True)
+        self.lbl_checkWeb_website_artistURL.setObjectName("lbl_checkWeb_website_artistURL")
         self.layoutWidget_8 = QtWidgets.QWidget(parent=self.tab_performer)
         self.layoutWidget_8.setGeometry(QtCore.QRect(500, 80, 291, 22))
         self.layoutWidget_8.setObjectName("layoutWidget_8")
@@ -1924,12 +1889,6 @@ class Ui_MainWindow(object):
 "}   ")
         self.Btn_table_links_expanding.setText("")
         self.Btn_table_links_expanding.setObjectName("Btn_table_links_expanding")
-        self.chkBox_get_autom_iafd = QtWidgets.QCheckBox(parent=self.tab_performer)
-        self.chkBox_get_autom_iafd.setEnabled(True)
-        self.chkBox_get_autom_iafd.setGeometry(QtCore.QRect(40, 303, 15, 15))
-        self.chkBox_get_autom_iafd.setText("")
-        self.chkBox_get_autom_iafd.setTristate(False)
-        self.chkBox_get_autom_iafd.setObjectName("chkBox_get_autom_iafd")
         self.grpBox_actor_folder = QtWidgets.QGroupBox(parent=self.tab_performer)
         self.grpBox_actor_folder.setGeometry(QtCore.QRect(390, 20, 371, 48))
         self.grpBox_actor_folder.setStyleSheet("QGroupBox {\n"
@@ -1944,296 +1903,165 @@ class Ui_MainWindow(object):
         self.lnEdit_performer_ordner.setClearButtonEnabled(False)
         self.lnEdit_performer_ordner.setObjectName("lnEdit_performer_ordner")
         self.stacked_webdb_images = QtWidgets.QStackedWidget(parent=self.tab_performer)
-        self.stacked_webdb_images.setGeometry(QtCore.QRect(30, 520, 241, 301))
+        self.stacked_webdb_images.setGeometry(QtCore.QRect(30, 540, 241, 301))
         self.stacked_webdb_images.setObjectName("stacked_webdb_images")
         self.stacked_iafd_label = QtWidgets.QWidget()
         self.stacked_iafd_label.setObjectName("stacked_iafd_label")
-        self.lbl_iafd_image_info = QtWidgets.QLabel(parent=self.stacked_iafd_label)
-        self.lbl_iafd_image_info.setGeometry(QtCore.QRect(60, 0, 121, 16))
+        self.lbl_IAFD_image = QtWidgets.QLabel(parent=self.stacked_iafd_label)
+        self.lbl_IAFD_image.setGeometry(QtCore.QRect(0, 20, 238, 280))
+        self.lbl_IAFD_image.setStyleSheet("border: 1px solid blue;")
+        self.lbl_IAFD_image.setText("")
+        self.lbl_IAFD_image.setScaledContents(True)
+        self.lbl_IAFD_image.setWordWrap(False)
+        self.lbl_IAFD_image.setObjectName("lbl_IAFD_image")
+        self.layoutWidget_10 = QtWidgets.QWidget(parent=self.stacked_iafd_label)
+        self.layoutWidget_10.setGeometry(QtCore.QRect(0, 0, 241, 22))
+        self.layoutWidget_10.setObjectName("layoutWidget_10")
+        self.horLayout_iafd = QtWidgets.QHBoxLayout(self.layoutWidget_10)
+        self.horLayout_iafd.setContentsMargins(0, 0, 0, 0)
+        self.horLayout_iafd.setObjectName("horLayout_iafd")
+        self.lbl_iafd_image_info = QtWidgets.QLabel(parent=self.layoutWidget_10)
+        self.lbl_iafd_image_info.setMinimumSize(QtCore.QSize(55, 0))
         self.lbl_iafd_image_info.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.lbl_iafd_image_info.setObjectName("lbl_iafd_image_info")
-        self.Btn_stacked_webdb_next_1 = QtWidgets.QPushButton(parent=self.stacked_iafd_label)
-        self.Btn_stacked_webdb_next_1.setGeometry(QtCore.QRect(180, 0, 60, 20))
-        self.Btn_stacked_webdb_next_1.setStyleSheet("QPushButton { \n"
-"    color: rgb(0, 0, 127);\n"
-"    selection-background-color: rgb(255, 85, 0);\n"
-"    background-color: rgb(198, 178, 255);\n"
-"    border-style: outset;\n"
-"    border-width: 2px;\n"
-"    font: 10pt \"MS Shell Dlg 2\";\n"
-"    border-radius: 5px;\n"
-"    border-color: beige;\n"
-"}                   \n"
-"QPushButton:enabled{\n"
-"    background-color: rgb(198, 178, 255);\n"
-"}                           \n"
-"QPushButton:pressed{ \n"
-"    background: red;\n"
-"}                            \n"
-"QPushButton:disabled{                             \n"
-"    background-color: gray;                \n"
-"}\n"
-"QPushButton:hover{\n"
-"    background-color: rgb(255, 85, 255);\n"
-"}   ")
-        self.Btn_stacked_webdb_next_1.setObjectName("Btn_stacked_webdb_next_1")
-        self.lbl_iafd_image = QtWidgets.QLabel(parent=self.stacked_iafd_label)
-        self.lbl_iafd_image.setGeometry(QtCore.QRect(0, 20, 238, 280))
-        self.lbl_iafd_image.setStyleSheet("border: 1px solid blue;")
-        self.lbl_iafd_image.setText("")
-        self.lbl_iafd_image.setScaledContents(True)
-        self.lbl_iafd_image.setWordWrap(False)
-        self.lbl_iafd_image.setObjectName("lbl_iafd_image")
+        self.horLayout_iafd.addWidget(self.lbl_iafd_image_info)
         self.stacked_webdb_images.addWidget(self.stacked_iafd_label)
-        self.stacked_theporndb_label = QtWidgets.QWidget()
-        self.stacked_theporndb_label.setObjectName("stacked_theporndb_label")
-        self.lbl_theporndb_image_info = QtWidgets.QLabel(parent=self.stacked_theporndb_label)
-        self.lbl_theporndb_image_info.setGeometry(QtCore.QRect(60, 0, 101, 16))
-        self.lbl_theporndb_image_info.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.lbl_theporndb_image_info.setObjectName("lbl_theporndb_image_info")
-        self.lbl_theporndb_image = QtWidgets.QLabel(parent=self.stacked_theporndb_label)
-        self.lbl_theporndb_image.setGeometry(QtCore.QRect(0, 20, 238, 280))
-        self.lbl_theporndb_image.setStyleSheet("border: 1px solid blue;")
-        self.lbl_theporndb_image.setText("")
-        self.lbl_theporndb_image.setScaledContents(True)
-        self.lbl_theporndb_image.setWordWrap(False)
-        self.lbl_theporndb_image.setObjectName("lbl_theporndb_image")
-        self.Btn_stacked_webdb_next_2 = QtWidgets.QPushButton(parent=self.stacked_theporndb_label)
-        self.Btn_stacked_webdb_next_2.setGeometry(QtCore.QRect(180, 0, 60, 20))
-        self.Btn_stacked_webdb_next_2.setStyleSheet("QPushButton { \n"
-"    color: rgb(0, 0, 127);\n"
-"    selection-background-color: rgb(255, 85, 0);\n"
-"    background-color: rgb(198, 178, 255);\n"
-"    border-style: outset;\n"
-"    border-width: 2px;\n"
-"    font: 10pt \"MS Shell Dlg 2\";\n"
-"    border-radius: 5px;\n"
-"    border-color: beige;\n"
-"}                   \n"
-"QPushButton:enabled{\n"
-"    background-color: rgb(198, 178, 255);\n"
-"}                           \n"
-"QPushButton:pressed{ \n"
-"    background: red;\n"
-"}                            \n"
-"QPushButton:disabled{                             \n"
-"    background-color: gray;                \n"
-"}\n"
-"QPushButton:hover{\n"
-"    background-color: rgb(255, 85, 255);\n"
-"}   ")
-        self.Btn_stacked_webdb_next_2.setObjectName("Btn_stacked_webdb_next_2")
-        self.stacked_webdb_images.addWidget(self.stacked_theporndb_label)
         self.stacked_babepedia_label = QtWidgets.QWidget()
         self.stacked_babepedia_label.setObjectName("stacked_babepedia_label")
-        self.Btn_stacked_webdb_next_3 = QtWidgets.QPushButton(parent=self.stacked_babepedia_label)
-        self.Btn_stacked_webdb_next_3.setGeometry(QtCore.QRect(180, 0, 60, 20))
-        self.Btn_stacked_webdb_next_3.setStyleSheet("QPushButton { \n"
-"    color: rgb(0, 0, 127);\n"
-"    selection-background-color: rgb(255, 85, 0);\n"
-"    background-color: rgb(198, 178, 255);\n"
-"    border-style: outset;\n"
-"    border-width: 2px;\n"
-"    font: 10pt \"MS Shell Dlg 2\";\n"
-"    border-radius: 5px;\n"
-"    border-color: beige;\n"
-"}                   \n"
-"QPushButton:enabled{\n"
-"    background-color: rgb(198, 178, 255);\n"
-"}                           \n"
-"QPushButton:pressed{ \n"
-"    background: red;\n"
-"}                            \n"
-"QPushButton:disabled{                             \n"
-"    background-color: gray;                \n"
-"}\n"
-"QPushButton:hover{\n"
-"    background-color: rgb(255, 85, 255);\n"
-"}   ")
-        self.Btn_stacked_webdb_next_3.setObjectName("Btn_stacked_webdb_next_3")
-        self.lbl_babepedia_image_info = QtWidgets.QLabel(parent=self.stacked_babepedia_label)
-        self.lbl_babepedia_image_info.setGeometry(QtCore.QRect(70, 0, 91, 16))
-        self.lbl_babepedia_image_info.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.lbl_babepedia_image_info.setObjectName("lbl_babepedia_image_info")
-        self.lbl_babepedia_image = QtWidgets.QLabel(parent=self.stacked_babepedia_label)
-        self.lbl_babepedia_image.setGeometry(QtCore.QRect(0, 20, 238, 280))
-        self.lbl_babepedia_image.setStyleSheet("border: 1px solid blue;")
-        self.lbl_babepedia_image.setText("")
-        self.lbl_babepedia_image.setScaledContents(True)
-        self.lbl_babepedia_image.setWordWrap(False)
-        self.lbl_babepedia_image.setObjectName("lbl_babepedia_image")
+        self.lbl_BabePedia_image = QtWidgets.QLabel(parent=self.stacked_babepedia_label)
+        self.lbl_BabePedia_image.setGeometry(QtCore.QRect(0, 20, 238, 280))
+        self.lbl_BabePedia_image.setStyleSheet("border: 1px solid blue;")
+        self.lbl_BabePedia_image.setText("")
+        self.lbl_BabePedia_image.setScaledContents(True)
+        self.lbl_BabePedia_image.setWordWrap(False)
+        self.lbl_BabePedia_image.setObjectName("lbl_BabePedia_image")
+        self.layoutWidget_6 = QtWidgets.QWidget(parent=self.stacked_babepedia_label)
+        self.layoutWidget_6.setGeometry(QtCore.QRect(0, 0, 241, 22))
+        self.layoutWidget_6.setObjectName("layoutWidget_6")
+        self.horLayout_BabePedia = QtWidgets.QHBoxLayout(self.layoutWidget_6)
+        self.horLayout_BabePedia.setContentsMargins(0, 0, 0, 0)
+        self.horLayout_BabePedia.setObjectName("horLayout_BabePedia")
+        self.lbl_BabePedia_image_info = QtWidgets.QLabel(parent=self.layoutWidget_6)
+        self.lbl_BabePedia_image_info.setMinimumSize(QtCore.QSize(55, 0))
+        font = QtGui.QFont()
+        font.setPointSize(8)
+        self.lbl_BabePedia_image_info.setFont(font)
+        self.lbl_BabePedia_image_info.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.lbl_BabePedia_image_info.setObjectName("lbl_BabePedia_image_info")
+        self.horLayout_BabePedia.addWidget(self.lbl_BabePedia_image_info)
         self.stacked_webdb_images.addWidget(self.stacked_babepedia_label)
+        self.stacked_theporndb_label = QtWidgets.QWidget()
+        self.stacked_theporndb_label.setObjectName("stacked_theporndb_label")
+        self.lbl_ThePornDB_image = QtWidgets.QLabel(parent=self.stacked_theporndb_label)
+        self.lbl_ThePornDB_image.setGeometry(QtCore.QRect(0, 20, 238, 280))
+        self.lbl_ThePornDB_image.setStyleSheet("border: 1px solid blue;")
+        self.lbl_ThePornDB_image.setText("")
+        self.lbl_ThePornDB_image.setScaledContents(True)
+        self.lbl_ThePornDB_image.setWordWrap(False)
+        self.lbl_ThePornDB_image.setObjectName("lbl_ThePornDB_image")
+        self.layoutWidget_15 = QtWidgets.QWidget(parent=self.stacked_theporndb_label)
+        self.layoutWidget_15.setGeometry(QtCore.QRect(0, 0, 241, 21))
+        self.layoutWidget_15.setObjectName("layoutWidget_15")
+        self.horLayout_ThePornDB = QtWidgets.QHBoxLayout(self.layoutWidget_15)
+        self.horLayout_ThePornDB.setContentsMargins(0, 0, 0, 0)
+        self.horLayout_ThePornDB.setObjectName("horLayout_ThePornDB")
+        self.lbl_ThePornDB_image_info = QtWidgets.QLabel(parent=self.layoutWidget_15)
+        self.lbl_ThePornDB_image_info.setMinimumSize(QtCore.QSize(55, 0))
+        self.lbl_ThePornDB_image_info.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.lbl_ThePornDB_image_info.setObjectName("lbl_ThePornDB_image_info")
+        self.horLayout_ThePornDB.addWidget(self.lbl_ThePornDB_image_info)
+        self.stacked_webdb_images.addWidget(self.stacked_theporndb_label)
         self.stacked_indexxx_label = QtWidgets.QWidget()
         self.stacked_indexxx_label.setObjectName("stacked_indexxx_label")
-        self.lbl_indexxx_image_info = QtWidgets.QLabel(parent=self.stacked_indexxx_label)
-        self.lbl_indexxx_image_info.setGeometry(QtCore.QRect(70, 0, 91, 16))
-        self.lbl_indexxx_image_info.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.lbl_indexxx_image_info.setObjectName("lbl_indexxx_image_info")
-        self.Btn_stacked_webdb_next_4 = QtWidgets.QPushButton(parent=self.stacked_indexxx_label)
-        self.Btn_stacked_webdb_next_4.setGeometry(QtCore.QRect(180, 0, 60, 20))
-        self.Btn_stacked_webdb_next_4.setStyleSheet("QPushButton { \n"
-"    color: rgb(0, 0, 127);\n"
-"    selection-background-color: rgb(255, 85, 0);\n"
-"    background-color: rgb(198, 178, 255);\n"
-"    border-style: outset;\n"
-"    border-width: 2px;\n"
-"    font: 10pt \"MS Shell Dlg 2\";\n"
-"    border-radius: 5px;\n"
-"    border-color: beige;\n"
-"}                   \n"
-"QPushButton:enabled{\n"
-"    background-color: rgb(198, 178, 255);\n"
-"}                           \n"
-"QPushButton:pressed{ \n"
-"    background: red;\n"
-"}                            \n"
-"QPushButton:disabled{                             \n"
-"    background-color: gray;                \n"
-"}\n"
-"QPushButton:hover{\n"
-"    background-color: rgb(255, 85, 255);\n"
-"}   ")
-        self.Btn_stacked_webdb_next_4.setObjectName("Btn_stacked_webdb_next_4")
-        self.lbl_indexxx_image = QtWidgets.QLabel(parent=self.stacked_indexxx_label)
-        self.lbl_indexxx_image.setGeometry(QtCore.QRect(0, 20, 238, 280))
-        self.lbl_indexxx_image.setStyleSheet("border: 1px solid blue;")
-        self.lbl_indexxx_image.setText("")
-        self.lbl_indexxx_image.setScaledContents(True)
-        self.lbl_indexxx_image.setWordWrap(False)
-        self.lbl_indexxx_image.setObjectName("lbl_indexxx_image")
+        self.lbl_Indexxx_image = QtWidgets.QLabel(parent=self.stacked_indexxx_label)
+        self.lbl_Indexxx_image.setGeometry(QtCore.QRect(0, 20, 238, 280))
+        self.lbl_Indexxx_image.setStyleSheet("border: 1px solid blue;")
+        self.lbl_Indexxx_image.setText("")
+        self.lbl_Indexxx_image.setScaledContents(True)
+        self.lbl_Indexxx_image.setWordWrap(False)
+        self.lbl_Indexxx_image.setObjectName("lbl_Indexxx_image")
+        self.layoutWidget_7 = QtWidgets.QWidget(parent=self.stacked_indexxx_label)
+        self.layoutWidget_7.setGeometry(QtCore.QRect(0, 0, 241, 22))
+        self.layoutWidget_7.setObjectName("layoutWidget_7")
+        self.horLayout_Indexxx = QtWidgets.QHBoxLayout(self.layoutWidget_7)
+        self.horLayout_Indexxx.setContentsMargins(0, 0, 0, 0)
+        self.horLayout_Indexxx.setObjectName("horLayout_Indexxx")
+        self.lbl_Indexxx_image_info = QtWidgets.QLabel(parent=self.layoutWidget_7)
+        self.lbl_Indexxx_image_info.setMinimumSize(QtCore.QSize(55, 0))
+        self.lbl_Indexxx_image_info.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.lbl_Indexxx_image_info.setObjectName("lbl_Indexxx_image_info")
+        self.horLayout_Indexxx.addWidget(self.lbl_Indexxx_image_info)
         self.stacked_webdb_images.addWidget(self.stacked_indexxx_label)
         self.stacked_thenude_label = QtWidgets.QWidget()
         self.stacked_thenude_label.setObjectName("stacked_thenude_label")
-        self.lbl_thenude_image_info = QtWidgets.QLabel(parent=self.stacked_thenude_label)
-        self.lbl_thenude_image_info.setGeometry(QtCore.QRect(70, 0, 91, 16))
-        self.lbl_thenude_image_info.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.lbl_thenude_image_info.setObjectName("lbl_thenude_image_info")
-        self.Btn_stacked_webdb_next_5 = QtWidgets.QPushButton(parent=self.stacked_thenude_label)
-        self.Btn_stacked_webdb_next_5.setGeometry(QtCore.QRect(180, 0, 60, 20))
-        self.Btn_stacked_webdb_next_5.setStyleSheet("QPushButton { \n"
-"    color: rgb(0, 0, 127);\n"
-"    selection-background-color: rgb(255, 85, 0);\n"
-"    background-color: rgb(198, 178, 255);\n"
-"    border-style: outset;\n"
-"    border-width: 2px;\n"
-"    font: 10pt \"MS Shell Dlg 2\";\n"
-"    border-radius: 5px;\n"
-"    border-color: beige;\n"
-"}                   \n"
-"QPushButton:enabled{\n"
-"    background-color: rgb(198, 178, 255);\n"
-"}                           \n"
-"QPushButton:pressed{ \n"
-"    background: red;\n"
-"}                            \n"
-"QPushButton:disabled{                             \n"
-"    background-color: gray;                \n"
-"}\n"
-"QPushButton:hover{\n"
-"    background-color: rgb(255, 85, 255);\n"
-"}   ")
-        self.Btn_stacked_webdb_next_5.setObjectName("Btn_stacked_webdb_next_5")
-        self.lbl_thenude_image = QtWidgets.QLabel(parent=self.stacked_thenude_label)
-        self.lbl_thenude_image.setGeometry(QtCore.QRect(0, 20, 238, 280))
-        self.lbl_thenude_image.setStyleSheet("border: 1px solid blue;")
-        self.lbl_thenude_image.setText("")
-        self.lbl_thenude_image.setScaledContents(True)
-        self.lbl_thenude_image.setWordWrap(False)
-        self.lbl_thenude_image.setObjectName("lbl_thenude_image")
+        self.lbl_TheNude_image = QtWidgets.QLabel(parent=self.stacked_thenude_label)
+        self.lbl_TheNude_image.setGeometry(QtCore.QRect(0, 20, 240, 280))
+        self.lbl_TheNude_image.setStyleSheet("border: 1px solid blue;")
+        self.lbl_TheNude_image.setText("")
+        self.lbl_TheNude_image.setScaledContents(True)
+        self.lbl_TheNude_image.setWordWrap(False)
+        self.lbl_TheNude_image.setObjectName("lbl_TheNude_image")
+        self.layoutWidget_16 = QtWidgets.QWidget(parent=self.stacked_thenude_label)
+        self.layoutWidget_16.setGeometry(QtCore.QRect(0, 0, 241, 22))
+        self.layoutWidget_16.setObjectName("layoutWidget_16")
+        self.horLayout_TheNude = QtWidgets.QHBoxLayout(self.layoutWidget_16)
+        self.horLayout_TheNude.setContentsMargins(0, 0, 0, 0)
+        self.horLayout_TheNude.setObjectName("horLayout_TheNude")
+        self.lbl_TheNude_image_info = QtWidgets.QLabel(parent=self.layoutWidget_16)
+        self.lbl_TheNude_image_info.setMinimumSize(QtCore.QSize(55, 0))
+        self.lbl_TheNude_image_info.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.lbl_TheNude_image_info.setObjectName("lbl_TheNude_image_info")
+        self.horLayout_TheNude.addWidget(self.lbl_TheNude_image_info)
         self.stacked_webdb_images.addWidget(self.stacked_thenude_label)
-        self.page = QtWidgets.QWidget()
-        self.page.setObjectName("page")
-        self.Btn_stacked_webdb_next_6 = QtWidgets.QPushButton(parent=self.page)
-        self.Btn_stacked_webdb_next_6.setGeometry(QtCore.QRect(180, 0, 60, 20))
-        self.Btn_stacked_webdb_next_6.setStyleSheet("QPushButton { \n"
-"    color: rgb(0, 0, 127);\n"
-"    selection-background-color: rgb(255, 85, 0);\n"
-"    background-color: rgb(198, 178, 255);\n"
-"    border-style: outset;\n"
-"    border-width: 2px;\n"
-"    font: 10pt \"MS Shell Dlg 2\";\n"
-"    border-radius: 5px;\n"
-"    border-color: beige;\n"
-"}                   \n"
-"QPushButton:enabled{\n"
-"    background-color: rgb(198, 178, 255);\n"
-"}                           \n"
-"QPushButton:pressed{ \n"
-"    background: red;\n"
-"}                            \n"
-"QPushButton:disabled{                             \n"
-"    background-color: gray;                \n"
-"}\n"
-"QPushButton:hover{\n"
-"    background-color: rgb(255, 85, 255);\n"
-"}   ")
-        self.Btn_stacked_webdb_next_6.setObjectName("Btn_stacked_webdb_next_6")
-        self.lbl_freeones_image_info = QtWidgets.QLabel(parent=self.page)
-        self.lbl_freeones_image_info.setGeometry(QtCore.QRect(70, 0, 91, 16))
-        self.lbl_freeones_image_info.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.lbl_freeones_image_info.setObjectName("lbl_freeones_image_info")
-        self.lbl_freeones_image = QtWidgets.QLabel(parent=self.page)
-        self.lbl_freeones_image.setGeometry(QtCore.QRect(0, 20, 238, 280))
-        self.lbl_freeones_image.setStyleSheet("border: 1px solid blue;")
-        self.lbl_freeones_image.setText("")
-        self.lbl_freeones_image.setScaledContents(True)
-        self.lbl_freeones_image.setWordWrap(False)
-        self.lbl_freeones_image.setObjectName("lbl_freeones_image")
-        self.stacked_webdb_images.addWidget(self.page)
-        self.page_2 = QtWidgets.QWidget()
-        self.page_2.setObjectName("page_2")
-        self.lbl_egafd_image = QtWidgets.QLabel(parent=self.page_2)
-        self.lbl_egafd_image.setGeometry(QtCore.QRect(0, 20, 238, 280))
-        self.lbl_egafd_image.setStyleSheet("border: 1px solid blue;")
-        self.lbl_egafd_image.setText("")
-        self.lbl_egafd_image.setScaledContents(True)
-        self.lbl_egafd_image.setWordWrap(False)
-        self.lbl_egafd_image.setObjectName("lbl_egafd_image")
-        self.Btn_stacked_webdb_next_7 = QtWidgets.QPushButton(parent=self.page_2)
-        self.Btn_stacked_webdb_next_7.setGeometry(QtCore.QRect(180, 0, 60, 20))
-        self.Btn_stacked_webdb_next_7.setStyleSheet("QPushButton { \n"
-"    color: rgb(0, 0, 127);\n"
-"    selection-background-color: rgb(255, 85, 0);\n"
-"    background-color: rgb(198, 178, 255);\n"
-"    border-style: outset;\n"
-"    border-width: 2px;\n"
-"    font: 10pt \"MS Shell Dlg 2\";\n"
-"    border-radius: 5px;\n"
-"    border-color: beige;\n"
-"}                   \n"
-"QPushButton:enabled{\n"
-"    background-color: rgb(198, 178, 255);\n"
-"}                           \n"
-"QPushButton:pressed{ \n"
-"    background: red;\n"
-"}                            \n"
-"QPushButton:disabled{                             \n"
-"    background-color: gray;                \n"
-"}\n"
-"QPushButton:hover{\n"
-"    background-color: rgb(255, 85, 255);\n"
-"}   ")
-        self.Btn_stacked_webdb_next_7.setObjectName("Btn_stacked_webdb_next_7")
-        self.lbl_egafd_image_info = QtWidgets.QLabel(parent=self.page_2)
-        self.lbl_egafd_image_info.setGeometry(QtCore.QRect(60, 0, 91, 16))
+        self.stacked_freeones_label = QtWidgets.QWidget()
+        self.stacked_freeones_label.setObjectName("stacked_freeones_label")
+        self.lbl_Freeones_image = QtWidgets.QLabel(parent=self.stacked_freeones_label)
+        self.lbl_Freeones_image.setGeometry(QtCore.QRect(0, 19, 240, 281))
+        self.lbl_Freeones_image.setStyleSheet("border: 1px solid blue;")
+        self.lbl_Freeones_image.setText("")
+        self.lbl_Freeones_image.setScaledContents(True)
+        self.lbl_Freeones_image.setWordWrap(False)
+        self.lbl_Freeones_image.setObjectName("lbl_Freeones_image")
+        self.layoutWidget_5 = QtWidgets.QWidget(parent=self.stacked_freeones_label)
+        self.layoutWidget_5.setGeometry(QtCore.QRect(0, 0, 241, 22))
+        self.layoutWidget_5.setObjectName("layoutWidget_5")
+        self.horLayout_Freeones = QtWidgets.QHBoxLayout(self.layoutWidget_5)
+        self.horLayout_Freeones.setContentsMargins(0, 0, 0, 0)
+        self.horLayout_Freeones.setObjectName("horLayout_Freeones")
+        self.lbl_Freeones_image_info = QtWidgets.QLabel(parent=self.layoutWidget_5)
+        self.lbl_Freeones_image_info.setMinimumSize(QtCore.QSize(55, 0))
+        self.lbl_Freeones_image_info.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.lbl_Freeones_image_info.setObjectName("lbl_Freeones_image_info")
+        self.horLayout_Freeones.addWidget(self.lbl_Freeones_image_info)
+        self.stacked_webdb_images.addWidget(self.stacked_freeones_label)
+        self.stacked_egafd_label = QtWidgets.QWidget()
+        self.stacked_egafd_label.setObjectName("stacked_egafd_label")
+        self.lbl_EGAFD_image = QtWidgets.QLabel(parent=self.stacked_egafd_label)
+        self.lbl_EGAFD_image.setGeometry(QtCore.QRect(0, 20, 238, 280))
+        self.lbl_EGAFD_image.setStyleSheet("border: 1px solid blue;")
+        self.lbl_EGAFD_image.setText("")
+        self.lbl_EGAFD_image.setScaledContents(True)
+        self.lbl_EGAFD_image.setWordWrap(False)
+        self.lbl_EGAFD_image.setObjectName("lbl_EGAFD_image")
+        self.layoutWidget_14 = QtWidgets.QWidget(parent=self.stacked_egafd_label)
+        self.layoutWidget_14.setGeometry(QtCore.QRect(0, 0, 241, 22))
+        self.layoutWidget_14.setObjectName("layoutWidget_14")
+        self.horLayout_EGAFD = QtWidgets.QHBoxLayout(self.layoutWidget_14)
+        self.horLayout_EGAFD.setContentsMargins(0, 0, 0, 0)
+        self.horLayout_EGAFD.setObjectName("horLayout_EGAFD")
+        self.lbl_egafd_image_info = QtWidgets.QLabel(parent=self.layoutWidget_14)
         self.lbl_egafd_image_info.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.lbl_egafd_image_info.setObjectName("lbl_egafd_image_info")
-        self.stacked_webdb_images.addWidget(self.page_2)
+        self.horLayout_EGAFD.addWidget(self.lbl_egafd_image_info)
+        self.stacked_webdb_images.addWidget(self.stacked_egafd_label)
         self.lnEdit_IAFD_artistAlias = CustomLineEdit_double(parent=self.tab_performer)
         self.lnEdit_IAFD_artistAlias.setGeometry(QtCore.QRect(743, 300, 131, 20))
         self.lnEdit_IAFD_artistAlias.setStyleSheet("background-color: #FFFDD5;")
         self.lnEdit_IAFD_artistAlias.setReadOnly(True)
         self.lnEdit_IAFD_artistAlias.setCursorMoveStyle(QtCore.Qt.CursorMoveStyle.VisualMoveStyle)
         self.lnEdit_IAFD_artistAlias.setObjectName("lnEdit_IAFD_artistAlias")
-        self.chkBox_iafd_enabled = QtWidgets.QCheckBox(parent=self.tab_performer)
-        self.chkBox_iafd_enabled.setEnabled(True)
-        self.chkBox_iafd_enabled.setGeometry(QtCore.QRect(722, 303, 15, 15))
-        self.chkBox_iafd_enabled.setText("")
-        self.chkBox_iafd_enabled.setChecked(True)
-        self.chkBox_iafd_enabled.setTristate(False)
-        self.chkBox_iafd_enabled.setObjectName("chkBox_iafd_enabled")
         self.stacked_image_infos = QtWidgets.QStackedWidget(parent=self.tab_performer)
-        self.stacked_image_infos.setGeometry(QtCore.QRect(290, 520, 601, 301))
+        self.stacked_image_infos.setGeometry(QtCore.QRect(290, 520, 601, 321))
         self.stacked_image_infos.setObjectName("stacked_image_infos")
         self.perfomer_image = QtWidgets.QWidget()
         self.perfomer_image.setObjectName("perfomer_image")
@@ -2361,7 +2189,7 @@ class Ui_MainWindow(object):
 "}   ")
         self.Btn_stacked_info_next_2.setObjectName("Btn_stacked_info_next_2")
         self.txtBrowser_loginfos = QtWidgets.QTextBrowser(parent=self.logger_infos)
-        self.txtBrowser_loginfos.setGeometry(QtCore.QRect(0, 50, 601, 251))
+        self.txtBrowser_loginfos.setGeometry(QtCore.QRect(0, 50, 601, 271))
         font = QtGui.QFont()
         font.setFamily("Arial Unicode MS")
         self.txtBrowser_loginfos.setFont(font)
@@ -2371,7 +2199,7 @@ class Ui_MainWindow(object):
         self.lblinfos_on_imagestacked.setGeometry(QtCore.QRect(0, 0, 31, 20))
         self.lblinfos_on_imagestacked.setObjectName("lblinfos_on_imagestacked")
         self.lbl_infos_on_imagestacked = QtWidgets.QLabel(parent=self.logger_infos)
-        self.lbl_infos_on_imagestacked.setGeometry(QtCore.QRect(40, 0, 491, 20))
+        self.lbl_infos_on_imagestacked.setGeometry(QtCore.QRect(20, 0, 491, 20))
         self.lbl_infos_on_imagestacked.setText("")
         self.lbl_infos_on_imagestacked.setObjectName("lbl_infos_on_imagestacked")
         self.Btn_delete_logs = QtWidgets.QPushButton(parent=self.logger_infos)
@@ -2401,7 +2229,7 @@ class Ui_MainWindow(object):
         self.Btn_delete_logs.setObjectName("Btn_delete_logs")
         self.prgBar_load_status = QtWidgets.QProgressBar(parent=self.logger_infos)
         self.prgBar_load_status.setGeometry(QtCore.QRect(0, 23, 601, 20))
-        self.prgBar_load_status.setProperty("value", 24)
+        self.prgBar_load_status.setProperty("value", 0)
         self.prgBar_load_status.setObjectName("prgBar_load_status")
         self.stacked_image_infos.addWidget(self.logger_infos)
         self.layoutWidget4 = QtWidgets.QWidget(parent=self.tab_performer)
@@ -2477,7 +2305,7 @@ class Ui_MainWindow(object):
         self.lbl_kg.setObjectName("lbl_kg")
         self.HLayout_weight.addWidget(self.lbl_kg)
         self.Btn_iafd_link_copy = QtWidgets.QPushButton(parent=self.tab_performer)
-        self.Btn_iafd_link_copy.setGeometry(QtCore.QRect(698, 300, 20, 20))
+        self.Btn_iafd_link_copy.setGeometry(QtCore.QRect(692, 300, 20, 20))
         self.Btn_iafd_link_copy.setStyleSheet("")
         self.Btn_iafd_link_copy.setText("")
         self.Btn_iafd_link_copy.setIcon(icon2)
@@ -2950,18 +2778,35 @@ class Ui_MainWindow(object):
         self.Btn_performers_socialmedia_9.setIcon(icon16)
         self.Btn_performers_socialmedia_9.setIconSize(QtCore.QSize(25, 25))
         self.Btn_performers_socialmedia_9.setObjectName("Btn_performers_socialmedia_9")
-        self.pushButton = QtWidgets.QPushButton(parent=self.tab_performer)
-        self.pushButton.setGeometry(QtCore.QRect(10, 300, 21, 23))
-        self.pushButton.setText("")
-        self.pushButton.setObjectName("pushButton")
         self.layoutWidget7 = QtWidgets.QWidget(parent=self.tab_performer)
-        self.layoutWidget7.setGeometry(QtCore.QRect(30, 330, 341, 25))
+        self.layoutWidget7.setGeometry(QtCore.QRect(30, 330, 388, 27))
         self.layoutWidget7.setObjectName("layoutWidget7")
         self.horizontalLayout_7 = QtWidgets.QHBoxLayout(self.layoutWidget7)
         self.horizontalLayout_7.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_7.setObjectName("horizontalLayout_7")
+        self.Btn_performer_in_IAFD = CustomButton(parent=self.layoutWidget7)
+        self.Btn_performer_in_IAFD.setEnabled(True)
+        self.Btn_performer_in_IAFD.setMinimumSize(QtCore.QSize(50, 25))
+        font = QtGui.QFont()
+        font.setFamily("MS Shell Dlg 2")
+        font.setPointSize(8)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
+        self.Btn_performer_in_IAFD.setFont(font)
+        self.Btn_performer_in_IAFD.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
+        self.Btn_performer_in_IAFD.setStyleSheet("QPushButton {    background-color: rgb(0, 0, 0);}                  \n"
+"QPushButton:hover{background-color: rgb(255, 85, 255);}   ")
+        self.Btn_performer_in_IAFD.setText("")
+        self.Btn_performer_in_IAFD.setIconSize(QtCore.QSize(50, 25))
+        self.Btn_performer_in_IAFD.setCheckable(False)
+        self.Btn_performer_in_IAFD.setChecked(False)
+        self.Btn_performer_in_IAFD.setProperty("iafd_enabled", True)
+        self.Btn_performer_in_IAFD.setObjectName("Btn_performer_in_IAFD")
+        self.horizontalLayout_7.addWidget(self.Btn_performer_in_IAFD)
         self.Btn_performer_in_BabePedia = CustomButton(parent=self.layoutWidget7)
         self.Btn_performer_in_BabePedia.setEnabled(True)
+        self.Btn_performer_in_BabePedia.setMinimumSize(QtCore.QSize(50, 25))
         font = QtGui.QFont()
         font.setFamily("MS Shell Dlg 2")
         font.setPointSize(8)
@@ -2979,6 +2824,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_7.addWidget(self.Btn_performer_in_BabePedia)
         self.Btn_performer_in_ThePornDB = CustomButton(parent=self.layoutWidget7)
         self.Btn_performer_in_ThePornDB.setEnabled(True)
+        self.Btn_performer_in_ThePornDB.setMinimumSize(QtCore.QSize(50, 25))
         font = QtGui.QFont()
         font.setFamily("MS Shell Dlg 2")
         font.setPointSize(8)
@@ -2996,6 +2842,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_7.addWidget(self.Btn_performer_in_ThePornDB)
         self.Btn_performer_in_Indexxx = CustomButton(parent=self.layoutWidget7)
         self.Btn_performer_in_Indexxx.setEnabled(True)
+        self.Btn_performer_in_Indexxx.setMinimumSize(QtCore.QSize(50, 25))
         font = QtGui.QFont()
         font.setFamily("MS Shell Dlg 2")
         font.setPointSize(8)
@@ -3013,6 +2860,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_7.addWidget(self.Btn_performer_in_Indexxx)
         self.Btn_performer_in_TheNude = CustomButton(parent=self.layoutWidget7)
         self.Btn_performer_in_TheNude.setEnabled(True)
+        self.Btn_performer_in_TheNude.setMinimumSize(QtCore.QSize(50, 25))
         font = QtGui.QFont()
         font.setFamily("MS Shell Dlg 2")
         font.setPointSize(8)
@@ -3030,6 +2878,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_7.addWidget(self.Btn_performer_in_TheNude)
         self.Btn_performer_in_Freeones = CustomButton(parent=self.layoutWidget7)
         self.Btn_performer_in_Freeones.setEnabled(True)
+        self.Btn_performer_in_Freeones.setMinimumSize(QtCore.QSize(50, 25))
         font = QtGui.QFont()
         font.setFamily("MS Shell Dlg 2")
         font.setPointSize(8)
@@ -3047,6 +2896,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_7.addWidget(self.Btn_performer_in_Freeones)
         self.Btn_performer_in_EGAFD = CustomButton(parent=self.layoutWidget7)
         self.Btn_performer_in_EGAFD.setEnabled(True)
+        self.Btn_performer_in_EGAFD.setMinimumSize(QtCore.QSize(50, 25))
         font = QtGui.QFont()
         font.setFamily("MS Shell Dlg 2")
         font.setPointSize(8)
@@ -3062,6 +2912,215 @@ class Ui_MainWindow(object):
         self.Btn_performer_in_EGAFD.setChecked(False)
         self.Btn_performer_in_EGAFD.setObjectName("Btn_performer_in_EGAFD")
         self.horizontalLayout_7.addWidget(self.Btn_performer_in_EGAFD)
+        self.layoutWidget_17 = QtWidgets.QWidget(parent=self.tab_performer)
+        self.layoutWidget_17.setGeometry(QtCore.QRect(30, 510, 260, 22))
+        self.layoutWidget_17.setObjectName("layoutWidget_17")
+        self.horLayout_buttons_images = QtWidgets.QHBoxLayout(self.layoutWidget_17)
+        self.horLayout_buttons_images.setContentsMargins(0, 0, 0, 0)
+        self.horLayout_buttons_images.setSpacing(1)
+        self.horLayout_buttons_images.setObjectName("horLayout_buttons_images")
+        self.Btn_IAFD_image = QtWidgets.QPushButton(parent=self.layoutWidget_17)
+        self.Btn_IAFD_image.setStyleSheet("QPushButton { \n"
+"    color: rgb(0, 0, 127);\n"
+"    selection-background-color: rgb(255, 85, 0);\n"
+"    background-color: rgb(198, 178, 255);\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    font: 10pt \"MS Shell Dlg 2\";\n"
+"    border-radius: 5px;\n"
+"    border-color: beige;\n"
+"}                   \n"
+"QPushButton:enabled{\n"
+"    background-color: rgb(198, 178, 255);\n"
+"}                           \n"
+"QPushButton:pressed{     \n"
+"    background: #aa55ff;\n"
+"    background-color: #aa55ff !important; \n"
+"}                            \n"
+"QPushButton:disabled{                             \n"
+"    background-color: gray;                \n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 85, 255);\n"
+"}   ")
+        self.Btn_IAFD_image.setText("")
+        self.Btn_IAFD_image.setObjectName("Btn_IAFD_image")
+        self.horLayout_buttons_images.addWidget(self.Btn_IAFD_image)
+        self.Btn_BabePedia_image = QtWidgets.QPushButton(parent=self.layoutWidget_17)
+        self.Btn_BabePedia_image.setStyleSheet("QPushButton { \n"
+"    color: rgb(0, 0, 127);\n"
+"    selection-background-color: rgb(255, 85, 0);\n"
+"    background-color: rgb(198, 178, 255);\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    font: 10pt \"MS Shell Dlg 2\";\n"
+"    border-radius: 5px;\n"
+"    border-color: beige;\n"
+"}                   \n"
+"QPushButton:enabled{\n"
+"    background-color: rgb(198, 178, 255);\n"
+"}                           \n"
+"QPushButton:pressed{ \n"
+"    background: #aa55ff;\n"
+"}                           \n"
+"QPushButton:disabled{                             \n"
+"    background-color: gray;                \n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 85, 255);\n"
+"}   ")
+        self.Btn_BabePedia_image.setText("")
+        self.Btn_BabePedia_image.setObjectName("Btn_BabePedia_image")
+        self.horLayout_buttons_images.addWidget(self.Btn_BabePedia_image)
+        self.Btn_ThePornDB_image = QtWidgets.QPushButton(parent=self.layoutWidget_17)
+        self.Btn_ThePornDB_image.setStyleSheet("QPushButton { \n"
+"    color: rgb(0, 0, 127);\n"
+"    selection-background-color: rgb(255, 85, 0);\n"
+"    background-color: rgb(198, 178, 255);\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    font: 10pt \"MS Shell Dlg 2\";\n"
+"    border-radius: 5px;\n"
+"    border-color: beige;\n"
+"}                   \n"
+"QPushButton:enabled{\n"
+"    background-color: rgb(198, 178, 255);\n"
+"}                           \n"
+"QPushButton:pressed{ \n"
+"    background: #aa55ff;\n"
+"}                             \n"
+"QPushButton:disabled{                             \n"
+"    background-color: gray;                \n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 85, 255);\n"
+"}   ")
+        self.Btn_ThePornDB_image.setText("")
+        self.Btn_ThePornDB_image.setObjectName("Btn_ThePornDB_image")
+        self.horLayout_buttons_images.addWidget(self.Btn_ThePornDB_image)
+        self.Btn_Indexxx_image = QtWidgets.QPushButton(parent=self.layoutWidget_17)
+        self.Btn_Indexxx_image.setStyleSheet("QPushButton { \n"
+"    color: rgb(0, 0, 127);\n"
+"    selection-background-color: rgb(255, 85, 0);\n"
+"    background-color: rgb(198, 178, 255);\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    font: 10pt \"MS Shell Dlg 2\";\n"
+"    border-radius: 5px;\n"
+"    border-color: beige;\n"
+"}                   \n"
+"QPushButton:enabled{\n"
+"    background-color: rgb(198, 178, 255);\n"
+"}                           \n"
+"QPushButton:pressed{ \n"
+"    background: #aa55ff;\n"
+"}                             \n"
+"QPushButton:disabled{                             \n"
+"    background-color: gray;                \n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 85, 255);\n"
+"}   ")
+        self.Btn_Indexxx_image.setText("")
+        self.Btn_Indexxx_image.setObjectName("Btn_Indexxx_image")
+        self.horLayout_buttons_images.addWidget(self.Btn_Indexxx_image)
+        self.Btn_TheNude_image = QtWidgets.QPushButton(parent=self.layoutWidget_17)
+        self.Btn_TheNude_image.setStyleSheet("QPushButton { \n"
+"    color: rgb(0, 0, 127);\n"
+"    selection-background-color: rgb(255, 85, 0);\n"
+"    background-color: rgb(198, 178, 255);\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    font: 10pt \"MS Shell Dlg 2\";\n"
+"    border-radius: 5px;\n"
+"    border-color: beige;\n"
+"}                   \n"
+"QPushButton:enabled{\n"
+"    background-color: rgb(198, 178, 255);\n"
+"}                           \n"
+"QPushButton:pressed{ \n"
+"    background: #aa55ff;\n"
+"}                            \n"
+"QPushButton:disabled{                             \n"
+"    background-color: gray;                \n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 85, 255);\n"
+"}   ")
+        self.Btn_TheNude_image.setText("")
+        self.Btn_TheNude_image.setObjectName("Btn_TheNude_image")
+        self.horLayout_buttons_images.addWidget(self.Btn_TheNude_image)
+        self.Btn_Freeones_image = QtWidgets.QPushButton(parent=self.layoutWidget_17)
+        self.Btn_Freeones_image.setStyleSheet("QPushButton { \n"
+"    color: rgb(0, 0, 127);\n"
+"    selection-background-color: rgb(255, 85, 0);\n"
+"    background-color: rgb(198, 178, 255);\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    font: 10pt \"MS Shell Dlg 2\";\n"
+"    border-radius: 5px;\n"
+"    border-color: beige;\n"
+"}                   \n"
+"QPushButton:enabled{\n"
+"    background-color: rgb(198, 178, 255);\n"
+"}                           \n"
+"QPushButton:pressed{ \n"
+"    background: #aa55ff;\n"
+"}                            \n"
+"QPushButton:disabled{                             \n"
+"    background-color: gray;                \n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 85, 255);\n"
+"}   ")
+        self.Btn_Freeones_image.setText("")
+        self.Btn_Freeones_image.setObjectName("Btn_Freeones_image")
+        self.horLayout_buttons_images.addWidget(self.Btn_Freeones_image)
+        self.Btn_EGAFD_image = QtWidgets.QPushButton(parent=self.layoutWidget_17)
+        self.Btn_EGAFD_image.setStyleSheet("QPushButton { \n"
+"    color: rgb(0, 0, 127);\n"
+"    selection-background-color: rgb(255, 85, 0);\n"
+"    background-color: rgb(198, 178, 255);\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    font: 10pt \"MS Shell Dlg 2\";\n"
+"    border-radius: 5px;\n"
+"    border-color: beige;\n"
+"}                   \n"
+"QPushButton:enabled{\n"
+"    background-color: rgb(198, 178, 255);\n"
+"}                           \n"
+"QPushButton:pressed{ \n"
+"    background: #aa55ff;\n"
+"}                            \n"
+"QPushButton:disabled{                             \n"
+"    background-color: gray;                \n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 85, 255);\n"
+"}   ")
+        self.Btn_EGAFD_image.setText("")
+        self.Btn_EGAFD_image.setObjectName("Btn_EGAFD_image")
+        self.horLayout_buttons_images.addWidget(self.Btn_EGAFD_image)
+        self.Btn_rasse_selection = QtWidgets.QPushButton(parent=self.tab_performer)
+        self.Btn_rasse_selection.setGeometry(QtCore.QRect(464, 103, 16, 16))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setWeight(50)
+        self.Btn_rasse_selection.setFont(font)
+        self.Btn_rasse_selection.setStyleSheet("QPushButton { \n"
+"    border-radius: 5px;\n"
+"    border: 1px solid rgb(49, 50, 62);\n"
+"    background-color: rgb(170, 255, 127);\n"
+"    color: rgb(255, 0, 0);\n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(255, 0, 0);\n"
+"    color: rgb(170, 255, 127)\n"
+"}  ")
+        self.Btn_rasse_selection.setObjectName("Btn_rasse_selection")
         self.layoutWidget.raise_()
         self.grpBox_soacial_media.raise_()
         self.gBox_tattoo.raise_()
@@ -3075,21 +3134,17 @@ class Ui_MainWindow(object):
         self.grpBox_performer_name.raise_()
         self.layoutWidget_3.raise_()
         self.layoutWidget_4.raise_()
-        self.Btn_Linksuche_in_IAFD_artist.raise_()
-        self.lnEdit_DBIAFD_artistLink.raise_()
-        self.lbl_checkWeb_IAFD_artistURL.raise_()
+        self.lnEdit_DBWebSite_artistLink.raise_()
+        self.lbl_checkWeb_website_artistURL.raise_()
         self.layoutWidget_8.raise_()
         self.layoutWidget_9.raise_()
-        self.tblWdg_performer_links.raise_()
         self.layoutWidget_11.raise_()
         self.layoutWidget_12.raise_()
         self.layoutWidget_13.raise_()
         self.Btn_DBArtist_Update.raise_()
         self.Btn_table_links_expanding.raise_()
-        self.chkBox_get_autom_iafd.raise_()
         self.grpBox_actor_folder.raise_()
         self.lnEdit_IAFD_artistAlias.raise_()
-        self.chkBox_iafd_enabled.raise_()
         self.Btn_iafd_link_copy.raise_()
         self.Btn_performers_gender.raise_()
         self.Btn_social_media_edititem.raise_()
@@ -3102,7 +3157,9 @@ class Ui_MainWindow(object):
         self.Btn_boobs_selection.raise_()
         self.Btn_weight_selection.raise_()
         self.Btn_body_selection.raise_()
-        self.pushButton.raise_()
+        self.layoutWidget_17.raise_()
+        self.tblWdg_performer_links.raise_()
+        self.Btn_rasse_selection.raise_()
         self.tabs.addTab(self.tab_performer, "")
         self.Btn_Refresh = QtWidgets.QPushButton(parent=self.centralwidget)
         self.Btn_Refresh.setEnabled(False)
@@ -3947,8 +4004,10 @@ class Ui_MainWindow(object):
         self.Btn_DB_perfomer_table_update.setObjectName("Btn_DB_perfomer_table_update")
         self.stackedWidget.addWidget(self.stacked_IAFD_artist)
         self.lbl_db_status = QtWidgets.QLabel(parent=self.centralwidget)
-        self.lbl_db_status.setGeometry(QtCore.QRect(940, 940, 901, 20))
+        self.lbl_db_status.setGeometry(QtCore.QRect(940, 950, 901, 20))
         self.lbl_db_status.setText("")
+        self.lbl_db_status.setOpenExternalLinks(True)
+        self.lbl_db_status.setTextInteractionFlags(QtCore.Qt.TextInteractionFlag.TextBrowserInteraction)
         self.lbl_db_status.setObjectName("lbl_db_status")
         self.Btn_table_daten_expanding = QtWidgets.QPushButton(parent=self.centralwidget)
         self.Btn_table_daten_expanding.setGeometry(QtCore.QRect(925, 540, 12, 60))
@@ -4074,7 +4133,7 @@ class Ui_MainWindow(object):
         self.stacked_tables.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(parent=MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1941, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 2074, 21))
         self.menubar.setObjectName("menubar")
         self.menuDatei = QtWidgets.QMenu(parent=self.menubar)
         self.menuDatei.setObjectName("menuDatei")
@@ -4101,8 +4160,8 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuDatei.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.tabs.setCurrentIndex(2)
-        self.stacked_webdb_images.setCurrentIndex(6)
+        self.tabs.setCurrentIndex(3)
+        self.stacked_webdb_images.setCurrentIndex(4)
         self.stacked_image_infos.setCurrentIndex(1)
         self.stackedWidget.setCurrentIndex(0)
         self.stacked_tables.setCurrentIndex(2)
@@ -4144,12 +4203,15 @@ class Ui_MainWindow(object):
         self.grpBox_dateiname.setTitle(_translate("MainWindow", "Datei-Info für:"))
         self.lblRegie.setText(_translate("MainWindow", "                     Regie:"))
         self.tabs.setTabText(self.tabs.indexOf(self.tab_info), _translate("MainWindow", "Datei-Infos"))
-        self.grpBox_analyse_name.setTitle(_translate("MainWindow", "Darstellername:"))
+        self.grpBox_analyse_name.setTitle(_translate("MainWindow", "       Darstellername (allgemein):"))
         self.Btn_name_suche.setText(_translate("MainWindow", "Name Suche"))
+        self.rBtn_set_actorname_site.setToolTip(_translate("MainWindow", "Performer Name Suche der Site"))
+        self.rBtn_set_actorname_site.setText(_translate("MainWindow", "RadioButton"))
+        self.lnEdit_analyse_actor_site.setPlaceholderText(_translate("MainWindow", "kein Eintrag"))
         self.grpBox_analyse_studio.setTitle(_translate("MainWindow", "Studio:"))
         self.Btn_logo_am_analyse_tab.setToolTip(_translate("MainWindow", "kein Studio ausgewählt !"))
         self.Btn_logo_am_analyse_tab.setWhatsThis(_translate("MainWindow", "Analyse"))
-        self.grpBox_analyse_titel.setTitle(_translate("MainWindow", "Titel:"))
+        self.grpBox_analyse_titel.setTitle(_translate("MainWindow", "Titel der Site:"))
         self.Btn_titel_suche.setText(_translate("MainWindow", "Titel Suche"))
         self.lnEdit_analyse_titel.setPlaceholderText(_translate("MainWindow", "kein Eintrag"))
         self.grpBox_analysename.setTitle(_translate("MainWindow", "      Datei-Info für:"))
@@ -4262,8 +4324,7 @@ class Ui_MainWindow(object):
         self.Btn_tattoo_selection.setWhatsThis(_translate("MainWindow", "Regie"))
         self.Btn_tattoo_selection.setText(_translate("MainWindow", "1"))
         self.txtEdit_performer_tattoo.setPlaceholderText(_translate("MainWindow", "kein Eintrag"))
-        self.Btn_Linksuche_in_IAFD_artist.setText(_translate("MainWindow", "Suche in IAFD"))
-        self.lnEdit_DBIAFD_artistLink.setPlaceholderText(_translate("MainWindow", "kein Eintrag"))
+        self.lnEdit_DBWebSite_artistLink.setPlaceholderText(_translate("MainWindow", "kein Eintrag"))
         self.lblgeburtsort.setText(_translate("MainWindow", "Geburtsort:"))
         self.lblgeburtstag.setText(_translate("MainWindow", "Geburtstag:"))
         item = self.tblWdg_performer_links.horizontalHeaderItem(0)
@@ -4283,31 +4344,14 @@ class Ui_MainWindow(object):
         self.lblaktiv.setText(_translate("MainWindow", "Aktiv:"))
         self.Btn_DBArtist_Update.setText(_translate("MainWindow", "Update in die\n"
 "Datenbank"))
-        self.chkBox_get_autom_iafd.setToolTip(_translate("MainWindow", "Automatisch Link erstellen und webscrapen"))
         self.grpBox_actor_folder.setTitle(_translate("MainWindow", "  Ordner:"))
-        self.lbl_iafd_image_info.setText(_translate("MainWindow", "IAFD Image"))
-        self.Btn_stacked_webdb_next_1.setToolTip(_translate("MainWindow", "nächste ist Datei-Infos holen"))
-        self.Btn_stacked_webdb_next_1.setText(_translate("MainWindow", " weiter >"))
-        self.lbl_theporndb_image_info.setText(_translate("MainWindow", "The Porn DB Image"))
-        self.Btn_stacked_webdb_next_2.setToolTip(_translate("MainWindow", "nächste ist Datei-Infos holen"))
-        self.Btn_stacked_webdb_next_2.setText(_translate("MainWindow", " weiter >"))
-        self.Btn_stacked_webdb_next_3.setToolTip(_translate("MainWindow", "nächste ist Datei-Infos holen"))
-        self.Btn_stacked_webdb_next_3.setText(_translate("MainWindow", " weiter >"))
-        self.lbl_babepedia_image_info.setText(_translate("MainWindow", "BabePedia Image"))
-        self.lbl_indexxx_image_info.setText(_translate("MainWindow", "Indexxx Image"))
-        self.Btn_stacked_webdb_next_4.setToolTip(_translate("MainWindow", "nächste ist Datei-Infos holen"))
-        self.Btn_stacked_webdb_next_4.setText(_translate("MainWindow", " weiter >"))
-        self.lbl_thenude_image_info.setText(_translate("MainWindow", "TheNude Image"))
-        self.Btn_stacked_webdb_next_5.setToolTip(_translate("MainWindow", "nächste ist Datei-Infos holen"))
-        self.Btn_stacked_webdb_next_5.setText(_translate("MainWindow", " weiter >"))
-        self.Btn_stacked_webdb_next_6.setToolTip(_translate("MainWindow", "nächste ist Datei-Infos holen"))
-        self.Btn_stacked_webdb_next_6.setText(_translate("MainWindow", " weiter >"))
-        self.lbl_freeones_image_info.setText(_translate("MainWindow", "Freeones Image"))
-        self.Btn_stacked_webdb_next_7.setToolTip(_translate("MainWindow", "nächste ist Datei-Infos holen"))
-        self.Btn_stacked_webdb_next_7.setText(_translate("MainWindow", " weiter >"))
-        self.lbl_egafd_image_info.setText(_translate("MainWindow", "Freeones Image"))
-        self.chkBox_iafd_enabled.setToolTip(_translate("MainWindow", "IAFD Link Eintrag aktivieren/deaktivieren"))
-        self.chkBox_iafd_enabled.setStatusTip(_translate("MainWindow", "Default aktiv"))
+        self.lbl_iafd_image_info.setText(_translate("MainWindow", "IAFD"))
+        self.lbl_BabePedia_image_info.setText(_translate("MainWindow", "BabePedia"))
+        self.lbl_ThePornDB_image_info.setText(_translate("MainWindow", "The Porn DB"))
+        self.lbl_Indexxx_image_info.setText(_translate("MainWindow", "Indexx"))
+        self.lbl_TheNude_image_info.setText(_translate("MainWindow", "TheNude"))
+        self.lbl_Freeones_image_info.setText(_translate("MainWindow", "Freeones"))
+        self.lbl_egafd_image_info.setText(_translate("MainWindow", "EGAFD Image"))
         self.Btn_stacked_info_next_1.setToolTip(_translate("MainWindow", "nächste ist Datei-Infos holen"))
         self.Btn_stacked_info_next_1.setText(_translate("MainWindow", " weiter >"))
         self.Btn_performer_next.setToolTip(_translate("MainWindow", "nächstes Bild"))
@@ -4367,6 +4411,16 @@ class Ui_MainWindow(object):
         self.Btn_performers_socialmedia_2.setToolTip(_translate("MainWindow", "klicken, um Gender Auswahl zu treffen"))
         self.Btn_performers_socialmedia_5.setToolTip(_translate("MainWindow", "klicken, um Gender Auswahl zu treffen"))
         self.Btn_performers_socialmedia_3.setToolTip(_translate("MainWindow", "klicken, um Gender Auswahl zu treffen"))
+        self.Btn_IAFD_image.setToolTip(_translate("MainWindow", "IAFD Bild"))
+        self.Btn_BabePedia_image.setToolTip(_translate("MainWindow", "ThePornDB Bild"))
+        self.Btn_ThePornDB_image.setToolTip(_translate("MainWindow", "IAFD Bild"))
+        self.Btn_Indexxx_image.setToolTip(_translate("MainWindow", "IAFD Bild"))
+        self.Btn_TheNude_image.setToolTip(_translate("MainWindow", "IAFD Bild"))
+        self.Btn_Freeones_image.setToolTip(_translate("MainWindow", "IAFD Bild"))
+        self.Btn_EGAFD_image.setToolTip(_translate("MainWindow", "IAFD Bild"))
+        self.Btn_rasse_selection.setToolTip(_translate("MainWindow", "mehrere Eintrage bei Regieseur zur Auswahl"))
+        self.Btn_rasse_selection.setWhatsThis(_translate("MainWindow", "Regie"))
+        self.Btn_rasse_selection.setText(_translate("MainWindow", "1"))
         self.tabs.setTabText(self.tabs.indexOf(self.tab_performer), _translate("MainWindow", "Performers"))
         self.Btn_Refresh.setToolTip(_translate("MainWindow", "Refresh der Ordner-Struktur der Tabelle"))
         self.Btn_Refresh.setText(_translate("MainWindow", "Tabelle\n"

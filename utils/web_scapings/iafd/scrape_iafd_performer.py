@@ -38,13 +38,13 @@ class ScrapeIAFDPerformer():
             name1=name.replace(" ","")
             name2=name.replace(" ","-")
             iafd_link=f"https://www.iafd.com/person.rme/perfid={name1}/gender={gender}/{name2}.htm"
-            self.Main.lnEdit_DBIAFD_artistLink.setText(iafd_link) 
+            self.Main.Btn_performer_in_IAFD.setToolTip(iafd_link) 
    
     def check_IAFD_performer_link(self):
-        iafd_widget: str="IAFD_artist"        
+        iafd_widget: str="WebSite_artist"        
         check_status=CheckBioWebsiteStatus(self.Main)
         check_status.just_checking_labelshow(iafd_widget) 
-        url=self.Main.lnEdit_DBIAFD_artistLink.text()
+        url=self.Main.lnEdit_DBWebSite_artistLink.text()
         if url.startswith("https://www.iafd.com/person.rme/perfid="):
             try:  
                 with requests.Session() as session:
@@ -143,7 +143,7 @@ class ScrapeIAFDPerformer():
         check_status = CheckBioWebsiteStatus(self.Main)
         type = "iafd"
         iafd_infos: dict={type:{}} 
-        iafd_widget: str="IAFD_artist"
+        iafd_widget: str="website_artist"
         func_break=False
 
         json.dump(iafd_infos,open(WEBINFOS_JSON_PATH,'w'),indent=4, sort_keys=True)        
@@ -163,7 +163,8 @@ class ScrapeIAFDPerformer():
                 self.load_progress(100)
                 return  
             if content is None:                    
-                self.Main.lnEdit_DBIAFD_artistLink.setText("") 
+                self.Main.Btn_performer_in_IAFD.setToolTip("")
+                self.Main.lnEdit_DBWebSite_artistLink.setText("") 
                 logging.warning(f"⛔ Search Link is None -> {iafd_url}")
                 last_line = self.Main.txtBrowser_loginfos.toPlainText().split('\n')[-1]                
                 message=f"{last_line}❌ Such Methode erfolglos: {self.Main.lnEdit_performer_info.text()}" 
@@ -182,7 +183,8 @@ class ScrapeIAFDPerformer():
                 if errview == 'FatalError':
                     self.load_progress(100)
                     return
-                self.Main.lnEdit_DBIAFD_artistLink.setText(iafd_url) 
+                self.Main.Btn_performer_in_IAFD.setToolTip(iafd_url)
+                self.Main.lnEdit_DBWebSite_artistLink.setText(iafd_url)  
                 last_line = self.Main.txtBrowser_loginfos.toPlainText().split('\n')[-1]
                 message=f"{last_line}✅ Such Methode erfolgreich: {self.Main.lnEdit_performer_info.text()}"
                 self.Main.txtBrowser_loginfos.setText(self.Main.txtBrowser_loginfos.toPlainText().rstrip(last_line) + message)                  
@@ -192,7 +194,8 @@ class ScrapeIAFDPerformer():
                 last_line = self.Main.txtBrowser_loginfos.toPlainText().split('\n')[-1]
                 message=f"❌ Mehr als 1 Performer > {len(actors_list)}"
                 self.Main.txtBrowser_loginfos.setText(self.Main.txtBrowser_loginfos.toPlainText().rstrip(last_line) + message)
-                self.Main.lnEdit_DBIAFD_artistLink.setText("")
+                self.Main.Btn_performer_in_IAFD.setToolTip("")
+                self.Main.lnEdit_DBWebSite_artistLink.setText("") 
                 self.load_progress(100)
                 return
         self.load_progress(70)
@@ -214,7 +217,7 @@ class ScrapeIAFDPerformer():
         infos=self.load_image_in_label(content, id, name, infos, value=99)
         iafd_infos[type]=infos
         json.dump(iafd_infos,open(WEBINFOS_JSON_PATH,'w'),indent=4, sort_keys=True)
-        check_status.check_loaded_labelshow("IAFD_artist") 
+        check_status.check_loaded_labelshow("website_artist") 
         self.load_progress(100)             
       
     def generate_iafd_search_url(self, search_term):
@@ -272,9 +275,11 @@ class ScrapeIAFDPerformer():
         if nations_eng not in ['None', 'No data', None]:
             for nation_eng in nations_eng.split(", "):
                 datenbank_darsteller=DB_Darsteller(MainWindow=self.Main)              
-                nation_ger=datenbank_darsteller.get_nation_eng_to_german(str(nation_eng)) 
-                nations_ger.append(nation_ger)
-            infos["deutsch_nations"]=", ".join(nations_ger)   
+                nation_ger = datenbank_darsteller.get_nation_eng_to_german(str(nation_eng))
+                if nation_ger is not None:                    
+                    nations_ger.append(nation_ger)            
+            if nations_ger:
+                infos["deutsch_nations"]=", ".join(nations_ger)   
         self.load_progress(value)      
         return infos
 
@@ -397,7 +402,7 @@ class ScrapeIAFDPerformer():
         onlyfans_elements=content.xpath("//p[contains(string(),'Website')]/following::p/a[@target='starlet']")              
         if onlyfans_elements: 
             for zeile, onlyfans_text in enumerate(onlyfans_elements):
-                if onlyfans_text is not None:
+                if len(onlyfans_text):
                     onlyfans_text=str(onlyfans_text.get('href'))
                     onlyfans.append(onlyfans_text)  
                 else:
@@ -410,10 +415,11 @@ class ScrapeIAFDPerformer():
 
     def load_image_in_label(self, content, id, name, infos, value):        
         datenbank_darsteller = DB_Darsteller(MainWindow=self.Main)
-        image_pfad=None         
+        image_pfad=None 
+        image_url: str=""        
         if id.isdigit():
             artist_id=int(id)
-            errview, image_pfad = datenbank_darsteller.get_biowebsite_image("IAFD", artist_id)
+            image_pfad = datenbank_darsteller.get_biowebsite_image("IAFD", artist_id)
         if not image_pfad:
             image_url = content.xpath("//div[@id='headshot']/img")
             if image_url:
@@ -426,7 +432,8 @@ class ScrapeIAFDPerformer():
                 image = Image.open(BytesIO(image_data))  # webdaten in image object packen
                 image_pfad = str(PROJECT_PATH / "iafd_performer.jpg")              
                 image.save(image_pfad, "JPEG")                
-        infos["image_pfad"]=image_pfad
+        infos["image_pfad"] = image_pfad
+        infos["image_url"] = image_url
         self.load_progress(value) 
         return infos
 

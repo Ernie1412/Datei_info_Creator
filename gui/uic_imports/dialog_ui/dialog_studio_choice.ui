@@ -1,0 +1,4659 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1094</width>
+    <height>801</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Auswahl der Websides</string>
+  </property>
+  <property name="toolTip">
+   <string>banbros</string>
+  </property>
+  <widget class="QPushButton" name="Btn_NoLogo">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>730</y>
+     <width>160</width>
+     <height>60</height>
+    </rect>
+   </property>
+   <property name="whatsThis">
+    <string>keinlogo</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset resource="../resource_collection_files/buttons.qrc">
+     <normaloff>:/Buttons/_buttons/no-logo_90x40.png</normaloff>:/Buttons/_buttons/no-logo_90x40.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>160</width>
+     <height>91</height>
+    </size>
+   </property>
+  </widget>
+  <widget class="QTabWidget" name="tabWidget">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>20</y>
+     <width>871</width>
+     <height>671</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+   </property>
+   <property name="currentIndex">
+    <number>1</number>
+   </property>
+   <widget class="QWidget" name="tab_studio0_9">
+    <attribute name="title">
+     <string>0-9</string>
+    </attribute>
+    <widget class="QPushButton" name="Btn_3rdDegree">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>10</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>3rdDegree</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkAdultTime/3rdDegree/3rdDegree_90x40.png</normaloff>:/studios/networkAdultTime/3rdDegree/3rdDegree_90x40.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_21Sextreme">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>110</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>21Sextreme</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkAdultTime/21Sextury/21Sextury.png</normaloff>:/studios/networkAdultTime/21Sextury/21Sextury.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_21Naturals">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>10</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>21Naturals</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkAdultTime/21Naturals/21natural.png</normaloff>:/studios/networkAdultTime/21Naturals/21natural.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_5KTeens">
+     <property name="geometry">
+      <rect>
+       <x>400</x>
+       <y>10</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>5KTeens</string>
+     </property>
+     <property name="whatsThis">
+      <string>5KTeens</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/network5KPorn/5KTeens/5KTeens.png_trans.png</normaloff>:/studios/network5KPorn/5KTeens/5KTeens.png_trans.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_21Sextury">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>60</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>21Sextury</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkAdultTime/21Sextreme/21Sextreme.png</normaloff>:/studios/networkAdultTime/21Sextreme/21Sextreme.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_A_bis_F">
+    <attribute name="title">
+     <string>Websides von A bis F</string>
+    </attribute>
+    <widget class="QPushButton" name="Btn_BangBros">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>60</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>bangros</string>
+     </property>
+     <property name="whatsThis">
+      <string>BangBros</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Brazzers">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>110</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="whatsThis">
+      <string>Brazzers</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_AllAnalAllTheTime">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>AllAnalAllTheTime</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkLegalPorno/AllAnalAllTheTime/AllAnalAllTheTime.png_trans.png</normaloff>:/studios/networkLegalPorno/AllAnalAllTheTime/AllAnalAllTheTime.png_trans.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Babes">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>10</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>Babes</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_EvilAngel">
+     <property name="geometry">
+      <rect>
+       <x>410</x>
+       <y>10</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>EvilAngel</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>:/studios/networkAdultTime/EvilAngel/EvilAngel_90x40.jpg</normaloff>:/studios/networkAdultTime/EvilAngel/EvilAngel_90x40.jpg</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_EroticaX">
+     <property name="geometry">
+      <rect>
+       <x>410</x>
+       <y>60</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>EroticaX</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_AnalJust">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>160</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>AnalJust</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_FirstAnalQuest">
+     <property name="geometry">
+      <rect>
+       <x>510</x>
+       <y>10</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>FirstAnalQuest</string>
+     </property>
+     <property name="whatsThis">
+      <string>FirstAnalQuest</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/siteFirstAnalQuest/FirstAnalQuest.png</normaloff>:/studios/siteFirstAnalQuest/FirstAnalQuest.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_CherryPimps">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>10</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>CherryPimps</string>
+     </property>
+     <property name="whatsThis">
+      <string>CherryPimps</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Bang">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>160</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>Bang</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_FootsieBabes">
+     <property name="geometry">
+      <rect>
+       <x>510</x>
+       <y>60</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>FootsieBabes</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>:/labels/studios/networkAdultTime/FootsieBabes/FootsieBabes_90x40.png</normaloff>:/labels/studios/networkAdultTime/FootsieBabes/FootsieBabes_90x40.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_DaneJones">
+     <property name="geometry">
+      <rect>
+       <x>310</x>
+       <y>60</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>DaneJones</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_EdgeQueens">
+     <property name="geometry">
+      <rect>
+       <x>410</x>
+       <y>110</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>EdgeQueens</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_FamilyXXX">
+     <property name="geometry">
+      <rect>
+       <x>510</x>
+       <y>110</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>FamilyXXX</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_AsianStreetMeat">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>210</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>AsianStreetMeat</string>
+     </property>
+     <property name="whatsThis">
+      <string>AsianStreetMeat</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color:#aff4fb;}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/siteAsianStreetMeat/asianstreetmeat.png</normaloff>:/studios/siteAsianStreetMeat/asianstreetmeat.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_AllFineGirls">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>110</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>AllFineGirls</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkWowNetwork/AllFineGirls/AllFineGirls.png</normaloff>:/studios/networkWowNetwork/AllFineGirls/AllFineGirls.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_AdultPrime">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>60</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>AdultPrime</string>
+     </property>
+     <property name="whatsThis">
+      <string>AdultPrime</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_DevilsFilm">
+     <property name="geometry">
+      <rect>
+       <x>310</x>
+       <y>10</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>DevilsFilm</string>
+     </property>
+     <property name="whatsThis">
+      <string>DevilsFilm</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>:/studios/networkAdultTime/DevilsFilm/DevilsFilm_90x40.jpg</normaloff>:/studios/networkAdultTime/DevilsFilm/DevilsFilm_90x40.jpg</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_DarkX">
+     <property name="geometry">
+      <rect>
+       <x>310</x>
+       <y>110</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTipDuration">
+      <number>-3</number>
+     </property>
+     <property name="whatsThis">
+      <string>DarkX</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_AnalVids">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>260</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>AnalVids</string>
+     </property>
+     <property name="whatsThis">
+      <string>AnalVids</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkLegalPorno/AnalVids/AnalVids_90x40.png</normaloff>:/studios/networkLegalPorno/AnalVids/AnalVids_90x40.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_DigitalPlayground">
+     <property name="geometry">
+      <rect>
+       <x>310</x>
+       <y>160</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTipDuration">
+      <number>-3</number>
+     </property>
+     <property name="whatsThis">
+      <string>DigitalPlayground</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_DDFNetwork">
+     <property name="geometry">
+      <rect>
+       <x>310</x>
+       <y>210</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>DDFNetwork</string>
+     </property>
+     <property name="whatsThis">
+      <string>DDFNetwork</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>:/studios/networkLegalPorno/DDFNetwork/DDFNetwork_90x40.jpg</normaloff>:/studios/networkLegalPorno/DDFNetwork/DDFNetwork_90x40.jpg</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_BlackInWhite">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>210</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>BlackInWhite</string>
+     </property>
+     <property name="whatsThis">
+      <string>BlackInWhite</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>:/studios/networkLegalPorno/BlackInWhite/BlackInWhite_90x40.jpg</normaloff>:/studios/networkLegalPorno/BlackInWhite/BlackInWhite_90x40.jpg</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_FantasyHD">
+     <property name="geometry">
+      <rect>
+       <x>510</x>
+       <y>210</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>FantasyHD</string>
+     </property>
+     <property name="whatsThis">
+      <string>FantasyHD</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkPornPros/FantasyHD/fantasyhd.png</normaloff>:/studios/networkPornPros/FantasyHD/fantasyhd.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Exotic4K">
+     <property name="geometry">
+      <rect>
+       <x>410</x>
+       <y>160</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>Exotic4K</string>
+     </property>
+     <property name="whatsThis">
+      <string>Exotic4K</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkPornPros/Exotic4K/exotic4k.png</normaloff>:/studios/networkPornPros/Exotic4K/exotic4k.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Cum4K">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>60</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>Cum4K</string>
+     </property>
+     <property name="whatsThis">
+      <string>Cum4K</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkPornPros/Cum4K/cum4k.png</normaloff>:/studios/networkPornPros/Cum4K/cum4k.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_BBCPie">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>260</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>BBCPie</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkPornPros/BBCPie/bbcpie.png</normaloff>:/studios/networkPornPros/BBCPie/bbcpie.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Facials4K">
+     <property name="geometry">
+      <rect>
+       <x>510</x>
+       <y>160</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>Facials4K</string>
+     </property>
+     <property name="whatsThis">
+      <string>Facials4K</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkPornPros/Facials4K/Facials4K.png</normaloff>:/studios/networkPornPros/Facials4K/Facials4K.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Anal4K">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>310</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>Anal4K</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkPornPros/Anal4K/Anal4k.png</normaloff>:/studios/networkPornPros/Anal4K/Anal4k.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_CastingCouchX">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>110</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>CastingCouchX</string>
+     </property>
+     <property name="whatsThis">
+      <string>CastingCouchX</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkPornPros/CastingCouchX/castingcouchx.png</normaloff>:/studios/networkPornPros/CastingCouchX/castingcouchx.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Blacked">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>310</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>Blacked</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_BlackedRAW">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>360</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>Blackedraw</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_BadTeensPunished">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>410</y>
+       <width>88</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>BadTeensPunished</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_AnalMom">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>360</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>AnalMom</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_BrattySis">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>460</y>
+       <width>88</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>BrattySis</string>
+     </property>
+     <property name="whatsThis">
+      <string>BrattySis</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkNubiles/BrattySis/BrattySis.png_trans.png</normaloff>:/studios/networkNubiles/BrattySis/BrattySis.png_trans.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_CollegeFuckParties">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>160</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>CollegeFuckParties</string>
+     </property>
+     <property name="whatsThis">
+      <string>CollegeFuckParties</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkWTFPass/College Fuck Parties/College Fuck Parties.png</normaloff>:/studios/networkWTFPass/College Fuck Parties/College Fuck Parties.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_DollsPorn">
+     <property name="geometry">
+      <rect>
+       <x>310</x>
+       <y>260</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>DollsPorn</string>
+     </property>
+     <property name="whatsThis">
+      <string>DollsPorn</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkWTFPass/DollsPorn/DollsPorn.png</normaloff>:/studios/networkWTFPass/DollsPorn/DollsPorn.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_G_bis_R">
+    <attribute name="title">
+     <string>Websides von G bis R</string>
+    </attribute>
+    <widget class="QPushButton" name="Btn_HardX">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>110</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>HardX</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_NaughtyAmerica">
+     <property name="geometry">
+      <rect>
+       <x>690</x>
+       <y>10</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>NaughtyAmerica</string>
+     </property>
+     <property name="whatsThis">
+      <string>NaughtyAmerica</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkNaughtyAmerica/NaughtyAmerica/naughtyamerica.png</normaloff>:/studios/networkNaughtyAmerica/NaughtyAmerica/naughtyamerica.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_MomXXX">
+     <property name="geometry">
+      <rect>
+       <x>590</x>
+       <y>10</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>MomXXX</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Joymii">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>10</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>joymii</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Mofos">
+     <property name="geometry">
+      <rect>
+       <x>590</x>
+       <y>60</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>Mofos</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_HookupHotshot">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>10</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>HookupHotshot</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_LetsDoeit">
+     <property name="geometry">
+      <rect>
+       <x>490</x>
+       <y>10</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>LetsDoeit</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_LegalPorno">
+     <property name="geometry">
+      <rect>
+       <x>490</x>
+       <y>60</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>LegalPorno</string>
+     </property>
+     <property name="whatsThis">
+      <string>LegalPorno</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>:/studios/networkLegalPorno/LegalPorno/LegalPorno_90x40.jpg</normaloff>:/studios/networkLegalPorno/LegalPorno/LegalPorno_90x40.jpg</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_HussiePass">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>160</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>HussiePass</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Hitzefrei">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>60</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>Hitzefrei</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_nuruMassage">
+     <property name="geometry">
+      <rect>
+       <x>690</x>
+       <y>60</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>nuruMassage</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Kink">
+     <property name="geometry">
+      <rect>
+       <x>390</x>
+       <y>10</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>Network 'Kink'</string>
+     </property>
+     <property name="whatsThis">
+      <string>Kink</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_MomXXX_2">
+     <property name="geometry">
+      <rect>
+       <x>590</x>
+       <y>110</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>MomXXX</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_nuruMassage_2">
+     <property name="geometry">
+      <rect>
+       <x>690</x>
+       <y>110</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>nuruMassage</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_LetsDoeit_2">
+     <property name="geometry">
+      <rect>
+       <x>490</x>
+       <y>110</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>LetsDoeit</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Mofos_2">
+     <property name="geometry">
+      <rect>
+       <x>590</x>
+       <y>160</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>Mofos</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_LezCuties">
+     <property name="geometry">
+      <rect>
+       <x>490</x>
+       <y>160</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>LezCuties</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_NewSensations">
+     <property name="geometry">
+      <rect>
+       <x>690</x>
+       <y>210</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTipDuration">
+      <number>-3</number>
+     </property>
+     <property name="whatsThis">
+      <string>NewSensations</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>:/studios/networkNaughtyAmerica/NaughtyAmerica/NaughtyAmerica_90x40.png</normaloff>:/studios/networkNaughtyAmerica/NaughtyAmerica/NaughtyAmerica_90x40.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_NannySpy">
+     <property name="geometry">
+      <rect>
+       <x>690</x>
+       <y>260</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>NannySpy</string>
+     </property>
+     <property name="whatsThis">
+      <string>NannySpy</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkPornPros/NannySpy/nannyspy.png</normaloff>:/studios/networkPornPros/NannySpy/nannyspy.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_MyVeryFirstTime">
+     <property name="geometry">
+      <rect>
+       <x>590</x>
+       <y>210</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>MyVeryFirstTime</string>
+     </property>
+     <property name="whatsThis">
+      <string>MyVeryFirstTime</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkPornPros/MyVeryFirstTime/myveryfirsttime.png</normaloff>:/studios/networkPornPros/MyVeryFirstTime/myveryfirsttime.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Lubed">
+     <property name="geometry">
+      <rect>
+       <x>490</x>
+       <y>210</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>Lubed</string>
+     </property>
+     <property name="whatsThis">
+      <string>Lubed</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkPornPros/Lubed/lubed.png</normaloff>:/studios/networkPornPros/Lubed/lubed.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Mom4K">
+     <property name="geometry">
+      <rect>
+       <x>590</x>
+       <y>260</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>Mom4K</string>
+     </property>
+     <property name="whatsThis">
+      <string>Mom4K</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkPornPros/Mom4K/mom4k.png</normaloff>:/studios/networkPornPros/Mom4K/mom4k.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_GirlCum">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>GirlCum</string>
+     </property>
+     <property name="whatsThis">
+      <string>GirlCum</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkPornPros/GirlCum/girlcum.png</normaloff>:/studios/networkPornPros/GirlCum/girlcum.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Holed">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>210</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>Holed</string>
+     </property>
+     <property name="whatsThis">
+      <string>Holed</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkPornPros/Holed/holed.png</normaloff>:/studios/networkPornPros/Holed/holed.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_HDMassagePorn">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>260</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>90</horstretch>
+       <verstretch>40</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+     <property name="sizeIncrement">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+     <property name="baseSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="cursor">
+      <cursorShape>OpenHandCursor</cursorShape>
+     </property>
+     <property name="toolTip">
+      <string>HDMassagePorn</string>
+     </property>
+     <property name="whatsThis">
+      <string>HDMassagePorn</string>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {	background-color: rgb(0, 0, 0);}                  
+QPushButton:hover{background-color: rgb(255, 85, 255);}   </string>
+     </property>
+     <property name="text">
+      <string notr="true"/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkWTFPass/HDMassagePorn/HD Massage Porn.png</normaloff>:/studios/networkWTFPass/HDMassagePorn/HD Massage Porn.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+     <property name="autoRepeat">
+      <bool>false</bool>
+     </property>
+     <property name="autoExclusive">
+      <bool>false</bool>
+     </property>
+     <property name="autoDefault">
+      <bool>false</bool>
+     </property>
+     <property name="default">
+      <bool>false</bool>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_P_bis_Z">
+    <attribute name="title">
+     <string>Websides von P bis Z</string>
+    </attribute>
+    <widget class="QPushButton" name="Btn_Straplezz">
+     <property name="geometry">
+      <rect>
+       <x>470</x>
+       <y>60</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="whatsThis">
+      <string>Straplezz</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_TeamSkeet">
+     <property name="geometry">
+      <rect>
+       <x>570</x>
+       <y>60</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>TeamSkeet</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_TMW">
+     <property name="geometry">
+      <rect>
+       <x>570</x>
+       <y>110</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>TMW</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_ThatSitcomShow">
+     <property name="geometry">
+      <rect>
+       <x>570</x>
+       <y>10</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>ThatSitcomShow</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_SweetSinners">
+     <property name="geometry">
+      <rect>
+       <x>470</x>
+       <y>110</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>SweetSinners</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_StepSiblings">
+     <property name="geometry">
+      <rect>
+       <x>470</x>
+       <y>10</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>StepSiblings</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_SeeHIMfuck">
+     <property name="geometry">
+      <rect>
+       <x>470</x>
+       <y>160</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>SeeHIMfuck</string>
+     </property>
+     <property name="whatsThis">
+      <string>SeeHIMFuck</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_TheWhiteBoxxx">
+     <property name="geometry">
+      <rect>
+       <x>570</x>
+       <y>160</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>TheWhiteBoxxx</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_PornBox">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>60</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>PornBox</string>
+     </property>
+     <property name="whatsThis">
+      <string>PornBox</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkLegalPorno/PornBox/pornbox.png</normaloff>:/studios/networkLegalPorno/PornBox/pornbox.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_PureTaboo">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>210</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>PureTaboo</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_RealityJunkies">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>10</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>RealityJunkies</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Private">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>Private</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_PornWorld">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>110</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>PornWorld</string>
+     </property>
+     <property name="statusTip">
+      <string>PornWorld</string>
+     </property>
+     <property name="whatsThis">
+      <string>PornWorld</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkLegalPorno/PornWorld/pornworld.png</normaloff>:/studios/networkLegalPorno/PornWorld/pornworld.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_PerfectGonzo">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>160</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>PerfectGonzo</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_RealityKings">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>110</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>RealityKings</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_RoccoSiffredi">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>60</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>RccoSiffredi</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>:/studios/networkAdultTime/RoccoSiffredi/RoccoSiffredi_90x40.jpg</normaloff>:/studios/networkAdultTime/RoccoSiffredi/RoccoSiffredi_90x40.jpg</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Tushy">
+     <property name="geometry">
+      <rect>
+       <x>570</x>
+       <y>210</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>Tushy</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_TushyRAW">
+     <property name="geometry">
+      <rect>
+       <x>570</x>
+       <y>260</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>Tushyraw</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_Tiny4K">
+     <property name="geometry">
+      <rect>
+       <x>570</x>
+       <y>310</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>Tiny4K</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>:/studios/networkPornPros/Tiny4K/Tiny4K_90x40.png</normaloff>:/studios/networkPornPros/Tiny4K/Tiny4K_90x40.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_PureMature">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>260</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>PureMature</string>
+     </property>
+     <property name="whatsThis">
+      <string>PureMature</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkPornPros/PureMature/puremature.png</normaloff>:/studios/networkPornPros/PureMature/puremature.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_PassionHD">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>310</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>PassionHD</string>
+     </property>
+     <property name="whatsThis">
+      <string>PassionHD</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkPornPros/PassionHD/passionh.png</normaloff>:/studios/networkPornPros/PassionHD/passionh.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_SpyFam">
+     <property name="geometry">
+      <rect>
+       <x>470</x>
+       <y>210</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>SpyFam</string>
+     </property>
+     <property name="whatsThis">
+      <string>SpyFam</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkPornPros/SpyFam/spyfam.png</normaloff>:/studios/networkPornPros/SpyFam/spyfam.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_PornPros">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>360</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>PornPros</string>
+     </property>
+     <property name="whatsThis">
+      <string>PornPros</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkPornPros/PornPros/pornpros.png</normaloff>:/studios/networkPornPros/PornPros/pornpros.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_POVD">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>410</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>POVD</string>
+     </property>
+     <property name="whatsThis">
+      <string>POVD</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkPornPros/POVD/povd.png</normaloff>:/studios/networkPornPros/POVD/povd.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_TeacherFucksTeens">
+     <property name="geometry">
+      <rect>
+       <x>570</x>
+       <y>460</y>
+       <width>88</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>TeacherFucksTeens</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_MomsTeachSex">
+     <property name="geometry">
+      <rect>
+       <x>470</x>
+       <y>260</y>
+       <width>88</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>MomsTeachSex</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_StepSiblingsCaught">
+     <property name="geometry">
+      <rect>
+       <x>470</x>
+       <y>310</y>
+       <width>88</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>StepSiblingsCaught</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_PrincessCUM">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>510</y>
+       <width>88</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>PrincessCUM</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_PetiteHDPorn">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>460</y>
+       <width>88</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>PetiteHDPorn</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_myFamilyPies">
+     <property name="geometry">
+      <rect>
+       <x>470</x>
+       <y>360</y>
+       <width>88</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>myFamilyPies</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_NubilesPorn">
+     <property name="geometry">
+      <rect>
+       <x>570</x>
+       <y>410</y>
+       <width>88</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>NubilesPorn</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_NubilesFilms">
+     <property name="geometry">
+      <rect>
+       <x>570</x>
+       <y>360</y>
+       <width>88</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>NubilesFilms</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_PublicSexAdventures">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>560</y>
+       <width>88</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>Public Sex Adventures</string>
+     </property>
+     <property name="whatsThis">
+      <string>PublicSexAdventures</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkWTFPass/Public Sex Adventures/Public Sex Adventures.png</normaloff>:/studios/networkWTFPass/Public Sex Adventures/Public Sex Adventures.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_U_bis_Z">
+    <attribute name="title">
+     <string>Websides von U bis Z</string>
+    </attribute>
+    <widget class="QPushButton" name="Btn_Vixen">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>Vixen</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_WTFPass">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>10</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>WTFPass</string>
+     </property>
+     <property name="whatsThis">
+      <string>WTFPass</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkWTFPass/WTFPass/WTFPass.png</normaloff>:/studios/networkWTFPass/WTFPass/WTFPass.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_WeFuckBlackGirls">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>60</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>WeFuckBlackGirls</string>
+     </property>
+     <property name="whatsThis">
+      <string>WeFuckBlackGirls</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_WowGirls">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>110</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>WowGirls</string>
+     </property>
+     <property name="whatsThis">
+      <string>WowGirls</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkWowNetwork/WowGirls/wowgirls.png</normaloff>:/studios/networkWowNetwork/WowGirls/wowgirls.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_WeFuckBlackGirls_3">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>160</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>WowPorn</string>
+     </property>
+     <property name="whatsThis">
+      <string>WowPorn</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource_collection_files/studios.qrc">
+       <normaloff>:/studios/networkWowNetwork/WowPorn/wowporn.png</normaloff>:/studios/networkWowNetwork/WowPorn/wowporn.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_Amateur">
+    <attribute name="title">
+     <string>Amateure</string>
+    </attribute>
+    <widget class="QPushButton" name="Btn_LaraJuicy">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>13</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>LaraJuicy</string>
+     </property>
+     <property name="text">
+      <string>Lara Juicy</string>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_2">
+    <attribute name="title">
+     <string>FullpornNetwork</string>
+    </attribute>
+    <widget class="QPushButton" name="Btn_Analized">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>80</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>Analized</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_FullpornNetwork">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>10</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>FullpornNetwork</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_AbbieMarley">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>150</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>AbbieMarley</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_AnalAmateur">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>220</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>AnalAmateur</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_AnalBBC">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>290</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>AnalBBC</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_AnalViolation">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>360</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>AnalViolation</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_BadDaddyPOV">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>430</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>BadDaddyPOV</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_BadFamilyPOV">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>500</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>BadFamilyPOV</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_HerGape">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>360</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>HerGape</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_DaughterJOI">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>80</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>DaughterJOI</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_JamesDeen">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>500</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>JamesDeen</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_GirlFaction">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>290</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>GirlFaction</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_HomemadeAnalWhores">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>430</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>HomemadeAnalWhores</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_BadMommyPOV">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>10</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>BadMommyPOV</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_DTFsluts">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>220</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>DTFsluts</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_DownToFuckDating">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>150</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>DownToFuckDating</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_PorkVendors">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>360</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>PorkVendors</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_MommyJOI">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>80</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>MommyJOI</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_PublicSexDate">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>500</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>PublicSexDate</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_PervertGallery">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>290</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>PervertGallery</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_POVperverts">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>430</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>POVperverts</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_LesbianAnalSluts">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>10</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>LesbianAnalSluts</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_OnlyPrince">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>220</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>OnlyPrince</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_MugFucked">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>150</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>MugFucked</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_SlutInspection">
+     <property name="geometry">
+      <rect>
+       <x>530</x>
+       <y>150</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>SlutInspection</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_YourMomDoesANAL">
+     <property name="geometry">
+      <rect>
+       <x>700</x>
+       <y>290</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>YourMomDoesANAL</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_SheFucksOnTheFirstDate">
+     <property name="geometry">
+      <rect>
+       <x>530</x>
+       <y>80</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>SheFucksOnTheFirstDate</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_RealFuckingDating">
+     <property name="geometry">
+      <rect>
+       <x>530</x>
+       <y>10</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>RealFuckingDating</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_SluttyBBWs">
+     <property name="geometry">
+      <rect>
+       <x>530</x>
+       <y>360</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>SluttyBBWs</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_YourMomDoesPorn">
+     <property name="geometry">
+      <rect>
+       <x>700</x>
+       <y>360</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>YourMomDoesPorn</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_TeenageAnalSluts">
+     <property name="geometry">
+      <rect>
+       <x>530</x>
+       <y>500</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>TeenageAnalSluts</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_TeenageTryouts">
+     <property name="geometry">
+      <rect>
+       <x>700</x>
+       <y>80</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>TeenageTryouts</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_WifesPOV">
+     <property name="geometry">
+      <rect>
+       <x>700</x>
+       <y>220</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>WifesPOV</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_TeasingandPleasing">
+     <property name="geometry">
+      <rect>
+       <x>530</x>
+       <y>430</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>TeasingandPleasing</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_TeenageCorruption">
+     <property name="geometry">
+      <rect>
+       <x>700</x>
+       <y>10</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>TeenageCorruption</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_SlutsBTS">
+     <property name="geometry">
+      <rect>
+       <x>530</x>
+       <y>220</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>SlutsBTS</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_SlutsPOV">
+     <property name="geometry">
+      <rect>
+       <x>530</x>
+       <y>290</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>SlutsPOV</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_TwistedVisual">
+     <property name="geometry">
+      <rect>
+       <x>700</x>
+       <y>150</y>
+       <width>90</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="whatsThis">
+      <string>TwistedVisual</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>40</height>
+      </size>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <zorder>tabWidget</zorder>
+  <zorder>Btn_NoLogo</zorder>
+ </widget>
+ <resources>
+  <include location="../resource_collection_files/labels.qrc"/>
+  <include location="../resource_collection_files/studios.qrc"/>
+  <include location="../resource_collection_files/buttons.qrc"/>
+ </resources>
+ <connections/>
+</ui>

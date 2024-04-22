@@ -14,25 +14,21 @@ class SetActorInfos():
             return
         self.scrape_actor_infos.lnEdit_performer_aliases.setText(', '.join(aliases[0]))
 
-    def set_gender_icon(self, gender: str) -> None:
+    def set_gender_button(self, gender: str) -> None:
         if not gender:
+            self.scrape_actor_infos.Btn_actor_gender_sign.setIcon(QIcon(":Buttons\_buttons\gender\fragezeichen.png"))
+            self.scrape_actor_infos.Btn_actor_gender_sign.setProperty("gender", "Unbekannt")
             return
-        size = QSize(25, 30)
-        if gender =='Female':
-            icon = QIcon(":/Buttons/_buttons/gender/person-weiblich.png")
-            pixmap = icon.pixmap(size)            
-            self.scrape_actor_infos.lbl_actor_gender_sign.setPixmap(pixmap) 
-            self.scrape_actor_infos.lbl_actor_gender_sign.setProperty("gender", "Female")
-        elif gender == 'Male':
-            icon = QIcon(":/Buttons/_buttons/gender/person-maennlich.png")
-            pixmap = icon.pixmap(size) 
-            self.scrape_actor_infos.lbl_actor_gender_sign.setPixmap(pixmap)            
-            self.scrape_actor_infos.lbl_actor_gender_sign.setProperty("gender", "Male")
-        else:
-            icon = QIcon(":/Buttons/_buttons/gender/person-trans.png")
-            pixmap = icon.pixmap(size)
-            self.scrape_actor_infos.lbl_actor_gender_sign.setPixmap(pixmap)            
-            self.scrape_actor_infos.lbl_actor_gender_sign.setProperty("gender", "Trans")
+        if gender == "Male":
+            self.scrape_actor_infos.Btn_actor_gender_sign.setIcon(QIcon(":Buttons\_buttons\gender\person-maennlich.png"))
+            self.scrape_actor_infos.Btn_actor_gender_sign.setProperty("gender", "Male")
+        elif gender == "Female":
+            self.scrape_actor_infos.Btn_actor_gender_sign.setIcon(QIcon(":Buttons\_buttons\gender\person-weiblich.png"))
+            self.scrape_actor_infos.Btn_actor_gender_sign.setProperty("gender", "Female")
+        else:        
+            self.scrape_actor_infos.Btn_actor_gender_sign.setIcon(QIcon(":Buttons\_buttons\gender\person-trans.png"))
+            self.scrape_actor_infos.Btn_actor_gender_sign.setProperty("gender", "Trans Female") 
+    
 
     def set_actor_site_performers(self, site_performers: list) -> None:
         if not site_performers:
@@ -120,14 +116,15 @@ class SetActorInfos():
             # QScrollArea-Widget das Layout setzen
             scroll_area.setWidget(widget)        
     
-    def set_actor_in_combobox(self, ethni_eye: str, widget) -> None:
+    def set_api_value_in_combobox(self, api_value: str, widget) -> None:
         combo = getattr(self.scrape_actor_infos,f"cBox_performer_{widget}")
-        if not ethni_eye:
-            combo.setCurrentIndex(0)
+        if not api_value:
+            combo.setCurrentIndex(-1)
             return        
-        index = combo.findText(ethni_eye)
+        index = combo.findText(api_value)
         if index >= 0: 
-            combo.setCurrentIndex(index)
+            combo.setCurrentIndex(index)   
+
 
     ### --------------------------- get informations -------------------------------- ###    
     def get_socialmedia_name_from_link(self, link: str) -> str:        

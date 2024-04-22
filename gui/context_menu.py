@@ -31,7 +31,7 @@ from gui.context_menus.helpers.refresh_nameslink_table import RefreshNameslinkTa
 from gui.helpers.message_show import MsgBox, StatusBar, blink_label
 
 from config import MEDIA_JSON_PATH
-from config import LOESCH_DIALOG_UI, RENAME_DIALOG_UI, DATEI_AUSWAHL_UI, PROJECT_PATH, ADD_PERFORMER_UI, ICON_PATH
+from config import LOESCH_DIALOG_UI, RENAME_DIALOG_UI, DATEI_AUSWAHL_IF_DOUBLE_UI, PROJECT_PATH, ADD_PERFORMER_UI, ICON_PATH
 import gui.resource_collection_files.labels_rc
 
 class ContextMenu(QMenu):
@@ -138,8 +138,8 @@ class ContextMenu(QMenu):
                         is_empty_dir.rmdir()
                     if self.Main.tblWdg_performer_links.selectedItems()[1].text().startswith("https://www.iafd.com/person.rme/perfid="):
                         pixmap = QPixmap(":/labels/_labels/kein-bild.jpg")                   
-                        self.Main.lbl_iafd_image.setPixmap(pixmap.scaled(238, 280, Qt.AspectRatioMode.KeepAspectRatio))
-                        self.Main.lbl_iafd_image.setToolTip("")
+                        self.Main.lbl_IAFD_image.setPixmap(pixmap.scaled(238, 280, Qt.AspectRatioMode.KeepAspectRatio))
+                        self.Main.lbl_IAFD_image.setToolTip("")
                     self.Main.lbl_link_image_from_db.clear()
                     self.Main.lbl_link_image_from_db.setToolTip("")
                     self.Main.lbl_performer_link.setText("")
@@ -638,7 +638,7 @@ class ContextMenu(QMenu):
         if target_file_path.exists(): 
             source_size = Path(directory) / move_file
             target_size = target_file_path
-            self.Auswahl = uic.loadUi(DATEI_AUSWAHL_UI)
+            self.Auswahl = uic.loadUi(DATEI_AUSWAHL_IF_DOUBLE_UI)
             self.Auswahl.show()
             self.Auswahl.lbl_move_file.setText(move_file)
             self.Auswahl.rdBtn_SourceDatei.setText(f"{directory} <-- ({source_size.stat().st_size / 1024 / 1024:.2f}MB )")

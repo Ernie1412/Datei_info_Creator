@@ -207,6 +207,26 @@ class DB_Darsteller:
         self.close_database()
         return kuerzel
     
+    def get_all_nations_nation_eng_kuerzel(self):
+        errview: str=None
+        eng_kuerzel: list=[]     
+
+        self.open_database()
+        if self.db.isOpen(): 
+            with self.managed_query() as query:
+                query.prepare("SELECT NationName_ENG, Kuerzel FROM Nationen;")                                               
+                query.exec()       
+                while query.next():                    
+                    eng_kuerzel.append(f"{query.value('NationName_ENG')}({query.value('Kuerzel')})") 
+                errview =  f"'{self.get_all_nations_nation_eng_kuerzel.__name__}': {query.lastError().text()} (query1)" if query.lastError().text() else None
+        else:
+            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.get_all_nations_nation_eng_kuerzel.__name__}'" if self.db.lastError().text() else errview                      
+        if errview:
+            self.db_fehler(errview)
+        self.close_database()
+        return eng_kuerzel
+    
+    
     def get_nation_kuerzel_from_nation_ger(self, nation_ger):
         errview: str=None
         kuerzel: str=None
@@ -352,6 +372,27 @@ class DB_Darsteller:
         self.close_database()        
         return artist_id
     
+    def get_biowebsite_from_artistid(self, artist_id: int, biowebsite) -> str:        
+        errview: str=None
+        is_biowebsite: bool=False
+
+        self.open_database()
+        if self.db.isOpen():        
+            with self.managed_query() as query:
+                query.prepare("SELECT DB_Artist.ArtistID FROM DB_NamesLink JOIN DB_Artist ON DB_Artist.ArtistID=DB_NamesLink.ArtistID WHERE DB_NamesLink.Link = :Link;")   
+                query.bindValue(":Link", biowebsite)                
+                query.exec()
+                if query.next():
+                    is_biowebsite = True
+                errview = f"'{self.get_biowebsite_from_artistid.__name__}': Error'{query.lastError().text()}'" if query.lastError().text() else None    
+            del query
+        else:
+            errview = f"Fehler: {self.db.lastError().text()} (db) beim öffnen von Funktion:'{self.get_biowebsite_from_artistid.__name__}'" if self.db.lastError().text() else errview 
+        if errview:
+            self.db_fehler(errview)
+        self.close_database()        
+        return is_biowebsite
+    
     ### --------------------------- Name --------------------------- ####
     def get_name_from_id(self, artist_id: int) -> str:
         name: str=None
@@ -374,7 +415,8 @@ class DB_Darsteller:
         if errview:
             self.db_fehler(errview)
         self.close_database()        
-        return name
+        return name 
+
     ### --------------------------- Ordner --------------------------- ####
     def get_artistid_from_name_ordner(self, name: str, ordner: str) -> int:
         artist_id: int=-1
@@ -1289,7 +1331,7 @@ class DB_Darsteller:
         return artist_data.get_data() 
 
     
-    def get_biowebsite_image(self, site, artist_id) -> Tuple[str, str]:            
+    def get_biowebsite_image(self, biowebsite, artist_id) -> Tuple[str, str]:            
         errview = None
         image_pfad: str=None  
         images: str=None      
@@ -1302,10 +1344,10 @@ class DB_Darsteller:
                 query.exec()                
                 while query.next(): 
                     images=query.value("DB_NamesLink.Image")                     
-                    if f"[{site}]" in images:
+                    if f"[{biowebsite}]" in images:
                         image_pfad=images 
                         break 
-                errview = (errview or f"keine ID:{artist_id} für {site} Image gefunden in 'Links'") if not query.lastError().text() and not image_pfad else query.lastError().text()
+                errview = (errview or f"keine ID:{artist_id} für {biowebsite} Image gefunden in 'Links'") if not query.lastError().text() and not image_pfad else query.lastError().text()
                 errview = f"'{self.get_biowebsite_image.__name__}': {errview} (query)" if errview and "keine " not in str(errview) else errview
             del query
         else:
@@ -1313,7 +1355,7 @@ class DB_Darsteller:
         if errview:
             self.db_fehler(errview)
         self.close_database()               
-        return errview, image_pfad   
+        return image_pfad   
 
 if __name__ == "__main__":
     DB_Darsteller()

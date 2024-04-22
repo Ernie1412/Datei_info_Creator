@@ -1,10 +1,14 @@
 <RCC>
   <qresource prefix="Buttons">
+    <file>_buttons/gender/fragezeichen.png</file>
+    <file>_buttons/performer_biosites/IAFD.png</file>
+    <file>_buttons/performer_biosites/IAFD_disabled.png</file>
     <file>_buttons/performer_biosites/EGAFD.png</file>
     <file>_buttons/performer_biosites/EGAFD_disabled.png</file>
-    <file>_buttons/einstellungen-25.png</file>
     <file>_buttons/socialmedia/imdb-25.png</file>
     <file>_buttons/socialmedia/tiktok-25.png</file>
+    <file>_buttons/einstellungen-25.png</file>
+    <file>_buttons/einstellungen-25_lila.png</file>
     <file>_buttons/performer_biosites/BabePedia.png</file>
     <file>_buttons/performer_biosites/BabePedia_disabled.png</file>
     <file>_buttons/performer_biosites/Freeones.png</file>

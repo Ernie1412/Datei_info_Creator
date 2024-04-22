@@ -11,6 +11,7 @@ from utils.web_scapings.theporndb.upload_performer_in_theporndb import UploadPer
 from utils.web_scapings.theporndb.show_last_log_dialog import ShowLogDialogThePornDB
 from utils.web_scapings.theporndb.set_actor_infos_in_widget import SetActorInfos
 from utils.database_settings.database_for_darsteller import DB_Darsteller
+from gui.dialog_gender_auswahl import GenderAuswahl
 from gui.get_avaible_labels import GetLabels
 from utils.web_scapings.theporndb.helpers.scrape_actor_helper_theporndb import date_formarted, get_image_counter, check_avaible_bio_websites
 from gui.helpers.message_show import MsgBox
@@ -22,9 +23,8 @@ class ScrapeActorInfos(QDialog):
         super(ScrapeActorInfos, self).__init__(parent)
         self.Main = MainWindow 
         self.set_actor = SetActorInfos(self)
-        self.image_counter = 0
-        self.apiThread = None 
-         
+        self.image_counter = 0         
+        self.apiThread = None          
         self.search = False 
         self.api_link = api_link        
         if not api_link.startswith('https://api.theporndb.net/'):
@@ -32,20 +32,26 @@ class ScrapeActorInfos(QDialog):
             self.api_link = f"https://api.theporndb.net/performers?q={api_link}"
 
         uic.loadUi(SRACPE_ACTOR_INFOS_UI, self) 
-        self.uploader = UploadPerformer(self.Main, self)        
-        self.apiThread = None       
+        self.uploader = UploadPerformer(self.Main, self) 
+        self.Btn_actor_gender_sign.setProperty("upload", False)       
+        self.apiThread = None 
+        self.init_nation_code_in_combobox()
+
         self.tblWdg_search_result_actors.itemClicked.connect(self.onItemClicked)
         self.Btn_get_DB_data_in_dialog.clicked.connect(self.get_DB_data_in_dialog)
-        self.Btn_set_DB_data_in_dialog.clicked.connect(self.set_DB_data_in_dialog)
+        self.Btn_set_DB_data_in_mainwindow.clicked.connect(self.set_DB_data_in_mainwindow)
         self.Btn_upload_datas.clicked.connect(self.uploader.upload_performer)
         self.Btn_add_mydb_item.clicked.connect(self.add_item_in_mydb_table)
         self.Btn_del_mydb_item.clicked.connect(self.del_item_in_mydb_table)
         self.Btn_refresh_mydb_item.clicked.connect(self.set_actor.set_medialink_from_mydb_in_table)
-        self.chkBox_actor_rasse.stateChanged.connect(self.set_actor_ethnicity_activ)
-        self.chkBox_actor_eye.stateChanged.connect(self.set_actor_eye_activ)
+        self.Btn_actor_gender_sign.clicked.connect(lambda :GenderAuswahl(self, show=True).exec())
+        self.chkBox_actor_hair.stateChanged.connect(lambda :self.set_actor_combobox_activ('hair'))
+        self.chkBox_actor_rasse.stateChanged.connect(lambda :self.set_actor_combobox_activ('rasse'))
+        self.chkBox_actor_eye.stateChanged.connect(lambda :self.set_actor_combobox_activ('eye'))
+        self.chkBox_actor_nation_code.stateChanged.connect(lambda :self.set_actor_combobox_activ('nation_code'))
         self.Btn_accept.clicked.connect(self.accept)
         self.Btn_show_last_log.clicked.connect(self.show_last_log)
-        self.lnEdit_performer_id.textChanged.connect(lambda index :self.Btn_set_DB_data_in_dialog.setEnabled(bool(self.lnEdit_performer_id.text()))) 
+        self.lnEdit_performer_id.textChanged.connect(lambda index :self.Btn_set_DB_data_in_mainwindow.setEnabled(bool(self.lnEdit_performer_id.text()))) 
         
     def showEvent(self, event):
         self.apiThread = ScrapeAPIThePornDBThread(self.api_link) 
@@ -76,8 +82,13 @@ class ScrapeActorInfos(QDialog):
 
     def get_DB_data_in_dialog(self):
         line, text = self.get_all_widgets()
+        self.get_database_lineedits_in_dialog(line)                              
+        self.get_database_textedits_in_dialog(text) 
+        self.set_nationality_in_lineedit()   
+
+    def get_database_lineedits_in_dialog(self, line):
         for lineedit in line:
-            lnEdit = getattr(self, f"lnEdit_performer_{lineedit}")
+            lnEdit = getattr(self, f"lnEdit_performer_{lineedit}")            
             if lnEdit.activated:                
                 if lineedit == "career_start_year":
                     start, end = self.formarted_year(getattr(self.Main, f"lnEdit_performer_activ").text())
@@ -86,12 +97,15 @@ class ScrapeActorInfos(QDialog):
                     getattr(self, f"lnEdit_performer_career_end_year").setText(end)
                     getattr(self, f"lnEdit_performer_career_end_year").setActivated(bolean)                   
                 else:
-                    lnEdit.setText(getattr(self.Main, f"lnEdit_performer_{lineedit}").text())                               
+                    lnEdit.setText(getattr(self.Main, f"lnEdit_performer_{lineedit}").text())
+            if lineedit == 'birthplace':
+                self.check_set_nation_code(lnEdit.text()) 
+
+    def get_database_textedits_in_dialog(self, text):
         for textedit in text:
             txtEdit = getattr(self, f"txtEdit_performer_{textedit}")
             if txtEdit.activated:
-                txtEdit.setPlainText(getattr(self.Main, f"txtEdit_performer_{textedit}").toPlainText()) 
-        self.set_nationality_in_lineedit()        
+                txtEdit.setPlainText(getattr(self.Main, f"txtEdit_performer_{textedit}").toPlainText())
 
     def set_nationality_in_lineedit(self):
         nationality = []
@@ -105,6 +119,12 @@ class ScrapeActorInfos(QDialog):
         self.lnEdit_performer_nationality.setText(nations_eng)
         self.lnEdit_performer_nationality.setActivated(True)
 
+    def check_set_nation_code(self, nation):
+        if nation:
+            nation = nation.split(", ")[-1]
+            index = self.cBox_performer_nation_code.findText(nation, Qt.MatchFlag.MatchContains)
+            if index > -1:                
+                self.cBox_performer_nation_code.setCurrentIndex(index)
     def from_deutsch_in_englisch_nation(self, nation_ger):
         database_for_darsteller = DB_Darsteller(self.Main)
         return database_for_darsteller.get_nation_ger_to_english(nation_ger)
@@ -113,58 +133,58 @@ class ScrapeActorInfos(QDialog):
         match = re.search(r"\d{4}-\d{4}", text)
         return match.group(0).split("-") if match else ('0', '0')
     
-    def set_DB_data_in_dialog(self):
+    def set_DB_data_in_mainwindow(self):
         line, text = self.get_all_widgets()
-        for lineedit in line:
-            lnEdit = getattr(self, f"lnEdit_performer_{lineedit}")
-            if lnEdit.activated:
-                if lineedit in ["career_start_year", "career_end_year"]:                
-                    start_end = self.formarted_year_for_dialog(getattr(self.Main, f"lnEdit_performer_activ").text())                
-                    start = getattr(self, f"lnEdit_performer_career_start_year").text()
-                    getattr(self, f"lnEdit_performer_career_start_year").setActivated(False)
-                    end = getattr(self, f"lnEdit_performer_career_end_year").text()  
-                    getattr(self, f"lnEdit_performer_career_end_year").setActivated(False)   
-                    getattr(self.Main, f"lnEdit_performer_activ").setText(f"von: {start_end}-{start_end}")
-                else:
-                    lnEdit_main = getattr(self.Main, f"lnEdit_performer_{lineedit}").setText(lnEdit.text())                    
-                    lnEdit.setActivated(False)                
-        for textedit in text:
-            txtEdit_main = getattr(self.Main, f"txtEdit_performer_{textedit}")
-            txtEdit = getattr(self, f"txtEdit_performer_{textedit}")
-            if txtEdit.activated:
-                txtEdit_main.setPlainText(txtEdit.toPlainText())
-                txtEdit.setActivated(False)               
+        self.set_database_lineedits_in_mainwindow(line)                
+        self.set_database_textedits_in_mainwindow(text)               
         #### ----------------- set api link in Button --------------------- ####
         uuid = self.lnEdit_performer_uuid.text()
         if uuid:
             self.Main.Btn_performer_in_ThePornDB.setToolTip(f"https://api.theporndb.net/performers/{uuid}")
             self.lnEdit_performer_uuid.setActivated(False)
             check_avaible_bio_websites(self.Main) 
-        self.set_actor_image_in_dialog()
+        self.set_actor_image_in_stacked_image()
 
-    def set_actor_image_in_dialog(self):
+    def set_database_lineedits_in_mainwindow(self, line):
+        for lineedit in line:
+            lnEdit = getattr(self, f"lnEdit_performer_{lineedit}")            
+            if lnEdit.activated:
+                if lineedit in ["career_start_year", "career_end_year"]: 
+                    start = getattr(self, f"lnEdit_performer_career_start_year").text()
+                    getattr(self, f"lnEdit_performer_career_start_year").setActivated(False)
+                    end = getattr(self, f"lnEdit_performer_career_end_year").text()  
+                    getattr(self, f"lnEdit_performer_career_end_year").setActivated(False)   
+                    getattr(self.Main, f"lnEdit_performer_activ").setText(f"von: {start}-{end}")
+                else:
+                    lnEdit_main = getattr(self.Main, f"lnEdit_performer_{lineedit}").setText(lnEdit.text())                    
+                    lnEdit.setActivated(False)
+        
+    def set_database_textedits_in_mainwindow(self, text):
+        for textedit in text:
+            txtEdit_main = getattr(self.Main, f"txtEdit_performer_{textedit}")
+            txtEdit = getattr(self, f"txtEdit_performer_{textedit}")
+            if txtEdit.activated:
+                txtEdit_main.setPlainText(txtEdit.toPlainText())
+                txtEdit.setActivated(False)
+
+    def set_actor_image_in_stacked_image(self):
+        label_stacked = self.Main.lbl_ThePornDB_image
         if hasattr(self, 'lbl_image0'):
             label = self.lbl_image0
-            self.Main.lbl_theporndb_image.setPixmap(label.pixmap())
-            self.Main.lbl_theporndb_image.setToolTip(label.toolTip())            
+            label_stacked.setPixmap(label.pixmap())
+            label_stacked.setToolTip(label.toolTip())            
         else:
-            self.Main.lbl_theporndb_image.setPixmap(QPixmap(":/labels/_labels/kein-bild.jpg"))
-            self.Main.lbl_theporndb_image.setToolTip("ThePornDB: kein Bild vorhanden")
-        self.Main.lbl_theporndb_image.setProperty("name", self.lnEdit_performer_name.text().replace(" ", "-"))
+            label_stacked.setPixmap(QPixmap(":/labels/_labels/kein-bild.jpg"))
+            label_stacked.setToolTip("ThePornDB: kein Bild vorhanden")
+        label_stacked.setProperty("name", self.lnEdit_performer_name.text())
+        self.Main.stacked_webdb_images.setCurrentWidget(self.Main.stacked_theporndb_label)               
 
-        self.Main.stacked_webdb_images.setCurrentIndex(1)
-
-    def set_actor_ethnicity_activ(self):
-        if self.chkBox_actor_rasse.isChecked():
-            self.cBox_performer_rasse.setStyleSheet("background-color: #d4ffc4;")
+    def set_actor_combobox_activ(self, widget):
+        widget_combobox = getattr(self, f"cBox_performer_{widget}")
+        if getattr(self,f"chkBox_actor_{widget}").isChecked():
+            widget_combobox.setStyleSheet("background-color: #d4ffc4;")
         else:
-            self.cBox_performer_rasse.setStyleSheet("background-color: #FFFDD5;")
-
-    def set_actor_eye_activ(self):
-        if self.chkBox_actor_eye.isChecked():
-            self.cBox_performer_eye.setStyleSheet("background-color: #d4ffc4;")
-        else:
-            self.cBox_performer_eye.setStyleSheet("background-color: #FFFDD5;") 
+            widget_combobox.setStyleSheet("background-color: #FFFDD5;") 
 
     def get_all_widgets(self):
         lineedits = ["birthplace", "birthday", "boobs", "height", "weight", "career_start_year"]
@@ -185,7 +205,7 @@ class ScrapeActorInfos(QDialog):
                 self.lbl_status_message.setText(f"keine Daten gefunden für {self.api_link}")                
                 return            
             self.lnEdit_performer_id.setText(f"{id}")           
-            self.set_actor.set_gender_icon(API_Actors.get_actor_extras(api_data, 'gender'))
+            self.set_actor.set_gender_button(API_Actors.get_actor_extras(api_data, 'gender'))
             date1, date2 = date_formarted(API_Actors.get_actor_extras(api_data,'birthday'))                   
             self.lnEdit_performer_birthday.setText(date2)            
             self.lnEdit_performer_birthplace.setText(API_Actors.get_actor_extras(api_data, 'birthplace'))
@@ -216,9 +236,10 @@ class ScrapeActorInfos(QDialog):
             if data is not None:
                 self.set_actor.set_actor_image_in_label(data)
 
-            self.set_actor.set_actor_in_combobox(API_Actors.get_actor_extras(api_data, 'ethnicity'), widget='rasse')
-            self.set_actor.set_actor_in_combobox(API_Actors.get_actor_extras(api_data, 'eye_colour'), widget='eye')
-            self.set_actor.set_actor_in_combobox(API_Actors.get_actor_extras(api_data, 'hair_colour'), widget='hair')
+            self.set_actor.set_api_value_in_combobox(API_Actors.get_actor_extras(api_data, 'ethnicity'), widget='rasse')
+            self.set_actor.set_api_value_in_combobox(API_Actors.get_actor_extras(api_data, 'eye_colour'), widget='eye')
+            self.set_actor.set_api_value_in_combobox(API_Actors.get_actor_extras(api_data, 'hair_colour'), widget='hair')
+            self.set_actor.set_api_value_in_combobox(API_Actors.get_actor_extras(api_data, 'birthplace_code'), widget='nation_code')
             
 
     def add_item_in_mydb_table(self):
@@ -268,7 +289,8 @@ class ScrapeActorInfos(QDialog):
     def get_medialinks_from_mydb(self) -> dict:
         medialinks = {}        
         biosites = self.Main.get_bio_websites(True)
-        for biosite in biosites[:1] + biosites[2:]: # skip "theporndb"
+        biosites.remove("ThePornDB")
+        for biosite in biosites: 
             bio_widget = getattr(self.Main, f"Btn_performer_in_{biosite}")
             if bio_widget.toolTip():
                 medialinks[biosite] = bio_widget.toolTip()
@@ -283,9 +305,16 @@ class ScrapeActorInfos(QDialog):
                 socialmedia[name] = bio_widget.toolTip()
         return socialmedia
     
+    def init_nation_code_in_combobox(self):
+        self.cBox_performer_nation_code.clear()
+        datenbank_darsteller = DB_Darsteller(self.Main)
+        for nation_eng_code in datenbank_darsteller.get_all_nations_nation_eng_kuerzel():            
+            self.cBox_performer_nation_code.addItem(nation_eng_code)
+        self.cBox_performer_nation_code.setCurrentIndex(-1)
+    
     def get_iafd_from_mydb(self, medialinks: dict) -> dict:
-        if self.Main.lnEdit_DBIAFD_artistLink.text():
-            medialinks["IAFD"] = self.Main.lnEdit_DBIAFD_artistLink.text()
+        if self.Main.Btn_performer_in_IAFD.toolTip():
+            medialinks["IAFD"] = self.Main.Btn_performer_in_IAFD.toolTip()
         return medialinks
     
     def clear_all_fields(self):

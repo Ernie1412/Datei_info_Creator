@@ -109,11 +109,12 @@ class ScrapeThePornDBScene():
 
     def set_performers_in_table_performers(self, performers):
         for performer in performers:
-            performer_name, alias = performer.items()
-            if not self.Main.tblWdg_DB_performers.findItems(performer, Qt.MatchFlag.MatchContains):
-                self.Main.tblWdg_DB_performers.insertRow(0)
-                self.Main.tblWdg_DB_performers.setItem(0, 0, QTableWidgetItem(performer_name))
-                self.Main.tblWdg_DB_performers.setItem(0, 1, QTableWidgetItem(alias))
+            for performer_name, alias in performer.items():
+                if not (self.Main.tblWdg_DB_performers.findItems(performer_name, Qt.MatchFlag.MatchContains)):
+                    self.Main.tblWdg_DB_performers.insertRow(0)
+                    self.Main.tblWdg_DB_performers.setItem(0, 0, QTableWidgetItem(performer_name))
+                    if alias:
+                        self.Main.tblWdg_DB_performers.setItem(0, 1, QTableWidgetItem(alias))
 
     def set_tags_in_textEdit(self, tags):
         db_tags = self.Main.txtEdit_DBTags.toPlainText().strip(";").split(";")

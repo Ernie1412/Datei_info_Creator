@@ -11,21 +11,21 @@ class UpdateIAFDPerformer():
         self.performer_infos_maske = parent
 
     def save_iafd_image_in_datenbank(self, message, errview, datenbank_darsteller, artist_id) -> str: # default ID von der datenbank Maske nehmen  
-        image_pfad = datenbank_darsteller.get_biowebsite_image("IAFD", artist_id)[1]        
+        image_pfad = datenbank_darsteller.get_biowebsite_image("IAFD", artist_id)        
 
-        iafd_link = self.Main.lnEdit_DBIAFD_artistLink.text()
+        iafd_link = self.Main.lnEdit_DBWebSite_artistLink.text()
         if iafd_link == "N/A" and not iafd_link:            
             return message, errview           
         if image_pfad and Path(PROJECT_PATH / image_pfad).exists():
             self.Main.stacked_webdb_images.setCurrentIndex(0)  # IAFD stacked          
             return message, errview        
-        if not self.Main.lbl_iafd_image.pixmap():
+        if not self.Main.lbl_IAFD_image.pixmap():
             errview['iafd'] = ".IAFD Bild nicht im Label,🚫kein speichern möglich"
             message['iafd'] = None
             return message, errview         
         is_added = False
         image_pfad, perfid = self.get_artist_id_from_folder(errview, message, artist_id, iafd_link, datenbank_darsteller) 
-        if self.performer_infos_maske.is_ein_bild_dummy_im_label("iafd") == False:                          
+        if self.performer_infos_maske.is_ein_bild_dummy_im_label("IAFD") == False:                          
             errview['iafd'], is_added = self.names_link_from_iafd(image_pfad, perfid, iafd_link, artist_id, datenbank_darsteller) 
 
             if is_added: # IAFD Bild muss verschoben werden             

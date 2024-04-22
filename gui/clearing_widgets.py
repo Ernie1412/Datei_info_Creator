@@ -24,12 +24,21 @@ class ClearingWidget():
             getattr(self.Main, f"Btn_Anzahl_DB{anzahl}").setVisible(False)
         
     def invisible_performer_btn_anzahl(self):
-        performers_button_selections = ["hair", "eye", "birthplace", "birthday", "height", "boobs", "tattoo", "piercing", "body", "weight", "activ"]
+        performers_button_selections = ["hair", "eye", "rasse", "birthplace", "birthday", "height", "boobs", "tattoo", "piercing", "body", "weight", "activ"]
         for button_selection in performers_button_selections:
-            getattr(self.Main, f"Btn_{button_selection}_selection").setVisible(False)
+            button = getattr(self.Main, f"Btn_{button_selection}_selection")
+            button.setVisible(False)
+            button.setText("")
+
+    def reset_bio_website_image_on_stacked(self):
+        for biosite in self.Main.get_bio_websites(widget=True):
+            label = getattr(self.Main, f"Btn_{biosite}_image")
+            label.setProperty("name", "")
+            tool_tip = label.toolTip().replace(biosite, "Datenbank")
+            label.setToolTip(tool_tip)
     
     def invisible_any_labels(self):
-        labels: list = ["SceneCode", "ProDate", "Regie", "_checkWeb_Data18URL", "_checkWeb_URL", "_checkWeb_IAFDURL"]
+        labels: list = ["SceneCode", "ProDate", "Regie", "_checkWeb_data18URL", "_checkWeb_theporndbURL", "_checkWeb_iafdURL"]
         line_edits: list = ["ProDate","Regie"]
         for label in labels:
             getattr(self.Main, f"lbl{label}").setVisible(False)
@@ -81,7 +90,7 @@ class ClearingWidget():
     
     def performers_tab_widgets(self, type_of_widget: str) -> list:
         widget_list=[]
-        iafd_artist = ["IAFD_artistAlias", "DBIAFD_artistLink"]
+        iafd_artist = ["IAFD_artistAlias", "DBWebSite_artistLink"]
         lineedits = ["hair", "birthplace", "birthday", "boobs", "body", "activ", "height", "weight"]
         tooltips = ["sex", "rasse", "nation", "fanside"]
         textedits = ["piercing", "tattoo"]
@@ -113,11 +122,13 @@ class ClearingWidget():
         return widget_list
 
     def clear_maske(self):
-        self.set_website_bio_enabled(self.Main.get_bio_websites().keys(), False)
-        a= self.performers_tab_widgets("performer_text_iafd_")                 
+        bio_website_list = self.Main.get_bio_websites(widget=True)
+        self.set_website_bio_enabled(bio_website_list, False)
+        a= self.performers_tab_widgets("performer_text_iafd_") 
+        bio_website_list.append("link_image_from_db")                
         elements_to_reset = [
             (self.tooltip_claering, self.performers_tab_widgets("tooltip")),            
-            (self.clear_label_and_tooltip, ["iafd_image", "theporndb_image", "freeones_image", "thenude_image", "indexxx_image", "babepedia_image", "link_image_from_db"]),
+            (self.clear_label_and_tooltip, bio_website_list),
             (self.clear_line_edit_and_tooltip, self.performers_tab_widgets("performer_line_iafd_")),
             (self.clear_combobox_and_list, ["performer_rasse", "performer_eye"]),
             (self.clear_text_edit, self.performers_tab_widgets("textprefix_perf")),

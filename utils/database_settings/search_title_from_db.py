@@ -47,6 +47,9 @@ class SearchTitle:
         if self.Main.sender() == self.Main.Btn_perfomsuche_in_DB: # Button auf den Movie Datenbank Tab/Stacked
             studio = self.Main.Btn_logo_am_db_tab.toolTip()
             name_db = self.Main.lnEdit_db_performer.text()
+        elif self.Main.rBtn_set_actorname_site.isChecked():
+            studio = self.Main.lbl_SuchStudio.text()
+            name_db = self.Main.lnEdit_analyse_actor_site.text()
         else:                                           # Button auf den Analyse Tab/Stacked
             studio = self.Main.lbl_SuchStudio.text()
             name_db = self.Main.cBox_performers.currentText()                

@@ -1,4 +1,5 @@
 from datetime import datetime
+import time
 from utils.web_scapings.theporndb.api_scraper import TPDB_Scraper
 
 class API_Scene:
@@ -17,8 +18,10 @@ class API_Scene:
             for performer in performers:
                 performer_name = performer.get('name', None)
                 alias = None 
-                if performer_name.get('parent'):
-                    performer_name, alias = performer_name['parent']['name'], performer_name    
+                if performer.get('parent'):
+                    performer_name, alias = performer['parent']['name'], performer_name
+                    if performer_name == alias:
+                        alias = None
                 performer_dict = {performer_name: alias}                                
                 performers_list.append(performer_dict)
             return performers_list
@@ -52,11 +55,7 @@ class API_Scene:
     
     def get_scene_duration(api_data: dict) -> str:
         seconds = api_data['data'].get('duration', '')
-        if seconds:
-            datetime_obj = datetime.fromtimestamp(seconds)
-            return datetime_obj.strftime("%H:%M:%S")
-        else:
-            return ''
+        return time.strftime("%H:%M:%S", time.gmtime(seconds)) if seconds else ''        
 
     def get_scene_image(api_data: dict) -> str:
         image_url = api_data['data'].get('image', '') 

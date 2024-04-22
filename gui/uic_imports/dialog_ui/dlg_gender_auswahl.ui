@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="windowModality">
+   <enum>Qt::WindowModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>295</width>
+    <height>105</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QPushButton" name="Btn_female">
+         <property name="toolTip">
+          <string>Auswahl: weiblich</string>
+         </property>
+         <property name="autoFillBackground">
+          <bool>true</bool>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../../resource_collection_files/buttons.qrc">
+           <normaloff>:/Buttons/_buttons/gender/weiblich-75.png</normaloff>:/Buttons/_buttons/gender/weiblich-75.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>75</width>
+           <height>75</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="Btn_male">
+         <property name="toolTip">
+          <string>Auswahl: männlich</string>
+         </property>
+         <property name="autoFillBackground">
+          <bool>true</bool>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../../resource_collection_files/buttons.qrc">
+           <normaloff>:/Buttons/_buttons/gender/maennlich-75.png</normaloff>:/Buttons/_buttons/gender/maennlich-75.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>75</width>
+           <height>75</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="Btn_trans">
+         <property name="toolTip">
+          <string>Auswahl: weiblich</string>
+         </property>
+         <property name="autoFillBackground">
+          <bool>true</bool>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../../resource_collection_files/buttons.qrc">
+           <normaloff>:/Buttons/_buttons/gender/transgender-75.png</normaloff>:/Buttons/_buttons/gender/transgender-75.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>75</width>
+           <height>75</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../../resource_collection_files/buttons.qrc"/>
+ </resources>
+ <connections/>
+</ui>

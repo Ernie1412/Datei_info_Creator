@@ -1,5 +1,5 @@
 from PyQt6 import uic
-from PyQt6.QtCore import Qt, QTimer, QDateTime, QTranslator, QVariantAnimation, pyqtSignal
+from PyQt6.QtCore import Qt, QTimer, QDateTime, QTranslator, QVariantAnimation, QUrl, pyqtSignal
 from PyQt6.QtWidgets import QMainWindow, QAbstractItemView, QTableWidgetItem, QApplication, QPushButton, QWidget, QListWidgetItem , \
     QListWidget, QLineEdit, QTextEdit, QTableWidget, QComboBox
 from PyQt6.QtGui import QMovie, QPixmap, QKeyEvent, QStandardItem, QStandardItemModel, QColor, QBrush, QIcon
@@ -35,6 +35,7 @@ from utils.web_scapings.theporndb.check_theporndb_api import CheckThePornDBLink
 from utils.web_scapings.iafd.scrape_iafd_performer import ScrapeIAFDPerformer
 from utils.web_scapings.datenbank_performer_maske import DatenbankPerformerMaske
 from gui.dialoge_ui.dialog_studio_choice_with_button import StudioChoiceButton
+from utils.web_scapings.performer_update_log import PerformerUpdateLogger
 from utils.threads import FileTransferThread, ExifSaveThread
 from utils.web_scapings.theporndb.scrape_scene_the_porn_db import ScrapeThePornDBScene
 from utils.database_settings.search_title_from_db import SearchTitle
@@ -52,21 +53,24 @@ from gui.copy_datas_in_gui import CopyDatasInGui
 
 from config import EXIFTOOLPFAD
 from config import BUTTONSNAMES_JSON_PATH, PROCESS_JSON_PATH, MEDIA_JSON_PATH, DATENBANK_JSON_PATH
-from config import MAIN_UI, BUTTONS_WEBSIDES_UI, TRANSFER_UI
+from config import MAIN_UI, STUDIO_CHOICE_UI, TRANSFER_UI
           
 ### -------------------------------------------------------------------- ###StatusBar
 ### --------------------- HauptFenster --------------------------------- ###
 ### -------------------------------------------------------------------- ###
 class Haupt_Fenster(QMainWindow):  
-        
+      
     def __init__(self, parent=None):
         super(Haupt_Fenster,self).__init__(parent)        
         uic.loadUi(MAIN_UI,self)
         self.showMaximized()
         self.tabs.setCurrentIndex(0) 
         self.previous_text: dict={}
-        self.lnEdit_DBIAFD_artistLink_old: str=""
+        self.lnEdit_DBWebsite_artistLink_old: str=""
         self.lnEdit_IAFD_artistAlias_old: str=""
+        self.lbl_db_status.setOpenExternalLinks(True)
+        self.lbl_db_status.setTextInteractionFlags(Qt.TextInteractionFlag.TextBrowserInteraction)
+
                 
         self.tab_changed_handler(3)
         if Path(DATENBANK_JSON_PATH).exists():            
@@ -80,7 +84,8 @@ class Haupt_Fenster(QMainWindow):
         clearing_widget.invisible_database_link()
         clearing_widget.invisible_performer_btn_anzahl()
         clearing_widget.invisible_any_labels()
-        clearing_widget.clear_social_media_in_buttons()        
+        clearing_widget.clear_social_media_in_buttons() 
+        self.lnEdit_analyse_actor_site.setVisible(False)       
         datenbank_performers = DB_Darsteller(self)
         self.cBox_performer_rasse.addItems(self, "Rasse", self.all_rassen_ger(datenbank_performers), datenbank_performers)        
         self.buttons_connections(clearing_widget)
@@ -113,10 +118,11 @@ class Haupt_Fenster(QMainWindow):
         ### --- Buttons auf den Analyse Tab ---- #####
         self.Btn_logo_am_analyse_tab.clicked.connect(lambda: StudioChoiceButton(self).exec())
         self.Btn_titel_suche.clicked.connect(lambda: SearchTitle(self).search_title())
-        self.Btn_name_suche.clicked.connect(lambda: SearchTitle(self).performer_suche())
+        self.Btn_name_suche.clicked.connect(lambda: SearchTitle(self).performer_suche_in_scene())
         self.cBox_performers.currentIndexChanged.connect(self.show_performers_images.show_performer_picture)
         self.Btn_next.clicked.connect(self.show_performers_images.show_next_picture_in_label)
         self.Btn_prev.clicked.connect(self.show_performers_images.show_previous_picture_in_label)
+        self.rBtn_set_actorname_site.toggled.connect(lambda state: self.lnEdit_analyse_actor_site.setVisible(state))
         ### -------------------------------------- #####
         ### --- Buttons auf den Datenbank Tab ---- ##### 
         self.Btn_logo_am_db_tab.clicked.connect(lambda: StudioChoiceButton(self).exec())        
@@ -153,10 +159,10 @@ class Haupt_Fenster(QMainWindow):
         self.Btn_get_last_side.clicked.connect(self.gui_last_side) 
         self.Btn_start_spider.clicked.connect(self.start_spider)  
         self.Btn_RadioBtn_rename.clicked.connect(self.file_rename_from_infos) 
-        self.Btn_Titelsuche_in_DB.clicked.connect(lambda: SearchTitle(self).search_title())
-        self.Btn_perfomsuche_in_DB.clicked.connect(lambda: SearchTitle(self).performer_suche_in_scene())          
+        self.Btn_Titelsuche_in_DB.clicked.connect(lambda : SearchTitle(self).search_title())
+        self.Btn_perfomsuche_in_DB.clicked.connect(lambda : SearchTitle(self).performer_suche_in_scene())
         self.rdBtn_rename.clicked.connect(self.radioBtn_file_rename)         
-        self.actionEinstellungen.triggered.connect(lambda :Einstellungen(self).show())
+        self.actionEinstellungen.triggered.connect(lambda : Einstellungen(self).show())
         self.tblWdg_daten.horizontalHeader().sectionClicked.connect(lambda index: self.tblWdg_daten.setSortingEnabled(not self.tblWdg_daten.isSortingEnabled()))
         self.tblWdg_daten.itemClicked.connect(self.show_database_for_movies)
         self.tblWdg_performer.horizontalHeader().sectionClicked.connect(lambda index: self.tblWdg_performer.setSortingEnabled(not self.tblWdg_performer.isSortingEnabled()))
@@ -182,10 +188,10 @@ class Haupt_Fenster(QMainWindow):
         self.lnEdit_db_performer.textChanged.connect(self.performersuche_in_DB_aktiv)
         self.cBox_studio_links.currentIndexChanged.connect(lambda index :self.Btn_start_spider.setEnabled(bool(re.match(r"^https?://", self.lnEdit_URL.text())))) 
         ### ---------------- Performer Tab --------------------------- ###
-        self.lnEdit_DBIAFD_artistLink.textChanged.connect(self.Web_IAFD_artist_change)         
+        self.lnEdit_DBWebSite_artistLink.textChanged.connect(self.lineedit_artist_link_change)         
         self.Btn_IAFD_perfomer_suche.clicked.connect(self.get_IAFD_performer_link)
-        self.Btn_Linksuche_in_IAFD_artist.clicked.connect(self.load_IAFD_performer_link)
-        self.Btn_performers_gender.clicked.connect(lambda :GenderAuswahl(self).exec())
+        self.Btn_performer_in_IAFD.clicked.connect(self.load_IAFD_performer_link)
+        self.Btn_performers_gender.clicked.connect(lambda : GenderAuswahl(self).exec())
         self.Btn_DB_perfomer_suche.clicked.connect(self.datenbank_performer_suche) 
         self.customlnEdit_IAFD_performer.returnPressed.connect(self.datenbank_performer_suche)       
         self.Btn_DBArtist_Update.clicked.connect(self.update_datensatz)
@@ -198,13 +204,15 @@ class Haupt_Fenster(QMainWindow):
         self.Btn_performer_next.clicked.connect(self.show_performers_images.show_next_picture_in_label)
         self.Btn_performer_prev.clicked.connect(self.show_performers_images.show_previous_picture_in_label)
         self.Btn_DB_perfomer_table_update.clicked.connect(self.performer_tab_update_tabelle)
-        self.Btn_iafd_link_copy.clicked.connect(self.copy_clipboard_iafdlink)
-        self.chkBox_iafd_enabled.stateChanged.connect(self.toggle_iafd_performer_state)
+        self.Btn_iafd_link_copy.clicked.connect(self.copy_clipboard_iafdlink)        
         self.lnEdit_IAFD_artistAlias.doubleClicked.connect(self.take_iafdname_in_name)
         self.Btn_delete_logs.clicked.connect(lambda :self.txtBrowser_loginfos.clear())
         self.cBox_performer_rasse.update_buttonChanged.connect(lambda enabled: self.Btn_DBArtist_Update.setEnabled(enabled))
-        self.Btn_nations_edititem.clicked.connect(lambda :NationsAuswahl(parent=self).exec())
-        self.Btn_social_media_edititem.clicked.connect(self.add_socialmedia_button)              
+        self.Btn_nations_edititem.clicked.connect(lambda : NationsAuswahl(parent=self).exec())
+        self.Btn_social_media_edititem.clicked.connect(self.add_socialmedia_button) 
+        self.txtBrowser_loginfos.anchorClicked.connect(self.handle_anchor_clicked) 
+        self.lbl_db_status.linkActivated.connect(self.handle_anchor_clicked)
+        #self.set_widget_text.connect(lambda widget, text: widget.setText(text))          
          
         for widget in self.get_bio_websites(widget=True):  # wenn bio_websites änderungen sind, dann Update aktiv
             btn = getattr(self, f"Btn_performer_in_{widget}")
@@ -212,7 +220,7 @@ class Haupt_Fenster(QMainWindow):
         
         widgets = clearing_widget.performers_tab_widgets("lineprefix_perf_textprefix_perf_lineiafd")
         for widget in widgets:
-            if widget not in ["lnEdit_DBIAFD_artistLink"]:
+            if widget not in ["lnEdit_DBWebSite_artistLink"]:
                 getattr(self, widget).textChanged.connect(partial(self.performer_text_change, widget=widget, color_hex='#FFFD00'))
 
         widgets = clearing_widget.performers_tab_widgets("combo_perf")
@@ -222,13 +230,12 @@ class Haupt_Fenster(QMainWindow):
         for i in range(1,self.stackedWidget.count() + 1):            
             stacked_widget = self.findChild(QPushButton, f'Btn_stacked_next_{i}')  
             stacked_widget.clicked.connect(lambda: self.stackedWidget.setCurrentIndex((self.stackedWidget.currentIndex() + 1) % self.stackedWidget.count()))
-        for i in range(1,self.stacked_webdb_images.count() + 1):
-            stacked_widget = self.findChild(QPushButton, f'Btn_stacked_webdb_next_{i}')  
-            stacked_widget.clicked.connect(lambda: self.stacked_webdb_images.setCurrentIndex((self.stacked_webdb_images.currentIndex() + 1) % self.stacked_webdb_images.count()))
         for i in range(1,self.stacked_image_infos.count() + 1):
             stacked_widget = self.findChild(QPushButton, f'Btn_stacked_info_next_{i}')  
             stacked_widget.clicked.connect(lambda: self.stacked_image_infos.setCurrentIndex((self.stacked_image_infos.currentIndex() + 1) % self.stacked_image_infos.count()))
-    
+        for idx, biowebsite_widget in enumerate(self.get_bio_websites(widget=True)):
+            btn = getattr(self, f"Btn_{biowebsite_widget}_image")
+            btn.clicked.connect(lambda checked, i=idx: self.stacked_webdb_images.setCurrentIndex(i))
     def add_socialmedia_button(self):
         maxlabels = GetLabels().get_avaible_socialmedia_buttons(self,"Btn_performers_socialmedia_")
         button_count = 0
@@ -243,12 +250,18 @@ class Haupt_Fenster(QMainWindow):
                 break
             button_count += 1
         if button_count > maxlabels:
-            StatusBar(self, "Maximale Anzahl von Buttons erreicht", "#F78181")
-        print(button.objectName())
+            StatusBar(self, "Maximale Anzahl von Buttons erreicht", "#F78181")        
         QTimer.singleShot(0, button.click)
 
+    def handle_anchor_clicked(self, url):
+        filename = url.fragment() # returns text after # anchor
+        performer_udate_logger = PerformerUpdateLogger()        
+        performer_udate_logger.show_performer_update_log(filename) 
+        self.txtBrowser_loginfos.setSource(QUrl.fromLocalFile("")) 
+
     def get_bio_websites(self, widget=False, url=False) -> list:
-        widgets_urls ={"BabePedia": "https://www.babepedia.com/", 
+        widgets_urls ={"IAFD": "https://www.iafd.com/",
+                     "BabePedia": "https://www.babepedia.com/", 
                      "ThePornDB": "https://api.theporndb.net",
                      "Indexxx": "https://www.indexxx.com/",
                      "TheNude": "https://www.thenude.com/",
@@ -270,25 +283,6 @@ class Haupt_Fenster(QMainWindow):
     def set_biobutton_state(self, button_name, state):
         ClearingWidget(self).set_website_bio_enabled([button_name],state)
         self.Btn_DBArtist_Update.setEnabled(state)
-
-    def toggle_iafd_performer_state(self, is_checked):        
-        is_change=False
-        # Überprüfen, ob der veränderungen ist und die Farbe entsprechend setzen
-        if self.lnEdit_DBIAFD_artistLink_old != self.lnEdit_DBIAFD_artistLink.text() and self.lnEdit_DBIAFD_artistLink.text() != "N/A":
-            is_change=True
-            self.lnEdit_DBIAFD_artistLink_old = self.lnEdit_DBIAFD_artistLink.text()
-            self.lnEdit_IAFD_artistAlias_old = self.lnEdit_IAFD_artistAlias.text()
-        self.set_default_color("lnEdit_DBIAFD_artistLink")
-        color_hex = '#FFFD00' if is_change or not is_checked else '#FFFDD5' 
-
-        self.set_color_stylesheet("lnEdit_DBIAFD_artistLink", color_hex=color_hex)
-        self.set_color_stylesheet("lnEdit_IAFD_artistAlias", color_hex=color_hex)  
-
-        self.lnEdit_DBIAFD_artistLink.setText(self.lnEdit_DBIAFD_artistLink_old if is_checked else "N/A")
-        self.lnEdit_IAFD_artistAlias.setText(self.lnEdit_IAFD_artistAlias_old if is_checked else "")
-
-        self.lnEdit_DBIAFD_artistLink.setEnabled(is_checked)
-        self.lnEdit_IAFD_artistAlias.setEnabled(is_checked)
 
     def take_iafdname_in_name(self):
         if self.lnEdit_IAFD_artistAlias.text():
@@ -711,8 +705,8 @@ class Haupt_Fenster(QMainWindow):
         return(studio, file_name, sorted(name_all))
     
     def copy_clipboard_iafdlink(self):
-        pyperclip.copy(self.lnEdit_DBIAFD_artistLink.text())
-        self.widget_animation("lnEdit_DBIAFD_artistLink")
+        pyperclip.copy(self.lnEdit_DBWebSite_artistLink.text())
+        self.widget_animation("lnEdit_DBWebSite_artistLink")
 
     def widget_animation(self, widget):
         self.animation = QVariantAnimation()
@@ -774,11 +768,12 @@ class Haupt_Fenster(QMainWindow):
         scrape_iafd_scene = ScrapeIAFDScene(MainWindow=self)
         scrape_iafd_scene.Web_IAFD_change() 
 
-    def Web_IAFD_artist_change(self):
-        if self.chkBox_iafd_enabled.isChecked():            
-            self.performer_text_change("lnEdit_DBIAFD_artistLink", color_hex='#FFFD00')        
-            iafd_infos = ScrapeIAFDPerformer(MainWindow=self)
-            iafd_infos.check_IAFD_performer_link()         
+    def lineedit_artist_link_change(self):
+        artist_link = self.lnEdit_DBWebSite_artistLink.text()
+        if not artist_link.startswith(tuple(self.get_bio_websites(url=True))):
+            self.lnEdit_DBWebSite_artistLink.setText("")        
+            # iafd_infos = ScrapeIAFDPerformer(MainWindow=self)
+            # iafd_infos.check_IAFD_performer_link()         
 
     def performer_tab_update_tabelle(self):
         datenbank_performer_maske = DatenbankPerformerMaske(MainWindow=self)
@@ -790,11 +785,14 @@ class Haupt_Fenster(QMainWindow):
 
     def load_IAFD_performer_link(self): 
         iafd_infos = ScrapeIAFDPerformer(MainWindow=self)
-        iafd_link=self.lnEdit_DBIAFD_artistLink.text()
-        id = self.grpBox_performer_name.title().replace("Performer-Info ID: ","")
-        name = self.lnEdit_performer_info.text()
-        iafd_infos.load_IAFD_performer_link(iafd_link, id, name) 
-        DatenbankPerformerMaske(self).set_iafd_infos_in_ui()       
+        iafd_link = self.lnEdit_DBWebSite_artistLink.text()
+        self.lnEdit_DBWebSite_artistLink.setEnabled(self.Btn_performer_in_IAFD.property('iafd_enabled'))
+        if iafd_link.startswith("https://www.iafd.com/person.rme/perfid="):            
+            id = self.grpBox_performer_name.title().replace("Performer-Info ID: ","")
+            name = self.lnEdit_performer_info.text()
+            iafd_infos.load_IAFD_performer_link(iafd_link, id, name) 
+            DatenbankPerformerMaske(self).set_iafd_infos_in_ui()
+                      
 
     def Web_Data18_change(self):
         scrape_data18_scene = ScrapeData18Scene(MainWindow=self)
@@ -806,21 +804,21 @@ class Haupt_Fenster(QMainWindow):
         check_theporndb_link.check_scene_api_link()
 
     def webscrap_data18(self):        
-        self.lbl_checkWeb_Data18URL.setVisible(True)
+        self.lbl_checkWeb_data18URL.setVisible(True)
         scrape_data18_scene = ScrapeData18Scene(MainWindow=self)
         scrape_data18_scene.webscrap_data18()  
     
     def webscrap_tpdb(self):
-        self.lbl_checkWeb_ThePornDBURL.setVisible(True)
+        self.lbl_checkWeb_theporndbURL.setVisible(True)
         ScrapeThePornDBScene(MainWindow=self)        
 
     def webscrap_iafd(self):
-        self.lbl_checkWeb_IAFDURL.setVisible(True)
+        self.lbl_checkWeb_iafdURL.setVisible(True)
         scrape_iafd_scene = ScrapeIAFDScene(MainWindow=self)
         scrape_iafd_scene.webscrap_iafd()
 
     def webscrap_theporndb(self):
-        self.lbl_checkWeb_ThePornDBURL.setVisible(True)
+        self.lbl_checkWeb_theporndbURL.setVisible(True)
         scrape_theporndb_scene = ScrapeThePornDBScene(MainWindow=self)
         scrape_theporndb_scene.webscrap_scene()
 
@@ -839,20 +837,31 @@ class Haupt_Fenster(QMainWindow):
                 self.cBox_studio_links.addItem(link) 
 
     ### --------------- Social Media Button -------------------- ###
-    def set_social_media_in_buttons(self, social_medias):  
+    def set_social_media_in_buttons(self, social_medias, start=0):  
         socialmedias = self.get_social_media_dict()
         social_media_links = social_medias.split("\n") if social_medias else ""
-        for zahl, social_media_link in enumerate(social_media_links): # zahl startet mit 1
+        for button_count, social_media_link in enumerate(social_media_links, start): 
+            if button_count > 9:
+                break
             found = False         
             for key, value in socialmedias.items():
                 if value in social_media_link:
-                    self.set_socialmedia_in_button(social_media_link, value, zahl)
+                    self.set_socialmedia_in_button(social_media_link, value, button_count)
                     found = True
                     break 
             if not found:
                 value=self.check_own_website(social_media_link)
                 if value:
-                    self.set_socialmedia_in_button(social_media_link, value, zahl)
+                    self.set_socialmedia_in_button(social_media_link, value, button_count)
+
+    def set_socialmedia_in_button(self, social_media_link: str, value: str, zahl: int):
+        if zahl <= 9:        
+            button = getattr(self,f"Btn_performers_socialmedia_{zahl}")
+            button.setProperty("social_media", social_media_link)  
+            button.setIcon(QIcon(f":/Buttons/_buttons/socialmedia/{value}-25.png"))
+            button.clicked.connect(lambda _, num=zahl: SocialMediaLink(self, button=str(num)).exec())
+            button.setToolTip(social_media_link)    
+            button.setVisible(True)
                         
     def get_social_media_dict(self):
         return  {"https://twitter.com": "twitter",
@@ -868,15 +877,6 @@ class Haupt_Fenster(QMainWindow):
                 "https://fansly.com/.com/": "fansly",
                 "https://www.snapchat.com/": "snapchat",
                 "https://www.imdb.com/": "imdb",   } 
-
-    def set_socialmedia_in_button(self, social_media_link: str, value: str, zahl: int):
-        if zahl <= 9:        
-            button = getattr(self,f"Btn_performers_socialmedia_{zahl}")
-            button.setProperty("social_media", social_media_link)  
-            button.setIcon(QIcon(f":/Buttons/_buttons/socialmedia/{value}-25.png"))
-            button.clicked.connect(lambda _, num=zahl: SocialMediaLink(self, button=str(num)).exec())
-            button.setToolTip(social_media_link)    
-            button.setVisible(True)
 
     def check_own_website(self, social_media_link: str) -> None:
         name=self.lnEdit_performer_info.text().lower()
@@ -1213,7 +1213,7 @@ class Haupt_Fenster(QMainWindow):
                 clearing.clear_line_edit_and_tooltip(widget_name)    
 
     def addLink(self, link=None):
-        if link == None:        
+        if not link:        
             link = self.lnEdit_addLink.text()
         submit_time = QDateTime.currentDateTime().toString('hh:mm:ss')
         if link.startswith(("https://", "http://")):            
@@ -1484,14 +1484,9 @@ class Haupt_Fenster(QMainWindow):
             self.lbl_SuchStudio.setText(studio) 
             clearing.buttons_enabled(True, ["logo_am_analyse_tab", "name_suche", "titel_suche"])
             if titel:
-                self.lnEdit_analyse_titel.setText(titel)
-                self.Btn_titel_suche.setEnabled(True) 
-        else:
-            icon_logo, studio = self.set_nologo_button()
-        self.lnEdit_analyse_titel.setText(titel)
-        self.Btn_logo_am_analyse_tab.setIcon(icon_logo)
-        self.Btn_logo_am_analyse_tab.setToolTip(studio)
-            
+                self.lnEdit_analyse_titel.setText(titel)                
+                self.Btn_titel_suche.setEnabled(True)
+                self.lnEdit_analyse_actor_site.setText(titel)           
 
     def is_studio_in_database(self, studio: str) -> bool:
         studio_isin: bool = False
