@@ -16,9 +16,10 @@ class UpdateBioWebSitePerformer:
         label = getattr(self.Main, f"lbl_{biosite}_image")
         biosite_link = label.toolTip()
         if "Kein Bild" in biosite_link:            
-            return message, errview          
+            return message, errview   
+        page = self.Main.stacked_webdb_images.findChild(QWidget, f"stacked_{biosite_low}_label")       
         if image_pfad and Path(PROJECT_PATH / image_pfad).exists():
-            self.Main.stacked_webdb_images.setCurrentIndex(1)  # ThePornDB stacked            
+            self.Main.stacked_webdb_images.setCurrentWidget(page)  # ThePornDB stacked            
             return message, errview 
         name = label.property('name')      
         if not label.pixmap() and name != "":
@@ -34,9 +35,10 @@ class UpdateBioWebSitePerformer:
             errview[biosite_low], is_added = self.get_link_dict(image_pfad, label, biosite_link, artist_id, datenbank_darsteller)  
 
             if is_added: # ThePornDB Bild muss verschoben werden             
-                message[biosite_low] = f", {biosite} Bild wurde gespeichert"
-                page = self.Main.stacked_webdb_images.findChild(QWidget, f"stacked_{biosite_low}_label")                
-                self.Main.stacked_webdb_images.setCurrentWidget(page)# Als aktuelle Seite setzen                
+                message[biosite_low] = f", {biosite} Bild wurde gespeichert"                                
+                self.Main.stacked_webdb_images.setCurrentWidget(page)# Als aktuelle Seite setzen 
+                label.setToolTip(f"Datenbank: {image_pfad}") 
+                label.setProperty("name","")              
             else:
                 errview[biosite_low] = f", {biosite} Bild wurde nicht gespeichert (Error: {errview[biosite_low]})"
                 message[biosite_low] = None

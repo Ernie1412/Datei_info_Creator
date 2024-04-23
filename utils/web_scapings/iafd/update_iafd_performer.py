@@ -11,39 +11,45 @@ class UpdateIAFDPerformer():
         self.performer_infos_maske = parent
 
     def save_iafd_image_in_datenbank(self, message, errview, datenbank_darsteller, artist_id) -> str: # default ID von der datenbank Maske nehmen  
-        image_pfad = datenbank_darsteller.get_biowebsite_image("IAFD", artist_id)        
-
+        iafd = "IAFD"
+        image_pfad = datenbank_darsteller.get_biowebsite_image(iafd, artist_id) 
+        iafd_low = iafd.lower()
         iafd_link = self.Main.lnEdit_DBWebSite_artistLink.text()
+
         if iafd_link == "N/A" and not iafd_link:            
-            return message, errview           
+            return message, errview  
+        page =  getattr(self.Main, f"stacked_{iafd_low}_label")         
         if image_pfad and Path(PROJECT_PATH / image_pfad).exists():
-            self.Main.stacked_webdb_images.setCurrentIndex(0)  # IAFD stacked          
-            return message, errview        
-        if not self.Main.lbl_IAFD_image.pixmap():
-            errview['iafd'] = ".IAFD Bild nicht im Label,🚫kein speichern möglich"
-            message['iafd'] = None
+            self.Main.stacked_webdb_images.setCurrentWidget(page)  # IAFD stacked          
+            return message, errview  
+        label = getattr(self.Main, f"lbl_{iafd}_image")      
+        if not label.pixmap():
+            errview[iafd_low] = f".{iafd} Bild nicht im Label,🚫kein speichern möglich"
+            message[iafd_low] = None
             return message, errview         
         is_added = False
-        image_pfad, perfid = self.get_artist_id_from_folder(errview, message, artist_id, iafd_link, datenbank_darsteller) 
-        if self.performer_infos_maske.is_ein_bild_dummy_im_label("IAFD") == False:                          
-            errview['iafd'], is_added = self.names_link_from_iafd(image_pfad, perfid, iafd_link, artist_id, datenbank_darsteller) 
+        image_pfad, perfid = self.get_artist_id_from_folder(errview, message, artist_id, iafd_link, datenbank_darsteller, iafd_low) 
+        if self.performer_infos_maske.is_ein_bild_dummy_im_label(iafd) == False:                          
+            errview[iafd_low], is_added = self.names_link_from_iafd(image_pfad, perfid, iafd_link, artist_id, datenbank_darsteller) 
 
             if is_added: # IAFD Bild muss verschoben werden             
-                message['iafd'] = ", IAFD Bild wurde gespeichert" 
-                self.Main.stacked_webdb_images.setCurrentIndex(0)  # IAFD stacked            
+                message[iafd_low] = f", {iafd} Bild wurde gespeichert"                
+                self.Main.stacked_webdb_images.setCurrentWidget(page)  # IAFD stacked 
+                label.setToolTip(f"Datenbank: {image_pfad}") 
+                label.setProperty("name","")            
             else:
-                errview['iafd'] = f", IAFD Bild wurde nicht gespeichert (Error: {errview['iafd']})"
-                message['iafd'] = None
+                errview[iafd_low] = f", {iafd} Bild wurde nicht gespeichert (Error: {errview[iafd_low]})"
+                message[iafd_low] = None
         return message, errview
     
-    def get_artist_id_from_folder(self, errview, message, artist_id, iafd_link, datenbank_darsteller) -> tuple:
+    def get_artist_id_from_folder(self, errview, message, artist_id, iafd_link, datenbank_darsteller, iafd_low) -> tuple:
         ordner = self.Main.lnEdit_performer_ordner.text()
         perfid = self.get_perfid_from_iafd_link(iafd_link)
         if not perfid:
-            errview['iafd'] = ".Es ist kein IAFD Link  !"
-            message['iafd'] = None
+            errview[iafd_low] = f".Es ist kein {iafd_low.upper()} Link  !"
+            message[iafd_low] = None
             return message, errview
-        image_pfad = f"__artists_Images/{ordner}/[IAFD]-{perfid}.jpg"
+        image_pfad = f"__artists_Images/{ordner}/[{iafd_low.upper()}]-{perfid}.jpg"
         if Path(image_pfad).exists():
             _artist_id = datenbank_darsteller.get_artistid_from_nameslink(image_pfad)
             if artist_id != _artist_id:

@@ -77,7 +77,7 @@ class ScrapeData18Scene():
                         else: 
                             status = "OK"                            
                             self.release_abfrage_data18(release_text, url)  
-                        self.scrap_status(feld, status)
+                        check_status.scrap_status(feld, status)
                     elif feld == "Dauer":
                         try:
                             dauer_ele = page.locator( "//div[@class='gen12']/p | //div[@class='gen12']/b")

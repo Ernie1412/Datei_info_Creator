@@ -759,7 +759,7 @@ class Ui_Dialog(object):
         self.cBox_performer_nation_code.setEnabled(False)
         self.cBox_performer_nation_code.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
         self.cBox_performer_nation_code.setStyleSheet("background-color: #FFFDD5;")
-        self.cBox_performer_nation_code.setEditable(True)
+        self.cBox_performer_nation_code.setEditable(False)
         self.cBox_performer_nation_code.setObjectName("cBox_performer_nation_code")
         self.cBox_performer_nation_code.addItem("")
         self.cBox_performer_nation_code.setItemText(0, "")

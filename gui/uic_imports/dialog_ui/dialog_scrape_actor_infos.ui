@@ -1568,7 +1568,7 @@ color: rgb(213, 213, 213);}
            <string notr="true">background-color: #FFFDD5;</string>
           </property>
           <property name="editable">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
           <item>
            <property name="text">

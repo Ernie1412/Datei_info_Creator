@@ -71,18 +71,25 @@ class SetActorInfos():
         medialinks = self.scrape_actor_infos.get_iafd_from_mydb(medialinks)
         header_labels = ["Website", "URL"]   
         zeile = 0 
-        diff = len(medialinks) - len(self.medialinks_from_theporndb)
+        diff = len(medialinks) - len(self.medialinks_from_theporndb)        
         self.scrape_actor_infos.lblactor_medialinks_from_mydb.setText(f"Datenbank: - {len(medialinks)} = {diff})")
         self.scrape_actor_infos.tblWdg_actor_medialinks_from_mydb.setColumnCount(len(header_labels))
         self.scrape_actor_infos.tblWdg_actor_medialinks_from_mydb.setHorizontalHeaderLabels(header_labels)
-        if len(self.medialinks_from_theporndb):
+        if self.check_if_same_medialinks(medialinks):
             medialinks.update(self.medialinks_from_theporndb)
-        self.scrape_actor_infos.tblWdg_actor_medialinks_from_mydb.setRowCount(len(medialinks)) 
-        for media_name, media_link in medialinks.items():                        
-            self.scrape_actor_infos.tblWdg_actor_medialinks_from_mydb.setItem(zeile, 0, QTableWidgetItem(f'{media_name}'))
-            self.scrape_actor_infos.tblWdg_actor_medialinks_from_mydb.setItem(zeile, 1, QTableWidgetItem(f'{media_link}'))
-            zeile +=1 
-        self.scrape_actor_infos.tblWdg_actor_medialinks_from_mydb.resizeColumnsToContents()
+            self.scrape_actor_infos.tblWdg_actor_medialinks_from_mydb.setRowCount(len(medialinks)) 
+            for media_name, media_link in medialinks.items():                        
+                self.scrape_actor_infos.tblWdg_actor_medialinks_from_mydb.setItem(zeile, 0, QTableWidgetItem(f'{media_name}'))
+                self.scrape_actor_infos.tblWdg_actor_medialinks_from_mydb.setItem(zeile, 1, QTableWidgetItem(f'{media_link}'))
+                zeile +=1 
+            self.scrape_actor_infos.tblWdg_actor_medialinks_from_mydb.resizeColumnsToContents()
+
+    def check_if_same_medialinks(self, medialinks: dict) -> bool:
+        if not (self.medialinks_from_theporndb and medialinks):
+            return False
+        diff = set(medialinks) ^ set(self.medialinks_from_theporndb)
+        return False if len(diff) == 0 else True # bei true ist keins leer und beide ungleich
+            
 
     def set_actor_image_in_label(self, image_datas: dict) -> None:
         if not image_datas:
@@ -120,8 +127,11 @@ class SetActorInfos():
         combo = getattr(self.scrape_actor_infos,f"cBox_performer_{widget}")
         if not api_value:
             combo.setCurrentIndex(-1)
-            return        
+            return 
+        
         index = combo.findText(api_value)
+        if widget == "nation_code":
+            index = combo.findText(f"({api_value})", Qt.MatchFlag.MatchContains)
         if index >= 0: 
             combo.setCurrentIndex(index)   
 

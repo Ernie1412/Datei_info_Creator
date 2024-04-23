@@ -64,6 +64,7 @@ class ScapeBabePediaPerformer():
             #self.sex_abfrage_babepedia(tooltip_text, check_performer_infos)
             self.rasse_abfrage_babepedia(content, tooltip_text, check_performer_infos)
             self.augen_abfrage_babepedia(content, tooltip_text, check_performer_infos)
+            self.body_abfrage_babepedia(content, tooltip_text, check_performer_infos)
             self.haar_abfrage_babepedia(content, tooltip_text, check_performer_infos)
             self.gewicht_abfrage_babepedia(content, tooltip_text, check_performer_infos)
             self.groesse_abfrage_babepedia(content, tooltip_text, check_performer_infos)
@@ -102,6 +103,13 @@ class ScapeBabePediaPerformer():
         value = eye_element[2].strip() if eye_element else None 
         self.set_tooltip_and_check_infos(type, value, tooltip_text, check_performer_infos)
 
+    def body_abfrage_babepedia(self, content, tooltip_text, check_performer_infos):
+        type="body"
+        
+        body_element=content.xpath("//li[contains(string(),'Body type')]/text()")
+        value = body_element[0].strip() if body_element else None        
+        self.set_tooltip_and_check_infos(type, value, tooltip_text, check_performer_infos)
+
     def haar_abfrage_babepedia(self, content, tooltip_text, check_performer_infos): 
         type="hair"
 
@@ -130,9 +138,9 @@ class ScapeBabePediaPerformer():
     def geburtsort_abfrage_babepedia(self, content, tooltip_text, check_performer_infos):        
         type="birthplace" 
         
-        geburtsort_element=content.xpath("//li[contains(string(),'Birthplace')]//text()")
-        value = geburtsort_element[2].strip() if geburtsort_element else None 
-        self.set_tooltip_and_check_infos(type, value, tooltip_text, check_performer_infos)
+        geburtsort_element=content.xpath("//li[contains(span, 'Birthplace')]//text()")
+        value = geburtsort_element[1].strip(":")+geburtsort_element[2] if geburtsort_element else None 
+        self.set_tooltip_and_check_infos(type, value.strip(), tooltip_text, check_performer_infos)
 
     def geburtstag_abfrage_babepedia(self, content, tooltip_text, check_performer_infos):        
         type="birthday" 
@@ -180,7 +188,7 @@ class ScapeBabePediaPerformer():
             for zeile, onlyfans_text in enumerate(onlyfans_elements):
                 if len(onlyfans_text):
                     onlyfans_text=str(onlyfans_text.get('href'))
-                    onlyfans.append(onlyfans_text)  
+                    onlyfans.append(onlyfans_text.lower())  
                 else:
                     break        
         self.add_socialmedia_button(onlyfans)
@@ -219,12 +227,17 @@ class ScapeBabePediaPerformer():
             if image_url:
                 baselink = 'https://www.babepedia.com'
                 image_url = image_url[0].get("href")
+                name = re.sub(r'image.*', '', image_url[0].get("alt"))
+                if 'javascript:alert' in image_url:
+                    self.Main.lbl_db_status.setText(f"Kein Bild gefunden für {self.Main.grpBox_performer_name.title()}")
+                    return
                 response = requests.get(baselink + image_url, headers=HEADERS)
                 image_data = response.content
                 label = self.Main.lbl_BabePedia_image
                 self.load_and_scale_pixmap(image_data, label)
-                label.setProperty("name", image_url.replace("/pics/", "").replace(".jpg", ""))
+                label.setProperty("name", name)
                 label.setToolTip(f"{baselink}{image_url}")
+                self.Main.Btn_DBArtist_Update.setEnabled(True)
         else:            
             self.load_and_scale_pixmap(str(PROJECT_PATH / image_pfad), self.Main.lbl_BabePedia_image)
 
